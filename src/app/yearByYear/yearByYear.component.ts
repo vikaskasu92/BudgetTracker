@@ -3,7 +3,6 @@ import { TestService } from '../shared/services/testService.service';
 import { CommonData } from '../shared/services/commonData.service';
 import { DataRetrieval } from '../shared/services/dataRetrieval.service';
 import { ChartMaker } from '../shared/services/chartMaker.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector:'app-yearByYear',
@@ -50,6 +49,7 @@ export class YearByYear implements OnInit{
     _dataRetrieval(){
         this.dataRetrieval.getYearByYearExpensesOnCategory(this.yearAndCategory).subscribe( response =>{
             //For Loop for number of graphs based on data and divide graphs to charts Left and charts Right
+            console.log(" response ",response);
             this.chartMaker.createYearByYearCategoryLineChart("YearByYearExpenses",response);
         },failure =>{
             console.log("error retrieving data!");
