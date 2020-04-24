@@ -1,0 +1,39 @@
+<mat-card>
+    <mat-card-header class="mat-card-header-design">
+      <mat-card-title class="mat-header-title-design">Shares</mat-card-title>
+      <div class="button-flex"></div>
+      <button mat-raised-button color="primary" (click)="addShares()"><mat-icon>add</mat-icon></button>
+    </mat-card-header>
+    <mat-card-content class="mat-card-content-design">
+        <div *ngIf="spinnerShares; else nowOpenSharesInvestmentResults">
+            <mat-spinner></mat-spinner>
+            <app-investmentTables [investments]="investmentShares" [investmentType]="investmentType" #nowOpenSharesInvestmentResults></app-investmentTables>
+        </div>
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-header class="mat-card-header-design">
+      <mat-card-title class="mat-header-title-design">Gold</mat-card-title>
+      <div class="button-flex"></div>
+      <button mat-raised-button color="primary" (click)="addGold()"><mat-icon>add</mat-icon></button>
+    </mat-card-header>
+    <mat-card-content class="mat-card-content-design">
+        <div *ngIf="spinnerGold; else nowOpenGoldInvestmentResults">
+            <mat-spinner></mat-spinner>
+            <app-investmentTables [investments]="investmentGolds" #nowOpenGoldInvestmentResults></app-investmentTables>
+        </div>
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-header class="mat-card-header-design">
+      <mat-card-title class="mat-header-title-design">Other Comodities</mat-card-title>
+      <div class="button-flex"></div>
+      <button mat-raised-button color="primary" (click)="addComodities()"><mat-icon>add</mat-icon></button>
+    </mat-card-header>
+    <mat-card-content class="mat-card-content-design">
+        <div *ngIf="spinnerOtherCommodities; else nowOpenOtherCommoditiesInvestmentResults">
+            <mat-spinner></mat-spinner>
+            <app-investmentTables [investments]="investmentOthers" #nowOpenOtherCommoditiesInvestmentResults></app-investmentTables>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,16 @@
+table {
+    width: 100%;
+  }
+
+.table-pending-loans-title{
+    text-decoration: underline;
+}
+
+.table-header-style{
+    font-weight: bold;
+    font-style: italic;
+}
+
+.no-loans-content{
+    font-size: medium;
+}

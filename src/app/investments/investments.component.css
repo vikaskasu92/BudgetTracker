@@ -1,0 +1,19 @@
+.mat-card-content-design{
+    border: solid 1px silver;
+    padding: 10px;
+}
+
+.mat-card-header-design{
+    border: 1px solid silver;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    padding: 10px;
+}
+
+.mat-header-title-design{
+    padding-top: 5px;
+    margin-bottom: 0px;
+}
+
+.button-flex{
+    flex-grow:1;
+}

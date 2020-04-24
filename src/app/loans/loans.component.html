@@ -1,0 +1,34 @@
+<mat-card>
+    <mat-card-header class="mat-card-header-design">
+      <mat-card-title class="mat-header-title-design">Open Loans</mat-card-title>
+      <div class="button-flex"></div>
+      <button mat-raised-button color="primary" (click)="addNewLoans()"><mat-icon>add</mat-icon></button>
+    </mat-card-header>
+    <mat-card-content class="mat-card-content-design">
+        <div *ngIf="spinnerOpenLoans; else nowOpenLoansResults">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div *ngIf="!spinnerOpenLoans && openLoans.length != 0" #nowOpenLoansResults>
+            <app-loansTable [openLoans]="openLoans"></app-loansTable>
+        </div>
+        <div *ngIf="noOpenLoans">
+            <span class="no-loans-content">You currently have no "<strong>Open Loans</strong>"!</span>
+        </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-header class="mat-card-header-design">
+      <mat-card-title class="mat-header-title-design">Closed Loans</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="mat-card-content-design">
+        <div *ngIf="spinnerClosedLoans; else nowClosedLoansResults">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div *ngIf="!spinnerClosedLoans && closedLoans === undefined" #nowClosedLoansResults>
+            <app-loansTable [closedLoans]="closedLoans"></app-loansTable>
+        </div>
+        <div *ngIf="noClosedLoans">
+            <span class="no-loans-content">You currently have no "<strong>Closed Loans</strong>"!</span>
+        </div>
+    </mat-card-content>
+  </mat-card>

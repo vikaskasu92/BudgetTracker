@@ -1,0 +1,9 @@
+.form-field-spacing{
+    margin: 10px;
+}
+
+.lineChartDisplay{
+    max-height: 200px;
+    max-width: 450px;
+    min-height: 200px;
+}

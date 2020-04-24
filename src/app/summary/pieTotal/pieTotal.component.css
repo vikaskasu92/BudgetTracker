@@ -1,0 +1,9 @@
+.doughnutChartDisplay{
+    max-height: 200px;
+    max-width: 450px;
+    min-height: 200px;
+}
+
+.text-decorator{
+    text-decoration: underline;
+}

@@ -1,0 +1,28 @@
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col" class="table-header-style">Loan</th>
+            <th scope="col" class="table-header-style">Balance</th>
+            <th scope="col" class="table-header-style">Principal Paid</th>
+            <th scope="col" class="table-header-style">Interest Paid</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="openLoans.openLoans.loanName != undefined; else openClosedLoans">
+            <tr *ngFor="let loan of openLoans">
+                <td>{{ loan.openLoans.loanName | uppercase}}</td>
+                <td>{{ loan.openLoans.loanBalance | currency:USD }}</td>
+                <td>{{ loan.openLoans.principalPaid | currency:USD }}</td>
+                <td>{{ loan.openLoans.interestPaid | currency:USD }}</td>
+            </tr>
+        </tbody>
+        <tbody #openClosedLoans>
+            <tr *ngFor="let loan of closedLoans">
+                <td>{{ closedLoans.closedLoans.loanName | uppercase}}</td>
+                <td>{{ closedLoans.closedLoans.loanBalance | currency:USD }}</td>
+                <td>{{ closedLoans.closedLoans.principalPaid | currency:USD }}</td>
+                <td>{{ closedLoans.closedLoans.interestPaid | currency:USD }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

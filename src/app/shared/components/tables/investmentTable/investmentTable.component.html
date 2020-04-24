@@ -1,0 +1,28 @@
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col" class="table-header-style">Investment Type</th>
+            <th *ngIf="investmentType === 'Shares'" scope="col" class="table-header-style">Ticker</th>
+            <th *ngIf="investmentType === 'Shares'" scope="col" class="table-header-style">No of Shares</th>
+            <th *ngIf="investmentType != 'Shares'" scope="col" class="table-header-style">Weight</th>
+            <th scope="col" class="table-header-style">Avg Price</th>
+            <th scope="col" class="table-header-style">Invested Price</th>
+            <th scope="col" class="table-header-style">Current Price</th>
+            <th scope="col" class="table-header-style">Gain/Loss</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let investment of investments">
+                <td >{{ investment.investmentType | uppercase}}</td>
+                <td *ngIf="investmentType === 'Shares'">{{ investment.ticker }}</td>
+                <td *ngIf="investmentType === 'Shares'">{{ investment.shares }}</td>
+                <td *ngIf="investmentType != 'Shares'">{{ investment.weight }}</td>
+                <td>{{ investment.avgPrice | currency:USD }}</td>
+                <td>{{ investment.investedPrice | currency:USD }}</td>
+                <td>{{ investment.currentValue | currency:USD }}</td>
+                <td>{{ investment.gainLoss | currency:USD }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

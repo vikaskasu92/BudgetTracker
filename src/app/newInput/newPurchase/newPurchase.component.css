@@ -1,0 +1,15 @@
+.date > .mat-form-field-wrapper{
+    padding-bottom: 25px !important;
+}
+
+.form-field-spacing{
+    margin: 10px;
+}
+
+.shadow {
+box-shadow: inset 0 -3em 3em white, 0 0 0 2px rgb(255,255,255), 0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
+
+.expansion-panel-bottom{
+    margin-bottom: 10px;
+}

@@ -1,0 +1,31 @@
+<h3 class="table-pending-loans-title">All Pending Loans</h3>
+<div *ngIf="spinnerOn; else spinnerOff">
+    <mat-spinner></mat-spinner>
+</div>
+<ng-template #spinnerOff>
+    <div *ngIf="dataUnavilable; else dataAvailable">
+        <h3 class="no-loans-content">Hurray! You have no pending loans!</h3>
+    </div>
+    <ng-template #dataAvailable>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col" class="table-header-style">Loan</th>
+                    <th scope="col" class="table-header-style">Balance</th>
+                    <th scope="col" class="table-header-style">Principal Paid</th>
+                    <th scope="col" class="table-header-style">Interest Paid</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let  pendingLoan of allPendingloans">
+                        <td>{{ pendingLoan.loanName | uppercase}}</td>
+                        <td>{{ pendingLoan.loanBalance | currency:USD }}</td>
+                        <td>{{ pendingLoan.principalPaid | currency:USD }}</td>
+                        <td>{{ pendingLoan.interestPaid | currency:USD }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
+    </ng-template>   
+</ng-template>
