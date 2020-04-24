@@ -47,7 +47,6 @@ import { Investments } from './investments/investments.component'
 import { InvestmentTable } from './shared/components/tables/investmentTable/investmentTable.component'
 import { LoansTable } from './shared/components/tables/loansTable/loansTable.component'
 
-
 @NgModule({
   declarations: [
     AppComponent,
