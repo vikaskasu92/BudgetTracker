@@ -12,17 +12,21 @@
                 <thead>
                 <tr>
                     <th scope="col" class="table-header-style">Loan</th>
+                    <th scope="col" class="table-header-style">Loan Type</th>
                     <th scope="col" class="table-header-style">Balance</th>
-                    <th scope="col" class="table-header-style">Principal Paid</th>
-                    <th scope="col" class="table-header-style">Interest Paid</th>
+                    <th scope="col" class="table-header-style">Loan APR</th>
+                    <th scope="col" class="table-header-style">EMI</th>
+                    <th scope="col" class="table-header-style">Duration Left</th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let  pendingLoan of allPendingloans">
                         <td>{{ pendingLoan.loanName | uppercase}}</td>
+                        <td>{{ pendingLoan.loanType | uppercase }}</td>
                         <td>{{ pendingLoan.loanBalance | currency:USD }}</td>
-                        <td>{{ pendingLoan.principalPaid | currency:USD }}</td>
-                        <td>{{ pendingLoan.interestPaid | currency:USD }}</td>
+                        <td>{{ pendingLoan.loanAPR }}</td>
+                        <td>{{ pendingLoan.loanMonthlyAmount }}</td>
+                        <td>{{ pendingLoan.loanCompletionDuration }} months</td>
                     </tr>
                 </tbody>
             </table>

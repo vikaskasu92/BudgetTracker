@@ -17,6 +17,7 @@ export class Categories{
     @Output() onSelectingCategories = new EventEmitter<any>();
     @Output() onMainCategorySelected = new EventEmitter<boolean>();
     catValues = [];
+    selectedCategory = "Food";
 
     constructor(private commonData:CommonData,
         private intComm:InternalCommunicationService){}

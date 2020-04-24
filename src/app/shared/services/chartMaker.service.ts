@@ -17,16 +17,16 @@ export class ChartMaker{
     return this._generateChart(canvasName,inputData,'line',datasets,labels,false,true);
   }
 
-  createCategoryBasedBarChart(canvasName:string, inputData:any){
+  createCategoryBasedBarChart(canvasName:string,priceArray:any,dateArray:any){
     const datasets =  [{ 
       barPercentage: 0.5,
       barThickness: 6,
       maxBarThickness: 8,
       minBarLength: 2,
-      data: inputData
+      data: priceArray
   }]
-  const labels = ['2013','2014','2015','2016','2017','2018','2019','2020'];
-  return this._generateChart(canvasName,inputData,'bar',datasets,labels,false,true);
+  const labels = dateArray;
+  return this._generateChart(canvasName,priceArray,'bar',datasets,labels,false,true);
   }
     
   createYearExpenseLineChart(canvasName:string,yearsArray:any,expenseArray:any){

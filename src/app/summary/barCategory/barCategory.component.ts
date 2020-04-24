@@ -8,7 +8,7 @@ import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
     templateUrl:'./barCategory.component.html',
     styleUrls:['./barCategory.component.css']
 })
-export class BarCategory{
+export class BarCategory implements OnInit{
 
     constructor(private chartMaker:ChartMaker,
         private testData:TestService,
@@ -16,12 +16,28 @@ export class BarCategory{
         ){}
     
     chart:Chart;
+    priceArray:any;
+    dateArray:any;
+
+    ngOnInit(){
+        
+    }
 
     getOverallCategoriesExpenses(categoriesData:any){
         this.dataRetrieval.getOverallCategoriesExpenses(categoriesData).subscribe( response => {
-            this.chart =  this.chartMaker.createCategoryBasedBarChart("categoryBar",this.testData.testCategoryBasedExpenses);  
+            this._buildOverallCategories(response);
+            this.chart =  this.chartMaker.createCategoryBasedBarChart("categoryBar",this.priceArray,this.dateArray);  
         }),failure =>{
             console.log("Error Occured in data Retrieval!");
+        }
+    }
+
+    _buildOverallCategories(response:any){
+        this.priceArray = [];
+        this.dateArray = [];
+        for(let i=0; i<Object.values(response).length; i++){
+            this.priceArray.push(Object.values(response)[i]["price"]);
+            this.dateArray.push(Object.values(response)[i]["date"].substring(0,4));
         }
     }
 

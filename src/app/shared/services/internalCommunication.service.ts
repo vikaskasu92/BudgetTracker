@@ -31,7 +31,7 @@ export class InternalCommunicationService{
    }
 
    generateSubCategories(subCategory:{},commonData:CommonData,purchaseMainCategory:any){
-    for(let i=1; i<=Object.keys(commonData.subCategory).length; i++){
+    for(let i=0; i<Object.keys(commonData.subCategory).length; i++){
         if((Object.keys(commonData.subCategory)[i]).split(" ").join("") === purchaseMainCategory.value){
             subCategory = Object.values(Object.values(commonData.subCategory)[i]);
             break;
