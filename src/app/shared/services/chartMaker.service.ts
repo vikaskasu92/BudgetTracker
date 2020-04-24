@@ -29,17 +29,17 @@ export class ChartMaker{
   return this._generateChart(canvasName,inputData,'bar',datasets,labels,false,true);
   }
     
-  createYearExpenseLineChart(canvasName:string, inputData:any){
+  createYearExpenseLineChart(canvasName:string,yearsArray:any,expenseArray:any){
     const datasets =  [{ 
-        data: inputData,
+        data: expenseArray,
         fill: true,
         borderColor:"blue",
         pointHoverBorderColor:"green",
         pointRotation:6,
         backgroundColor:"greenyellow"
     }]
-    const labels = ['2013','2014','2015','2016','2017','2018','2019','2020'];
-    return this._generateChart(canvasName,inputData,'line',datasets,labels,false,true);
+    const labels = yearsArray;
+    return this._generateChart(canvasName,expenseArray,'line',datasets,labels,false,true);
   }
 
   createTotalDoughnutChart(canvasName:string, inputData:any){

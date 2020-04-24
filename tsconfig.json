@@ -1,5 +1,4 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -19,8 +18,9 @@
       "dom"
     ]
   },
+  "exclude":["node_modules"],
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": false,
+    "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
   }
 }

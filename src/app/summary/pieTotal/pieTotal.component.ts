@@ -24,10 +24,18 @@ export class PieTotal implements OnInit{
 
     getOverallIncomeAndExpenses(){
         this.dataRetrieval.getOverallIncomeAndExpenses().subscribe( response => {
-            this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this.testData.testPieSalaryTotal);
+            this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this._buildOverallIncomeAndExpensesInput(Object.values(response)));
         }),failure =>{
             console.log("Error Occured in data Retrieval!");
         }
+    }
+
+    _buildOverallIncomeAndExpensesInput(response:any){
+        const responseArray = [];
+        for(let i=0; i<response.length;i++){
+            responseArray.push(response[i]);
+        }
+        return responseArray;
     }
 
 }
