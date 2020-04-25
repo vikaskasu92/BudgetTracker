@@ -11,8 +11,7 @@ import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
 export class PieTotal implements OnInit{
 
     constructor(private chartMaker:ChartMaker,
-        private dataRetrieval:DataRetrieval
-        ){}
+        private dataRetrieval:DataRetrieval){}
 
     chart:Chart;
 

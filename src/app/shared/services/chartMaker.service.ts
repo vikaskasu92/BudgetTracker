@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import * as Chart from 'chart.js';
-import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
 
 @Injectable({providedIn:'root'})
 export class ChartMaker{
@@ -9,13 +8,13 @@ export class ChartMaker{
     const datasets =  [{ 
       data: priceArray,
       fill: true,
-      borderColor:"blue",
-      pointHoverBorderColor:"green",
+      borderColor:"#59BFFF",
+      pointHoverBorderColor:"#fff",
       pointRotation:6,
-      backgroundColor:"greenyellow"
+      backgroundColor:"#A4DE02"
     }]
     const labels = dateArray;
-    return this._generateChart(canvasName,priceArray,'line',datasets,labels,false,true,chartTitle);
+    return this._generateChart(canvasName,'line',datasets,labels,false,true,chartTitle);
   }
 
   createCategoryBasedBarChart(canvasName:string,priceArray:any,dateArray:any,chartTitle:string){
@@ -27,33 +26,33 @@ export class ChartMaker{
       data: priceArray
   }]
   const labels = dateArray;
-  return this._generateChart(canvasName,priceArray,'bar',datasets,labels,false,true,chartTitle);
+  return this._generateChart(canvasName,'bar',datasets,labels,false,true,chartTitle);
   }
     
   createYearExpenseLineChart(canvasName:string,yearsArray:any,expenseArray:any,chartTitle:string){
     const datasets =  [{ 
         data: expenseArray,
         fill: true,
-        borderColor:"blue",
-        pointHoverBorderColor:"green",
+        borderColor:"#59BFFF",
+        pointHoverBorderColor:"#fff",
         pointRotation:6,
-        backgroundColor:"greenyellow"
+        backgroundColor:"#A4DE02"
     }]
     const labels = yearsArray;
-    return this._generateChart(canvasName,expenseArray,'line',datasets,labels,false,true,chartTitle);
+    return this._generateChart(canvasName,'line',datasets,labels,false,true,chartTitle);
   }
 
   createTotalDoughnutChart(canvasName:string, inputData:any,chartTitle:string){
     const datasets =  [{ 
         data: inputData,
-        backgroundColor: ['green','blue','yellow','orange'],
+        backgroundColor: ['#FF6384','#36A2EC','#FFCD57','#773344'],
         fill: true
     }]
     const labels = ['Net Salary','Taxes','Expenses','Investments'];
-    return this._generateChart(canvasName,inputData,'doughnut',datasets,labels,true,true,chartTitle);
+    return this._generateChart(canvasName,'doughnut',datasets,labels,true,true,chartTitle);
   }
 
-  private _generateChart(canvasName:string,inputData:any,chartType:string,dataSets:any,labels:any,legendDisplay:boolean,toolTips:boolean,chartTitle:string){
+  private _generateChart(canvasName:string,chartType:string,dataSets:any,labels:any,legendDisplay:boolean,toolTips:boolean,chartTitle:string){
     return new Chart(canvasName, {
       type: chartType,
       data: {
