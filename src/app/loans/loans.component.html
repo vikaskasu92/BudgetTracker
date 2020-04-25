@@ -9,7 +9,28 @@
             <mat-spinner></mat-spinner>
         </div>
         <div *ngIf="!spinnerOpenLoans && openLoans.length != 0" #nowOpenLoansResults>
-            <app-loansTable [openLoans]="openLoans"></app-loansTable>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="table-header-style">Name</th>
+                        <th scope="col" class="table-header-style">Type</th>
+                        <th scope="col" class="table-header-style">Balance</th>
+                        <th scope="col" class="table-header-style">APR</th>
+                        <th scope="col" class="table-header-style">EMI</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let loan of openLoans">
+                            <td>{{ loan.loanName | uppercase}}</td>
+                            <td>{{ loan.loanType | uppercase }}</td>
+                            <td>{{ loan.loanBalance | currency:USD }}</td>
+                            <td>{{ loan.loanAPR | decimalFormat:2 }} %</td>
+                            <td>{{ loan.loanMonthlyAmount | currency:USD }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div *ngIf="noOpenLoans">
             <span class="no-loans-content">You currently have no "<strong>Open Loans</strong>"!</span>
@@ -24,8 +45,27 @@
         <div *ngIf="spinnerClosedLoans; else nowClosedLoansResults">
             <mat-spinner></mat-spinner>
         </div>
-        <div *ngIf="!spinnerClosedLoans && closedLoans === undefined" #nowClosedLoansResults>
-            <app-loansTable [closedLoans]="closedLoans"></app-loansTable>
+        <div *ngIf="!spinnerClosedLoans && closedLoans.length != 0" #nowClosedLoansResults>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="table-header-style">Name</th>
+                        <th scope="col" class="table-header-style">Type</th>
+                        <th scope="col" class="table-header-style">APR</th>
+                        <th scope="col" class="table-header-style">EMI</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let loan of closedLoans">
+                            <td>{{ loan.loanName | uppercase}}</td>
+                            <td>{{ loan.loanType | uppercase }}</td>
+                            <td>{{ loan.loanAPR  | decimalFormat:2 }} %</td>
+                            <td>{{ loan.loanMonthlyAmount | currency:USD }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div *ngIf="noClosedLoans">
             <span class="no-loans-content">You currently have no "<strong>Closed Loans</strong>"!</span>

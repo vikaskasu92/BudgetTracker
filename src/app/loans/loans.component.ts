@@ -16,8 +16,8 @@ export class Loans implements OnInit{
         private dataStore:DataStore
         ){}
 
-    openLoans:[];
-    closedLoans:[];
+    openLoans:any;
+    closedLoans:any;
     spinnerOpenLoans:boolean = true;
     spinnerClosedLoans:boolean = true;
     noOpenLoans:boolean = false;
@@ -30,8 +30,11 @@ export class Loans implements OnInit{
     retrieveOpenClosedLoans(){
         this.dataRetrieval.getOpenClosedLoans().subscribe( response =>{
             // update open and closed loans arrays, if no loans update it to be empty;
-            this.closedLoans = [];
-            this.openLoans = [];
+            console.log(response);
+            this.closedLoans = response["closedLoans"];
+            this.openLoans = response["openLoans"];
+            this.spinnerOpenLoans = false;
+            this.spinnerClosedLoans = false;
         },failure =>{
             this.closedLoans = [];
             this.openLoans = [];
