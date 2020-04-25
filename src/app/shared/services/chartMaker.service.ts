@@ -4,7 +4,7 @@ import * as Chart from 'chart.js';
 @Injectable({providedIn:'root'})
 export class ChartMaker{
 
-  createYearByYearCategoryLineChart(canvasName:string, priceArray:any,dateArray:any){
+  createYearByYearCategoryLineChart(canvasName:string, priceArray:any,dateArray:any,chartTitle:string){
     const datasets =  [{ 
       data: priceArray,
       fill: true,
@@ -14,10 +14,10 @@ export class ChartMaker{
       backgroundColor:"greenyellow"
     }]
     const labels = dateArray;
-    return this._generateChart(canvasName,priceArray,'line',datasets,labels,false,true);
+    return this._generateChart(canvasName,priceArray,'line',datasets,labels,false,true,chartTitle);
   }
 
-  createCategoryBasedBarChart(canvasName:string,priceArray:any,dateArray:any){
+  createCategoryBasedBarChart(canvasName:string,priceArray:any,dateArray:any,chartTitle:string){
     const datasets =  [{ 
       barPercentage: 0.5,
       barThickness: 6,
@@ -26,10 +26,10 @@ export class ChartMaker{
       data: priceArray
   }]
   const labels = dateArray;
-  return this._generateChart(canvasName,priceArray,'bar',datasets,labels,false,true);
+  return this._generateChart(canvasName,priceArray,'bar',datasets,labels,false,true,chartTitle);
   }
     
-  createYearExpenseLineChart(canvasName:string,yearsArray:any,expenseArray:any){
+  createYearExpenseLineChart(canvasName:string,yearsArray:any,expenseArray:any,chartTitle:string){
     const datasets =  [{ 
         data: expenseArray,
         fill: true,
@@ -39,20 +39,20 @@ export class ChartMaker{
         backgroundColor:"greenyellow"
     }]
     const labels = yearsArray;
-    return this._generateChart(canvasName,expenseArray,'line',datasets,labels,false,true);
+    return this._generateChart(canvasName,expenseArray,'line',datasets,labels,false,true,chartTitle);
   }
 
-  createTotalDoughnutChart(canvasName:string, inputData:any){
+  createTotalDoughnutChart(canvasName:string, inputData:any,chartTitle:string){
     const datasets =  [{ 
         data: inputData,
         backgroundColor: ['green','blue','yellow','orange'],
         fill: true
     }]
     const labels = ['Net Salary','Taxes','Expenses','Investments'];
-    return this._generateChart(canvasName,inputData,'doughnut',datasets,labels,true,true);
+    return this._generateChart(canvasName,inputData,'doughnut',datasets,labels,true,true,chartTitle);
   }
 
-  _generateChart(canvasName:string,inputData:any,chartType:string,dataSets:any,labels:any,legendDisplay:boolean,toolTips:boolean){
+  _generateChart(canvasName:string,inputData:any,chartType:string,dataSets:any,labels:any,legendDisplay:boolean,toolTips:boolean,chartTitle:string){
     return new Chart(canvasName, {
       type: chartType,
       data: {
@@ -66,6 +66,10 @@ export class ChartMaker{
           },
           tooltips:{
             enabled:toolTips
+          },
+          title: {
+            display: true,
+            text: chartTitle
           }
         }
     });

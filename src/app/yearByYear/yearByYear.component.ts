@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver} from '@angular/core';
-import { TestService } from '../shared/services/testService.service';
 import { CommonData } from '../shared/services/commonData.service';
 import { DataRetrieval } from '../shared/services/dataRetrieval.service';
 import { ChartMaker } from '../shared/services/chartMaker.service';
@@ -13,8 +12,7 @@ import { PlaceholderDirective } from '../shared/directives/placeholder.directive
 })
 export class YearByYear implements OnInit{
 
-    constructor(private testData:TestService, 
-        private commonData:CommonData,
+    constructor(private commonData:CommonData,
         private dataRetrieval:DataRetrieval,
         private chartMaker:ChartMaker,
         private componentFactoryResolver: ComponentFactoryResolver
@@ -52,30 +50,45 @@ export class YearByYear implements OnInit{
         }
     }
 
-    private createGraphComponent(){
+    private createGraphComponent(size:number){
         const graphDisplayFactory = this.componentFactoryResolver.resolveComponentFactory(GraphDisplay);
         const viewContainerRef = this.containerRef.viewContainerRef;
         viewContainerRef.clear();
         const graphDisplayComponent = viewContainerRef.createComponent(graphDisplayFactory);
-        const chartsLeft = [1,3];
-        const chartsRight = [2,4];
+        let n = 1;
+        const chartsLeft = [];
+        const chartsRight = [];
+        for(let i=0; i<size;i++){
+            if(n % 2 != 0){
+                chartsLeft.push(n);
+            }else{
+                chartsRight.push(n);
+            }
+            n++;
+        }
+        console.log("chartsLeft ",chartsLeft);
+        console.log("chartsRight ",chartsRight);
         graphDisplayComponent.instance.chartsLeft = chartsLeft;
         graphDisplayComponent.instance.chartsRight = chartsRight;
 
     }
     _dataRetrieval(yearAndCategory:any){
-        this.createGraphComponent();
         this.dataRetrieval.getYearByYearExpensesOnCategory(yearAndCategory).subscribe( response =>{
             let n = 1;
             const subCategoryArray = this._buildSubCategoryInputs(response);
-            for(let i=0; i<subCategoryArray.length; i++){    
-                if(n % 2 != 0){
-                    this.chartMaker.createYearByYearCategoryLineChart("YearByYearExpensesLeft"+i,subCategoryArray[i]["priceArray"],subCategoryArray[i]["dateArray"]);
-                }else{
-                    this.chartMaker.createYearByYearCategoryLineChart("YearByYearExpensesRight"+i,subCategoryArray[i]["priceArray"],subCategoryArray[i]["dateArray"]); 
+            this.createGraphComponent(subCategoryArray.length);
+            setTimeout(()=>{
+                for(let i=0; i<subCategoryArray.length; i++){    
+                    if(n % 2 != 0){
+                        console.log("YearByYearExpensesLeft"+i);
+                        this.chartMaker.createYearByYearCategoryLineChart("YearByYearExpensesLeft"+n,subCategoryArray[i]["priceArray"],subCategoryArray[i]["dateArray"],subCategoryArray[i]["subCategory"]);
+                    }else{
+                        console.log("YearByYearExpensesRight"+i);
+                        this.chartMaker.createYearByYearCategoryLineChart("YearByYearExpensesRight"+n,subCategoryArray[i]["priceArray"],subCategoryArray[i]["dateArray"],subCategoryArray[i]["subCategory"]); 
+                    }
+                    n++;
                 }
-                n++;
-            }        
+            },0);     
         },failure =>{
             console.log("error retrieving data!");
         });

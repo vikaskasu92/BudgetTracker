@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TestService } from '../shared/services/testService.service';
 import { DataRetrieval } from '../shared/services/dataRetrieval.service';
 
 @Component({

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartMaker } from 'src/app/shared/services/chartMaker.service';
-import { TestService } from 'src/app/shared/services/testService.service';
 import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
 
 @Component({
@@ -11,7 +10,6 @@ import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
 export class BarCategory implements OnInit{
 
     constructor(private chartMaker:ChartMaker,
-        private testData:TestService,
         private dataRetrieval:DataRetrieval
         ){}
     
@@ -26,7 +24,7 @@ export class BarCategory implements OnInit{
     getOverallCategoriesExpenses(categoriesData:any){
         this.dataRetrieval.getOverallCategoriesExpenses(categoriesData).subscribe( response => {
             this._buildOverallCategories(response);
-            this.chart =  this.chartMaker.createCategoryBasedBarChart("categoryBar",this.priceArray,this.dateArray);  
+            this.chart =  this.chartMaker.createCategoryBasedBarChart("categoryBar",this.priceArray,this.dateArray,"Expenses By Categories");  
         }),failure =>{
             console.log("Error Occured in data Retrieval!");
         }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartMaker } from 'src/app/shared/services/chartMaker.service';
-import { TestService } from 'src/app/shared/services/testService.service';
 import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
 
 @Component({
@@ -11,7 +10,6 @@ import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
 export class LineByYear implements OnInit{
 
     constructor(private chartMaker:ChartMaker, 
-        private testData:TestService,
         private dataRetrieval:DataRetrieval
         ){}
 
@@ -26,7 +24,7 @@ export class LineByYear implements OnInit{
     getOverallYearlyExpenses(){
         this.dataRetrieval.getOverallYearlyExpenses().subscribe( response => {
             this._buildOverallYearlyExpensesInputData(response);
-            this.chart = this.chartMaker.createYearExpenseLineChart("lineYearExpenses",this.yearsArray,this.expenseArray);
+            this.chart = this.chartMaker.createYearExpenseLineChart("lineYearExpenses",this.yearsArray,this.expenseArray,"Overall Expenses");
         }),failure =>{
             console.log("Error Occured in data Retrieval!");
         }

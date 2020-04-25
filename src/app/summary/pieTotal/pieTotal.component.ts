@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TestService } from 'src/app/shared/services/testService.service';
 import { ChartMaker } from 'src/app/shared/services/chartMaker.service';
 import * as Chart from 'chart.js';
 import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
@@ -11,8 +10,7 @@ import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
 })
 export class PieTotal implements OnInit{
 
-    constructor(private testData:TestService, 
-        private chartMaker:ChartMaker,
+    constructor(private chartMaker:ChartMaker,
         private dataRetrieval:DataRetrieval
         ){}
 
@@ -24,7 +22,7 @@ export class PieTotal implements OnInit{
 
     getOverallIncomeAndExpenses(){
         this.dataRetrieval.getOverallIncomeAndExpenses().subscribe( response => {
-            this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this._buildOverallIncomeAndExpensesInput(Object.values(response)));
+            this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this._buildOverallIncomeAndExpensesInput(Object.values(response)),"Income And Expenses");
         }),failure =>{
             console.log("Error Occured in data Retrieval!");
         }
