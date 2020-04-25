@@ -3,7 +3,7 @@ import { TestService } from '../shared/services/testService.service';
 import { CommonData } from '../shared/services/commonData.service';
 import { DataRetrieval } from '../shared/services/dataRetrieval.service';
 import { ChartMaker } from '../shared/services/chartMaker.service';
-import { GraphDisplay } from './graphDisplay/graphDisplay.component';
+import { GraphDisplay } from '../shared/components/graphDisplay/graphDisplay.component';
 import { PlaceholderDirective } from '../shared/directives/placeholder.directive';
 
 @Component({
@@ -26,8 +26,6 @@ export class YearByYear implements OnInit{
     years:any;
     categories:any;
     yearAndCategory = [];
-    chartsLeft = [];
-    chartsRight = [];
 
 
     ngOnInit(){

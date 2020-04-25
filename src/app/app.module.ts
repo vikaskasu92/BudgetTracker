@@ -46,7 +46,7 @@ import { AddNewLoans } from './shared/dialogs/addNewLoans/addNewLoans.component'
 import { Investments } from './investments/investments.component'
 import { InvestmentTable } from './shared/components/tables/investmentTable/investmentTable.component'
 import { LoansTable } from './shared/components/tables/loansTable/loansTable.component'
-import { GraphDisplay } from './yearByYear/graphDisplay/graphDisplay.component';
+import { GraphDisplay } from './shared/components/graphDisplay/graphDisplay.component';
 import { PlaceholderDirective } from './shared/directives/placeholder.directive';
 
 @NgModule({
