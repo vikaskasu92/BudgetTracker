@@ -12,19 +12,4 @@
         </mat-select>
     </mat-form-field>
 </form>
-<mat-card>
-    <mat-card-content>
-        <div id="canvasElementsForYearOverYear" class="row">
-            <div class="col-md-6">
-                <div [hidden]="!chart" *ngFor="let chart of chartsLeft; let i = index" >
-                    <canvas id="YearByYearExpensesLeft{{i}}" class="lineChartDisplay"></canvas>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div [hidden]="!chart" *ngFor="let chart of chartsRight; let i = index" >
-                    <canvas id="YearByYearExpensesRight{{i+1}}" class="lineChartDisplay"></canvas>
-                </div>
-            </div>
-        </div>
-    </mat-card-content>
-</mat-card>
+<ng-template placeholderDirective ></ng-template>

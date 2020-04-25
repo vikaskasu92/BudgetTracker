@@ -46,6 +46,8 @@ import { AddNewLoans } from './shared/dialogs/addNewLoans/addNewLoans.component'
 import { Investments } from './investments/investments.component'
 import { InvestmentTable } from './shared/components/tables/investmentTable/investmentTable.component'
 import { LoansTable } from './shared/components/tables/loansTable/loansTable.component'
+import { GraphDisplay } from './yearByYear/graphDisplay/graphDisplay.component';
+import { PlaceholderDirective } from './shared/directives/placeholder.directive';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { LoansTable } from './shared/components/tables/loansTable/loansTable.com
     AddNewLoans,
     Investments,
     InvestmentTable,
-    LoansTable
+    LoansTable,
+    GraphDisplay,
+    PlaceholderDirective
   ],
   imports: [
     BrowserModule,
@@ -97,7 +101,8 @@ import { LoansTable } from './shared/components/tables/loansTable/loansTable.com
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    AddNewLoans
+    AddNewLoans,
+    GraphDisplay
   ]
 })
 export class AppModule { }

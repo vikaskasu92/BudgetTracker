@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver} from '@angular/core';
 import { TestService } from '../shared/services/testService.service';
 import { CommonData } from '../shared/services/commonData.service';
 import { DataRetrieval } from '../shared/services/dataRetrieval.service';
 import { ChartMaker } from '../shared/services/chartMaker.service';
+import { GraphDisplay } from './graphDisplay/graphDisplay.component';
+import { PlaceholderDirective } from '../shared/directives/placeholder.directive';
 
 @Component({
     selector:'app-yearByYear',
@@ -14,16 +16,19 @@ export class YearByYear implements OnInit{
     constructor(private testData:TestService, 
         private commonData:CommonData,
         private dataRetrieval:DataRetrieval,
-        private chartMaker:ChartMaker
+        private chartMaker:ChartMaker,
+        private componentFactoryResolver: ComponentFactoryResolver
     ){}
     
     @ViewChild('year',{static:true}) year:any;
     @ViewChild('category',{static:true}) category:any;
+    @ViewChild(PlaceholderDirective, {static:false}) containerRef:PlaceholderDirective;
     years:any;
     categories:any;
     yearAndCategory = [];
     chartsLeft = [];
     chartsRight = [];
+
 
     ngOnInit(){
         this.dataRetrieval.getAllYearsForCustomers().subscribe(
@@ -33,13 +38,11 @@ export class YearByYear implements OnInit{
         );
         this.categories = Object.values(this.commonData.category);
     }
-
+    
     yearChanged(){
         this.yearAndCategory[0] = this.year.value;
         if(this._decideToCallGraph()){
             this._dataRetrieval(this.yearAndCategory);
-            this.chartsLeft = [1,3];
-            this.chartsRight = [2,4];
         }
     }
 
@@ -47,13 +50,23 @@ export class YearByYear implements OnInit{
         //this.yearAndCategory[1] = this.category.value;
         this.yearAndCategory[1] = 'food';
         if(this._decideToCallGraph()){
-            this._dataRetrieval(this.yearAndCategory);
-            this.chartsLeft = [1,3];
-            this.chartsRight = [2,4];
+            this._dataRetrieval(this.yearAndCategory); 
         }
     }
 
+    private createGraphComponent(){
+        const graphDisplayFactory = this.componentFactoryResolver.resolveComponentFactory(GraphDisplay);
+        const viewContainerRef = this.containerRef.viewContainerRef;
+        viewContainerRef.clear();
+        const graphDisplayComponent = viewContainerRef.createComponent(graphDisplayFactory);
+        const chartsLeft = [1,3];
+        const chartsRight = [2,4];
+        graphDisplayComponent.instance.chartsLeft = chartsLeft;
+        graphDisplayComponent.instance.chartsRight = chartsRight;
+
+    }
     _dataRetrieval(yearAndCategory:any){
+        this.createGraphComponent();
         this.dataRetrieval.getYearByYearExpensesOnCategory(yearAndCategory).subscribe( response =>{
             let n = 1;
             const subCategoryArray = this._buildSubCategoryInputs(response);
