@@ -27,11 +27,9 @@ export class YearByYear implements OnInit{
 
 
     ngOnInit(){
-        this.dataRetrieval.getAllYearsForCustomers().subscribe(
-            response=>{
-                this.years = response;
-            }
-        );
+        this.dataRetrieval.getAllYearsForCustomers().subscribe(response=>{
+            this.years = response;
+        });
         this.categories = Object.values(this.commonData.category);
     }
     
@@ -43,8 +41,7 @@ export class YearByYear implements OnInit{
     }
 
     categoryChanged(){
-        //this.yearAndCategory[1] = this.category.value;
-        this.yearAndCategory[1] = 'food';
+        this.yearAndCategory[1] = this.category.value;
         if(this._decideToCallGraph()){
             this._dataRetrieval(this.yearAndCategory); 
         }
