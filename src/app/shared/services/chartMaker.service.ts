@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Chart from 'chart.js';
+import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
 
 @Injectable({providedIn:'root'})
 export class ChartMaker{
@@ -69,6 +70,7 @@ export class ChartMaker{
           },
           title: {
             display: true,
+            fontColor: "grey",
             text: chartTitle
           }
         }
