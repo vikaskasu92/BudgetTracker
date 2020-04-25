@@ -1,3 +1,11 @@
 .flex-spacer{
     flex-grow: 1;
 }
+
+.startToEnd{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

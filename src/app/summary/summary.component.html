@@ -1,11 +1,13 @@
 <div>
-    <h3>From Start Date to End Date</h3>
+    <div class="row startToEnd d-flex justify-content-center">
+        <span class="startToEnd">From {{ startYear }} to {{ endYear }}</span>
+    </div>
     <br>
-    <div class="row justify-content-center">
-        <div class="col-md-5">
+    <div class="row">
+        <div class="col-md-6">
             <app-pieTotal></app-pieTotal>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
             <app-lineByYear></app-lineByYear>
         </div>
     </div>
