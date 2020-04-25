@@ -4,17 +4,17 @@ import * as Chart from 'chart.js';
 @Injectable({providedIn:'root'})
 export class ChartMaker{
 
-  createYearByYearCategoryLineChart(canvasName:string, inputData:any){
+  createYearByYearCategoryLineChart(canvasName:string, priceArray:any,dateArray:any){
     const datasets =  [{ 
-      data: inputData,
+      data: priceArray,
       fill: true,
       borderColor:"blue",
       pointHoverBorderColor:"green",
       pointRotation:6,
       backgroundColor:"greenyellow"
     }]
-    const labels = ['2013','2014','2015','2016','2017','2018','2019','2020'];
-    return this._generateChart(canvasName,inputData,'line',datasets,labels,false,true);
+    const labels = dateArray;
+    return this._generateChart(canvasName,priceArray,'line',datasets,labels,false,true);
   }
 
   createCategoryBasedBarChart(canvasName:string,priceArray:any,dateArray:any){
@@ -60,6 +60,7 @@ export class ChartMaker{
           datasets: dataSets
         },
         options: {
+          responsive: true,
           legend: {
             display: legendDisplay
           },

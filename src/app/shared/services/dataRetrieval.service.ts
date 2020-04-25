@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
+import { map } from 'rxjs/operators'  
+
 import { IExpenseIncomeSummary } from 'src/app/model/summary/expenseIncomeSummary.model';
 import { environment } from '../../../environments/environment'
 import { IYearlyExpenseSummary } from 'src/app/model/summary/yearlyExpenseSummary.model';
@@ -9,10 +12,13 @@ import { IYearByYearExpense } from 'src/app/model/yearByYear/yearByYear.model';
 import { ILoans } from 'src/app/model/loans/loans.model';
 import { IInvestments } from 'src/app/model/investments/investments.model';
 
+
 @Injectable({providedIn:"root"})
 export class DataRetrieval{
 
     constructor(private http:HttpClient){}
+
+    params:any;
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -38,7 +44,13 @@ export class DataRetrieval{
     }
 
     getYearByYearExpensesOnCategory(yearAndCategory:any){
-        return this.http.get<IYearByYearExpense>(environment.yearByYearCategoryExpense,this.httpOptions);
+        return this.http.get<any>(environment.yearByYearCategoryExpense,{
+            headers: this.httpOptions.headers,
+            params: new HttpParams()
+            .set('fromDate', yearAndCategory[0]+'-01-01')
+            .set('toDate', yearAndCategory[0]+'-12-31')
+            .set('category',yearAndCategory[1])
+        });
     }
 
     getOpenClosedLoans(){
@@ -47,6 +59,18 @@ export class DataRetrieval{
 
     getInvestments(){
         return this.http.get<IInvestments>(environment.getAllInvestments,this.httpOptions);
+    }
+
+    getAllYearsForCustomers(){
+        const allYears=[];
+        return this.http.get<any>(environment.getAllYearsForCustomers,this.httpOptions).pipe(
+            map(response =>{
+                for(let i=0; i<response.length; i++){
+                    allYears.push(response[i]["year"].substring(0,4));
+                }
+                return allYears;
+            })
+        );
     }
 
 }

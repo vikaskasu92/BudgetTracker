@@ -26,40 +26,95 @@ export class YearByYear implements OnInit{
     chartsRight = [];
 
     ngOnInit(){
-        this.years = this.testData.years;
+        this.dataRetrieval.getAllYearsForCustomers().subscribe(
+            response=>{
+                this.years = response;
+            }
+        );
         this.categories = Object.values(this.commonData.category);
     }
 
     yearChanged(){
+        this.yearAndCategory[0] = this.year.value;
         if(this._decideToCallGraph()){
-            this._dataRetrieval();
+            this._dataRetrieval(this.yearAndCategory);
             this.chartsLeft = [1,3];
             this.chartsRight = [2,4];
         }
     }
 
     categoryChanged(){
+        //this.yearAndCategory[1] = this.category.value;
+        this.yearAndCategory[1] = 'food';
         if(this._decideToCallGraph()){
-            this._dataRetrieval();
+            this._dataRetrieval(this.yearAndCategory);
             this.chartsLeft = [1,3];
-            this.chartsRight = [2];
+            this.chartsRight = [2,4];
         }
     }
 
-    _dataRetrieval(){
-        this.dataRetrieval.getYearByYearExpensesOnCategory(this.yearAndCategory).subscribe( response =>{
-            //For Loop for number of graphs based on data and divide graphs to charts Left and charts Right
-            console.log(" response ",response);
-            this.chartMaker.createYearByYearCategoryLineChart("YearByYearExpenses",response);
+    _dataRetrieval(yearAndCategory:any){
+        this.dataRetrieval.getYearByYearExpensesOnCategory(yearAndCategory).subscribe( response =>{
+            let n = 1;
+            const subCategoryArray = this._buildSubCategoryInputs(response);
+            for(let i=0; i<subCategoryArray.length; i++){    
+                if(n % 2 != 0){
+                    this.chartMaker.createYearByYearCategoryLineChart("YearByYearExpensesLeft"+i,subCategoryArray[i]["priceArray"],subCategoryArray[i]["dateArray"]);
+                }else{
+                    this.chartMaker.createYearByYearCategoryLineChart("YearByYearExpensesRight"+i,subCategoryArray[i]["priceArray"],subCategoryArray[i]["dateArray"]); 
+                }
+                n++;
+            }        
         },failure =>{
             console.log("error retrieving data!");
         });
     }
 
+    _buildSubCategoryInputs(response:any){
+        let firstTime=true;
+        let added = false;
+        const subCategoryArray=[];
+        for(let i=0; i<response.length;i++){
+            const returnArray = this._checkIfExist(subCategoryArray,response[i]["subCategory"]);
+            if(!firstTime && returnArray[0]){
+                added = true;
+                subCategoryArray[returnArray[1]]["priceArray"].push(response[i]["price"]);
+                subCategoryArray[returnArray[1]]["dateArray"].push(response[i]["date"]);
+            }
+            if(!added){
+                subCategoryArray.push(this._buildObject(response,i));
+            }
+            added = false;
+            firstTime = false;
+        }
+        return subCategoryArray;
+    }
+
+    _checkIfExist(subCategoryArray:any,responseValue:string){
+        const returnArray=[];
+        for(let i=0; i<subCategoryArray.length; i++){
+            if(subCategoryArray[i]["subCategory"] === responseValue){
+                returnArray.push(true);
+                returnArray.push(i);
+                return returnArray;
+            }
+        }
+        returnArray.push(false);
+        returnArray.push(-1);
+        return returnArray;
+    }
+
+    _buildObject(response:any,index:number){
+        var tempObject = {
+            subCategory:response[index]["subCategory"],
+            priceArray:[response[index]["price"]],
+            dateArray:[response[index]["date"]]
+        }
+        return tempObject;
+    }
+
     _decideToCallGraph(){
         if(this.year.value !=undefined && this.category.value != undefined ){
-            this.yearAndCategory.push(this.year.value);
-            this.yearAndCategory.push(this.category.value);
             return true;
         }
         return false;

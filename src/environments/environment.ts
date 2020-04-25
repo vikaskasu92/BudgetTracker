@@ -12,9 +12,10 @@ export const environment = {
   yearlyExpenseSummary:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveYearlyExpenseSummary?username=vikas&fromDate=1992-01-01&toDate=1999-12-31",
   pendingLoansSummary:"http://localhost:8080/RetrieveBudgetTrackerData/retrievePendingLoansSummary?username=vikas",
   categoriesExpensesSummary:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveCategoriesExpenseSummary?username=vikas&category=food&subCategory=grocery",
-  yearByYearCategoryExpense:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveYearByYearCategoryExpense?username=vikas&fromDate=1992-01-01&toDate=1998-01-01&category=food",
+  yearByYearCategoryExpense:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveYearByYearCategoryExpense?username=vikas",
   openClosedLoans:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveOpenClosedLoans?username=vikas",
-  getAllInvestments:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveAllInvestments?username=vikas"
+  getAllInvestments:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveAllInvestments?username=vikas",
+  getAllYearsForCustomers:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveAllYearsForCustomer?username=vikas"
 };
 
 /*
