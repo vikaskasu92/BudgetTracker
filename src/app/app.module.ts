@@ -48,6 +48,7 @@ import { InvestmentTable } from './shared/components/tables/investmentTable/inve
 import { LoansTable } from './shared/components/tables/loansTable/loansTable.component'
 import { GraphDisplay } from './shared/components/graphDisplay/graphDisplay.component';
 import { PlaceholderDirective } from './shared/directives/placeholder.directive';
+import { DecimalFormatPipe } from './shared/pipes/decimalFormat.pipe';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { PlaceholderDirective } from './shared/directives/placeholder.directive'
     InvestmentTable,
     LoansTable,
     GraphDisplay,
-    PlaceholderDirective
+    PlaceholderDirective,
+    DecimalFormatPipe
   ],
   imports: [
     BrowserModule,
