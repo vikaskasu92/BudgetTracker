@@ -28,7 +28,7 @@ export class PieTotal implements OnInit{
         }
     }
 
-    _buildOverallIncomeAndExpensesInput(response:any){
+    private _buildOverallIncomeAndExpensesInput(response:any){
         const responseArray = [];
         for(let i=0; i<response.length;i++){
             responseArray.push(response[i]);

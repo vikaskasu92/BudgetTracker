@@ -30,7 +30,7 @@ export class LineByYear implements OnInit{
         }
     }
 
-    _buildOverallYearlyExpensesInputData(response:any){
+    private _buildOverallYearlyExpensesInputData(response:any){
         for(let i=0; i<Object.values(response.yearlyExpenseSummary).length; i++){
             this.yearsArray.push(Object.values(response.yearlyExpenseSummary)[i]["yearlyExpenseSummaryDate"].substring(0,4));
             this.expenseArray.push(Object.values(response.yearlyExpenseSummary)[i]["yearlyExpenseSummaryPrice"]);

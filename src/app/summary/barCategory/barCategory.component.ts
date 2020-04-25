@@ -30,7 +30,7 @@ export class BarCategory implements OnInit{
         }
     }
 
-    _buildOverallCategories(response:any){
+    private _buildOverallCategories(response:any){
         this.priceArray = [];
         this.dateArray = [];
         for(let i=0; i<Object.values(response).length; i++){

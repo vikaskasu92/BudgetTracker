@@ -52,7 +52,7 @@ export class ChartMaker{
     return this._generateChart(canvasName,inputData,'doughnut',datasets,labels,true,true,chartTitle);
   }
 
-  _generateChart(canvasName:string,inputData:any,chartType:string,dataSets:any,labels:any,legendDisplay:boolean,toolTips:boolean,chartTitle:string){
+  private _generateChart(canvasName:string,inputData:any,chartType:string,dataSets:any,labels:any,legendDisplay:boolean,toolTips:boolean,chartTitle:string){
     return new Chart(canvasName, {
       type: chartType,
       data: {

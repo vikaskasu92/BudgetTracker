@@ -72,7 +72,7 @@ export class YearByYear implements OnInit{
         graphDisplayComponent.instance.chartsRight = chartsRight;
 
     }
-    _dataRetrieval(yearAndCategory:any){
+    private _dataRetrieval(yearAndCategory:any){
         this.dataRetrieval.getYearByYearExpensesOnCategory(yearAndCategory).subscribe( response =>{
             let n = 1;
             const subCategoryArray = this._buildSubCategoryInputs(response);
@@ -94,7 +94,7 @@ export class YearByYear implements OnInit{
         });
     }
 
-    _buildSubCategoryInputs(response:any){
+    private _buildSubCategoryInputs(response:any){
         let firstTime=true;
         let added = false;
         const subCategoryArray=[];
@@ -114,7 +114,7 @@ export class YearByYear implements OnInit{
         return subCategoryArray;
     }
 
-    _checkIfExist(subCategoryArray:any,responseValue:string){
+    private _checkIfExist(subCategoryArray:any,responseValue:string){
         const returnArray=[];
         for(let i=0; i<subCategoryArray.length; i++){
             if(subCategoryArray[i]["subCategory"] === responseValue){
@@ -128,7 +128,7 @@ export class YearByYear implements OnInit{
         return returnArray;
     }
 
-    _buildObject(response:any,index:number){
+    private _buildObject(response:any,index:number){
         var tempObject = {
             subCategory:response[index]["subCategory"],
             priceArray:[response[index]["price"]],
@@ -137,7 +137,7 @@ export class YearByYear implements OnInit{
         return tempObject;
     }
 
-    _decideToCallGraph(){
+    private _decideToCallGraph(){
         if(this.year.value !=undefined && this.category.value != undefined ){
             return true;
         }
