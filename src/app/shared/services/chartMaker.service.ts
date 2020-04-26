@@ -46,7 +46,7 @@ export class ChartMakerService{
   createTotalDoughnutChart(canvasName:string, inputData:any,chartTitle:string){
     const datasets =  [{ 
         data: inputData,
-        backgroundColor: ['#FF6384','#36A2EC','#FFCD57','#773344'],
+        backgroundColor: ['#FF6384','#36A2EC','#FFCB9A','#B1A296'],
         fill: true
     }]
     const labels = ['Net Salary','Taxes','Expenses','Investments'];
