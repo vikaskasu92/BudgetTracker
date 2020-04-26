@@ -24,6 +24,7 @@ export class YearByYear implements OnInit{
     years:any;
     categories:any;
     yearAndCategory = [];
+    noData:boolean;
 
 
     ngOnInit(){
@@ -63,8 +64,6 @@ export class YearByYear implements OnInit{
             }
             n++;
         }
-        console.log("chartsLeft ",chartsLeft);
-        console.log("chartsRight ",chartsRight);
         graphDisplayComponent.instance.chartsLeft = chartsLeft;
         graphDisplayComponent.instance.chartsRight = chartsRight;
         graphDisplayComponent.instance.yearOverYear = true;
@@ -72,16 +71,18 @@ export class YearByYear implements OnInit{
     }
     private _dataRetrieval(yearAndCategory:any){
         this.dataRetrieval.getYearByYearExpensesOnCategory(yearAndCategory).subscribe( response =>{
+            this.noData = false;
+            if(response.length === 0){
+                this.noData = true;
+            }
             let n = 1;
             const subCategoryArray = this._buildSubCategoryInputs(response);
             this.createGraphComponent(subCategoryArray.length);
             setTimeout(()=>{
                 for(let i=0; i<subCategoryArray.length; i++){    
                     if(n % 2 != 0){
-                        console.log("YearByYearExpensesLeft"+i);
                         this.chartMaker.createYearByYearCategoryLineChart("YearByYearExpensesLeft"+n,subCategoryArray[i]["priceArray"],subCategoryArray[i]["dateArray"],subCategoryArray[i]["subCategory"]);
                     }else{
-                        console.log("YearByYearExpensesRight"+i);
                         this.chartMaker.createYearByYearCategoryLineChart("YearByYearExpensesRight"+n,subCategoryArray[i]["priceArray"],subCategoryArray[i]["dateArray"],subCategoryArray[i]["subCategory"]); 
                     }
                     n++;

@@ -1,3 +1,7 @@
 .form-field-spacing{
     margin: 10px;
 }
+
+.no-data{
+    padding-left:14px;
+}

@@ -12,4 +12,7 @@
         </mat-select>
     </mat-form-field>
 </form>
+<div *ngIf="noData">
+    <span class="no-data">You have no data for the category and year chosen!</span>
+</div>
 <ng-template placeholderDirective ></ng-template>
