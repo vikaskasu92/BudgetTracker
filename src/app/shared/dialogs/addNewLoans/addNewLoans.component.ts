@@ -12,13 +12,18 @@ export class AddNewLoans{
 
     constructor(private dialogRef: MatDialogRef<AddNewLoans>){}
     
-    @ViewChild('newLoansToDB',{static:true}) newLoansToDB:NgForm;
+    @ViewChild('addNewLoan',{static:true}) newLoansToDB:NgForm;
     
 
     addNewLoansToDB(){
+        console.log("came here");
         if(this.newLoansToDB.valid){
             this.dialogRef.close(this.newLoansToDB);
         }
+    }
+
+    saveDialog(){
+
     }
 
     cancelDialog(event:any){

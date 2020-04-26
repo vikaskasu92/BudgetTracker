@@ -36,8 +36,6 @@ export class Loans implements OnInit{
             this.spinnerOpenLoans = false;
             this.spinnerClosedLoans = false;
         },failure =>{
-            this.closedLoans = [];
-            this.openLoans = [];
             this.spinnerOpenLoans = false;
             this.spinnerClosedLoans = false;
             this.noOpenLoans = true;
@@ -51,12 +49,12 @@ export class Loans implements OnInit{
             disableClose: true
         });
       
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe(result => {  
             console.log(result);
-            //result.nativeElement[0].value -> use this to get model data in response.
+            //Form Data and send to Rest Service.
             if(result != undefined){
                 this.dataStore.storeNewLoansDataToDB(result).subscribe( response => {
-                    //update New Loans Data and call Loans component and update data.
+                    this.retrieveOpenClosedLoans(); 
                 },failure =>{
                     console.log("Error Retrieving Data from DB.");
                 });
