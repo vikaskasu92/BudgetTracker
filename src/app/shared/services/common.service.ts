@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonDataService } from 'src/app/shared/services/commonData.service';
 
 @Injectable({providedIn:"root"})
 export class CommonService{
 
-   constructor(private _snackBar: MatSnackBar,private commonData:CommonDataService){}
+   constructor(private _snackBar: MatSnackBar){}
 
    private expansionPanel = new BehaviorSubject("purchasesAndInvestments");
    currentExpansionPanel = this.expansionPanel.asObservable();

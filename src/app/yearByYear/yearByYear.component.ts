@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver} from '@angular/core';
-import { CommonDataService } from '../shared/services/commonData.service';
+import { CommonService } from '../shared/services/common.service';
 import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 import { ChartMakerService } from '../shared/services/chartMaker.service';
 import { GraphDisplayComponent } from '../shared/components/graphDisplay/graphDisplay.component';
@@ -12,7 +12,7 @@ import { PlaceholderDirective } from '../shared/directives/placeholder.directive
 })
 export class YearByYearComponent implements OnInit{
 
-    constructor(private commonData:CommonDataService,
+    constructor(private common:CommonService,
         private dataRetrieval:DataRetrievalService,
         private chartMaker:ChartMakerService,
         private componentFactoryResolver: ComponentFactoryResolver
@@ -31,7 +31,7 @@ export class YearByYearComponent implements OnInit{
         this.dataRetrieval.getAllYearsForCustomers().subscribe(response=>{
             this.years = response;
         });
-        this.categories = Object.values(this.commonData.category);
+        this.categories = Object.values(this.common.category);
     }
     
     yearChanged(){

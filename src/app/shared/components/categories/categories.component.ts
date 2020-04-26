@@ -1,5 +1,4 @@
 import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
-import { CommonDataService } from '../../services/commonData.service';
 import { CommonService } from '../../services/common.service';
 
 @Component({
@@ -8,6 +7,8 @@ import { CommonService } from '../../services/common.service';
     styleUrls:['./categories.component.css']
 })
 export class CategoriesComponent{
+
+    constructor(private common:CommonService){}
     
     isDisabled:boolean = true;
     category:{};
@@ -18,9 +19,6 @@ export class CategoriesComponent{
     @Output() onMainCategorySelected = new EventEmitter<boolean>();
     catValues = [];
     selectedCategory = "Food";
-
-    constructor(private commonData:CommonDataService,
-        private common:CommonService){}
 
     ngOnInit(){
         this.category = Object.values(this.common.category);
@@ -40,6 +38,4 @@ export class CategoriesComponent{
             this.subCategory = this.common.generateSubCategories(this.subCategory,this.purchaseMainCategory);
         }
     }
-
-
 }

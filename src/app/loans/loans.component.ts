@@ -12,9 +12,8 @@ import { DataStoreService } from '../shared/services/dataStore.service';
 export class LoansComponent implements OnInit{
 
     constructor(private dataRetrieval:DataRetrievalService,
-        private dialog: MatDialog,
-        private dataStore:DataStoreService
-        ){}
+                private dialog: MatDialog,
+                private dataStore:DataStoreService){}
 
     openLoans:any;
     closedLoans:any;

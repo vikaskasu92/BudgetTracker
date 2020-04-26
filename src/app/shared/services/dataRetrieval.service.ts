@@ -17,7 +17,6 @@ export class DataRetrievalService{
     constructor(private http:HttpClient){}
 
     params:any;
-
     httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',

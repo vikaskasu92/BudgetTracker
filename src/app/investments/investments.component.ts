@@ -34,7 +34,6 @@ export class InvestmentsComponent implements OnInit{
                     }
                 }
             }
-            
             this.spinnerOtherCommodities = false;
             this.spinnerGold = false;
             this.spinnerShares = false;
