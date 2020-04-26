@@ -8,7 +8,9 @@
             <app-pieTotal></app-pieTotal>
         </div>
         <div class="col-md-6">
-            <app-lineByYear></app-lineByYear>
+            <div *ngIf="yearsDataRecieved">
+                <app-lineByYear [startYear]="startYear" [endYear]="endYear"></app-lineByYear>
+            </div>
         </div>
     </div>
     <mat-divider></mat-divider>

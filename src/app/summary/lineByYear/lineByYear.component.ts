@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ChartMaker } from 'src/app/shared/services/chartMaker.service';
 import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
 
@@ -16,13 +16,18 @@ export class LineByYear implements OnInit{
     chart:Chart;
     yearsArray = [];
     expenseArray = [];
+    yearsData = [];
+    @Input()endYear;
+    @Input()startYear;
 
     ngOnInit(){
-        this.getOverallYearlyExpenses();
+        this.yearsData.push(this.startYear+"-01-01");
+        this.yearsData.push(this.endYear+"-12-31");
+        this.getOverallYearlyExpenses(this.yearsData);
     }
 
-    getOverallYearlyExpenses(){
-        this.dataRetrieval.getOverallYearlyExpenses().subscribe( response => {
+    getOverallYearlyExpenses(yearsData:any){
+        this.dataRetrieval.getOverallYearlyExpenses(yearsData).subscribe( response => {
             this._buildOverallYearlyExpensesInputData(response);
             this.chart = this.chartMaker.createYearExpenseLineChart("lineYearExpenses",this.yearsArray,this.expenseArray,"Overall Expenses");
         }),failure =>{

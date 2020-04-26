@@ -31,8 +31,13 @@ export class DataRetrieval{
         return this.http.get<IExpenseIncomeSummary>(environment.incomeExpenseSummary,this.httpOptions);
     }
 
-    getOverallYearlyExpenses(){
-        return this.http.get<IYearlyExpenseSummary>(environment.yearlyExpenseSummary,this.httpOptions);
+    getOverallYearlyExpenses(yearsData:any){
+        return this.http.get<IYearlyExpenseSummary>(environment.yearlyExpenseSummary,{
+            headers: this.httpOptions.headers,
+            params: new HttpParams()
+            .set('fromDate', yearsData[0])
+            .set('toDate', yearsData[1])
+        });
     }
 
     getOverallPendingLoans(){

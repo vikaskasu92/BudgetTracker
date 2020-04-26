@@ -12,9 +12,11 @@ export class Summary implements OnInit{
 
     startYear:string;
     endYear:string;
+    yearsDataRecieved= false;
 
     ngOnInit() {
         this.dataRetrieval.getAllYearsForCustomers().subscribe(response=>{
+            this.yearsDataRecieved = true;
             this.startYear = response[0];
             this.endYear = response[response["length"]-1];
         });
