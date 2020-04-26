@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { DataStore } from 'src/app/shared/services/dataStore.service';
+import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { MatSnackBar } from '@angular/material';
 import { InternalCommunicationService } from 'src/app/shared/services/internalCommunication.service';
 
@@ -9,9 +9,9 @@ import { InternalCommunicationService } from 'src/app/shared/services/internalCo
     templateUrl:'./newIncome.component.html',
     styleUrls:['./newIncome.component.css']
 })
-export class NewIncome implements OnInit{
+export class NewIncomeComponent implements OnInit{
 
-    constructor(private dataStore:DataStore, 
+    constructor(private dataStore:DataStoreService, 
         private _snackBar:MatSnackBar,
         private intComm:InternalCommunicationService){}
 

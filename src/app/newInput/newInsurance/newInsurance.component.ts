@@ -1,20 +1,17 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { InternalCommunicationService } from 'src/app/shared/services/internalCommunication.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { DataStore } from 'src/app/shared/services/dataStore.service';
+import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 
 @Component({
     selector:"app-newInsurance",
     templateUrl:"./newInsurance.component.html",
     styleUrls:['./newInsurance.component.css']
 })
-export class NewInsurance{
+export class NewInsuranceComponent{
 
-    constructor(private dataStore:DataStore,
-        private intComm:InternalCommunicationService,
-        private _snackBar:MatSnackBar,
-        private insuranceExpansionPanel:ElementRef){}
+    constructor(private dataStore:DataStoreService,
+        private intComm:InternalCommunicationService){}
 
     @ViewChild('insuranceForm',{static:true}) insuranceForm:NgForm;
     dateErrorMessage:string = "Date is a Required Field!";

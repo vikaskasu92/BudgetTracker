@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { DataRetrieval } from '../shared/services/dataRetrieval.service';
+import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 
 @Component({
     selector:'app-summary',
     templateUrl:'./summary.component.html',
     styleUrls:['./summary.component.css']
 })
-export class Summary implements OnInit{
+export class SummaryComponent implements OnInit{
 
-    constructor(private dataRetrieval:DataRetrieval){}
+    constructor(private dataRetrieval:DataRetrievalService){}
 
     startYear:string;
     endYear:string;

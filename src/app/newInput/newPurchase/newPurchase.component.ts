@@ -1,7 +1,6 @@
-import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { DataStore } from 'src/app/shared/services/dataStore.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { InternalCommunicationService } from 'src/app/shared/services/internalCommunication.service';
 
 @Component({
@@ -9,11 +8,9 @@ import { InternalCommunicationService } from 'src/app/shared/services/internalCo
     templateUrl:'./newPurchase.component.html',
     styleUrls:['./newPurchase.component.css']
 })
-export class NewPurchase implements OnInit{
+export class NewPurchaseComponent implements OnInit{
 
-    constructor(private dataStore:DataStore,
-        private _snackBar: MatSnackBar,
-        private purchaseExpansionPanel:ElementRef,
+    constructor(private dataStore:DataStoreService,
         private intComm:InternalCommunicationService){}
 
     @ViewChild('purchaseForm',{static:true}) purchaseForm:NgForm;

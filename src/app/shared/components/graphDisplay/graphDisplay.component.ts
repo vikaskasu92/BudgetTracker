@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
     templateUrl:'./graphDisplay.component.html',
     styleUrls:['./graphDisplay.component.css']
 })
-export class GraphDisplay{
+export class GraphDisplayComponent{
 
     @Input()chartsRight:any;
     @Input()chartsLeft:any;

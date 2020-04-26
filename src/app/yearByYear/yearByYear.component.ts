@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver} from '@angular/core';
-import { CommonData } from '../shared/services/commonData.service';
-import { DataRetrieval } from '../shared/services/dataRetrieval.service';
-import { ChartMaker } from '../shared/services/chartMaker.service';
-import { GraphDisplay } from '../shared/components/graphDisplay/graphDisplay.component';
+import { CommonDataService } from '../shared/services/commonData.service';
+import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
+import { ChartMakerService } from '../shared/services/chartMaker.service';
+import { GraphDisplayComponent } from '../shared/components/graphDisplay/graphDisplay.component';
 import { PlaceholderDirective } from '../shared/directives/placeholder.directive';
 
 @Component({
@@ -10,11 +10,11 @@ import { PlaceholderDirective } from '../shared/directives/placeholder.directive
     templateUrl:'./yearByYear.component.html',
     styleUrls:['./yearByYear.component.css']
 })
-export class YearByYear implements OnInit{
+export class YearByYearComponent implements OnInit{
 
-    constructor(private commonData:CommonData,
-        private dataRetrieval:DataRetrieval,
-        private chartMaker:ChartMaker,
+    constructor(private commonData:CommonDataService,
+        private dataRetrieval:DataRetrievalService,
+        private chartMaker:ChartMakerService,
         private componentFactoryResolver: ComponentFactoryResolver
     ){}
     
@@ -49,7 +49,7 @@ export class YearByYear implements OnInit{
     }
 
     private createGraphComponent(size:number){
-        const graphDisplayFactory = this.componentFactoryResolver.resolveComponentFactory(GraphDisplay);
+        const graphDisplayFactory = this.componentFactoryResolver.resolveComponentFactory(GraphDisplayComponent);
         const viewContainerRef = this.containerRef.viewContainerRef;
         viewContainerRef.clear();
         const graphDisplayComponent = viewContainerRef.createComponent(graphDisplayFactory);

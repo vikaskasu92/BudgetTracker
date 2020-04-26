@@ -1,16 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ChartMaker } from 'src/app/shared/services/chartMaker.service';
-import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
+import { ChartMakerService } from 'src/app/shared/services/chartMaker.service';
+import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 
 @Component({
     selector:'app-lineByYear',
     templateUrl:'./lineByYear.component.html',
     styleUrls:['./lineByYear.component.css']
 })
-export class LineByYear implements OnInit{
+export class LineByYearComponent implements OnInit{
 
-    constructor(private chartMaker:ChartMaker, 
-        private dataRetrieval:DataRetrieval
+    constructor(private chartMaker:ChartMakerService, 
+        private dataRetrieval:DataRetrievalService
         ){}
 
     chart:Chart;

@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
-import { ChartMaker } from 'src/app/shared/services/chartMaker.service';
-import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
+import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { ChartMakerService } from 'src/app/shared/services/chartMaker.service';
+import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 import { PlaceholderDirective } from 'src/app/shared/directives/placeholder.directive';
-import { GraphDisplay } from 'src/app/shared/components/graphDisplay/graphDisplay.component';
+import { GraphDisplayComponent } from 'src/app/shared/components/graphDisplay/graphDisplay.component';
 
 @Component({
     selector:'app-barCategory',
     templateUrl:'./barCategory.component.html',
     styleUrls:['./barCategory.component.css']
 })
-export class BarCategory{
+export class BarCategoryComponent{
 
-    constructor(private chartMaker:ChartMaker,
-        private dataRetrieval:DataRetrieval,
+    constructor(private chartMaker:ChartMakerService,
+        private dataRetrieval:DataRetrievalService,
         private componentFactoryResolver:ComponentFactoryResolver){}
     
     chart:Chart;
@@ -54,7 +54,7 @@ export class BarCategory{
     }
 
     private _createBarGraphComponent(){
-        const factory = this.componentFactoryResolver.resolveComponentFactory(GraphDisplay);
+        const factory = this.componentFactoryResolver.resolveComponentFactory(GraphDisplayComponent);
         this.viewComponentRef.viewContainerRef.clear();
         const hostFactoryResolver = this.viewComponentRef.viewContainerRef.createComponent(factory);
         hostFactoryResolver.instance.summaryExpenseByCategory = true;

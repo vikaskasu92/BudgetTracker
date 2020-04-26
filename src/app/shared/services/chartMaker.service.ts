@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as Chart from 'chart.js';
 
 @Injectable({providedIn:'root'})
-export class ChartMaker{
+export class ChartMakerService{
 
   createYearByYearCategoryLineChart(canvasName:string, priceArray:any,dateArray:any,chartTitle:string){
     const datasets =  [{ 

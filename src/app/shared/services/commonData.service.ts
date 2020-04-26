@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({providedIn:"root"})
-export class CommonData{
+export class CommonDataService{
 
     category = {
         "1":"Food",

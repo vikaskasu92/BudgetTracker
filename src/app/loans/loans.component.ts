@@ -1,19 +1,19 @@
-import { Component, OnInit, ComponentFactoryResolver } from '@angular/core';
-import { DataRetrieval } from '../shared/services/dataRetrieval.service';
+import { Component, OnInit } from '@angular/core';
+import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 import { MatDialog } from '@angular/material';
-import { AddNewLoans } from '../shared/dialogs/addNewLoans/addNewLoans.component';
-import { DataStore } from '../shared/services/dataStore.service';
+import { AddNewLoansComponent } from '../shared/dialogs/addNewLoans/addNewLoans.component';
+import { DataStoreService } from '../shared/services/dataStore.service';
 
 @Component({
     selector:'app-loans',
     templateUrl:'./loans.component.html',
     styleUrls:['./loans.component.css']
 })
-export class Loans implements OnInit{
+export class LoansComponent implements OnInit{
 
-    constructor(private dataRetrieval:DataRetrieval,
+    constructor(private dataRetrieval:DataRetrievalService,
         private dialog: MatDialog,
-        private dataStore:DataStore
+        private dataStore:DataStoreService
         ){}
 
     openLoans:any;
@@ -29,8 +29,6 @@ export class Loans implements OnInit{
 
     retrieveOpenClosedLoans(){
         this.dataRetrieval.getOpenClosedLoans().subscribe( response =>{
-            // update open and closed loans arrays, if no loans update it to be empty;
-            console.log(response);
             this.closedLoans = response["closedLoans"];
             this.openLoans = response["openLoans"];
             this.spinnerOpenLoans = false;
@@ -45,13 +43,12 @@ export class Loans implements OnInit{
     }
 
     addNewLoans(){
-        const dialogRef = this.dialog.open(AddNewLoans, {
+        const dialogRef = this.dialog.open(AddNewLoansComponent, {
             disableClose: true
         });
       
         dialogRef.afterClosed().subscribe(result => {  
             if(result != undefined){
-                console.log(JSON.stringify(result.value));
                 this.dataStore.storeNewLoansDataToDB(JSON.stringify(result.value)).subscribe( response => {
                     this.retrieveOpenClosedLoans(); 
                 },failure =>{

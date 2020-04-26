@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { DataRetrieval } from '../shared/services/dataRetrieval.service';
+import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 
 @Component({
     selector:'app-investments',
     templateUrl:'./investments.component.html',
     styleUrls:['./investments.component.css']
 })
-export class Investments implements OnInit{
+export class InvestmentsComponent implements OnInit{
 
-    constructor(private dataRetrieval:DataRetrieval){}
+    constructor(private dataRetrieval:DataRetrievalService){}
 
     investmentShares = [];
     investmentGolds = [];
     investmentOthers = [];
-    investmentType = "";
     spinnerOtherCommodities = true;
     spinnerGold = true;
     spinnerShares = true;
@@ -24,10 +23,21 @@ export class Investments implements OnInit{
 
     fetchInvestments(){
         this.dataRetrieval.getInvestments().subscribe( response =>{
-            // get the response and then map the response to the above arrays. Also Declare the investmentType.
-            //this.spinnerOtherCommodities = false;
-            //this.spinnerGold = false;
-            //this.spinnerShares = false;
+           for(let i=0; i<Object.values(response).length; i++){
+                if(Object.values(response)[i].shares != null){
+                    this.investmentShares.push(response[i].shares);
+                }else{
+                    if(Object.values(response)[i].commodities.investmentType == "Gold"){
+                       this.investmentGolds.push(response[i].commodities);
+                    }else{
+                        this.investmentOthers.push(response[i].commodities);
+                    }
+                }
+            }
+            
+            this.spinnerOtherCommodities = false;
+            this.spinnerGold = false;
+            this.spinnerShares = false;
         },failure =>{
             this.spinnerOtherCommodities = false;
             this.spinnerGold = false;

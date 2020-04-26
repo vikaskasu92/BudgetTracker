@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
     selector:'app-newInput',
     templateUrl:'./newInput.component.html'
 })
-export class NewInput{
+export class NewInputComponent{
  
 }

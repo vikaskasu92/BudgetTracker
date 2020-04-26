@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
+import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 import { IPendingLoansSummary } from 'src/app/model/summary/pendingLoansSummary.model';
 
 @Component({
@@ -7,9 +7,9 @@ import { IPendingLoansSummary } from 'src/app/model/summary/pendingLoansSummary.
     templateUrl:'./tablePendingLoans.component.html',
     styleUrls:['./tablePendingLoans.component.css']
 })
-export class TablePendingLoans implements OnInit{
+export class TablePendingLoansComponent implements OnInit{
 
-    constructor(private dataRetrieval:DataRetrieval){}
+    constructor(private dataRetrieval:DataRetrievalService){}
 
     allPendingloans:IPendingLoansSummary;
     spinnerOn:boolean = true;
@@ -27,7 +27,6 @@ export class TablePendingLoans implements OnInit{
             if(this.allPendingloans != undefined){
                 this.spinnerOn = false;
             }
-            console.log("allPendingLoans",this.allPendingloans);
             console.log("Error Occured in data Retrieval!");
         });
     }

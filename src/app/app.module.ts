@@ -27,51 +27,47 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 
-import { RemoveSpace } from './shared/pipes/removeSpace.pipe'
-
-import { Categories } from './shared/components/categories/categories.component'
-
 import { AppComponent } from './app.component';
-import { Summary } from "./summary/summary.component"
-import { NewPurchase } from "./newInput/newPurchase/newPurchase.component"
-import { NewIncome } from "./newInput/newIncome/newIncome.component"
-import { NewInsurance } from "./newInput/newInsurance/newInsurance.component"
-import { NewInput } from "./newInput/newInput.component"
-import { PieTotal } from './summary/pieTotal/pieTotal.component'
-import { LineByYear } from './summary/lineByYear/lineByYear.component'
-import { TablePendingLoans } from './summary/tablePendingLoans/tablePendingLoans.component'
-import { BarCategory } from './summary/barCategory/barCategory.component'
-import { YearByYear } from './yearByYear/yearByYear.component'
-import { Loans } from './loans/loans.component'
-import { AddNewLoans } from './shared/dialogs/addNewLoans/addNewLoans.component'
-import { Investments } from './investments/investments.component'
-import { InvestmentTable } from './shared/components/tables/investmentTable/investmentTable.component'
-import { GraphDisplay } from './shared/components/graphDisplay/graphDisplay.component';
+import { SummaryComponent } from "./summary/summary.component"
+import { NewPurchaseComponent } from "./newInput/newPurchase/newPurchase.component"
+import { NewIncomeComponent } from "./newInput/newIncome/newIncome.component"
+import { NewInsuranceComponent } from "./newInput/newInsurance/newInsurance.component"
+import { NewInputComponent } from "./newInput/newInput.component"
+import { PieTotalComponent } from './summary/pieTotal/pieTotal.component'
+import { LineByYearComponent } from './summary/lineByYear/lineByYear.component'
+import { CategoriesComponent } from './shared/components/categories/categories.component'
+import { TablePendingLoansComponent } from './summary/tablePendingLoans/tablePendingLoans.component'
+import { BarCategoryComponent } from './summary/barCategory/barCategory.component'
+import { YearByYearComponent } from './yearByYear/yearByYear.component'
+import { LoansComponent } from './loans/loans.component'
+import { AddNewLoansComponent } from './shared/dialogs/addNewLoans/addNewLoans.component'
+import { InvestmentsComponent } from './investments/investments.component'
+import { GraphDisplayComponent } from './shared/components/graphDisplay/graphDisplay.component';
 import { PlaceholderDirective } from './shared/directives/placeholder.directive';
 import { DecimalFormatPipe } from './shared/pipes/decimalFormat.pipe';
+import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe'
 
 @NgModule({
   declarations: [
     AppComponent,
-    RemoveSpace,
-    Categories,
-    NewInput,
-    NewPurchase,
-    NewIncome,
-    NewInsurance,
-    Summary,
-    PieTotal,
-    LineByYear,
-    TablePendingLoans,
-    BarCategory,
-    YearByYear,
-    Loans,
-    AddNewLoans,
-    Investments,
-    InvestmentTable,
-    GraphDisplay,
+    CategoriesComponent,
+    NewInputComponent,
+    NewPurchaseComponent,
+    NewIncomeComponent,
+    NewInsuranceComponent,
+    SummaryComponent,
+    PieTotalComponent,
+    LineByYearComponent,
+    TablePendingLoansComponent,
+    BarCategoryComponent,
+    YearByYearComponent,
+    LoansComponent,
+    AddNewLoansComponent,
+    InvestmentsComponent,
+    GraphDisplayComponent,
     PlaceholderDirective,
-    DecimalFormatPipe
+    DecimalFormatPipe,
+    RemoveSpacePipe
   ],
   imports: [
     BrowserModule,
@@ -103,8 +99,8 @@ import { DecimalFormatPipe } from './shared/pipes/decimalFormat.pipe';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    AddNewLoans,
-    GraphDisplay
+    AddNewLoansComponent,
+    GraphDisplayComponent
   ]
 })
 export class AppModule { }

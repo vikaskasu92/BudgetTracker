@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 @Injectable({providedIn:"root"})
-export class DataStore{
+export class DataStoreService{
 
     constructor(private http:HttpClient){}
 

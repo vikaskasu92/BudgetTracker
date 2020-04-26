@@ -1,22 +1,20 @@
-import { Component, ViewChild, Output, EventEmitter, Inject } from '@angular/core';
-import { DataStore } from '../../services/dataStore.service';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
     selector:'app-addNewLoans',
     templateUrl:'./addNewLoans.component.html',
     styleUrls:['./addNewLoans.component.css']
 })
-export class AddNewLoans{
+export class AddNewLoansComponent{
 
-    constructor(private dialogRef: MatDialogRef<AddNewLoans>){}
+    constructor(private dialogRef: MatDialogRef<AddNewLoansComponent>){}
     
     @ViewChild('addNewLoan',{static:true}) newLoansToDB:NgForm;
     
 
     addNewLoansToDB(){
-        console.log("came here");
         if(this.newLoansToDB.valid){
             this.dialogRef.close(this.newLoansToDB);
         }

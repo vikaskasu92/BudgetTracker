@@ -1,5 +1,5 @@
 import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
-import { CommonData } from '../../services/commonData.service';
+import { CommonDataService } from '../../services/commonData.service';
 import { InternalCommunicationService } from '../../services/internalCommunication.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { InternalCommunicationService } from '../../services/internalCommunicati
     templateUrl:'./categories.component.html',
     styleUrls:['./categories.component.css']
 })
-export class Categories{
+export class CategoriesComponent{
     
     isDisabled:boolean = true;
     category:{};
@@ -19,7 +19,7 @@ export class Categories{
     catValues = [];
     selectedCategory = "Food";
 
-    constructor(private commonData:CommonData,
+    constructor(private commonData:CommonDataService,
         private intComm:InternalCommunicationService){}
 
     ngOnInit(){

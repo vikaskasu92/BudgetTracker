@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartMaker } from 'src/app/shared/services/chartMaker.service';
+import { ChartMakerService } from 'src/app/shared/services/chartMaker.service';
 import * as Chart from 'chart.js';
-import { DataRetrieval } from 'src/app/shared/services/dataRetrieval.service';
+import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 
 @Component({
     selector:'app-pieTotal',
     templateUrl:'./pieTotal.component.html',
     styleUrls:['./pieTotal.component.css']
 })
-export class PieTotal implements OnInit{
+export class PieTotalComponent implements OnInit{
 
-    constructor(private chartMaker:ChartMaker,
-        private dataRetrieval:DataRetrieval){}
+    constructor(private chartMaker:ChartMakerService,
+        private dataRetrieval:DataRetrievalService){}
 
     chart:Chart;
 

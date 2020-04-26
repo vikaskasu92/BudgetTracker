@@ -7,14 +7,12 @@ import { IExpenseIncomeSummary } from 'src/app/model/summary/expenseIncomeSummar
 import { environment } from '../../../environments/environment'
 import { IYearlyExpenseSummary } from 'src/app/model/summary/yearlyExpenseSummary.model';
 import { IPendingLoansSummary } from 'src/app/model/summary/pendingLoansSummary.model';
-import { ICategoriesExpensesSummary } from 'src/app/model/summary/categoriesExpensesSummary.model';
-import { IYearByYearExpense } from 'src/app/model/yearByYear/yearByYear.model';
 import { ILoans } from 'src/app/model/loans/loans.model';
 import { IInvestments } from 'src/app/model/investments/investments.model';
 
 
 @Injectable({providedIn:"root"})
-export class DataRetrieval{
+export class DataRetrievalService{
 
     constructor(private http:HttpClient){}
 
