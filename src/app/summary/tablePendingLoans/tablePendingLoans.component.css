@@ -3,13 +3,13 @@ table {
   }
 
 .table-pending-loans-title{
-    color: grey;
+    color: #2C3531;
     font-size: 16px;
     text-align: center;
 }
 
 .table-header-style{
-    color: grey;
+    color: #2C3531;
     font-size: 14px;
     font-style: italic;
 }

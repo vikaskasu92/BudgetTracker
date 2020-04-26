@@ -70,7 +70,7 @@ export class ChartMakerService{
           },
           title: {
             display: true,
-            fontColor: "grey",
+            fontColor: "#2C3531",
             text: chartTitle
           }
         }
