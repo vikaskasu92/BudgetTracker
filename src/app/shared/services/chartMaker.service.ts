@@ -11,7 +11,7 @@ export class ChartMakerService{
       borderColor:"#59BFFF",
       pointHoverBorderColor:"#fff",
       pointRotation:6,
-      backgroundColor:"#A4DE02"
+      backgroundColor:"#5CDB95"
     }]
     const labels = dateArray;
     return this._generateChart(canvasName,'line',datasets,labels,false,true,chartTitle);
@@ -19,9 +19,10 @@ export class ChartMakerService{
 
   createCategoryBasedBarChart(canvasName:string,priceArray:any,dateArray:any,chartTitle:string){
     const datasets =  [{ 
-      barPercentage: 0.5,
-      barThickness: 6,
-      maxBarThickness: 8,
+      backgroundColor:"#7395AE",
+      barPercentage: 0.9,
+      barThickness: 16,
+      maxBarThickness: 18,
       minBarLength: 2,
       data: priceArray
   }]
@@ -36,7 +37,7 @@ export class ChartMakerService{
         borderColor:"#59BFFF",
         pointHoverBorderColor:"#fff",
         pointRotation:6,
-        backgroundColor:"#A4DE02"
+        backgroundColor:"#5CDB95"
     }]
     const labels = yearsArray;
     return this._generateChart(canvasName,'line',datasets,labels,false,true,chartTitle);
