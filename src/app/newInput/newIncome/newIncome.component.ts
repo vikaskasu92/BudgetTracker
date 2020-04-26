@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { MatSnackBar } from '@angular/material';
-import { InternalCommunicationService } from 'src/app/shared/services/internalCommunication.service';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
     selector:'app-newIncome',
@@ -13,7 +13,7 @@ export class NewIncomeComponent implements OnInit{
 
     constructor(private dataStore:DataStoreService, 
         private _snackBar:MatSnackBar,
-        private intComm:InternalCommunicationService){}
+        private common:CommonService){}
 
     @ViewChild('incomeForm',{static:true}) incomeForm:NgForm;
     dateErrorMessage:string = "Date is a Required Field!";
@@ -23,18 +23,18 @@ export class NewIncomeComponent implements OnInit{
 
     ngOnInit(): void {
         this.maxDate = new Date();
-        this.intComm.currentExpansionPanel.subscribe(currentExpansionPanel => {
+        this.common.currentExpansionPanel.subscribe(currentExpansionPanel => {
             this.currentExpansionPanel = currentExpansionPanel;
-            this.openPanel = this.intComm.expansionPanelDecision(this.currentExpansionPanel,"newIncome",this.openPanel);
+            this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"newIncome",this.openPanel);
         })
     }
 
     expansionPanelClicked(){
-        this.intComm.onExpansionPanelClick("newIncome");
+        this.common.onExpansionPanelClick("newIncome");
     }
 
     datePickerCalled(){
-        this.intComm.datePickerCalled(this.incomeForm,this.dateErrorMessage);
+        this.common.datePickerCalled(this.incomeForm,this.dateErrorMessage);
     }
 
     saveIncome(){
@@ -42,9 +42,9 @@ export class NewIncomeComponent implements OnInit{
             this.dataStore.storeIncomeDataToDB(this.incomeForm.form.value).subscribe(
                 success =>{
                     this.incomeForm.resetForm();
-                    this.intComm.snackBarOpen("Successfully Saved!");
+                    this.common.snackBarOpen("Successfully Saved!");
                 }, failure =>{
-                    this.intComm.snackBarOpen("Error has Occured While Saving!");
+                    this.common.snackBarOpen("Error has Occured While Saving!");
                 }
             );
         }

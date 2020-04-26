@@ -1,6 +1,6 @@
 import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 import { CommonDataService } from '../../services/commonData.service';
-import { InternalCommunicationService } from '../../services/internalCommunication.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
     selector:'app-categories',
@@ -20,10 +20,10 @@ export class CategoriesComponent{
     selectedCategory = "Food";
 
     constructor(private commonData:CommonDataService,
-        private intComm:InternalCommunicationService){}
+        private common:CommonService){}
 
     ngOnInit(){
-        this.category = Object.values(this.commonData.category);
+        this.category = Object.values(this.common.category);
     }
 
     purchaseSubCategorySelected(){
@@ -37,7 +37,7 @@ export class CategoriesComponent{
         this.onMainCategorySelected.emit(true);
         if(this.purchaseMainCategory.value != "" && this.purchaseMainCategory.value != undefined){
             this.isDisabled = false;
-            this.subCategory = this.intComm.generateSubCategories(this.subCategory,this.commonData,this.purchaseMainCategory);
+            this.subCategory = this.common.generateSubCategories(this.subCategory,this.purchaseMainCategory);
         }
     }
 

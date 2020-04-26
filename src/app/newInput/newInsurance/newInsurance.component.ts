@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { InternalCommunicationService } from 'src/app/shared/services/internalCommunication.service';
+import { CommonService } from 'src/app/shared/services/common.service';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 export class NewInsuranceComponent{
 
     constructor(private dataStore:DataStoreService,
-        private intComm:InternalCommunicationService){}
+        private common:CommonService){}
 
     @ViewChild('insuranceForm',{static:true}) insuranceForm:NgForm;
     dateErrorMessage:string = "Date is a Required Field!";
@@ -21,18 +21,18 @@ export class NewInsuranceComponent{
 
     ngOnInit(): void {
         this.maxDate = new Date();
-        this.intComm.currentExpansionPanel.subscribe(currentExpansionPanel => {
+        this.common.currentExpansionPanel.subscribe(currentExpansionPanel => {
             this.currentExpansionPanel = currentExpansionPanel;
-            this.openPanel = this.intComm.expansionPanelDecision(this.currentExpansionPanel,"newInsurance",this.openPanel);
+            this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"newInsurance",this.openPanel);
         });
     }
 
     datePickerCalled(){
-        this.intComm.datePickerCalled(this.insuranceForm,this.dateErrorMessage);
+        this.common.datePickerCalled(this.insuranceForm,this.dateErrorMessage);
     }
 
     expansionPanelClicked(){
-        this.intComm.onExpansionPanelClick("newInsurance");
+        this.common.onExpansionPanelClick("newInsurance");
     }
 
     saveInsurance(){
@@ -40,9 +40,9 @@ export class NewInsuranceComponent{
             this.dataStore.storeInsuranceDataToDB(this.insuranceForm.form.value).subscribe(
                 success =>{
                     this.insuranceForm.resetForm();
-                    this.intComm.snackBarOpen("Successfully Saved!");
+                    this.common.snackBarOpen("Successfully Saved!");
                 }, failure =>{
-                    this.intComm.snackBarOpen("Error has Occured While Saving!");
+                    this.common.snackBarOpen("Error has Occured While Saving!");
                 }
             );
         }

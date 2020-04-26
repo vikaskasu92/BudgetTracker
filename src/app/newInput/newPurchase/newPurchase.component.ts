@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
-import { InternalCommunicationService } from 'src/app/shared/services/internalCommunication.service';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
     selector:'app-newPurchase',
@@ -11,7 +11,7 @@ import { InternalCommunicationService } from 'src/app/shared/services/internalCo
 export class NewPurchaseComponent implements OnInit{
 
     constructor(private dataStore:DataStoreService,
-        private intComm:InternalCommunicationService){}
+        private common:CommonService){}
 
     @ViewChild('purchaseForm',{static:true}) purchaseForm:NgForm;
     maxDate:Date;
@@ -23,14 +23,14 @@ export class NewPurchaseComponent implements OnInit{
 
     ngOnInit(): void {
         this.maxDate = new Date();
-       this.intComm.currentExpansionPanel.subscribe(currentExpansionPanel =>{
+       this.common.currentExpansionPanel.subscribe(currentExpansionPanel =>{
             this.currentExpansionPanel = currentExpansionPanel;
-            this.openPanel = this.intComm.expansionPanelDecision(this.currentExpansionPanel,"purchasesAndInvestments",this.openPanel);
+            this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"purchasesAndInvestments",this.openPanel);
         } )
     }
 
     datePickerCalled(){
-        this.intComm.datePickerCalled(this.purchaseForm,this.dateErrorMessage);
+        this.common.datePickerCalled(this.purchaseForm,this.dateErrorMessage);
     }
 
     toggleSelected(){
@@ -42,16 +42,16 @@ export class NewPurchaseComponent implements OnInit{
             this.dataStore.storePurchaseDataToDB(this.purchaseForm.form.value).subscribe(
                 success =>{
                     this.purchaseForm.resetForm();
-                    this.intComm.snackBarOpen("Successfully Saved!");
+                    this.common.snackBarOpen("Successfully Saved!");
                 }, failure =>{
-                    this.intComm.snackBarOpen("Error has Occured While Saving!");
+                    this.common.snackBarOpen("Error has Occured While Saving!");
                 }
             );
         }
     }
 
     expansionPanelClicked(){
-        this.intComm.onExpansionPanelClick("purchasesAndInvestments");
+        this.common.onExpansionPanelClick("purchasesAndInvestments");
     }
 
 }
