@@ -1,16 +1,21 @@
-<mat-card>
-    <mat-card-content>
-        <div id="canvasElementsForYearOverYear" class="row d-flex justify-content-center">
-            <div class="col-md-6">
-                <div [hidden]="!chart" *ngFor="let chart of chartsLeft" >
-                    <canvas id="YearByYearExpensesLeft{{chart}}" class="lineChartDisplay"></canvas>
+<div *ngIf="yearOverYear">
+    <mat-card>
+        <mat-card-content>
+            <div id="canvasElementsForYearOverYear" class="row d-flex justify-content-center">
+                <div class="col-md-6">
+                    <div [hidden]="!chart" *ngFor="let chart of chartsLeft" >
+                        <canvas id="YearByYearExpensesLeft{{chart}}" class="lineChartDisplay"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div [hidden]="!chart" *ngFor="let chart of chartsRight">
+                        <canvas id="YearByYearExpensesRight{{chart}}" class="lineChartDisplay"></canvas>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div [hidden]="!chart" *ngFor="let chart of chartsRight">
-                    <canvas id="YearByYearExpensesRight{{chart}}" class="lineChartDisplay"></canvas>
-                </div>
-            </div>
-        </div>
-    </mat-card-content>
-</mat-card>
+        </mat-card-content>
+    </mat-card>
+</div>
+<div *ngIf="summaryExpenseByCategory" class="row d-flex justify-content-center">
+    <canvas id="categoryBar" class="expenseCategorySummaryGraph"></canvas>
+</div>

@@ -67,6 +67,7 @@ export class YearByYear implements OnInit{
         console.log("chartsRight ",chartsRight);
         graphDisplayComponent.instance.chartsLeft = chartsLeft;
         graphDisplayComponent.instance.chartsRight = chartsRight;
+        graphDisplayComponent.instance.yearOverYear = true;
 
     }
     private _dataRetrieval(yearAndCategory:any){

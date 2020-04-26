@@ -3,7 +3,7 @@
         <span class="startToEnd">From {{ startYear }} to {{ endYear }}</span>
     </div>
     <br>
-    <div class="row">
+    <div class="row bottom-spacing">
         <div class="col-md-6">
             <app-pieTotal></app-pieTotal>
         </div>
@@ -11,9 +11,12 @@
             <app-lineByYear></app-lineByYear>
         </div>
     </div>
-    <hr>
-    <app-tablePendingLoans></app-tablePendingLoans>
-    <hr>
-    <app-barCategory></app-barCategory>
-    <hr>
+    <mat-divider></mat-divider>
+    <div class="bottom-spacing top-spacing">
+        <app-tablePendingLoans></app-tablePendingLoans>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="bottom-spacing top-spacing">
+        <app-barCategory></app-barCategory>
+    </div>
 </div>

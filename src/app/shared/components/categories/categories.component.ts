@@ -27,6 +27,7 @@ export class Categories{
     }
 
     purchaseSubCategorySelected(){
+        this.catValues = [];
         this.catValues.push(this.purchaseMainCategory.value);
         this.catValues.push(this.purchaseSubCategory.value);
         this.onSelectingCategories.emit(this.catValues);

@@ -40,7 +40,12 @@ export class DataRetrieval{
     }
 
     getOverallCategoriesExpenses(categoriesData:any){
-        return this.http.get<ICategoriesExpensesSummary>(environment.categoriesExpensesSummary,this.httpOptions);
+        return this.http.get<any>(environment.categoriesExpensesSummary,{
+            headers: this.httpOptions.headers,
+            params: new HttpParams()
+            .set('category', categoriesData[0])
+            .set('subCategory', categoriesData[1])
+        });
     }
 
     getYearByYearExpensesOnCategory(yearAndCategory:any){

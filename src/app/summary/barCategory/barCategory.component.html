@@ -1,5 +1,10 @@
 <h3 class="text-decorator">Expenses by Category</h3>
-<app-categories (onSelectingCategories)="getOverallCategoriesExpenses($event)" (onMainCategorySelected) ="categoriesMainSelected($event)" ></app-categories>
-<div [hidden]="!chart" >
-    <canvas id="categoryBar" class="barChartDisplay"></canvas>
+<div class="row d-flex justify-content-center">
+    <app-categories (onSelectingCategories)="getOverallCategoriesExpenses($event)" (onMainCategorySelected) ="categoriesMainSelected($event)" ></app-categories>
 </div>
+<div class="row d-flex justify-content-center">
+    <div *ngIf="noData" class="no-data">
+        <span>No Data for the Categories Chosen!</span>
+    </div>
+</div>
+<ng-template placeholderDirective></ng-template>

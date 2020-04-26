@@ -25,6 +25,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTableModule} from '@angular/material/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { RemoveSpace } from './shared/pipes/removeSpace.pipe'
 
@@ -95,6 +96,7 @@ import { DecimalFormatPipe } from './shared/pipes/decimalFormat.pipe';
     MatTableModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatDividerModule,
     HttpClientModule,
     ChartsModule
   ],

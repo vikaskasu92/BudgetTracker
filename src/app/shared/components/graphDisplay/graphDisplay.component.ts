@@ -5,14 +5,11 @@ import { Component, Input, OnInit } from '@angular/core';
     templateUrl:'./graphDisplay.component.html',
     styleUrls:['./graphDisplay.component.css']
 })
-export class GraphDisplay implements OnInit{
+export class GraphDisplay{
 
     @Input()chartsRight:any;
     @Input()chartsLeft:any;
-
-    ngOnInit(): void {
-        console.log("chartsRight ",this.chartsRight);
-        console.log("chartsLeft ",this.chartsLeft);
-    }
+    @Input()yearOverYear:boolean;
+    @Input()summaryExpenseByCategory:boolean;
 
 }
