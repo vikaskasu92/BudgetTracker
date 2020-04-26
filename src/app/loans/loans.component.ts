@@ -50,10 +50,9 @@ export class Loans implements OnInit{
         });
       
         dialogRef.afterClosed().subscribe(result => {  
-            console.log(result);
-            //Form Data and send to Rest Service.
             if(result != undefined){
-                this.dataStore.storeNewLoansDataToDB(result).subscribe( response => {
+                console.log(JSON.stringify(result.value));
+                this.dataStore.storeNewLoansDataToDB(JSON.stringify(result.value)).subscribe( response => {
                     this.retrieveOpenClosedLoans(); 
                 },failure =>{
                     console.log("Error Retrieving Data from DB.");
