@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({providedIn:"root"})
@@ -38,14 +38,6 @@ export class CommonService{
     }
     return subCategory;
    }
-
-   datePickerCalled(form:NgForm,dateErrorMessage:string){
-        if(form.value.date === ""){
-            dateErrorMessage = "Date is a Required Field!";
-        }else{
-            dateErrorMessage = "Please enter a valid date!";
-        }
-    }
 
     category = {
         "1":"Food",
@@ -104,6 +96,6 @@ export class CommonService{
         "Others":{"1":"Others"}
     };
 
-
+    insurances = ['Auto Insurance','Health Insurance','Life Insurance','Home Insurance'];
 
 }

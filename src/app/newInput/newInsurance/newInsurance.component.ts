@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 
@@ -13,22 +13,23 @@ export class NewInsuranceComponent{
     constructor(private dataStore:DataStoreService,
         private common:CommonService){}
 
-    @ViewChild('insuranceForm',{static:true}) insuranceForm:NgForm;
-    dateErrorMessage:string = "Date is a Required Field!";
+    insuranceForm:FormGroup;
+    insurances:string[];
     maxDate:Date;
     currentExpansionPanel:string;
     openPanel = false;
 
     ngOnInit(): void {
+        this.insuranceForm = new FormGroup({
+            'insuranceType': new FormControl(null,Validators.required),
+            'insurancePurchasedDate': new FormControl(null,Validators.required)
+        });
+        this.insurances = this.common.insurances;
         this.maxDate = new Date();
         this.common.currentExpansionPanel.subscribe(currentExpansionPanel => {
             this.currentExpansionPanel = currentExpansionPanel;
             this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"newInsurance",this.openPanel);
         });
-    }
-
-    datePickerCalled(){
-        this.common.datePickerCalled(this.insuranceForm,this.dateErrorMessage);
     }
 
     expansionPanelClicked(){
@@ -37,9 +38,9 @@ export class NewInsuranceComponent{
 
     saveInsurance(){
         if(this.insuranceForm.valid){
-            this.dataStore.storeInsuranceDataToDB(this.insuranceForm.form.value).subscribe(
+            this.dataStore.storeInsuranceDataToDB(this.insuranceForm.value).subscribe(
                 success =>{
-                    this.insuranceForm.resetForm();
+                    this.insuranceForm.reset();
                     this.common.snackBarOpen("Successfully Saved!");
                 }, failure =>{
                     this.common.snackBarOpen("Error has Occured While Saving!");

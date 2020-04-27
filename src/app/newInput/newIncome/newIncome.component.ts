@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { MatSnackBar } from '@angular/material';
 import { CommonService } from 'src/app/shared/services/common.service';
@@ -15,13 +15,21 @@ export class NewIncomeComponent implements OnInit{
         private _snackBar:MatSnackBar,
         private common:CommonService){}
 
-    @ViewChild('incomeForm',{static:true}) incomeForm:NgForm;
+    salaryAndTaxForm:FormGroup;
     dateErrorMessage:string = "Date is a Required Field!";
     maxDate:Date;
     currentExpansionPanel:string;
     openPanel=false;
 
     ngOnInit(): void {
+        this.salaryAndTaxForm = new FormGroup({
+            'salary': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
+            'salaryRecievedDate': new FormControl(null,Validators.required),
+            'federalTax': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
+            'stateTax': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
+            'medicareTax': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
+            'socialSecurityTax': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')])
+        })
         this.maxDate = new Date();
         this.common.currentExpansionPanel.subscribe(currentExpansionPanel => {
             this.currentExpansionPanel = currentExpansionPanel;
@@ -33,15 +41,11 @@ export class NewIncomeComponent implements OnInit{
         this.common.onExpansionPanelClick("newIncome");
     }
 
-    datePickerCalled(){
-        this.common.datePickerCalled(this.incomeForm,this.dateErrorMessage);
-    }
-
     saveIncome(){
-        if(this.incomeForm.valid){
-            this.dataStore.storeIncomeDataToDB(this.incomeForm.form.value).subscribe(
+        if(this.salaryAndTaxForm.valid){
+            this.dataStore.storeIncomeDataToDB(this.salaryAndTaxForm.value).subscribe(
                 success =>{
-                    this.incomeForm.resetForm();
+                    this.salaryAndTaxForm.reset();
                     this.common.snackBarOpen("Successfully Saved!");
                 }, failure =>{
                     this.common.snackBarOpen("Error has Occured While Saving!");

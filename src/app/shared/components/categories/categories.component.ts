@@ -1,5 +1,6 @@
-import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { CommonService } from '../../services/common.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector:'app-categories',

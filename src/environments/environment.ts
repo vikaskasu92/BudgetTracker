@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  purchaseDataStoreURL:"https://localhost:8080/savePurchaseData",
+  purchaseDataStoreURL:"https://localhost:8080/budgetTrackerDataStore/savePurchaseData",
   incomeDataStoreURL:"https://localhost:8080/saveIncomeData",
   insuranceDataStoreURL:"https://localhost:8080/saveInsuranceData",
   addNewLoansDataStoreURL:"https://localhost:8080/saveNewLoansData",
