@@ -1,7 +1,7 @@
 <mat-accordion>
     <mat-expansion-panel class="shadow expansion-panel-bottom"  [expanded]="openPanel" (click)="expansionPanelClicked()"  #purchaseExpansionPanel>
         <mat-expansion-panel-header>
-            <mat-panel-title> Purchases & Investments</mat-panel-title>
+            <mat-panel-title> Purchases </mat-panel-title>
         </mat-expansion-panel-header>
         <form [formGroup]="purchaseForm" (ngSubmit)="savePurchases()" class="expansion-panel-bottom" #purchaseFormToReset="ngForm">
             <mat-form-field appearance="fill" class="form-field-spacing">
