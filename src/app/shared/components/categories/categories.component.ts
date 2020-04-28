@@ -18,6 +18,7 @@ export class CategoriesComponent{
     @Input() isDisabled:boolean;
     @Input() subCategory:any;
     @Output() subCategorySelected = new EventEmitter<string[]>();
+    @Output() mainCategorySelected = new EventEmitter<boolean>();
     category:{};
 
     ngOnInit(){
@@ -30,5 +31,9 @@ export class CategoriesComponent{
             selectedCatValues.push(value);
            this.subCategorySelected.emit(selectedCatValues);
         });
+        this.parentForm.controls.mainCategory.valueChanges.subscribe( () =>{
+            this.mainCategorySelected.emit(true);
+        });
+        
     }
 }

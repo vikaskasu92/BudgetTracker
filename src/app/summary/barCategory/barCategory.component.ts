@@ -38,7 +38,7 @@ export class BarCategoryComponent implements OnInit{
         });
     }
 
-    getOverallCategoriesExpenses(categoriesData:any){
+    getOverallCategoriesExpenses(categoriesData:string[]){
         this.dataRetrieval.getOverallCategoriesExpenses(categoriesData).subscribe( response => {
             this._createBarGraphComponent();
             setTimeout(()=>{
@@ -55,7 +55,7 @@ export class BarCategoryComponent implements OnInit{
         }
     }
 
-    categoriesMainSelected(mainSelected:boolean){
+    mainCategorySelected(mainSelected:boolean){
         this.chart = undefined;
         this.noData = false;
         this.viewComponentRef.viewContainerRef.clear();
