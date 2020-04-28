@@ -9,7 +9,7 @@ export const environment = {
   insuranceDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/saveInsuranceData",
   addNewLoansDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/saveNewLoansData",
   closeLoanFromDB:"http://localhost:8080/budgetTrackerDataStore/closeLoan",
-  incomeExpenseSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveIncomeExpenseSummary?username=vikas&fromDate=1992-01-01&toDate=1992-12-31",
+  incomeExpenseSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveIncomeExpenseSummary?username=vikas",
   yearlyExpenseSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveYearlyExpenseSummary?username=vikas",
   pendingLoansSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrievePendingLoansSummary?username=vikas",
   categoriesExpensesSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveCategoriesExpenseSummary?username=vikas",

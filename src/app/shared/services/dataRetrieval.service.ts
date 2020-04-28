@@ -23,9 +23,15 @@ export class DataRetrievalService{
           'Access-Control-Allow-Origin':'*'
         })
     }
+    allYears=[];
 
     getOverallIncomeAndExpenses(){
-        return this.http.get<IExpenseIncomeSummary>(environment.incomeExpenseSummary,this.httpOptions);
+        return this.http.get<IExpenseIncomeSummary>(environment.incomeExpenseSummary,{
+            headers: this.httpOptions.headers,
+            params: new HttpParams()
+            .set('fromDate', this.allYears[0]+'-01-01')
+            .set('toDate', this.allYears[this.allYears.length - 1]+'-12-31')
+        });
     }
 
     getOverallYearlyExpenses(yearsData:any){
@@ -69,13 +75,13 @@ export class DataRetrievalService{
     }
 
     getAllYearsForCustomers(){
-        const allYears=[];
+        
         return this.http.get<any>(environment.getAllYearsForCustomers,this.httpOptions).pipe(
             map(response =>{
                 for(let i=0; i<response.length; i++){
-                    allYears.push(response[i]["year"].substring(0,4));
+                    this.allYears.push(response[i]["year"].substring(0,4));
                 }
-                return allYears;
+                return this.allYears;
             })
         );
     }

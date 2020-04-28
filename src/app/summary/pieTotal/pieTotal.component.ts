@@ -20,17 +20,19 @@ export class PieTotalComponent implements OnInit{
     }
 
     getOverallIncomeAndExpenses(){
-        this.dataRetrieval.getOverallIncomeAndExpenses().subscribe( response => {
-            this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this._buildOverallIncomeAndExpensesInput(Object.values(response)),"Income And Expenses");
-        }),failure =>{
-            console.log("Error Occured in data Retrieval!");
-        }
+        setTimeout(()=>{
+            this.dataRetrieval.getOverallIncomeAndExpenses().subscribe( response => {
+                this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this._buildOverallIncomeAndExpensesInput(Object.values(response)),"Income And Expenses");
+            }),failure =>{
+                console.log("Error Occured in data Retrieval!");
+            }
+        },0);
     }
 
     private _buildOverallIncomeAndExpensesInput(response:any){
         const responseArray = [];
         for(let i=0; i<response.length;i++){
-            responseArray.push(response[i]);
+            responseArray.push(response[i].toFixed(2));
         }
         return responseArray;
     }
