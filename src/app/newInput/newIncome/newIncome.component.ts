@@ -43,6 +43,7 @@ export class NewIncomeComponent implements OnInit{
 
     saveIncome(){
         if(this.salaryAndTaxForm.valid){
+            this._updateDate(this.salaryAndTaxForm.value.salaryRecievedDate,this.salaryAndTaxForm);
             this.dataStore.storeIncomeDataToDB(this.salaryAndTaxForm.value).subscribe(
                 success =>{
                     this.salaryAndTaxForm.reset();
@@ -52,5 +53,21 @@ export class NewIncomeComponent implements OnInit{
                 }
             );
         }
+    }
+
+    private _updateDate(date:any,form:FormGroup){
+        if(typeof date != "string"){
+            let day = this._adjustDigits(date.getDate().toString());
+            let month = this._adjustDigits((date.getMonth()+1).toString());
+            let year = date.getFullYear().toString();
+            form.value.salaryRecievedDate = year+'-'+month+'-'+day;
+        }
+    }
+
+    private _adjustDigits(number:string){
+        if(number.length == 1){
+            return number = "0"+number;
+        }
+        return number;
     }
 }
