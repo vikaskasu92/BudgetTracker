@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 
@@ -13,6 +13,7 @@ export class NewInsuranceComponent{
     constructor(private dataStore:DataStoreService,
         private common:CommonService){}
 
+    @ViewChild('insuranceFormToReset',{static:false})insuranceFormToReset:NgForm;
     insuranceForm:FormGroup;
     insurances:string[];
     maxDate:Date;
@@ -42,7 +43,7 @@ export class NewInsuranceComponent{
             this._updateDate(this.insuranceForm.value.insurancePurchasedDate,this.insuranceForm);
             this.dataStore.storeInsuranceDataToDB(this.insuranceForm.value).subscribe(
                 success =>{
-                    this.insuranceForm.reset();
+                    this.insuranceFormToReset.resetForm();
                     this.common.snackBarOpen("Successfully Saved!");
                 }, failure =>{
                     this.common.snackBarOpen("Error has Occured While Saving!");

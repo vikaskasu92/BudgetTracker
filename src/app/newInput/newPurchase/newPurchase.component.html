@@ -3,7 +3,7 @@
         <mat-expansion-panel-header>
             <mat-panel-title> Purchases & Investments</mat-panel-title>
         </mat-expansion-panel-header>
-        <form [formGroup]="purchaseForm" (ngSubmit)="savePurchases()" class="expansion-panel-bottom">
+        <form [formGroup]="purchaseForm" (ngSubmit)="savePurchases()" class="expansion-panel-bottom" #purchaseFormToReset="ngForm">
             <mat-form-field appearance="fill" class="form-field-spacing">
                 <mat-label>Item</mat-label>
                 <input matInput formControlName="item">

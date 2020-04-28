@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { CategoriesComponent } from 'src/app/shared/components/categories/categories.component';
@@ -14,6 +14,7 @@ export class NewPurchaseComponent implements OnInit{
     constructor(private dataStore:DataStoreService,
         private common:CommonService){}
 
+    @ViewChild('purchaseFormToReset',{static:false}) purchaseFormToReset:NgForm;
     purchaseForm:FormGroup;
     maxDate:Date;
     creditInfo:boolean = false;
@@ -42,7 +43,7 @@ export class NewPurchaseComponent implements OnInit{
             this._updateDate(this.purchaseForm.value.date,this.purchaseForm);
             this.dataStore.storePurchaseDataToDB(this.purchaseForm.value).subscribe(
                 success =>{
-                    this.purchaseForm.reset();
+                    this.purchaseFormToReset.resetForm();
                     this.common.snackBarOpen("Successfully Saved!");
                 }, failure =>{
                     this.common.snackBarOpen("Error has Occured While Saving!");

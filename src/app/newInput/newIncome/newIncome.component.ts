@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { MatSnackBar } from '@angular/material';
 import { CommonService } from 'src/app/shared/services/common.service';
@@ -15,6 +15,7 @@ export class NewIncomeComponent implements OnInit{
         private _snackBar:MatSnackBar,
         private common:CommonService){}
 
+    @ViewChild('salaryAndTaxFormToReset',{static:false})salaryAndTaxFormToReset:NgForm;
     salaryAndTaxForm:FormGroup;
     dateErrorMessage:string = "Date is a Required Field!";
     maxDate:Date;
@@ -46,7 +47,7 @@ export class NewIncomeComponent implements OnInit{
             this._updateDate(this.salaryAndTaxForm.value.salaryRecievedDate,this.salaryAndTaxForm);
             this.dataStore.storeIncomeDataToDB(this.salaryAndTaxForm.value).subscribe(
                 success =>{
-                    this.salaryAndTaxForm.reset();
+                    this.salaryAndTaxFormToReset.resetForm();
                     this.common.snackBarOpen("Successfully Saved!");
                 }, failure =>{
                     this.common.snackBarOpen("Error has Occured While Saving!");

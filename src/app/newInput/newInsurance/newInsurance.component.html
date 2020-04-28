@@ -3,7 +3,7 @@
         <mat-expansion-panel-header>
             <mat-panel-title> Insurance</mat-panel-title>
         </mat-expansion-panel-header>
-        <form [formGroup]="insuranceForm" class="expansion-panel-bottom" (ngSubmit)="saveInsurance()">
+        <form [formGroup]="insuranceForm" class="expansion-panel-bottom" (ngSubmit)="saveInsurance()" #insuranceFormToReset="ngForm">
             <mat-form-field appearance="fill" class="form-field-spacing">
                 <mat-label >Insurance Type</mat-label>
                 <mat-select formControlName="insuranceType">
