@@ -1,10 +1,12 @@
 <h3 class="text-decorator">Expenses by Category</h3>
-<div class="row d-flex justify-content-center">
-    <app-categories (onSelectingCategories)="getOverallCategoriesExpenses($event)" (onMainCategorySelected) ="categoriesMainSelected($event)" ></app-categories>
-</div>
-<div class="row d-flex justify-content-center">
-    <div *ngIf="noData" class="no-data">
-        <span>You have no data for the categories chosen!</span>
+<form [formGroup]="categoriesForm">
+    <div class="row d-flex justify-content-center">
+        <app-categories [parentForm]="categoriesForm" formInnerControlName1="category" [subCategory]="subCategory" formInnerControlName2="subCategory" [isDisabled]="isDisabled"></app-categories>
     </div>
-</div>
+    <div class="row d-flex justify-content-center">
+        <div *ngIf="noData" class="no-data">
+            <span>You have no data for the categories chosen!</span>
+        </div>
+    </div>
+</form>
 <ng-template placeholderDirective></ng-template>

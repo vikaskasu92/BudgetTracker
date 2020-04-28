@@ -18,9 +18,10 @@ export class NewPurchaseComponent implements OnInit{
     maxDate:Date;
     creditInfo:boolean = false;
     checked:boolean=false;
+    isDisabled:boolean;
     openPanel=true;
     currentExpansionPanel:string;
-    @ViewChild(CategoriesComponent,{static:false}) childComponent: CategoriesComponent;
+    subCategory = {};
 
     ngOnInit(): void {
         this._createFormGroup();
@@ -59,9 +60,20 @@ export class NewPurchaseComponent implements OnInit{
             'item': new FormControl(null,Validators.required),
             'cost': new FormControl(null,[Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$'),Validators.required]),
             'date': new FormControl(null,Validators.required),
+            'category': new FormControl(null,Validators.required),
+            'subCategory': new FormControl(null,Validators.required),
             'toggle': new FormControl(null),
             'creditCardName': new FormControl(null)
          });
+
+         this.purchaseForm.controls.category.valueChanges.subscribe( value =>{
+            this.isDisabled = false;
+            this.subCategory = this.common.generateSubCategories(value);
+        });
+    }
+
+    onMainCategorySelectedParent(event:any){
+        console.log("came here with event ",event);
     }
 
     private _applyConditionalValidationToCreditCard(){
@@ -77,10 +89,12 @@ export class NewPurchaseComponent implements OnInit{
     }
 
     private _updateDate(date:any,form:FormGroup){
-        let day = this._adjustDigits(date.getDate().toString());
-        let month = this._adjustDigits((date.getMonth()+1).toString());
-        let year = date.getFullYear().toString();
-        form.value.date = year+'-'+month+'-'+day;
+        if(typeof date != "string"){
+            let day = this._adjustDigits(date.getDate().toString());
+            let month = this._adjustDigits((date.getMonth()+1).toString());
+            let year = date.getFullYear().toString();
+            form.value.date = year+'-'+month+'-'+day;
+        }
     }
 
     private _adjustDigits(number:string){

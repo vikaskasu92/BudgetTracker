@@ -29,9 +29,10 @@ export class CommonService{
       });
    }
 
-   generateSubCategories(subCategory:{},purchaseMainCategory:any){
+   generateSubCategories(purchaseMainCategory:any){
+    let subCategory = [];
     for(let i=0; i<Object.keys(this.subCategory).length; i++){
-        if((Object.keys(this.subCategory)[i]).split(" ").join("") === purchaseMainCategory.value){
+        if((Object.keys(this.subCategory)[i]).split(" ").join("") === purchaseMainCategory){
             subCategory = Object.values(Object.values(this.subCategory)[i]);
             break;
         }

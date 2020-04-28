@@ -8,14 +8,14 @@ export const environment = {
   incomeDataStoreURL:"https://localhost:8080/saveIncomeData",
   insuranceDataStoreURL:"https://localhost:8080/saveInsuranceData",
   addNewLoansDataStoreURL:"https://localhost:8080/saveNewLoansData",
-  incomeExpenseSummary:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveIncomeExpenseSummary?username=vikas&fromDate=1992-01-01&toDate=1992-12-31",
-  yearlyExpenseSummary:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveYearlyExpenseSummary?username=vikas",
-  pendingLoansSummary:"http://localhost:8080/RetrieveBudgetTrackerData/retrievePendingLoansSummary?username=vikas",
-  categoriesExpensesSummary:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveCategoriesExpenseSummary?username=vikas",
-  yearByYearCategoryExpense:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveYearByYearCategoryExpense?username=vikas",
-  openClosedLoans:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveOpenClosedLoans?username=vikas",
-  getAllInvestments:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveAllInvestments?username=vikas",
-  getAllYearsForCustomers:"http://localhost:8080/RetrieveBudgetTrackerData/retrieveAllYearsForCustomer?username=vikas"
+  incomeExpenseSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveIncomeExpenseSummary?username=vikas&fromDate=1992-01-01&toDate=1992-12-31",
+  yearlyExpenseSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveYearlyExpenseSummary?username=vikas",
+  pendingLoansSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrievePendingLoansSummary?username=vikas",
+  categoriesExpensesSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveCategoriesExpenseSummary?username=vikas",
+  yearByYearCategoryExpense:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveYearByYearCategoryExpense?username=vikas",
+  openClosedLoans:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveOpenClosedLoans?username=vikas",
+  getAllInvestments:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveAllInvestments?username=vikas",
+  getAllYearsForCustomers:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveAllYearsForCustomer?username=vikas"
 };
 
 /*

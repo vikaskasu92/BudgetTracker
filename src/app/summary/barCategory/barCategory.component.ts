@@ -1,25 +1,42 @@
-import { Component, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Component, ViewChild, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { ChartMakerService } from 'src/app/shared/services/chartMaker.service';
 import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 import { PlaceholderDirective } from 'src/app/shared/directives/placeholder.directive';
 import { GraphDisplayComponent } from 'src/app/shared/components/graphDisplay/graphDisplay.component';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
     selector:'app-barCategory',
     templateUrl:'./barCategory.component.html',
     styleUrls:['./barCategory.component.css']
 })
-export class BarCategoryComponent{
+export class BarCategoryComponent implements OnInit{
 
     constructor(private chartMaker:ChartMakerService,
         private dataRetrieval:DataRetrievalService,
+        private common:CommonService,
         private componentFactoryResolver:ComponentFactoryResolver){}
     
+    categoriesForm:FormGroup;
     chart:Chart;
     priceArray:any;
     dateArray:any;
     noData = false;
+    isDisabled:boolean;
+    subCategory = {};
     @ViewChild(PlaceholderDirective ,{static:false})viewComponentRef:PlaceholderDirective;
+
+    ngOnInit(): void {
+        this.categoriesForm = new FormGroup({
+            'category': new FormControl(null,Validators.required),
+            'subCategory': new FormControl(null,Validators.required)
+         });
+         this.categoriesForm.controls.category.valueChanges.subscribe( value =>{
+            this.isDisabled = false;
+            this.subCategory = this.common.generateSubCategories(value);
+        });
+    }
 
     getOverallCategoriesExpenses(categoriesData:any){
         this.dataRetrieval.getOverallCategoriesExpenses(categoriesData).subscribe( response => {

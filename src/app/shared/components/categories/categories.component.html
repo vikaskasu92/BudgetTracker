@@ -1,12 +1,16 @@
-<mat-form-field appearance="fill" class="form-field-spacing">
-    <mat-label >Category</mat-label>
-    <mat-select >
-            <mat-option *ngFor="let cat of category" [value]="cat | removeSpace">{{ cat }}</mat-option>
-    </mat-select>
-</mat-form-field>
-<mat-form-field appearance="fill" class="form-field-spacing">
-    <mat-label>Sub Category</mat-label>
-    <mat-select  [disabled]="isDisabled" >
-            <mat-option *ngFor="let subCat of subCategory" [value]="subCat | removeSpace">{{ subCat }}</mat-option>
-    </mat-select>
-</mat-form-field>
+<form [formGroup]="parentForm">
+    <mat-form-field appearance="fill" class="form-field-spacing">
+        <mat-label >Category</mat-label>
+        <mat-select formControlName="category" #purchaseMainCategory>
+                <mat-option *ngFor="let cat of category" [value]="cat | removeSpace">{{ cat }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="!parentForm.get('category').valid && parentForm.get('category').touched">Please select a category</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field-spacing">
+        <mat-label>Sub Category</mat-label>
+        <mat-select formControlName="subCategory" [disabled]="isDisabled" #purchaseSubCategory>
+                <mat-option *ngFor="let subCat of subCategory" [value]="subCat | removeSpace">{{ subCat }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="!parentForm.get('subCategory').valid && parentForm.get('subCategory').touched">Please select a sub category</mat-error>
+    </mat-form-field>
+</form>
