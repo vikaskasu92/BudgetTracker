@@ -25,15 +25,23 @@ export class CategoriesComponent{
         this.isDisabled = true;
         this.subCategory = [];
         this.category = Object.values(this.common.category);
+        this._subCategorySubscription();
+        this._mainCategorySubscription();
+        
+    }
+
+    private _subCategorySubscription(){
         this.parentForm.controls.subCategory.valueChanges.subscribe( value =>{
             let selectedCatValues = [];
             selectedCatValues.push(this.parentForm.value.mainCategory);
             selectedCatValues.push(value);
            this.subCategorySelected.emit(selectedCatValues);
         });
+    }
+
+    private _mainCategorySubscription(){
         this.parentForm.controls.mainCategory.valueChanges.subscribe( () =>{
             this.mainCategorySelected.emit(true);
         });
-        
     }
 }
