@@ -9,18 +9,26 @@ import { FormGroup, FormControl, Validators, ControlContainer } from '@angular/f
 })
 export class CategoriesComponent{
 
-    constructor(private common:CommonService,private controlContainer: ControlContainer){}
+    constructor(private common:CommonService,
+                private controlContainer: ControlContainer){}
     
     @Input() parentForm: FormGroup;
     @Input() formInnerControlName1: string;
     @Input() formInnerControlName2: string;
     @Input() isDisabled:boolean;
     @Input() subCategory:any;
+    @Output() subCategorySelected = new EventEmitter<string[]>();
     category:{};
 
     ngOnInit(){
         this.isDisabled = true;
         this.subCategory = [];
         this.category = Object.values(this.common.category);
+        this.parentForm.controls.subCategory.valueChanges.subscribe( value =>{
+            let selectedCatValues = [];
+            selectedCatValues.push(this.parentForm.value.mainCategory);
+            selectedCatValues.push(value);
+           this.subCategorySelected.emit(selectedCatValues);
+        });
     }
 }

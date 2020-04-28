@@ -60,13 +60,13 @@ export class NewPurchaseComponent implements OnInit{
             'item': new FormControl(null,Validators.required),
             'cost': new FormControl(null,[Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$'),Validators.required]),
             'date': new FormControl(null,Validators.required),
-            'category': new FormControl(null,Validators.required),
+            'mainCategory': new FormControl(null,Validators.required),
             'subCategory': new FormControl(null,Validators.required),
             'toggle': new FormControl(null),
             'creditCardName': new FormControl(null)
          });
 
-         this.purchaseForm.controls.category.valueChanges.subscribe( value =>{
+         this.purchaseForm.controls.mainCategory.valueChanges.subscribe( value =>{
             this.isDisabled = false;
             this.subCategory = this.common.generateSubCategories(value);
         });

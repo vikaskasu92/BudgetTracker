@@ -29,10 +29,10 @@ export class BarCategoryComponent implements OnInit{
 
     ngOnInit(): void {
         this.categoriesForm = new FormGroup({
-            'category': new FormControl(null,Validators.required),
+            'mainCategory': new FormControl(null,Validators.required),
             'subCategory': new FormControl(null,Validators.required)
          });
-         this.categoriesForm.controls.category.valueChanges.subscribe( value =>{
+         this.categoriesForm.controls.mainCategory.valueChanges.subscribe(value =>{
             this.isDisabled = false;
             this.subCategory = this.common.generateSubCategories(value);
         });

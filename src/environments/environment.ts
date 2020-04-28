@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  purchaseDataStoreURL:"https://localhost:8080/budgetTrackerDataStore/savePurchaseData",
-  incomeDataStoreURL:"https://localhost:8080/saveIncomeData",
-  insuranceDataStoreURL:"https://localhost:8080/saveInsuranceData",
-  addNewLoansDataStoreURL:"https://localhost:8080/saveNewLoansData",
+  purchaseDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/savePurchaseData",
+  incomeDataStoreURL:"http://localhost:8080/saveIncomeData",
+  insuranceDataStoreURL:"http://localhost:8080/saveInsuranceData",
+  addNewLoansDataStoreURL:"http://localhost:8080/saveNewLoansData",
   incomeExpenseSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveIncomeExpenseSummary?username=vikas&fromDate=1992-01-01&toDate=1992-12-31",
   yearlyExpenseSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveYearlyExpenseSummary?username=vikas",
   pendingLoansSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrievePendingLoansSummary?username=vikas",
