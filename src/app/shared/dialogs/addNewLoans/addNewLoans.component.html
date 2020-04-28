@@ -3,34 +3,41 @@
       <mat-card-title class="mat-header-title-design">Add New Loan</mat-card-title>
     </mat-card-header>
     <mat-card-content class="">
-        <form #addNewLoan="ngForm" (ngSubmit)="addNewLoansToDB()" #newLoansToDB>
+        <form [formGroup]="addNewLoan" (ngSubmit)="addNewLoansToDB()">
             <mat-form-field appearance="fill" class="form-field-spacing">
                 <mat-label>Loan Name</mat-label>
-                <input matInput name="loanName" required ngModel #loanName="ngModel">
-                <mat-error *ngIf="!loanName.valid && loanName.touched">Loan Name is inValid!</mat-error>
+                <input matInput formControlName="loanName">
+                <mat-error *ngIf="!addNewLoan.get('loanName').valid && addNewLoan.get('loanName').touched">Valid loan name is required!</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="form-field-spacing">
-                <mat-label>Loan Duaration</mat-label>
-                <input matInput name="loanDuration" required ngModel #loanDuration="ngModel">
-                <mat-error *ngIf="!loanDuration.valid && loanDuration.touched">Loan Duration is inValid!</mat-error>
+                <mat-label>Loan Type</mat-label>
+                <mat-select formControlName="loanType">
+                    <mat-option *ngFor="let loanType of loanTypes" [value]="loanType | removeSpace">{{ loanType }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="!addNewLoan.get('loanType').valid && addNewLoan.get('loanType').touched">Please choose valid loan type!</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-field-spacing">
+                <mat-label>Current Loan Balance</mat-label>
+                <input matInput formControlName="loanBalance">
+                <mat-error *ngIf="!addNewLoan.get('loanBalance').valid && addNewLoan.get('loanBalance').touched">Valid loan balance is required!</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill" class="form-field-spacing">
-                <mat-label>Loan Balance</mat-label>
-                <input matInput name="loanBalance" required ngModel #loanBalance="ngModel" placeholder="$" pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$">
-                <mat-error *ngIf="!loanBalance.valid && loanBalance.touched">Loan Balance is inValid!</mat-error>
+                <mat-label>Loan Duration</mat-label>
+                <input matInput formControlName="loanDuration" pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$">
+                <mat-error *ngIf="!addNewLoan.get('loanDuration').valid && addNewLoan.get('loanDuration').touched">Valid loan duration is required!</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="form-field-spacing">
-                <mat-label>Loan Paid</mat-label>
-                <input matInput name="loanPaid" required ngModel #loanPaid="ngModel" placeholder="$" pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$">
-                <mat-error *ngIf="!loanPaid.valid && loanPaid.touched">Loan Paid is inValid!</mat-error>
+                <mat-label>APR</mat-label>
+                <input matInput formControlName="loanAPR" >
+                <mat-error *ngIf="!addNewLoan.get('loanAPR').valid && addNewLoan.get('loanAPR').touched">Valid loan APR is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-field-spacing">
+                <mat-label>EMI</mat-label>
+                <input matInput formControlName="loanEMI" pattern="^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$">
+                <mat-error *ngIf="!addNewLoan.get('loanEMI').valid && addNewLoan.get('loanEMI').touched">Valid loan EMI is required!</mat-error>
             </mat-form-field>
             <br>
-            <mat-form-field appearance="fill" class="form-field-spacing">
-                <mat-label>Loan APR</mat-label>
-                <input matInput name="loanApr" required ngModel #loanApr="ngModel">
-                <mat-error *ngIf="!loanApr.valid && loanApr.touched">APR is inValid!</mat-error>
-            </mat-form-field>
             <div class="button-flex"></div>
             <button mat-raised-button color="primary">Save <mat-icon>save</mat-icon></button>
             <button mat-raised-button class="cancel-button-spacing" (click)="cancelDialog($event)">Cancel <mat-icon>cancel</mat-icon></button>

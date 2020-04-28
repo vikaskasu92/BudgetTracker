@@ -29,4 +29,7 @@ export class DataStoreService{
         return this.http.post(environment.addNewLoansDataStoreURL,inputData,{headers:this.httpOptions.headers}); 
     }
 
+    closeLoanFromDB(inputData:any){
+        return this.http.post(environment.closeLoanFromDB,inputData,{headers:this.httpOptions.headers}); 
+    }
 }

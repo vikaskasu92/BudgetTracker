@@ -99,4 +99,6 @@ export class CommonService{
 
     insurances = ['Auto Insurance','Health Insurance','Life Insurance','Home Insurance'];
 
+    loanTypes = ['Auto','Home','Personal','Credit-Card','Business'];
+
 }

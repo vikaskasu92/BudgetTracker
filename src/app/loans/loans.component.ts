@@ -3,6 +3,7 @@ import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 import { MatDialog } from '@angular/material';
 import { AddNewLoansComponent } from '../shared/dialogs/addNewLoans/addNewLoans.component';
 import { DataStoreService } from '../shared/services/dataStore.service';
+import { ConfirmCloseLoanComponent } from '../shared/dialogs/confirmCloseLoan/confirmCloseLoan.component';
 
 @Component({
     selector:'app-loans',
@@ -12,7 +13,8 @@ import { DataStoreService } from '../shared/services/dataStore.service';
 export class LoansComponent implements OnInit{
 
     constructor(private dataRetrieval:DataRetrievalService,
-                private dialog: MatDialog,
+                private dialog1: MatDialog,
+                private dialog2: MatDialog,
                 private dataStore:DataStoreService){}
 
     openLoans:any;
@@ -42,13 +44,31 @@ export class LoansComponent implements OnInit{
     }
 
     addNewLoans(){
-        const dialogRef = this.dialog.open(AddNewLoansComponent, {
+        const dialogRef1 = this.dialog1.open(AddNewLoansComponent, {
             disableClose: true
         });
       
-        dialogRef.afterClosed().subscribe(result => {  
+        dialogRef1.afterClosed().subscribe(result => {  
             if(result != undefined){
-                this.dataStore.storeNewLoansDataToDB(JSON.stringify(result.value)).subscribe( response => {
+                this.dataStore.storeNewLoansDataToDB(result).subscribe( response => {
+                    this.retrieveOpenClosedLoans(); 
+                },failure =>{
+                    console.log("Error Retrieving Data from DB.");
+                });
+            }
+        });
+    }
+
+    closeLoan(loanName:string){
+        const responseObject ={
+            'loanName':loanName
+        }
+        const dialogRef2 = this.dialog2.open(ConfirmCloseLoanComponent, {
+            disableClose: true
+        });
+        dialogRef2.afterClosed().subscribe( result => {  
+            if(result){
+                this.dataStore.closeLoanFromDB(responseObject).subscribe( response => {
                     this.retrieveOpenClosedLoans(); 
                 },failure =>{
                     console.log("Error Retrieving Data from DB.");

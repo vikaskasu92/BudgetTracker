@@ -18,6 +18,7 @@
                         <th scope="col" class="table-header-style">Balance</th>
                         <th scope="col" class="table-header-style">APR</th>
                         <th scope="col" class="table-header-style">EMI</th>
+                        <th scope="col" class="table-header-style"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -27,6 +28,7 @@
                             <td>{{ loan.loanBalance | currency:USD }}</td>
                             <td>{{ loan.loanAPR | decimalFormat:2 }} %</td>
                             <td>{{ loan.loanMonthlyAmount | currency:USD }}</td>
+                            <td><a mat-button (click)="closeLoan(loan.loanName)"><mat-icon>close</mat-icon></a></td>
                         </tr>
                     </tbody>
                 </table>

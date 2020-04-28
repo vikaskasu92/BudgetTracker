@@ -44,6 +44,7 @@ import { LoansComponent } from './loans/loans.component'
 import { AddNewLoansComponent } from './shared/dialogs/addNewLoans/addNewLoans.component'
 import { InvestmentsComponent } from './investments/investments.component'
 import { GraphDisplayComponent } from './shared/components/graphDisplay/graphDisplay.component';
+import { ConfirmCloseLoanComponent } from './shared/dialogs/confirmCloseLoan/confirmCloseLoan.component'
 import { PlaceholderDirective } from './shared/directives/placeholder.directive';
 import { DecimalFormatPipe } from './shared/pipes/decimalFormat.pipe';
 import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe'
@@ -66,6 +67,7 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe'
     AddNewLoansComponent,
     InvestmentsComponent,
     GraphDisplayComponent,
+    ConfirmCloseLoanComponent,
     PlaceholderDirective,
     DecimalFormatPipe,
     RemoveSpacePipe
@@ -102,7 +104,8 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe'
   bootstrap: [AppComponent],
   entryComponents: [
     AddNewLoansComponent,
-    GraphDisplayComponent
+    GraphDisplayComponent,
+    ConfirmCloseLoanComponent
   ]
 })
 export class AppModule { }
