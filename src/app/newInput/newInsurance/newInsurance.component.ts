@@ -22,6 +22,7 @@ export class NewInsuranceComponent{
     ngOnInit(): void {
         this.insuranceForm = new FormGroup({
             'insuranceType': new FormControl(null,Validators.required),
+            'insuranceAmount': new FormControl(null,Validators.required),
             'insurancePurchasedDate': new FormControl(null,Validators.required)
         });
         this.insurances = this.common.insurances;
@@ -38,6 +39,7 @@ export class NewInsuranceComponent{
 
     saveInsurance(){
         if(this.insuranceForm.valid){
+            this._updateDate(this.insuranceForm.value.insurancePurchasedDate,this.insuranceForm);
             this.dataStore.storeInsuranceDataToDB(this.insuranceForm.value).subscribe(
                 success =>{
                     this.insuranceForm.reset();
@@ -47,5 +49,21 @@ export class NewInsuranceComponent{
                 }
             );
         }
+    }
+
+    private _updateDate(date:any,form:FormGroup){
+        if(typeof date != "string"){
+            let day = this._adjustDigits(date.getDate().toString());
+            let month = this._adjustDigits((date.getMonth()+1).toString());
+            let year = date.getFullYear().toString();
+            form.value.insurancePurchasedDate = year+'-'+month+'-'+day;
+        }
+    }
+
+    private _adjustDigits(number:string){
+        if(number.length == 1){
+            return number = "0"+number;
+        }
+        return number;
     }
 }

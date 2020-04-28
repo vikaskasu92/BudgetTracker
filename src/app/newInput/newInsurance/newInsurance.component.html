@@ -11,6 +11,11 @@
                 </mat-select>
                 <mat-error *ngIf="!insuranceForm.get('insuranceType').valid && insuranceForm.get('insuranceType').touched">Please Select an Insurance Type</mat-error>
             </mat-form-field>
+            <mat-form-field appearance="fill" class="form-field-spacing">
+                <mat-label>Cost</mat-label>
+                <input matInput formControlName="insuranceAmount">
+                <mat-error *ngIf="!insuranceForm.get('insuranceAmount').valid && insuranceForm.get('insuranceAmount').touched">Cost is inValid!</mat-error>
+            </mat-form-field>
             <mat-form-field class="example-full-width" class="date form-field-spacing">
                 <mat-label>Choose a date</mat-label>
                 <input matInput formControlName="insurancePurchasedDate" [max]="maxDate" [matDatepicker]="HealthInsurancePicker">
