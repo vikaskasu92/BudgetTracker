@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
@@ -21,6 +21,7 @@ export class NewIncomeComponent implements OnInit{
     maxDate:Date;
     currentExpansionPanel:string;
     openPanel=false;
+    config = new MatSnackBarConfig();
 
     ngOnInit(): void {
         this.salaryAndTaxForm = new FormGroup({
@@ -35,7 +36,9 @@ export class NewIncomeComponent implements OnInit{
         this.common.currentExpansionPanel.subscribe(currentExpansionPanel => {
             this.currentExpansionPanel = currentExpansionPanel;
             this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"newIncome",this.openPanel);
-        })
+        });
+        this.config.panelClass = ['custom-class'];
+        this.config.duration = 3000;
     }
 
     expansionPanelClicked(){
@@ -48,9 +51,9 @@ export class NewIncomeComponent implements OnInit{
             this.dataStore.storeIncomeDataToDB(this.salaryAndTaxForm.value).subscribe(
                 success =>{
                     this.salaryAndTaxFormToReset.resetForm();
-                    this.common.snackBarOpen("Successfully Saved!");
+                    this.common.snackBarOpen("Successfully Saved!",this.config);
                 }, failure =>{
-                    this.common.snackBarOpen("Error has Occured While Saving!");
+                    this.common.snackBarOpen("Error has Occured While Saving!",this.config);
                 }
             );
         }

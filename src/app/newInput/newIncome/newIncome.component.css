@@ -9,3 +9,11 @@
 .form-field-spacing{
     margin: 10px;
 }
+
+::ng-deep snack-bar-container.custom-class {
+    background: rgb(156, 99, 189);
+}
+  
+::ng-deep .custom-class .mat-simple-snackbar {
+    color: rgb(101, 226, 101);
+}

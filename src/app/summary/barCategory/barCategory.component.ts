@@ -23,17 +23,16 @@ export class BarCategoryComponent implements OnInit{
     priceArray:any;
     dateArray:any;
     noData = false;
-    isDisabled:boolean;
     subCategory = {};
     @ViewChild(PlaceholderDirective ,{static:false})viewComponentRef:PlaceholderDirective;
 
     ngOnInit(): void {
         this.categoriesForm = new FormGroup({
             'mainCategory': new FormControl(null,Validators.required),
-            'subCategory': new FormControl(null,Validators.required)
+            'subCategory': new FormControl({value: null, disabled: true},Validators.required)
          });
          this.categoriesForm.controls.mainCategory.valueChanges.subscribe(value =>{
-            this.isDisabled = false;
+            this.categoriesForm.controls.subCategory.enable();
             this.subCategory = this.common.generateSubCategories(value);
         });
     }

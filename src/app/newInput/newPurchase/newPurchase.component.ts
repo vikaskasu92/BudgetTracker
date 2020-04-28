@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { CommonService } from 'src/app/shared/services/common.service';
-import { CategoriesComponent } from 'src/app/shared/components/categories/categories.component';
+import { MatSnackBarConfig } from '@angular/material';
 
 @Component({
     selector:'app-newPurchase',
@@ -19,10 +19,10 @@ export class NewPurchaseComponent implements OnInit{
     maxDate:Date;
     creditInfo:boolean = false;
     checked:boolean=false;
-    isDisabled:boolean;
     openPanel=true;
     currentExpansionPanel:string;
     subCategory = {};
+    config = new MatSnackBarConfig();
 
     ngOnInit(): void {
         this._createFormGroup();
@@ -32,6 +32,8 @@ export class NewPurchaseComponent implements OnInit{
             this.currentExpansionPanel = currentExpansionPanel;
             this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"purchasesAndInvestments",this.openPanel);
         });
+        this.config.panelClass = ['custom-class'];
+        this.config.duration = 3000;
     }
 
     toggleSelected(){
@@ -44,9 +46,9 @@ export class NewPurchaseComponent implements OnInit{
             this.dataStore.storePurchaseDataToDB(this.purchaseForm.value).subscribe(
                 success =>{
                     this.purchaseFormToReset.resetForm();
-                    this.common.snackBarOpen("Successfully Saved!");
+                    this.common.snackBarOpen("Successfully Saved!",this.config);
                 }, failure =>{
-                    this.common.snackBarOpen("Error has Occured While Saving!");
+                    this.common.snackBarOpen("Error has Occured While Saving!",this.config);
                 }
             );
         }
@@ -62,19 +64,15 @@ export class NewPurchaseComponent implements OnInit{
             'cost': new FormControl(null,[Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$'),Validators.required]),
             'date': new FormControl(null,Validators.required),
             'mainCategory': new FormControl(null,Validators.required),
-            'subCategory': new FormControl(null,Validators.required),
+            'subCategory': new FormControl({value: null, disabled: true},Validators.required),
             'toggle': new FormControl(null),
             'creditCardName': new FormControl(null)
          });
 
          this.purchaseForm.controls.mainCategory.valueChanges.subscribe( value =>{
-            this.isDisabled = false;
+            this.purchaseForm.controls.subCategory.enable();
             this.subCategory = this.common.generateSubCategories(value);
         });
-    }
-
-    onMainCategorySelectedParent(event:any){
-        console.log("came here with event ",event);
     }
 
     private _applyConditionalValidationToCreditCard(){

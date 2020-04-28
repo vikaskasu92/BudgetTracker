@@ -1,7 +1,7 @@
 <h3 class="text-decorator">Expenses by Category</h3>
 <form [formGroup]="categoriesForm">
     <div class="row d-flex justify-content-center">
-        <app-categories [parentForm]="categoriesForm" formInnerControlName1="mainCategory" [subCategory]="subCategory" formInnerControlName2="subCategory" [isDisabled]="isDisabled" (subCategorySelected)="getOverallCategoriesExpenses($event)" (mainCategorySelected)="mainCategorySelected($event)"></app-categories>
+        <app-categories [parentForm]="categoriesForm" formInnerControlName1="mainCategory" [subCategory]="subCategory" formInnerControlName2="subCategory" (subCategorySelected)="getOverallCategoriesExpenses($event)" (mainCategorySelected)="mainCategorySelected($event)"></app-categories>
     </div>
     <div class="row d-flex justify-content-center">
         <div *ngIf="noData" class="no-data">

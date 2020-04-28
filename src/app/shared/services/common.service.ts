@@ -23,10 +23,8 @@ export class CommonService{
         }
    }
 
-   snackBarOpen(message:string){
-    this._snackBar.open(message, "", {
-        duration: 3000
-      });
+   snackBarOpen(message:string,config:any){
+    this._snackBar.open(message, "", config);
    }
 
    generateSubCategories(purchaseMainCategory:any){

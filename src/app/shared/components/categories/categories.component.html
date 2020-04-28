@@ -8,7 +8,7 @@
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field-spacing">
         <mat-label>Sub Category</mat-label>
-        <mat-select formControlName="subCategory" [disabled]="isDisabled" #purchaseSubCategory>
+        <mat-select formControlName="subCategory" #purchaseSubCategory>
                 <mat-option *ngFor="let subCat of subCategory" [value]="subCat | removeSpace">{{ subCat }}</mat-option>
         </mat-select>
         <mat-error *ngIf="!parentForm.get('subCategory').valid && parentForm.get('subCategory').touched">Please select a sub category</mat-error>

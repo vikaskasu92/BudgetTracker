@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
+import { MatSnackBarConfig } from '@angular/material';
 
 @Component({
     selector:"app-newInsurance",
@@ -19,6 +20,7 @@ export class NewInsuranceComponent{
     maxDate:Date;
     currentExpansionPanel:string;
     openPanel = false;
+    config = new MatSnackBarConfig();
 
     ngOnInit(): void {
         this.insuranceForm = new FormGroup({
@@ -32,6 +34,8 @@ export class NewInsuranceComponent{
             this.currentExpansionPanel = currentExpansionPanel;
             this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"newInsurance",this.openPanel);
         });
+        this.config.panelClass = ['custom-class'];
+        this.config.duration = 3000;
     }
 
     expansionPanelClicked(){
@@ -44,9 +48,9 @@ export class NewInsuranceComponent{
             this.dataStore.storeInsuranceDataToDB(this.insuranceForm.value).subscribe(
                 success =>{
                     this.insuranceFormToReset.resetForm();
-                    this.common.snackBarOpen("Successfully Saved!");
+                    this.common.snackBarOpen("Successfully Saved!",this.config);
                 }, failure =>{
-                    this.common.snackBarOpen("Error has Occured While Saving!");
+                    this.common.snackBarOpen("Error has Occured While Saving!",this.config);
                 }
             );
         }

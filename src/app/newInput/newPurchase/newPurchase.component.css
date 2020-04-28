@@ -13,3 +13,11 @@ box-shadow: inset 0 -3em 3em white, 0 0 0 2px rgb(255,255,255), 0.3em 0.3em 1em 
 .expansion-panel-bottom{
     margin-bottom: 10px;
 }
+
+::ng-deep snack-bar-container.custom-class {
+    background: rgb(156, 99, 189);
+}
+  
+::ng-deep .custom-class .mat-simple-snackbar {
+    color: rgb(101, 226, 101);
+}

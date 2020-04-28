@@ -15,14 +15,12 @@ export class CategoriesComponent{
     @Input() parentForm: FormGroup;
     @Input() formInnerControlName1: string;
     @Input() formInnerControlName2: string;
-    @Input() isDisabled:boolean;
     @Input() subCategory:any;
     @Output() subCategorySelected = new EventEmitter<string[]>();
     @Output() mainCategorySelected = new EventEmitter<boolean>();
     category:{};
 
     ngOnInit(){
-        this.isDisabled = true;
         this.subCategory = [];
         this.category = Object.values(this.common.category);
         this._subCategorySubscription();

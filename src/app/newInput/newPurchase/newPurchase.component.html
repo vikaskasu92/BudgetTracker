@@ -15,7 +15,7 @@
                 <mat-error *ngIf="!purchaseForm.get('cost').valid && purchaseForm.get('cost').touched">Cost is inValid!</mat-error>
             </mat-form-field>
             <br>
-            <app-categories [parentForm]="purchaseForm" formInnerControlName1="mainCategory" formInnerControlName2="subCategory" [isDisabled]="isDisabled" [subCategory]="subCategory"></app-categories>
+            <app-categories [parentForm]="purchaseForm" formInnerControlName1="mainCategory" formInnerControlName2="subCategory" [subCategory]="subCategory"></app-categories>
             <br>
             <mat-form-field class="example-full-width" class="date form-field-spacing">
                 <mat-label>Choose a date</mat-label>
