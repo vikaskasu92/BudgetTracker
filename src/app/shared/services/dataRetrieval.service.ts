@@ -75,7 +75,6 @@ export class DataRetrievalService{
     }
 
     getAllYearsForCustomers(){
-        
         return this.http.get<any>(environment.getAllYearsForCustomers,this.httpOptions).pipe(
             map(response =>{
                 this.allYears = [];

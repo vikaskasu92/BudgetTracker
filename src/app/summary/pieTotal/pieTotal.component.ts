@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ChartMakerService } from 'src/app/shared/services/chartMaker.service';
 import * as Chart from 'chart.js';
 import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
@@ -16,17 +16,15 @@ export class PieTotalComponent implements OnInit{
     chart:Chart;
 
     ngOnInit(){
-      this.getOverallIncomeAndExpenses();
+        this.getOverallIncomeAndExpenses();
     }
 
     getOverallIncomeAndExpenses(){
-        setTimeout(()=>{
-            this.dataRetrieval.getOverallIncomeAndExpenses().subscribe( response => {
-                this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this._buildOverallIncomeAndExpensesInput(Object.values(response)),"Income And Expenses");
-            }),failure =>{
-                console.log("Error Occured in data Retrieval!");
-            }
-        },0);
+        this.dataRetrieval.getOverallIncomeAndExpenses().subscribe( response => {
+            this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this._buildOverallIncomeAndExpensesInput(Object.values(response)),"Income And Expenses");
+        }),failure =>{
+            console.log("Error Occured in data Retrieval!");
+        }
     }
 
     private _buildOverallIncomeAndExpensesInput(response:any){

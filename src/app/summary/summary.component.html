@@ -5,7 +5,7 @@
     <br>
     <div class="row bottom-spacing">
         <div class="col-md-6">
-            <app-pieTotal></app-pieTotal>
+            <app-pieTotal *ngIf="nowCallPieData"></app-pieTotal>
         </div>
         <div class="col-md-6">
             <div *ngIf="yearsDataRecieved">
