@@ -78,6 +78,7 @@ export class DataRetrievalService{
         
         return this.http.get<any>(environment.getAllYearsForCustomers,this.httpOptions).pipe(
             map(response =>{
+                this.allYears = [];
                 for(let i=0; i<response.length; i++){
                     this.allYears.push(response[i]["year"].substring(0,4));
                 }

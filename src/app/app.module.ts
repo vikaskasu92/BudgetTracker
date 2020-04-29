@@ -45,9 +45,11 @@ import { AddNewLoansComponent } from './shared/dialogs/addNewLoans/addNewLoans.c
 import { InvestmentsComponent } from './investments/investments.component'
 import { GraphDisplayComponent } from './shared/components/graphDisplay/graphDisplay.component';
 import { ConfirmCloseLoanComponent } from './shared/dialogs/confirmCloseLoan/confirmCloseLoan.component'
+import { RawDataComponent } from './rawData/rawData.component'
+
 import { PlaceholderDirective } from './shared/directives/placeholder.directive';
 import { DecimalFormatPipe } from './shared/pipes/decimalFormat.pipe';
-import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe'
+import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,7 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe'
     InvestmentsComponent,
     GraphDisplayComponent,
     ConfirmCloseLoanComponent,
+    RawDataComponent,
     PlaceholderDirective,
     DecimalFormatPipe,
     RemoveSpacePipe

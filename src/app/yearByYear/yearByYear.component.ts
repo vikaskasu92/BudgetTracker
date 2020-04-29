@@ -21,13 +21,14 @@ export class YearByYearComponent implements OnInit{
     @ViewChild('year',{static:true}) year:any;
     @ViewChild('category',{static:true}) category:any;
     @ViewChild(PlaceholderDirective, {static:false}) containerRef:PlaceholderDirective;
-    years:any;
+    years = [];
     categories:any;
     yearAndCategory = [];
     noData:boolean;
 
 
     ngOnInit(){
+        this.years = [];
         this.dataRetrieval.getAllYearsForCustomers().subscribe(response=>{
             this.years = response;
         });
