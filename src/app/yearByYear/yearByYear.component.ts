@@ -4,6 +4,7 @@ import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 import { ChartMakerService } from '../shared/services/chartMaker.service';
 import { GraphDisplayComponent } from '../shared/components/graphDisplay/graphDisplay.component';
 import { PlaceholderDirective } from '../shared/directives/placeholder.directive';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector:'app-yearByYear',
@@ -18,13 +19,12 @@ export class YearByYearComponent implements OnInit{
         private componentFactoryResolver: ComponentFactoryResolver
     ){}
     
-    @ViewChild('year',{static:true}) year:any;
-    @ViewChild('category',{static:true}) category:any;
     @ViewChild(PlaceholderDirective, {static:false}) containerRef:PlaceholderDirective;
     years = [];
     categories:any;
     yearAndCategory = [];
     noData:boolean;
+    yearByYearForm:FormGroup;
 
 
     ngOnInit(){
@@ -33,20 +33,22 @@ export class YearByYearComponent implements OnInit{
             this.years = response;
         });
         this.categories = Object.values(this.common.category);
-    }
-    
-    yearChanged(){
-        this.yearAndCategory[0] = this.year.value;
-        if(this._decideToCallGraph()){
-            this._dataRetrieval(this.yearAndCategory);
-        }
-    }
-
-    categoryChanged(){
-        this.yearAndCategory[1] = this.category.value;
-        if(this._decideToCallGraph()){
-            this._dataRetrieval(this.yearAndCategory); 
-        }
+        this.yearByYearForm = new FormGroup({
+            'year': new FormControl(null,Validators.required),
+            'category': new FormControl(null,Validators.required)
+        })
+        this.yearByYearForm.controls.year.valueChanges.subscribe( value =>{
+            this.yearAndCategory[0] = value;
+            if(this._decideToCallGraph()){
+                this._dataRetrieval(this.yearAndCategory);
+            }
+        });
+        this.yearByYearForm.controls.category.valueChanges.subscribe( value =>{
+            this.yearAndCategory[1] = value;
+            if(this._decideToCallGraph()){
+                this._dataRetrieval(this.yearAndCategory); 
+            }
+        });
     }
 
     private createGraphComponent(size:number){
@@ -138,7 +140,7 @@ export class YearByYearComponent implements OnInit{
     }
 
     private _decideToCallGraph(){
-        if(this.year.value !=undefined && this.category.value != undefined ){
+        if(this.yearAndCategory[0] !=undefined && this.yearAndCategory[1] != undefined ){
             return true;
         }
         return false;

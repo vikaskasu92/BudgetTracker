@@ -1,15 +1,17 @@
-<form #yearByYearForm="ngForm" (ngSubmit)="onYearByYearFormSubmit()">
+<form [formGroup]="yearByYearForm" (ngSubmit)="onYearByYearFormSubmit()">
     <mat-form-field appearance="fill" class="form-field-spacing">
         <mat-label>Year</mat-label>
-        <mat-select required ngModel name="year" #year (ngModelChange)="yearChanged()">
+        <mat-select formControlName="year">
                 <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
         </mat-select>
+        <mat-error *ngIf="!yearByYearForm.get('year').valid && yearByYearForm.get('year').touched">Please select a valid year!</mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill" class="form-field-spacing">
         <mat-label>Category</mat-label>
-        <mat-select required ngModel name="category" #category (ngModelChange)="categoryChanged()">
+        <mat-select formControlName="category">
                 <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
         </mat-select>
+        <mat-error *ngIf="!yearByYearForm.get('year').valid && yearByYearForm.get('year').touched">Please select a valid category!</mat-error>
     </mat-form-field>
 </form>
 <div *ngIf="noData">
