@@ -1,6 +1,12 @@
 .mat-card-content-design{
     border: solid 1px silver;
-    padding: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.table-bottom-reduce{
+    margin-bottom:-10px;
 }
 
 .mat-card-header-design{
