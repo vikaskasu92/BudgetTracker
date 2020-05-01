@@ -86,4 +86,31 @@ export class DataRetrievalService{
         );
     }
 
+    getRawDataByDate(inputData:any){
+        return this.http.get<any>(environment.getRawDataByDate,{
+            headers: this.httpOptions.headers,
+            params: new HttpParams()
+            .set('fromDate', inputData[1])
+            .set('toDate', inputData[2])
+        });
+    }
+
+    getRawDataByInput(inputData:any){
+        return this.http.get<any>(environment.getRawDataByInput,{
+            headers: this.httpOptions.headers,
+            params: new HttpParams()
+            .set('inputType', inputData[0])
+        });
+    }
+
+    getRawDataByInputAndDate(inputData:any){
+        return this.http.get<any>(environment.getRawDataByInputAndDate,{
+            headers: this.httpOptions.headers,
+            params: new HttpParams()
+            .set('inputType', inputData[0])
+            .set('fromDate', inputData[1])
+            .set('toDate', inputData[2])
+        });
+    }
+
 }

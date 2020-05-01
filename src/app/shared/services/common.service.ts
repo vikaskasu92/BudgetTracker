@@ -99,4 +99,8 @@ export class CommonService{
 
     loanTypes = ['Auto','Home','Personal','Credit-Card','Business'];
 
+    searchTypes = ['By Input', 'By Input And Date', 'By Date'];
+
+    inputTypes = ['Purchases','Income','Insurance','Loans'];
+
 }

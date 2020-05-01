@@ -1,1 +1,39 @@
-<p>raw-data works!</p>
+<form [formGroup]="rawDataForm" (ngSubmit)="searchRawData()" #rawDataFormToReset="ngForm">
+    <div class="row form-field-spacing">
+       <mat-form-field class="form-field-spacing">
+            <mat-label>Search Type</mat-label>
+            <mat-select formControlName="searchType">
+                <mat-option *ngFor="let searchType of searchTypes" [value]="searchType | removeSpace">{{ searchType }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="!rawDataForm.get('searchType').valid && rawDataForm.get('searchType').touched">Please select a valid search type!</mat-error>
+        </mat-form-field>
+        <div *ngIf="byInput">
+            <mat-form-field class="form-field-spacing">
+                <mat-label>Input Type</mat-label>
+                <mat-select formControlName="inputType">
+                    <mat-option *ngFor="let inputType of inputTypes" [value]="inputType | removeSpace">{{ inputType }}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="!rawDataForm.get('inputType').valid && rawDataForm.get('inputType').touched">Please select a valid input type!</mat-error>
+            </mat-form-field>
+        </div>
+        <div *ngIf="byDate">
+            <mat-form-field class="date form-field-spacing">
+                <mat-label>From Date</mat-label>
+                <input matInput [max]="toDateLimit" [matDatepicker]="fromDateLimitPicker" formControlName="fromDateSearch">
+                <mat-datepicker-toggle matSuffix [for]="fromDateLimitPicker"></mat-datepicker-toggle>
+                <mat-datepicker #fromDateLimitPicker></mat-datepicker>
+                <mat-error *ngIf="!rawDataForm.get('fromDateSearch').valid && rawDataForm.get('fromDateSearch').touched">Valid from date is required!</mat-error>
+            </mat-form-field>
+            <mat-form-field class="date form-field-spacing">
+                <mat-label>To Date</mat-label>
+                <input matInput [max]="toDateLimit" [matDatepicker]="toDateLimitPicker" formControlName="toDateSearch">
+                <mat-datepicker-toggle matSuffix [for]="toDateLimitPicker"></mat-datepicker-toggle>
+                <mat-datepicker #toDateLimitPicker></mat-datepicker>
+                <mat-error *ngIf="!rawDataForm.get('toDateSearch').valid && rawDataForm.get('toDateSearch').touched">Valid to date is required!</mat-error>
+            </mat-form-field>
+        </div>
+        <div *ngIf="byInput || byDate" class="search-button-spacing">
+            <button mat-raised-button color="primary">search <mat-icon>search</mat-icon></button>
+        </div>
+    </div>
+</form>

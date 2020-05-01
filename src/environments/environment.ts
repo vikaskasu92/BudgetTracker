@@ -17,7 +17,10 @@ export const environment = {
   yearByYearCategoryExpense:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveYearByYearCategoryExpense?username=vikas",
   openClosedLoans:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveOpenClosedLoans?username=vikas",
   getAllInvestments:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveAllInvestments?username=vikas",
-  getAllYearsForCustomers:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveAllYearsForCustomer?username=vikas"
+  getAllYearsForCustomers:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveAllYearsForCustomer?username=vikas",
+  getRawDataByInput:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveRawDataByInput?username=vikas",
+  getRawDataByDate:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveRawDataByDate?username=vikas",
+  getRawDataByInputAndDate:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveRawDataByInputAndDate?username=vikas"
 };
 
 /*
