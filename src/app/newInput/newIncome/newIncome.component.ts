@@ -25,8 +25,8 @@ export class NewIncomeComponent implements OnInit{
 
     ngOnInit(): void {
         this.salaryAndTaxForm = new FormGroup({
-            'salary': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
-            'salaryRecievedDate': new FormControl(null,Validators.required),
+            'salaryRecieved': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
+            'dateRecieved': new FormControl(null,Validators.required),
             'federalTax': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
             'stateTax': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
             'medicareTax': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
@@ -47,7 +47,7 @@ export class NewIncomeComponent implements OnInit{
 
     saveIncome(){
         if(this.salaryAndTaxForm.valid){
-            this._updateDate(this.salaryAndTaxForm.value.salaryRecievedDate,this.salaryAndTaxForm);
+            this._updateDate(this.salaryAndTaxForm.value.dateRecieved,this.salaryAndTaxForm);
             this.dataStore.storeIncomeDataToDB(this.salaryAndTaxForm.value).subscribe(
                 success =>{
                     this.salaryAndTaxFormToReset.resetForm();
@@ -64,7 +64,7 @@ export class NewIncomeComponent implements OnInit{
             let day = this._adjustDigits(date.getDate().toString());
             let month = this._adjustDigits((date.getMonth()+1).toString());
             let year = date.getFullYear().toString();
-            form.value.salaryRecievedDate = year+'-'+month+'-'+day;
+            form.value.dateRecieved = year+'-'+month+'-'+day;
         }
     }
 

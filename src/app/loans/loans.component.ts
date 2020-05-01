@@ -63,12 +63,34 @@ export class LoansComponent implements OnInit{
         const responseObject ={
             'loanName':loanName
         }
+        let displayMessage = "Are you sure you want to close the loan ?";
         const dialogRef2 = this.dialog2.open(ConfirmCloseLoanComponent, {
-            disableClose: true
+            disableClose: true,
+            data: {message: displayMessage}
         });
         dialogRef2.afterClosed().subscribe( result => {  
             if(result){
                 this.dataStore.closeLoanFromDB(responseObject).subscribe( response => {
+                    this.retrieveOpenClosedLoans(); 
+                },failure =>{
+                    console.log("Error Retrieving Data from DB.");
+                });
+            }
+        });
+    }
+
+    deleteLoan(loanName:string){
+        const responseObject ={
+            'loanName':loanName
+        }
+        let displayMessage = "You are going to remove this loan completely from Budget Tracker, Are you sure?";
+        const dialogRef2 = this.dialog2.open(ConfirmCloseLoanComponent, {
+            disableClose: true,
+            data: {message: displayMessage}
+        });
+        dialogRef2.afterClosed().subscribe( result => {  
+            if(result){
+                this.dataStore.deleteLoanFromDB(responseObject).subscribe( response => {
                     this.retrieveOpenClosedLoans(); 
                 },failure =>{
                     console.log("Error Retrieving Data from DB.");
