@@ -3,7 +3,7 @@ import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 import { MatDialog } from '@angular/material';
 import { AddNewLoansComponent } from '../shared/dialogs/addNewLoans/addNewLoans.component';
 import { DataStoreService } from '../shared/services/dataStore.service';
-import { ConfirmCloseLoanComponent } from '../shared/dialogs/confirmCloseLoan/confirmCloseLoan.component';
+import { ConfirmComponent } from '../shared/dialogs/confirm/confirm.component';
 
 @Component({
     selector:'app-loans',
@@ -64,7 +64,7 @@ export class LoansComponent implements OnInit{
             'loanName':loanName
         }
         let displayMessage = "Are you sure you want to close the loan ?";
-        const dialogRef2 = this.dialog2.open(ConfirmCloseLoanComponent, {
+        const dialogRef2 = this.dialog2.open(ConfirmComponent, {
             disableClose: true,
             data: {message: displayMessage}
         });
@@ -84,7 +84,7 @@ export class LoansComponent implements OnInit{
             'loanName':loanName
         }
         let displayMessage = "You are going to remove this loan completely from Budget Tracker, Are you sure?";
-        const dialogRef2 = this.dialog2.open(ConfirmCloseLoanComponent, {
+        const dialogRef2 = this.dialog2.open(ConfirmComponent, {
             disableClose: true,
             data: {message: displayMessage}
         });

@@ -3,12 +3,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
     selector:'app-confirmClose',
-    templateUrl:'./confirmCloseLoan.component.html',
-    styleUrls:['./confirmCloseLoan.component.css']
+    templateUrl:'./confirm.component.html',
+    styleUrls:['./confirm.component.css']
 })
-export class ConfirmCloseLoanComponent{
+export class ConfirmComponent{
     
-    constructor(public dialogRef: MatDialogRef<ConfirmCloseLoanComponent>,
+    constructor(public dialogRef: MatDialogRef<ConfirmComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any){}
 
     confirmClosing(){

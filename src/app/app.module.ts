@@ -44,7 +44,7 @@ import { LoansComponent } from './loans/loans.component'
 import { AddNewLoansComponent } from './shared/dialogs/addNewLoans/addNewLoans.component'
 import { InvestmentsComponent } from './investments/investments.component'
 import { GraphDisplayComponent } from './shared/components/graphDisplay/graphDisplay.component';
-import { ConfirmCloseLoanComponent } from './shared/dialogs/confirmCloseLoan/confirmCloseLoan.component'
+import { ConfirmComponent } from './shared/dialogs/confirm/confirm.component'
 import { RawDataComponent } from './rawData/rawData.component'
 
 import { PlaceholderDirective } from './shared/directives/placeholder.directive';
@@ -69,7 +69,7 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
     AddNewLoansComponent,
     InvestmentsComponent,
     GraphDisplayComponent,
-    ConfirmCloseLoanComponent,
+    ConfirmComponent,
     RawDataComponent,
     PlaceholderDirective,
     DecimalFormatPipe,
@@ -108,7 +108,7 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
   entryComponents: [
     AddNewLoansComponent,
     GraphDisplayComponent,
-    ConfirmCloseLoanComponent
+    ConfirmComponent
   ]
 })
 export class AppModule { }
