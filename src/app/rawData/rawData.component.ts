@@ -23,6 +23,14 @@ export class RawDataComponent implements OnInit {
   fromDate:string;
   toDate:string;
   inputType:string;
+  purchasesItems:any;
+  incomeItems:any;
+  insuranceItems:any;
+  loanItems:any;
+  purchasesItemsAvailable:boolean = false;
+  incomeItemsAvailable:boolean = false;
+  insuranceItemsAvailable:boolean = false;
+  loanItemsAvailable:boolean = false;
 
   ngOnInit() {
     this.searchTypes = this.common.searchTypes;
@@ -41,7 +49,7 @@ export class RawDataComponent implements OnInit {
           this.inputType = this.rawDataForm.value.inputType;
           this._buildinputData(this.inputType,undefined,undefined,false);
           this.dataRetrieval.getRawDataByInput(this.inputData).subscribe( response => {
-            console.log("success");
+            this._paintTableWithResponse(this.inputType,response.rawData);
           },failure => {
             console.log("error");
           });
@@ -66,12 +74,44 @@ export class RawDataComponent implements OnInit {
           this.inputType = this.rawDataForm.value.inputType;
           this._buildinputData(this.inputType,this.fromDate ,this.toDate,true);
           this.dataRetrieval.getRawDataByInputAndDate(this.inputData).subscribe( response => {
-            console.log("success");
+            this._paintTableWithResponse(this.inputType,response.rawData);
           },failure => {
             console.log("error");
           });
         }
       }
+  }
+
+  private _paintTableWithResponse(inputType:string,response:any){
+    switch(inputType) {
+      case "Purchases":
+        this.purchasesItems = response;
+        this.purchasesItemsAvailable = true;
+        this.incomeItemsAvailable = false;
+        this.insuranceItemsAvailable = false;
+        this.loanItemsAvailable = false;
+        break;
+      case "Income":
+        this.incomeItems = response;
+        this.purchasesItemsAvailable = false;
+        this.incomeItemsAvailable = true;
+        this.insuranceItemsAvailable = false;
+        this.loanItemsAvailable = false;
+        break;
+      case "Insurance":
+        this.insuranceItems = response;
+        this.purchasesItemsAvailable = false;
+        this.incomeItemsAvailable = false;
+        this.insuranceItemsAvailable = true;
+        this.loanItemsAvailable = false;
+        break;
+      default:
+        this.loanItems = response;
+        this.purchasesItemsAvailable = false;
+        this.incomeItemsAvailable = false;
+        this.insuranceItemsAvailable = false;
+        this.loanItemsAvailable = true;
+    }
   }
 
   private _buildinputData(inputType:string,fromDate:string,toDate:string, dateCheck:boolean){

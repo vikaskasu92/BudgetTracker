@@ -37,3 +37,119 @@
         </div>
     </div>
 </form>
+<div *ngIf="purchasesItemsAvailable">
+    <div class="table-responsive-sm table-bottom-reduce">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="col" class="table-header-style">Item</th>
+                <th scope="col" class="table-header-style">Cost</th>
+                <th scope="col" class="table-header-style">Date</th>
+                <th scope="col" class="table-header-style">Main Category</th>
+                <th scope="col" class="table-header-style">Sub Category</th>
+                <th scope="col" class="table-header-style"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let purchasesItem of purchasesItems">
+                    <td >{{ purchasesItem.item }}</td>
+                    <td >{{ purchasesItem.cost | currency:USD }}</td>
+                    <td >{{ purchasesItem.date }}</td>
+                    <td >{{ purchasesItem.mainCategory }}</td>
+                    <td >{{ purchasesItem.subCategory }}</td>
+                    <td >
+                        <a mat-button (click)="editPurchaseItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
+                        <a mat-button (click)="deletePurchaseItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="incomeItemsAvailable">
+    <div class="table-responsive-sm table-bottom-reduce">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="col" class="table-header-style">Salary Recieved</th>
+                <th scope="col" class="table-header-style">Date Recieved</th>
+                <th scope="col" class="table-header-style">Federal Tax</th>
+                <th scope="col" class="table-header-style">State Tax</th>
+                <th scope="col" class="table-header-style">Medicare Tax</th>
+                <th scope="col" class="table-header-style">Social Security Tax</th>
+                <th scope="col" class="table-header-style"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let incomeItem of incomeItems">
+                    <td >{{ incomeItem.salaryRecieved | currency:USD  }}</td>
+                    <td >{{ incomeItem.dateRecieved }}</td>
+                    <td >{{ incomeItem.federalTax | currency:USD }}</td>
+                    <td >{{ incomeItem.stateTax | currency:USD }}</td>
+                    <td >{{ incomeItem.medicareTax | currency:USD }}</td>
+                    <td >{{ incomeItem.socialSecurityTax | currency:USD }}</td>
+                    <td >
+                        <a mat-button (click)="editIncomeItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
+                        <a mat-button (click)="deleteIncomeItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="insuranceItemsAvailable">
+    <div class="table-responsive-sm table-bottom-reduce">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="col" class="table-header-style">Insurance Type</th>
+                <th scope="col" class="table-header-style">Amount</th>
+                <th scope="col" class="table-header-style">Date</th>
+                <th scope="col" class="table-header-style"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let insuranceItem of insuranceItems">
+                    <td >{{ insuranceItem.insuranceType }}</td>
+                    <td >{{ insuranceItem.insurnacePaidAmount | currency:USD }}</td>
+                    <td >{{ insuranceItem.insurancePaidDate }} </td>
+                    <td >
+                        <a mat-button (click)="editInsuranceItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
+                        <a mat-button (click)="deleteInsuranceItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div *ngIf="loanItemsAvailable">
+    <div class="table-responsive-sm table-bottom-reduce">
+        <table class="table table-striped table-sm">
+            <thead>
+            <tr>
+                <th scope="col" class="table-header-style">Loan Name</th>
+                <th scope="col" class="table-header-style">Loan Type</th>
+                <th scope="col" class="table-header-style">Loan Balance</th>
+                <th scope="col" class="table-header-style">Loan Duration</th>
+                <th scope="col" class="table-header-style">Loan APR</th>
+                <th scope="col" class="table-header-style">Loan EMI</th>
+                <th scope="col" class="table-header-style"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let loanItem of loanItems">
+                    <td >{{ loanItem.loanName }}</td>
+                    <td >{{ loanItem.loanType }}</td>
+                    <td >{{ loanItem.loanBalance | currency:USD }} </td>
+                    <td >{{ loanItem.loanDuration }}</td>
+                    <td >{{ loanItem.loanAPR }}</td>
+                    <td >{{ loanItem.loanEMI }}</td>
+                    <td >
+                        <a mat-button (click)="editLoanItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
+                        <a mat-button (click)="deleteLoanItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
