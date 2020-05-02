@@ -9,7 +9,7 @@
     <mat-form-field appearance="fill" class="form-field-spacing">
         <mat-label>Category</mat-label>
         <mat-select formControlName="category">
-                <mat-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</mat-option>
+                <mat-option *ngFor="let cat of categories" [value]="cat | removeSpace">{{ cat }}</mat-option>
         </mat-select>
         <mat-error *ngIf="!yearByYearForm.get('year').valid && yearByYearForm.get('year').touched">Please select a valid category!</mat-error>
     </mat-form-field>
