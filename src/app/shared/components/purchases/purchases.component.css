@@ -1,0 +1,11 @@
+.date > .mat-form-field-wrapper{
+    padding-bottom: 25px !important;
+}
+
+.form-field-spacing{
+    margin: 10px;
+}
+
+.form-save-button{
+    margin-left:10px;
+}

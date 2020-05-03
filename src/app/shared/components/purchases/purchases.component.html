@@ -1,0 +1,24 @@
+<form [formGroup]="parentPurchaseForm" class="expansion-panel-bottom" #purchaseFormToReset="ngForm">
+    <mat-form-field appearance="fill" class="form-field-spacing">
+        <mat-label>Item</mat-label>
+        <input matInput formControlName="item">
+        <mat-error *ngIf="!parentPurchaseForm.get('item').valid && parentPurchaseForm.get('item').touched">Item is inValid!</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field-spacing">
+        <mat-label>Cost</mat-label>
+        <input matInput formControlName="cost">
+        <mat-error *ngIf="!parentPurchaseForm.get('cost').valid && parentPurchaseForm.get('cost').touched">Cost is inValid!</mat-error>
+    </mat-form-field>
+    <br>
+    <app-categories [parentForm]="parentPurchaseForm" formInnerControlName1="mainCategory" formInnerControlName2="subCategory" [subCategory]="subCategory"></app-categories>
+    <br>
+    <mat-form-field class="example-full-width" class="date form-field-spacing">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [max]="maxDate" [matDatepicker]="newPurchasePicker" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="newPurchasePicker"></mat-datepicker-toggle>
+        <mat-datepicker #newPurchasePicker></mat-datepicker>
+        <mat-error *ngIf="!parentPurchaseForm.get('date').valid && parentPurchaseForm.get('date').touched">Valid Date is required!</mat-error>
+    </mat-form-field>
+    <br>
+    <button class="form-save-button" mat-raised-button color="primary" (click)="savePurchases()" >Save  <mat-icon>save</mat-icon></button>
+</form>

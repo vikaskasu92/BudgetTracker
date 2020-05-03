@@ -46,6 +46,8 @@ import { InvestmentsComponent } from './investments/investments.component'
 import { GraphDisplayComponent } from './shared/components/graphDisplay/graphDisplay.component';
 import { ConfirmComponent } from './shared/dialogs/confirm/confirm.component'
 import { RawDataComponent } from './rawData/rawData.component'
+import { EditRawDataComponent } from './shared/dialogs/editRawData/editRawData.component'
+import { PurchasesComponent } from './shared/components/purchases/purchases.component'
 
 import { PlaceholderDirective } from './shared/directives/placeholder.directive';
 import { DecimalFormatPipe } from './shared/pipes/decimalFormat.pipe';
@@ -71,6 +73,8 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
     GraphDisplayComponent,
     ConfirmComponent,
     RawDataComponent,
+    EditRawDataComponent,
+    PurchasesComponent,
     PlaceholderDirective,
     DecimalFormatPipe,
     RemoveSpacePipe
@@ -108,7 +112,8 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
   entryComponents: [
     AddNewLoansComponent,
     GraphDisplayComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    EditRawDataComponent
   ]
 })
 export class AppModule { }

@@ -2,6 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonService } from '../shared/services/common.service';
 import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
+import { MatDialog } from '@angular/material';
+import { EditRawDataComponent } from '../shared/dialogs/editRawData/editRawData.component';
 
 @Component({
   selector: 'app-rawData',
@@ -11,14 +13,14 @@ import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 export class RawDataComponent implements OnInit {
 
   constructor(private common:CommonService,
-            private dataRetrieval:DataRetrievalService){}
+            private dataRetrieval:DataRetrievalService,
+            private matDialog:MatDialog){}
   inputTypes:string[];
   rawDataForm:FormGroup;
   toDateLimit:any;
   inputData=[];
   fromDate:string;
   toDate:string;
-  inputType:string;
   purchasesItems:any;
   incomeItems:any;
   insuranceItems:any;
@@ -57,26 +59,20 @@ export class RawDataComponent implements OnInit {
 
   searchRawData(minPage:number,event:any){
     if(this.rawDataForm.valid){
-      if(minPage === 1){
-        this._resetOriginalPaginationValues();
-      }
-        this._updateFromDate(this.rawDataForm.value.fromDateSearch,this.rawDataForm);
-        this._updateToDate(this.rawDataForm.value.toDateSearch,this.rawDataForm);
-        this.fromDate = this.rawDataForm.value.fromDateSearch;
-        this.toDate = this.rawDataForm.value.toDateSearch;
-        this.inputType = this.rawDataForm.value.inputType;
-        this._buildinputData(this.inputType,this.fromDate ,this.toDate,true);
-        this.dataRetrieval.getRawDataByInputAndDate(this.inputData,minPage).subscribe( response => {
-          if(response.rawData.length === 0){
-            this.dataAvailable = false;
-          }else{
-            this.dataAvailable = true;
-          }
-          this._paintTableWithResponse(this.inputType,response.rawData);
-          this._setTotalResultsValue(this.inputType,response.count[0].count);
-        },failure => {
-          console.log("error");
-        });
+      minPage === 1 ? this._resetOriginalPaginationValues():'';
+      this._updateFromDate(this.rawDataForm.value.fromDateSearch,this.rawDataForm);
+      this._updateToDate(this.rawDataForm.value.toDateSearch,this.rawDataForm);
+      this.fromDate = this.rawDataForm.value.fromDateSearch;
+      this.toDate = this.rawDataForm.value.toDateSearch;
+      let inputType = this.rawDataForm.value.inputType;
+      this._buildinputData(inputType,this.fromDate ,this.toDate,true);
+      this.dataRetrieval.getRawDataByInputAndDate(this.inputData,minPage).subscribe( response => {
+        response.rawData.length === 0 ? this.dataAvailable = false : this.dataAvailable = true;
+        this._paintTableWithResponse(inputType,response.rawData);
+        this._setTotalResultsValue(inputType,response.count[0].count);
+      },failure => {
+        console.log("error");
+      });
     }
   }
 
@@ -93,33 +89,21 @@ export class RawDataComponent implements OnInit {
     }else if(type === "income"){
         this.minPageIncome = minPage - 10;
         this.maxPageIncome = this.minPageIncome + 10;
-        if(this.minPageIncome === 1 || this.maxPageIncome < this.totalResultsIncome){
-          this.incomeRightDisabled = false;
-          this.incomeLeftDisabled = true;
-        }else{
-          this.incomeRightDisabled = true;
-        }
+        this.minPageIncome === 1 || this.maxPageIncome < this.totalResultsIncome ?
+          this.incomeRightDisabled = false : this.incomeRightDisabled = true;
         this.searchRawData(this.minPageIncome,undefined);
     }else if(type === "insurance"){
         this.minPageInsurance = minPage - 10;
         this.maxPageInsurance = this.minPageInsurance + 10;
-        if(this.minPageInsurance === 1){
-          this.insuranceRightDisabled = false;
-        }else{
-          this.insuranceRightDisabled = true;
-        }
+        this.minPageInsurance === 1 || this.maxPageInsurance < this.totalResultsInsurance ?
+          this.insuranceRightDisabled = false : this.insuranceRightDisabled = true;
         this.searchRawData(this.minPageInsurance,undefined);
-        this.insuranceRightDisabled = false;
     }else{
         this.minPageLoans = minPage - 10;
-        this.maxPageInsurance = this.minPageLoans + 10;
-        if(this.minPageLoans=== 1){
-          this.loansRightDisabled = false;
-        }else{
-          this.loansRightDisabled = true;
-        }
+        this.maxPageLoans = this.minPageLoans + 10;
+        this.minPageLoans=== 1 || this.maxPageLoans < this.totalResultsLoans ?
+          this.loansRightDisabled = false : this.loansRightDisabled = true;
         this.searchRawData(this.minPageLoans,undefined);
-        this.loansRightDisabled = false;
     } 
   }
 
@@ -165,6 +149,16 @@ export class RawDataComponent implements OnInit {
           this.searchRawData(this.minPageLoans,undefined);
           this.loansLeftDisabled = false;
       }
+  }
+
+  editPurchaseItem(item:string,cost:number,date:string,mainCategory:string,subCategory:string){
+    const dialogRef = this.matDialog.open(EditRawDataComponent,{
+      disableClose:true,
+      data: {item: item, cost: cost, date: date, mainCategory: mainCategory, subCategory: subCategory}
+    });
+    dialogRef.afterClosed().subscribe(()=>{
+      console.log("closed");
+    });
   }
 
   private _resetOriginalPaginationValues(){

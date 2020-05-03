@@ -14,11 +14,8 @@ export class NewPurchaseComponent implements OnInit{
     constructor(private dataStore:DataStoreService,
         private common:CommonService){}
 
-    @ViewChild('purchaseFormToReset',{static:false}) purchaseFormToReset:NgForm;
+    purchaseFormToReset:NgForm;
     purchaseForm:FormGroup;
-    maxDate:Date;
-    creditInfo:boolean = false;
-    checked:boolean=false;
     openPanel=true;
     currentExpansionPanel:string;
     subCategory = {};
@@ -26,8 +23,6 @@ export class NewPurchaseComponent implements OnInit{
 
     ngOnInit(): void {
         this._createFormGroup();
-        this._applyConditionalValidationToCreditCard();
-        this.maxDate = new Date();
         this.common.currentExpansionPanel.subscribe(currentExpansionPanel =>{
             this.currentExpansionPanel = currentExpansionPanel;
             this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"purchasesAndInvestments",this.openPanel);
@@ -36,11 +31,8 @@ export class NewPurchaseComponent implements OnInit{
         this.config.duration = 3000;
     }
 
-    toggleSelected(){
-        this.creditInfo = ! this.creditInfo
-    }
-
-    savePurchases(){
+    savePurchases(formData:any){
+        this.purchaseForm = formData;
         if(this.purchaseForm.valid){
             this._updateDate(this.purchaseForm.value.date,this.purchaseForm);
             this.dataStore.storePurchaseDataToDB(this.purchaseForm.value).subscribe(
@@ -54,6 +46,10 @@ export class NewPurchaseComponent implements OnInit{
         }
     }
 
+    updateFormToReset(formToReset:any){
+        this.purchaseFormToReset = formToReset;
+    }
+
     expansionPanelClicked(){
         this.common.onExpansionPanelClick("purchasesAndInvestments");
     }
@@ -65,26 +61,12 @@ export class NewPurchaseComponent implements OnInit{
             'date': new FormControl(null,Validators.required),
             'mainCategory': new FormControl(null,Validators.required),
             'subCategory': new FormControl({value: null, disabled: true},Validators.required),
-            'toggle': new FormControl(null),
-            'creditCardName': new FormControl(null)
          });
 
          this.purchaseForm.controls.mainCategory.valueChanges.subscribe( value =>{
             this.purchaseForm.controls.subCategory.enable();
             this.subCategory = this.common.generateSubCategories(value);
         });
-    }
-
-    private _applyConditionalValidationToCreditCard(){
-        this.purchaseForm.get('toggle').valueChanges.subscribe(value => {
-            if(value) {
-              this.purchaseForm.get('creditCardName').setValidators([Validators.required]);
-              this.purchaseForm.get('creditCardName').updateValueAndValidity();
-            } else {
-              this.purchaseForm.get('creditCardName').clearValidators();
-              this.purchaseForm.get('creditCardName').updateValueAndValidity();
-            }
-      });
     }
 
     private _updateDate(date:any,form:FormGroup){

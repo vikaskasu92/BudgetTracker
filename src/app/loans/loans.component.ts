@@ -13,8 +13,7 @@ import { ConfirmComponent } from '../shared/dialogs/confirm/confirm.component';
 export class LoansComponent implements OnInit{
 
     constructor(private dataRetrieval:DataRetrievalService,
-                private dialog1: MatDialog,
-                private dialog2: MatDialog,
+                private dialog: MatDialog,
                 private dataStore:DataStoreService){}
 
     openLoans:any;
@@ -44,11 +43,11 @@ export class LoansComponent implements OnInit{
     }
 
     addNewLoans(){
-        const dialogRef1 = this.dialog1.open(AddNewLoansComponent, {
+        const dialogRef = this.dialog.open(AddNewLoansComponent, {
             disableClose: true
         });
       
-        dialogRef1.afterClosed().subscribe(result => {  
+        dialogRef.afterClosed().subscribe(result => {  
             if(result != undefined){
                 this.dataStore.storeNewLoansDataToDB(result).subscribe( response => {
                     this.retrieveOpenClosedLoans(); 
@@ -64,11 +63,11 @@ export class LoansComponent implements OnInit{
             'loanName':loanName
         }
         let displayMessage = "Are you sure you want to close the loan ?";
-        const dialogRef2 = this.dialog2.open(ConfirmComponent, {
+        const dialogRef = this.dialog.open(ConfirmComponent, {
             disableClose: true,
             data: {message: displayMessage}
         });
-        dialogRef2.afterClosed().subscribe( result => {  
+        dialogRef.afterClosed().subscribe( result => {  
             if(result){
                 this.dataStore.closeLoanFromDB(responseObject).subscribe( response => {
                     this.retrieveOpenClosedLoans(); 
@@ -84,7 +83,7 @@ export class LoansComponent implements OnInit{
             'loanName':loanName
         }
         let displayMessage = "You are going to remove this loan completely from Budget Tracker, Are you sure?";
-        const dialogRef2 = this.dialog2.open(ConfirmComponent, {
+        const dialogRef2 = this.dialog.open(ConfirmComponent, {
             disableClose: true,
             data: {message: displayMessage}
         });
