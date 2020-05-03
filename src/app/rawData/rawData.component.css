@@ -33,7 +33,7 @@
 .mat-card-header-design{
     border: 1px solid silver;
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-    padding: 10px;
+    padding: 3px;
     background-color: #C9F4CA;
 }
 
@@ -60,4 +60,8 @@
 
 .pagination-color{
     color:#757575;
+}
+
+.no-data{
+    margin-left: 18px;
 }
