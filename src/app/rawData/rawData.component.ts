@@ -12,11 +12,8 @@ export class RawDataComponent implements OnInit {
 
   constructor(private common:CommonService,
             private dataRetrieval:DataRetrievalService){}
-  searchTypes:string[];
   inputTypes:string[];
   rawDataForm:FormGroup;
-  byDate:boolean = false;
-  byInput:boolean = false;
   toDateLimit:any;
   inputData=[];
   fromDate:string;
@@ -52,33 +49,16 @@ export class RawDataComponent implements OnInit {
   loansRightDisabled = false;
 
   ngOnInit() {
-    this.searchTypes = this.common.searchTypes;
     this.inputTypes = this.common.inputTypes;
     this._createForm();
     this.toDateLimit = new Date();
-    this.rawDataForm.controls.searchType.valueChanges.subscribe( value => {
-      this._setOrRemoveValidations(value);
-    });
   }
 
-  searchRawData(minPage:number,caseValue:string){
+  searchRawData(minPage:number){
     if(this.rawDataForm.valid){
       if(minPage === 1){
         this._resetOriginalPaginationValues();
       }
-      if(caseValue === undefined){
-        caseValue = this.rawDataForm.value.searchType;
-      }
-      if(caseValue === "ByInput"){
-        this.inputType = this.rawDataForm.value.inputType;
-        this._buildinputData(this.inputType,undefined,undefined,false);
-        this.dataRetrieval.getRawDataByInput(this.inputData,minPage).subscribe( response => {
-          this._paintTableWithResponse(this.inputType,response.rawData);
-          this._setTotalResultsValue(this.inputType,response.count[0].count);
-        },failure => {
-          console.log("error");
-        });
-      }else{
         this._updateFromDate(this.rawDataForm.value.fromDateSearch,this.rawDataForm);
         this._updateToDate(this.rawDataForm.value.toDateSearch,this.rawDataForm);
         this.fromDate = this.rawDataForm.value.fromDateSearch;
@@ -91,7 +71,6 @@ export class RawDataComponent implements OnInit {
         },failure => {
           console.log("error");
         });
-      }
     }
   }
 
@@ -104,7 +83,7 @@ export class RawDataComponent implements OnInit {
         }else{
           this.purchaseRightDisabled = true;
         }
-        this.searchRawData(this.minPagePurchases,this.rawDataForm.value.searchType);
+        this.searchRawData(this.minPagePurchases);
     }else if(type === "income"){
         this.minPageIncome = minPage - 10;
         this.maxPageIncome = this.minPageIncome + 10;
@@ -114,7 +93,7 @@ export class RawDataComponent implements OnInit {
         }else{
           this.incomeRightDisabled = true;
         }
-        this.searchRawData(this.minPageIncome,this.rawDataForm.value.searchType);
+        this.searchRawData(this.minPageIncome);
     }else if(type === "insurance"){
         this.minPageInsurance = minPage - 10;
         this.maxPageInsurance = this.minPageInsurance + 10;
@@ -123,7 +102,7 @@ export class RawDataComponent implements OnInit {
         }else{
           this.insuranceRightDisabled = true;
         }
-        this.searchRawData(this.minPageInsurance,this.rawDataForm.value.searchType);
+        this.searchRawData(this.minPageInsurance);
         this.insuranceRightDisabled = false;
     }else{
         this.minPageLoans = minPage - 10;
@@ -133,7 +112,7 @@ export class RawDataComponent implements OnInit {
         }else{
           this.loansRightDisabled = true;
         }
-        this.searchRawData(this.minPageLoans,this.rawDataForm.value.searchType);
+        this.searchRawData(this.minPageLoans);
         this.loansRightDisabled = false;
     } 
   }
@@ -147,7 +126,7 @@ export class RawDataComponent implements OnInit {
             this.maxPagePurchases = this.totalResultsPurchases;
             this.purchaseRightDisabled = true;
           }
-          this.searchRawData(this.minPagePurchases,this.rawDataForm.value.searchType);
+          this.searchRawData(this.minPagePurchases);
           this.purchaseLeftDisabled = false;
       }else if(type === "income"){
           this.minPageIncome = minPage + 10;
@@ -157,7 +136,7 @@ export class RawDataComponent implements OnInit {
             this.maxPageIncome = this.totalResultsIncome;
             this.incomeRightDisabled = true;
           }
-          this.searchRawData(this.minPageIncome,this.rawDataForm.value.searchType);
+          this.searchRawData(this.minPageIncome);
           this.incomeLeftDisabled = false;
       }else if(type === "insurance"){
           this.minPageInsurance = minPage + 10;
@@ -167,7 +146,7 @@ export class RawDataComponent implements OnInit {
             this.maxPageInsurance = this.totalResultsInsurance;
             this.insuranceRightDisabled = true;
           }
-          this.searchRawData(this.minPageInsurance,this.rawDataForm.value.searchType);
+          this.searchRawData(this.minPageInsurance);
           this.insuranceLeftDisabled = false;
       }else if(type === "loans"){
           this.minPageLoans = minPage + 10;
@@ -177,7 +156,7 @@ export class RawDataComponent implements OnInit {
             this.maxPageLoans = this.totalResultsLoans;
             this.loansRightDisabled = true;
           }
-          this.searchRawData(this.minPageLoans,this.rawDataForm.value.searchType);
+          this.searchRawData(this.minPageLoans);
           this.loansLeftDisabled = false;
       }
   }
@@ -281,40 +260,10 @@ export class RawDataComponent implements OnInit {
 
   private _createForm(){
     this.rawDataForm = new FormGroup({
-      'searchType' : new FormControl(null,Validators.required),
-      'inputType' : new FormControl(null),
-      'fromDateSearch' : new FormControl(null),
-      'toDateSearch' : new FormControl(null)
+      'inputType' : new FormControl(null,Validators.required),
+      'fromDateSearch' : new FormControl(null,Validators.required),
+      'toDateSearch' : new FormControl(null,Validators.required)
     });
-  }
-
-  private _setOrRemoveValidations(value:string){
-    switch(value) {
-      case "ByInput":
-        this._setValidations(this.rawDataForm,'inputType');
-        this._clearValidations(this.rawDataForm,'fromDateSearch');
-        this._clearValidations(this.rawDataForm,'toDateSearch');
-        this.byInput = true;
-        this.byDate = false;
-        break;
-      default:
-        this._setValidations(this.rawDataForm,'inputType');
-        this._setValidations(this.rawDataForm,'fromDateSearch');
-        this._setValidations(this.rawDataForm,'toDateSearch');
-        this.byInput = true;
-        this.byDate = true;
-    }
-  }
-  
-  private _setValidations(form:FormGroup,formFieldName:string){
-    form.get(formFieldName).setValidators([Validators.required]);
-    form.get(formFieldName).updateValueAndValidity();
-  }
-  
-  private _clearValidations(form:FormGroup,formFieldName:string){
-    form.get(formFieldName).clearValidators();
-    form.get(formFieldName).updateValueAndValidity();
-    form.get(formFieldName).setValue(null);
   }
   
   private _updateFromDate(date:any,form:FormGroup){

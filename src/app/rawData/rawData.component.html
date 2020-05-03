@@ -1,13 +1,6 @@
 <form [formGroup]="rawDataForm" (ngSubmit)="searchRawData(1,undefined)" #rawDataFormToReset="ngForm">
     <div class="row form-field-spacing">
-       <mat-form-field class="form-field-spacing">
-            <mat-label>Search Type</mat-label>
-            <mat-select formControlName="searchType">
-                <mat-option *ngFor="let searchType of searchTypes" [value]="searchType | removeSpace">{{ searchType }}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="!rawDataForm.get('searchType').valid && rawDataForm.get('searchType').touched">Please select a valid search type!</mat-error>
-        </mat-form-field>
-        <div *ngIf="byInput">
+        <div>
             <mat-form-field class="form-field-spacing">
                 <mat-label>Input Type</mat-label>
                 <mat-select formControlName="inputType">
@@ -16,7 +9,7 @@
                 <mat-error *ngIf="!rawDataForm.get('inputType').valid && rawDataForm.get('inputType').touched">Please select a valid input type!</mat-error>
             </mat-form-field>
         </div>
-        <div *ngIf="byDate">
+        <div>
             <mat-form-field class="date form-field-spacing">
                 <mat-label>From Date</mat-label>
                 <input matInput [max]="toDateLimit" [matDatepicker]="fromDateLimitPicker" formControlName="fromDateSearch">
@@ -32,7 +25,7 @@
                 <mat-error *ngIf="!rawDataForm.get('toDateSearch').valid && rawDataForm.get('toDateSearch').touched">Valid to date is required!</mat-error>
             </mat-form-field>
         </div>
-        <div *ngIf="byInput || byDate" class="search-button-spacing">
+        <div class="search-button-spacing">
             <button mat-raised-button color="primary">search <mat-icon>search</mat-icon></button>
         </div>
     </div>
@@ -44,7 +37,7 @@
         </mat-card-header>
         <mat-card-content class="mat-card-content-design">
             <div class="table-responsive-sm table-bottom-reduce">
-                <table class="table table-striped table-sm">
+                <table class="table table-striped">
                     <thead>
                     <tr>
                         <th scope="col" class="table-header-style">Item</th>
