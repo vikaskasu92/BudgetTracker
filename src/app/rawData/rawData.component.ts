@@ -177,7 +177,7 @@ export class RawDataComponent implements OnInit {
     this.minPageLoans = 1;
     this.maxPageLoans = 10;
     this.purchaseLeftDisabled = true;
-    this.purchaseLeftDisabled = true;
+    this.incomeLeftDisabled = true;
     this.insuranceLeftDisabled = true;
     this.loansLeftDisabled = true;
   }
