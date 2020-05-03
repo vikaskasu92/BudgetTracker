@@ -1,4 +1,4 @@
-<form [formGroup]="rawDataForm" (ngSubmit)="searchRawData(1,undefined)" #rawDataFormToReset="ngForm">
+<form [formGroup]="rawDataForm" (ngSubmit)="searchRawData(1,$event)" #rawDataFormToReset="ngForm">
     <div class="row form-field-spacing">
         <div>
             <mat-form-field class="form-field-spacing">
@@ -26,171 +26,176 @@
             </mat-form-field>
         </div>
         <div class="search-button-spacing">
-            <button mat-raised-button color="primary">search <mat-icon>search</mat-icon></button>
+            <button mat-raised-button color="primary" type="submit">search <mat-icon>search</mat-icon></button>
         </div>
     </div>
 </form>
-<div *ngIf="purchasesItemsAvailable">
-    <mat-card>
-        <mat-card-header class="mat-card-header-design">
-          <mat-card-title class="mat-header-title-design">Purchases</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="mat-card-content-design">
-            <div class="table-responsive-sm table-bottom-reduce">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col" class="table-header-style">Item</th>
-                        <th scope="col" class="table-header-style">Cost</th>
-                        <th scope="col" class="table-header-style">Date</th>
-                        <th scope="col" class="table-header-style">Main Category</th>
-                        <th scope="col" class="table-header-style">Sub Category</th>
-                        <th scope="col" class="table-header-style"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let purchasesItem of purchasesItems">
-                            <td >{{ purchasesItem.item }}</td>
-                            <td >{{ purchasesItem.cost | currency:USD }}</td>
-                            <td >{{ purchasesItem.date }}</td>
-                            <td >{{ purchasesItem.mainCategory }}</td>
-                            <td >{{ purchasesItem.subCategory }}</td>
-                            <td >
-                                <a mat-button (click)="editPurchaseItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
-                                <a mat-button (click)="deletePurchaseItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
-                            </td>
+<div *ngIf="dataAvailable;else noData">
+    <div *ngIf="purchasesItemsAvailable">
+        <mat-card>
+            <mat-card-header class="mat-card-header-design">
+            <mat-card-title class="mat-header-title-design">Purchases</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="mat-card-content-design">
+                <div class="table-responsive-sm table-bottom-reduce">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="table-header-style">Item</th>
+                            <th scope="col" class="table-header-style">Cost</th>
+                            <th scope="col" class="table-header-style">Date</th>
+                            <th scope="col" class="table-header-style">Main Category</th>
+                            <th scope="col" class="table-header-style">Sub Category</th>
+                            <th scope="col" class="table-header-style">Actions</th>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <div class="push-left"></div>
-                <div class="align-pageNumbers pagination-color">{{ minPagePurchases }} - {{ maxPagePurchases }} of {{ totalResultsPurchases }}</div>
-                <button mat-button [disabled]="purchaseLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPagePurchases,'purchases')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="purchaseRightDisabled" (click)="goRight(minPagePurchases,maxPagePurchases,'purchases')"><mat-icon>chevron_right</mat-icon></button>
-            </div>
-        </mat-card-content>
-    </mat-card>
-</div>
-<div *ngIf="incomeItemsAvailable">
-    <mat-card>
-        <mat-card-header class="mat-card-header-design">
-          <mat-card-title class="mat-header-title-design">Income</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="mat-card-content-design">
-            <div class="table-responsive-sm table-bottom-reduce">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col" class="table-header-style">Salary Recieved</th>
-                        <th scope="col" class="table-header-style">Date Recieved</th>
-                        <th scope="col" class="table-header-style">Federal Tax</th>
-                        <th scope="col" class="table-header-style">State Tax</th>
-                        <th scope="col" class="table-header-style">Medicare Tax</th>
-                        <th scope="col" class="table-header-style">Social Security Tax</th>
-                        <th scope="col" class="table-header-style"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let incomeItem of incomeItems">
-                            <td >{{ incomeItem.salaryRecieved | currency:USD  }}</td>
-                            <td >{{ incomeItem.dateRecieved }}</td>
-                            <td >{{ incomeItem.federalTax | currency:USD }}</td>
-                            <td >{{ incomeItem.stateTax | currency:USD }}</td>
-                            <td >{{ incomeItem.medicareTax | currency:USD }}</td>
-                            <td >{{ incomeItem.socialSecurityTax | currency:USD }}</td>
-                            <td >
-                                <a mat-button (click)="editIncomeItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
-                                <a mat-button (click)="deleteIncomeItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
-                            </td>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let purchasesItem of purchasesItems">
+                                <td >{{ purchasesItem.item }}</td>
+                                <td >{{ purchasesItem.cost | currency:USD }}</td>
+                                <td >{{ purchasesItem.date }}</td>
+                                <td >{{ purchasesItem.mainCategory }}</td>
+                                <td >{{ purchasesItem.subCategory }}</td>
+                                <td >
+                                    <a mat-button (click)="editPurchaseItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
+                                    <a mat-button (click)="deletePurchaseItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="push-left"></div>
+                    <div class="align-pageNumbers pagination-color">{{ minPagePurchases }} - {{ maxPagePurchases }} of {{ totalResultsPurchases }}</div>
+                    <button mat-button [disabled]="purchaseLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPagePurchases,'purchases')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="purchaseRightDisabled" (click)="goRight(minPagePurchases,maxPagePurchases,'purchases')"><mat-icon>chevron_right</mat-icon></button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div *ngIf="incomeItemsAvailable">
+        <mat-card>
+            <mat-card-header class="mat-card-header-design">
+            <mat-card-title class="mat-header-title-design">Income</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="mat-card-content-design">
+                <div class="table-responsive-sm table-bottom-reduce">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="table-header-style">Salary Recieved</th>
+                            <th scope="col" class="table-header-style">Date Recieved</th>
+                            <th scope="col" class="table-header-style">Federal Tax</th>
+                            <th scope="col" class="table-header-style">State Tax</th>
+                            <th scope="col" class="table-header-style">Medicare Tax</th>
+                            <th scope="col" class="table-header-style">Social Security Tax</th>
+                            <th scope="col" class="table-header-style">Actions</th>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <div class="push-left"></div>
-                <div class="align-pageNumbers pagination-color">{{ minPageIncome }} - {{ maxPageIncome }} of {{ totalResultsIncome }}</div>
-                <button mat-button [disabled]="incomeLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageIncome,'income')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="incomeRightDisabled" (click)="goRight(minPageIncome,maxPageIncome,'income')"><mat-icon>chevron_right</mat-icon></button>
-            </div>
-        </mat-card-content>
-    </mat-card>
-</div>
-<div *ngIf="insuranceItemsAvailable">
-    <mat-card>
-        <mat-card-header class="mat-card-header-design">
-          <mat-card-title class="mat-header-title-design">Insurances</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="mat-card-content-design">
-            <div class="table-responsive-sm table-bottom-reduce">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col" class="table-header-style">Insurance Type</th>
-                        <th scope="col" class="table-header-style">Amount</th>
-                        <th scope="col" class="table-header-style">Date</th>
-                        <th scope="col" class="table-header-style"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let insuranceItem of insuranceItems">
-                            <td >{{ insuranceItem.insuranceType }}</td>
-                            <td >{{ insuranceItem.insurnacePaidAmount | currency:USD }}</td>
-                            <td >{{ insuranceItem.insurancePaidDate }} </td>
-                            <td >
-                                <a mat-button (click)="editInsuranceItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
-                                <a mat-button (click)="deleteInsuranceItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
-                            </td>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let incomeItem of incomeItems">
+                                <td >{{ incomeItem.salaryRecieved | currency:USD  }}</td>
+                                <td >{{ incomeItem.dateRecieved }}</td>
+                                <td >{{ incomeItem.federalTax | currency:USD }}</td>
+                                <td >{{ incomeItem.stateTax | currency:USD }}</td>
+                                <td >{{ incomeItem.medicareTax | currency:USD }}</td>
+                                <td >{{ incomeItem.socialSecurityTax | currency:USD }}</td>
+                                <td >
+                                    <a mat-button (click)="editIncomeItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
+                                    <a mat-button (click)="deleteIncomeItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="push-left"></div>
+                    <div class="align-pageNumbers pagination-color">{{ minPageIncome }} - {{ maxPageIncome }} of {{ totalResultsIncome }}</div>
+                    <button mat-button [disabled]="incomeLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageIncome,'income')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="incomeRightDisabled" (click)="goRight(minPageIncome,maxPageIncome,'income')"><mat-icon>chevron_right</mat-icon></button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div *ngIf="insuranceItemsAvailable">
+        <mat-card>
+            <mat-card-header class="mat-card-header-design">
+            <mat-card-title class="mat-header-title-design">Insurances</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="mat-card-content-design">
+                <div class="table-responsive-sm table-bottom-reduce">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="table-header-style">Insurance Type</th>
+                            <th scope="col" class="table-header-style">Amount</th>
+                            <th scope="col" class="table-header-style">Date</th>
+                            <th scope="col" class="table-header-style">Actions</th>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <div class="push-left"></div>
-                <div class="align-pageNumbers pagination-color">{{ minPageInsurance }} - {{ maxPageInsurance }} of {{ totalResultsInsurance }}</div>
-                <button mat-button [disabled]="insuranceLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageInsurance,'insurance')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="insuranceRightDisabled" (click)="goRight(minPageInsurance,maxPageInsurance,'insurance')"><mat-icon>chevron_right</mat-icon></button>
-            </div>
-        </mat-card-content>
-    </mat-card>
-</div>
-<div *ngIf="loanItemsAvailable">
-    <mat-card>
-        <mat-card-header class="mat-card-header-design">
-          <mat-card-title class="mat-header-title-design">Loans</mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="mat-card-content-design">
-            <div class="table-responsive-sm table-bottom-reduce">
-                <table class="table table-striped table-sm">
-                    <thead>
-                    <tr>
-                        <th scope="col" class="table-header-style">Loan Name</th>
-                        <th scope="col" class="table-header-style">Loan Type</th>
-                        <th scope="col" class="table-header-style">Loan Balance</th>
-                        <th scope="col" class="table-header-style">Loan Duration</th>
-                        <th scope="col" class="table-header-style">Loan APR</th>
-                        <th scope="col" class="table-header-style">Loan EMI</th>
-                        <th scope="col" class="table-header-style"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let loanItem of loanItems">
-                            <td >{{ loanItem.loanName }}</td>
-                            <td >{{ loanItem.loanType }}</td>
-                            <td >{{ loanItem.loanBalance | currency:USD }} </td>
-                            <td >{{ loanItem.loanDuration }}</td>
-                            <td >{{ loanItem.loanAPR }}</td>
-                            <td >{{ loanItem.loanEMI }}</td>
-                            <td >
-                                <a mat-button (click)="editLoanItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
-                                <a mat-button (click)="deleteLoanItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
-                            </td>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let insuranceItem of insuranceItems">
+                                <td >{{ insuranceItem.insuranceType }}</td>
+                                <td >{{ insuranceItem.insurnacePaidAmount | currency:USD }}</td>
+                                <td >{{ insuranceItem.insurancePaidDate }} </td>
+                                <td >
+                                    <a mat-button (click)="editInsuranceItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
+                                    <a mat-button (click)="deleteInsuranceItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="push-left"></div>
+                    <div class="align-pageNumbers pagination-color">{{ minPageInsurance }} - {{ maxPageInsurance }} of {{ totalResultsInsurance }}</div>
+                    <button mat-button [disabled]="insuranceLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageInsurance,'insurance')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="insuranceRightDisabled" (click)="goRight(minPageInsurance,maxPageInsurance,'insurance')"><mat-icon>chevron_right</mat-icon></button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div *ngIf="loanItemsAvailable">
+        <mat-card>
+            <mat-card-header class="mat-card-header-design">
+            <mat-card-title class="mat-header-title-design">Loans</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="mat-card-content-design">
+                <div class="table-responsive-sm table-bottom-reduce">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="table-header-style">Loan Name</th>
+                            <th scope="col" class="table-header-style">Loan Type</th>
+                            <th scope="col" class="table-header-style">Loan Balance</th>
+                            <th scope="col" class="table-header-style">Loan Duration</th>
+                            <th scope="col" class="table-header-style">Loan APR</th>
+                            <th scope="col" class="table-header-style">Loan EMI</th>
+                            <th scope="col" class="table-header-style">Actions</th>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <div class="push-left"></div>
-                <div class="align-pageNumbers pagination-color">{{ minPageLoans }} - {{ maxPageLoans }} of {{ totalResultsLoans }}</div>
-                <button mat-button [disabled]="loansLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageLoans,'loans')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="loansRightDisabled" (click)="goRight(minPageLoans,maxPageLoans,'loans')"><mat-icon>chevron_right</mat-icon></button>
-            </div>
-        </mat-card-content>
-    </mat-card>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let loanItem of loanItems">
+                                <td >{{ loanItem.loanName }}</td>
+                                <td >{{ loanItem.loanType }}</td>
+                                <td >{{ loanItem.loanBalance | currency:USD }} </td>
+                                <td >{{ loanItem.loanDuration }}</td>
+                                <td >{{ loanItem.loanAPR }}</td>
+                                <td >{{ loanItem.loanEMI }}</td>
+                                <td >
+                                    <a mat-button (click)="editLoanItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
+                                    <a mat-button (click)="deleteLoanItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="push-left"></div>
+                    <div class="align-pageNumbers pagination-color">{{ minPageLoans }} - {{ maxPageLoans }} of {{ totalResultsLoans }}</div>
+                    <button mat-button [disabled]="loansLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageLoans,'loans')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="loansRightDisabled" (click)="goRight(minPageLoans,maxPageLoans,'loans')"><mat-icon>chevron_right</mat-icon></button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
 </div>
+<ng-template #noData>
+    <div><span>You have no data for chosen categories</span></div>
+</ng-template>

@@ -47,6 +47,7 @@ export class RawDataComponent implements OnInit {
   insuranceRightDisabled = false;
   loansLeftDisabled = true;
   loansRightDisabled = false;
+  dataAvailable = true;
 
   ngOnInit() {
     this.inputTypes = this.common.inputTypes;
@@ -54,7 +55,7 @@ export class RawDataComponent implements OnInit {
     this.toDateLimit = new Date();
   }
 
-  searchRawData(minPage:number){
+  searchRawData(minPage:number,event:any){
     if(this.rawDataForm.valid){
       if(minPage === 1){
         this._resetOriginalPaginationValues();
@@ -66,6 +67,11 @@ export class RawDataComponent implements OnInit {
         this.inputType = this.rawDataForm.value.inputType;
         this._buildinputData(this.inputType,this.fromDate ,this.toDate,true);
         this.dataRetrieval.getRawDataByInputAndDate(this.inputData,minPage).subscribe( response => {
+          if(response.rawData.length === 0){
+            this.dataAvailable = false;
+          }else{
+            this.dataAvailable = true;
+          }
           this._paintTableWithResponse(this.inputType,response.rawData);
           this._setTotalResultsValue(this.inputType,response.count[0].count);
         },failure => {
@@ -83,7 +89,7 @@ export class RawDataComponent implements OnInit {
         }else{
           this.purchaseRightDisabled = true;
         }
-        this.searchRawData(this.minPagePurchases);
+        this.searchRawData(this.minPagePurchases,undefined);
     }else if(type === "income"){
         this.minPageIncome = minPage - 10;
         this.maxPageIncome = this.minPageIncome + 10;
@@ -93,7 +99,7 @@ export class RawDataComponent implements OnInit {
         }else{
           this.incomeRightDisabled = true;
         }
-        this.searchRawData(this.minPageIncome);
+        this.searchRawData(this.minPageIncome,undefined);
     }else if(type === "insurance"){
         this.minPageInsurance = minPage - 10;
         this.maxPageInsurance = this.minPageInsurance + 10;
@@ -102,7 +108,7 @@ export class RawDataComponent implements OnInit {
         }else{
           this.insuranceRightDisabled = true;
         }
-        this.searchRawData(this.minPageInsurance);
+        this.searchRawData(this.minPageInsurance,undefined);
         this.insuranceRightDisabled = false;
     }else{
         this.minPageLoans = minPage - 10;
@@ -112,7 +118,7 @@ export class RawDataComponent implements OnInit {
         }else{
           this.loansRightDisabled = true;
         }
-        this.searchRawData(this.minPageLoans);
+        this.searchRawData(this.minPageLoans,undefined);
         this.loansRightDisabled = false;
     } 
   }
@@ -126,7 +132,7 @@ export class RawDataComponent implements OnInit {
             this.maxPagePurchases = this.totalResultsPurchases;
             this.purchaseRightDisabled = true;
           }
-          this.searchRawData(this.minPagePurchases);
+          this.searchRawData(this.minPagePurchases,undefined);
           this.purchaseLeftDisabled = false;
       }else if(type === "income"){
           this.minPageIncome = minPage + 10;
@@ -136,7 +142,7 @@ export class RawDataComponent implements OnInit {
             this.maxPageIncome = this.totalResultsIncome;
             this.incomeRightDisabled = true;
           }
-          this.searchRawData(this.minPageIncome);
+          this.searchRawData(this.minPageIncome,undefined);
           this.incomeLeftDisabled = false;
       }else if(type === "insurance"){
           this.minPageInsurance = minPage + 10;
@@ -146,7 +152,7 @@ export class RawDataComponent implements OnInit {
             this.maxPageInsurance = this.totalResultsInsurance;
             this.insuranceRightDisabled = true;
           }
-          this.searchRawData(this.minPageInsurance);
+          this.searchRawData(this.minPageInsurance,undefined);
           this.insuranceLeftDisabled = false;
       }else if(type === "loans"){
           this.minPageLoans = minPage + 10;
@@ -156,7 +162,7 @@ export class RawDataComponent implements OnInit {
             this.maxPageLoans = this.totalResultsLoans;
             this.loansRightDisabled = true;
           }
-          this.searchRawData(this.minPageLoans);
+          this.searchRawData(this.minPageLoans,undefined);
           this.loansLeftDisabled = false;
       }
   }
