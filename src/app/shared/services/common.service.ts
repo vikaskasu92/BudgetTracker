@@ -135,6 +135,6 @@ export class CommonService{
 
     searchTypes = ['By Input', 'By Input And Date'];
 
-    inputTypes = ['Purchases','Income','Insurance','Loans'];
+    inputTypes = ['Purchases','Income','Insurance'];
 
 }

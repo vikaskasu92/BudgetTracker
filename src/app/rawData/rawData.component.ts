@@ -33,27 +33,21 @@ export class RawDataComponent implements OnInit {
   purchasesItemsAvailable:boolean = false;
   incomeItemsAvailable:boolean = false;
   insuranceItemsAvailable:boolean = false;
-  loanItemsAvailable:boolean = false;
   totalResultsPurchases:number;
   totalResultsIncome:number;
   totalResultsInsurance:number;
-  totalResultsLoans:number;
   minPagePurchases:number;
   maxPagePurchases:number;
   minPageIncome:number;
   maxPageIncome:number;
   minPageInsurance:number;
   maxPageInsurance:number;
-  minPageLoans:number;
-  maxPageLoans:number;
   purchaseLeftDisabled = true;
   purchaseRightDisabled = false;
   incomeLeftDisabled = true;
   incomeRightDisabled = false;
   insuranceLeftDisabled = true;
   insuranceRightDisabled = false;
-  loansLeftDisabled = true;
-  loansRightDisabled = false;
   dataAvailable = true;
   purchaseForm:FormGroup;
 
@@ -104,12 +98,6 @@ export class RawDataComponent implements OnInit {
         this.minPageInsurance === 1 || this.maxPageInsurance < this.totalResultsInsurance ?
           this.insuranceRightDisabled = false : this.insuranceRightDisabled = true;
         this.searchRawData(this.minPageInsurance);
-    }else{
-        this.minPageLoans = minPage - 10;
-        this.maxPageLoans = this.minPageLoans + 10;
-        this.minPageLoans=== 1 || this.maxPageLoans < this.totalResultsLoans ?
-          this.loansRightDisabled = false : this.loansRightDisabled = true;
-        this.searchRawData(this.minPageLoans);
     } 
   }
 
@@ -144,16 +132,6 @@ export class RawDataComponent implements OnInit {
           }
           this.searchRawData(this.minPageInsurance);
           this.insuranceLeftDisabled = false;
-      }else if(type === "loans"){
-          this.minPageLoans = minPage + 10;
-          if( maxPage + 10 <= this.totalResultsLoans){
-            this.maxPageLoans = maxPage + 10;
-          }else{
-            this.maxPageLoans = this.totalResultsLoans;
-            this.loansRightDisabled = true;
-          }
-          this.searchRawData(this.minPageLoans);
-          this.loansLeftDisabled = false;
       }
   }
 
@@ -277,12 +255,9 @@ export class RawDataComponent implements OnInit {
     this.maxPageIncome = 10;
     this.minPageInsurance = 1;
     this.maxPageInsurance = 10;
-    this.minPageLoans = 1;
-    this.maxPageLoans = 10;
     this.purchaseLeftDisabled = true;
     this.incomeLeftDisabled = true;
     this.insuranceLeftDisabled = true;
-    this.loansLeftDisabled = true;
   }
 
   private _setTotalResultsValue(inputType:string,count:any){
@@ -313,15 +288,6 @@ export class RawDataComponent implements OnInit {
       }else{
         this.maxPageInsurance === count ? this.insuranceRightDisabled = true :  this.insuranceRightDisabled = false;
       }
-    }else{
-      this.totalResultsLoans = count;
-      if(count <= 10){
-        this.maxPageLoans = count;
-        this.loansLeftDisabled = true;
-        this.loansRightDisabled = true;
-      }else{
-        this.maxPageLoans === count ? this.loansRightDisabled = true :  this.loansRightDisabled = false;
-      }
     }
   }
 
@@ -332,29 +298,19 @@ export class RawDataComponent implements OnInit {
         this.purchasesItemsAvailable = true;
         this.incomeItemsAvailable = false;
         this.insuranceItemsAvailable = false;
-        this.loanItemsAvailable = false;
         break;
       case "income":
         this.incomeItems = response;
         this.purchasesItemsAvailable = false;
         this.incomeItemsAvailable = true;
         this.insuranceItemsAvailable = false;
-        this.loanItemsAvailable = false;
         break;
       case "insurance":
         this.insuranceItems = response;
         this.purchasesItemsAvailable = false;
         this.incomeItemsAvailable = false;
         this.insuranceItemsAvailable = true;
-        this.loanItemsAvailable = false;
         break;
-      case "loans":
-          this.loanItems = response;
-          this.purchasesItemsAvailable = false;
-          this.incomeItemsAvailable = false;
-          this.insuranceItemsAvailable = false;
-          this.loanItemsAvailable = true;
-          break;
     }
   }
 
