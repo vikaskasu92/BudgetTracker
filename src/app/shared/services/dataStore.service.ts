@@ -57,7 +57,15 @@ export class DataStoreService{
         return this.http.post(environment.closeLoanFromDB,inputData,{headers:this.httpOptions.headers}); 
     }
 
+    reOpenLoanFromDB(inputData:any){
+        return this.http.post(environment.reOpenLoanFromDB,inputData,{headers:this.httpOptions.headers}); 
+    }
+
     deleteLoanFromDB(inputData:any){
         return this.http.post(environment.deleteLoanFromDB,inputData,{headers:this.httpOptions.headers}); 
+    }
+
+    updateLoansDataToDB(inputData:any){
+        return this.http.post(environment.updateLoanInDB,inputData,{headers:this.httpOptions.headers}); 
     }
 }

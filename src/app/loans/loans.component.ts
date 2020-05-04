@@ -44,7 +44,8 @@ export class LoansComponent implements OnInit{
 
     addNewLoans(){
         const dialogRef = this.dialog.open(AddNewLoansDialogComponent, {
-            disableClose: true
+            disableClose: true,
+            data:{type:'newLoan',buttonName:'Save'}
         });
       
         dialogRef.afterClosed().subscribe(result => {  
@@ -58,10 +59,8 @@ export class LoansComponent implements OnInit{
         });
     }
 
-    closeLoan(loanName:string){
-        const responseObject ={
-            'loanName':loanName
-        }
+    closeLoan(id:number){
+        const responseObject ={}
         let displayMessage = "Are you sure you want to close the loan ?";
         const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             disableClose: true,
@@ -69,7 +68,7 @@ export class LoansComponent implements OnInit{
         });
         dialogRef.afterClosed().subscribe( result => {  
             if(result){
-                this.dataStore.closeLoanFromDB(responseObject).subscribe( response => {
+                this.dataStore.closeLoanFromDB(this._updateObjectId(responseObject,id)).subscribe( response => {
                     this.retrieveOpenClosedLoans(); 
                 },failure =>{
                     console.log("Error Retrieving Data from DB.");
@@ -78,18 +77,16 @@ export class LoansComponent implements OnInit{
         });
     }
 
-    deleteLoan(loanName:string){
-        const responseObject ={
-            'loanName':loanName
-        }
-        let displayMessage = "You are going to remove this loan completely from Budget Tracker, Are you sure?";
-        const dialogRef2 = this.dialog.open(ConfirmDialogComponent, {
+    reOpenLoan(id:number){
+        const responseObject ={}
+        let displayMessage = "Are you sure this loan is not closed ?";
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             disableClose: true,
             data: {message: displayMessage}
         });
-        dialogRef2.afterClosed().subscribe( result => {  
+        dialogRef.afterClosed().subscribe( result => {  
             if(result){
-                this.dataStore.deleteLoanFromDB(responseObject).subscribe( response => {
+                this.dataStore.reOpenLoanFromDB(this._updateObjectId(responseObject,id)).subscribe( response => {
                     this.retrieveOpenClosedLoans(); 
                 },failure =>{
                     console.log("Error Retrieving Data from DB.");
@@ -97,5 +94,47 @@ export class LoansComponent implements OnInit{
             }
         });
     }
+
+    deleteLoan(id:number){
+        const responseObject ={}
+        let displayMessage = "You are going to remove this loan completely from Budget Tracker, Are you sure?";
+        const dialogRef2 = this.dialog.open(ConfirmDialogComponent, {
+            disableClose: true,
+            data: {message: displayMessage}
+        });
+        dialogRef2.afterClosed().subscribe( result => {  
+            if(result){
+                this.dataStore.deleteLoanFromDB(this._updateObjectId(responseObject,id)).subscribe( response => {
+                    this.retrieveOpenClosedLoans(); 
+                },failure =>{
+                    console.log("Error Retrieving Data from DB.");
+                });
+            }
+        });
+    }
+
+    editLoan(loanName:string,loanType:string,loanBalance:number,loanAPR:number,loanMonthlyAmount:number,id:number){
+        const dialogRef = this.dialog.open(AddNewLoansDialogComponent, {
+            disableClose: true,
+            data:{loanName:loanName, loanType:loanType,loanBalance:loanBalance,loanAPR:loanAPR,
+                loanMonthlyAmount:loanMonthlyAmount,type:"editLoan",buttonName:'Update'}
+        });
+      
+        dialogRef.afterClosed().subscribe(result => {  
+            if(result != undefined){
+                this.dataStore.updateLoansDataToDB(this._updateObjectId(result,id)).subscribe( response => {
+                    this.retrieveOpenClosedLoans(); 
+                },failure =>{
+                    console.log("Error Retrieving Data from DB.");
+                });
+            }
+        });
+    }
+
+    private _updateObjectId(formDataObject:any,id:number){
+        formDataObject['id'] = id;
+        return formDataObject;
+      }
+    
 
 }
