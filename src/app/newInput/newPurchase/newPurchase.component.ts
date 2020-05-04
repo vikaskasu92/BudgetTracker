@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { FormGroup, NgForm, Validators } from '@angular/forms';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { MatSnackBarConfig } from '@angular/material';
@@ -26,6 +26,8 @@ export class NewPurchaseComponent implements OnInit{
 
     ngOnInit(): void {
         this.purchaseForm = this.inputDataService.createFormGroup(this.purchaseForm,null,-1,null,null,null,true);
+        this.purchaseForm.controls.date.setValidators([Validators.required]);
+        this.purchaseForm.controls.date.updateValueAndValidity();
         this._categoriesOnChange();
         this.common.currentExpansionPanel.subscribe(currentExpansionPanel =>{
             this.currentExpansionPanel = currentExpansionPanel;
