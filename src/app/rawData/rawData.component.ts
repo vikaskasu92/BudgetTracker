@@ -74,8 +74,8 @@ export class RawDataComponent implements OnInit {
       this._buildinputData(inputType,this.fromDate ,this.toDate,true);
       this.dataRetrieval.getRawDataByInputAndDate(this.inputData,minPage).subscribe( response => {
         response.rawData.length === 0 ? this.dataAvailable = false : this.dataAvailable = true;
-        this._paintTableWithResponse(inputType,response.rawData);
         this._setTotalResultsValue(inputType,response.count[0].count);
+        this._paintTableWithResponse(inputType,response.rawData);
       },failure => {
         console.log("error");
       });
@@ -220,6 +220,8 @@ export class RawDataComponent implements OnInit {
         this.maxPagePurchases = count;
         this.purchaseLeftDisabled = true;
         this.purchaseRightDisabled = true;
+      }else{
+        this.maxPagePurchases === count ? this.purchaseRightDisabled = true :  this.purchaseRightDisabled = false;
       }
     }else if(inputType === "income"){
       this.totalResultsIncome = count;
@@ -227,6 +229,8 @@ export class RawDataComponent implements OnInit {
         this.maxPageIncome = count;
         this.incomeLeftDisabled = true;
         this.incomeRightDisabled = true;
+      }else{
+        this.maxPageIncome === count ? this.incomeRightDisabled = true :  this.incomeRightDisabled = false;
       }
     }else if(inputType === "insurance"){
       this.totalResultsInsurance = count;
@@ -234,6 +238,8 @@ export class RawDataComponent implements OnInit {
         this.maxPageInsurance = count;
         this.insuranceLeftDisabled = true;
         this.insuranceRightDisabled = true;
+      }else{
+        this.maxPageInsurance === count ? this.insuranceRightDisabled = true :  this.insuranceRightDisabled = false;
       }
     }else{
       this.totalResultsLoans = count;
@@ -241,6 +247,8 @@ export class RawDataComponent implements OnInit {
         this.maxPageLoans = count;
         this.loansLeftDisabled = true;
         this.loansRightDisabled = true;
+      }else{
+        this.maxPageLoans === count ? this.loansRightDisabled = true :  this.loansRightDisabled = false;
       }
     }
   }
