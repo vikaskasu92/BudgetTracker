@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { MatSnackBarConfig } from '@angular/material';
+import { InputDataService } from 'src/app/shared/services/inputData.service';
 
 @Component({
     selector:"app-newInsurance",
@@ -12,24 +13,21 @@ import { MatSnackBarConfig } from '@angular/material';
 export class NewInsuranceComponent{
 
     constructor(private dataStore:DataStoreService,
-        private common:CommonService){}
+        private common:CommonService,
+        private inputDate:InputDataService){}
 
-    @ViewChild('insuranceFormToReset',{static:false})insuranceFormToReset:NgForm;
+    insuranceFormToReset:NgForm;
     insuranceForm:FormGroup;
     insurances:string[];
-    maxDate:Date;
     currentExpansionPanel:string;
     openPanel = false;
     config = new MatSnackBarConfig();
 
     ngOnInit(): void {
-        this.insuranceForm = new FormGroup({
-            'insuranceType': new FormControl(null,Validators.required),
-            'insurnacePaidAmount': new FormControl(null,Validators.required),
-            'insurancePaidDate': new FormControl(null,Validators.required)
-        });
+        this.insuranceForm = this.inputDate.createInsuranceFormGroup(this.insuranceForm,null,-1,null);
         this.insurances = this.common.insurances;
-        this.maxDate = new Date();
+        this.insuranceForm.controls.insurancePaidDate.setValidators([Validators.required]);
+        this.insuranceForm.controls.insurancePaidDate.updateValueAndValidity();
         this.common.currentExpansionPanel.subscribe(currentExpansionPanel => {
             this.currentExpansionPanel = currentExpansionPanel;
             this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"newInsurance",this.openPanel);
@@ -42,10 +40,10 @@ export class NewInsuranceComponent{
         this.common.onExpansionPanelClick("newInsurance");
     }
 
-    saveInsurance(){
-        if(this.insuranceForm.valid){
-            this._updateDate(this.insuranceForm.value.insurancePaidDate,this.insuranceForm);
-            this.dataStore.storeInsuranceDataToDB(this.insuranceForm.value).subscribe(
+    saveOrUpdateInsurance(formData:FormGroup){
+        if(formData.valid){
+            this.common.updateDate(formData.value.insurancePaidDate,formData);
+            this.dataStore.storeInsuranceDataToDB(formData.value).subscribe(
                 success =>{
                     this.insuranceFormToReset.resetForm();
                     this.common.snackBarOpen("Successfully Saved!",this.config);
@@ -56,19 +54,7 @@ export class NewInsuranceComponent{
         }
     }
 
-    private _updateDate(date:any,form:FormGroup){
-        if(typeof date != "string"){
-            let day = this._adjustDigits(date.getDate().toString());
-            let month = this._adjustDigits((date.getMonth()+1).toString());
-            let year = date.getFullYear().toString();
-            form.value.insurancePaidDate = year+'-'+month+'-'+day;
-        }
-    }
-
-    private _adjustDigits(number:string){
-        if(number.length == 1){
-            return number = "0"+number;
-        }
-        return number;
+    updateInsuranceFormReset(formReset:NgForm){
+        this.insuranceFormToReset = formReset;
     }
 }

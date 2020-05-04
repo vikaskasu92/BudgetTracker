@@ -7,7 +7,7 @@ export class InputDataService{
 
     constructor(private common:CommonService){}
 
-    createFormGroup(purchaseForm:FormGroup,item:string,cost:number,mainCategory:string,subCategory:string,date:any,disable:boolean){
+    createPurchaseFormGroup(purchaseForm:FormGroup,item:string,cost:number,mainCategory:string,subCategory:string,date:any,disable:boolean){
         if(cost === -1){
             cost = null;
         }
@@ -19,6 +19,18 @@ export class InputDataService{
             'subCategory': new FormControl({value: subCategory, disabled: disable},Validators.required),
          });
         return purchaseForm;
+    }
+
+    createInsuranceFormGroup(insuranceForm:FormGroup,insuranceType:string,insurnacePaidAmount:number,insurancePaidDate:string){
+        if(insurnacePaidAmount === -1){
+            insurnacePaidAmount = null;
+        }
+        insuranceForm = new FormGroup({
+            'insuranceType': new FormControl(insuranceType,Validators.required),
+            'insurnacePaidAmount': new FormControl(insurnacePaidAmount,[Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$'),Validators.required]),
+            'insurancePaidDate': new FormControl(insurancePaidDate),
+        });
+        return insuranceForm;
     }
 
     addValidationsClassNames(purchaseForm:FormGroup){

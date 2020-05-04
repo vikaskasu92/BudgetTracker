@@ -1,0 +1,23 @@
+<form [formGroup]="parentInsuranceForm" class="expansion-panel-bottom" #insuranceFormToReset="ngForm">
+    <mat-form-field appearance="fill" class="form-field-spacing">
+        <mat-label >Insurance Type</mat-label>
+        <mat-select formControlName="insuranceType">
+                <mat-option *ngFor="let insurance of insurances" [value]="insurance | removeSpace">{{ insurance }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="!parentInsuranceForm.get('insuranceType').valid && parentInsuranceForm.get('insuranceType').touched">Please Select an Insurance Type</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field-spacing">
+        <mat-label>Cost</mat-label>
+        <input matInput formControlName="insurnacePaidAmount">
+        <mat-error *ngIf="!parentInsuranceForm.get('insurnacePaidAmount').valid && parentInsuranceForm.get('insurnacePaidAmount').touched">Cost is inValid!</mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" class="date form-field-spacing">
+        <mat-label>Choose a date</mat-label>
+        <input matInput formControlName="insurancePaidDate" [max]="maxDate" [matDatepicker]="insuranceDatePicker">
+        <mat-datepicker-toggle matSuffix [for]="insuranceDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #insuranceDatePicker></mat-datepicker>
+        <mat-error *ngIf="!parentInsuranceForm.get('insurancePaidDate').valid && parentInsuranceForm.get('insurancePaidDate').touched">Valid Date is required!</mat-error>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" (click)="saveOrUpdateInsurance()">Save <mat-icon>save</mat-icon></button>
+</form>

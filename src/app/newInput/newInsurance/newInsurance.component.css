@@ -6,10 +6,6 @@
     margin-bottom: 10px;
 }
 
-.form-field-spacing{
-    margin: 10px;
-}
-
 ::ng-deep snack-bar-container.custom-class {
     background: rgb(156, 99, 189);
 }

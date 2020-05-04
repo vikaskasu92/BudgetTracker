@@ -24,7 +24,7 @@ export class EditRawDataDialogComponent implements OnInit{
     ngOnInit(): void {
        let updatedDate = new Date(this._updateDateFromMonthToYear(this.data.date));
         this.category = Object.values(this.common.category);
-        this.purchaseForm = this.inputDataService.createFormGroup(
+        this.purchaseForm = this.inputDataService.createPurchaseFormGroup(
             this.purchaseForm,this.data.item,this.data.cost.toFixed(2),
             this.data.mainCategory,this.data.subCategory,updatedDate,false);
         this.purchaseForm.controls.mainCategory.valueChanges.subscribe( value =>{

@@ -3,28 +3,8 @@
         <mat-expansion-panel-header>
             <mat-panel-title> Insurance</mat-panel-title>
         </mat-expansion-panel-header>
-        <form [formGroup]="insuranceForm" class="expansion-panel-bottom" (ngSubmit)="saveInsurance()" #insuranceFormToReset="ngForm">
-            <mat-form-field appearance="fill" class="form-field-spacing">
-                <mat-label >Insurance Type</mat-label>
-                <mat-select formControlName="insuranceType">
-                        <mat-option *ngFor="let insurance of insurances" [value]="insurance | removeSpace">{{ insurance }}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="!insuranceForm.get('insuranceType').valid && insuranceForm.get('insuranceType').touched">Please Select an Insurance Type</mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="form-field-spacing">
-                <mat-label>Cost</mat-label>
-                <input matInput formControlName="insurnacePaidAmount">
-                <mat-error *ngIf="!insuranceForm.get('insurnacePaidAmount').valid && insuranceForm.get('insurnacePaidAmount').touched">Cost is inValid!</mat-error>
-            </mat-form-field>
-            <mat-form-field class="example-full-width" class="date form-field-spacing">
-                <mat-label>Choose a date</mat-label>
-                <input matInput formControlName="insurancePaidDate" [max]="maxDate" [matDatepicker]="insuranceDatePicker">
-                <mat-datepicker-toggle matSuffix [for]="insuranceDatePicker"></mat-datepicker-toggle>
-                <mat-datepicker #insuranceDatePicker></mat-datepicker>
-                <mat-error *ngIf="!insuranceForm.get('insurancePaidDate').valid && insuranceForm.get('insurancePaidDate').touched">Valid Date is required!</mat-error>
-            </mat-form-field>
-            <br>
-            <button mat-raised-button color="primary">Save <mat-icon>save</mat-icon></button>
+        <form [formGroup]="insuranceForm">
+            <app-insurance [parentInsuranceForm]="insuranceForm" [insurances]="insurances" (formData)="saveOrUpdateInsurance($event)" (formReset)="updateInsuranceFormReset($event)"></app-insurance>
         </form>
     </mat-expansion-panel>
 </mat-accordion>
