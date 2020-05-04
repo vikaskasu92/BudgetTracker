@@ -11,3 +11,8 @@
     (cancelUpdateAction)="cancelUpdate($event)">
     </app-insurance>
 </form>
+
+<form *ngIf="incomeType" [formGroup]="incomeForm">
+    <app-income [parentIncomeForm]="incomeForm" (formData)="updateData($event)" 
+     buttonName="Update"  [cancelEnabled]="cancelEnabled" (cancelUpdateAction)="cancelUpdate($event)"></app-income>
+</form>

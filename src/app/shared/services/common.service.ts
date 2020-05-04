@@ -40,8 +40,8 @@ export class CommonService{
 
     updateDate(date:any,form:FormGroup){
         if(typeof date != "string"){
-            let day = this.adjustDigits(date.getDate().toString());
-            let month = this.adjustDigits((date.getMonth()+1).toString());
+            let day = this._adjustDigits(date.getDate().toString());
+            let month = this._adjustDigits((date.getMonth()+1).toString());
             let year = date.getFullYear().toString();
             form.value.date = year+'-'+month+'-'+day;
         }
@@ -49,14 +49,23 @@ export class CommonService{
 
     updateInsuranceDate(date:any,form:FormGroup){
         if(typeof date != "string"){
-            let day = this.adjustDigits(date.getDate().toString());
-            let month = this.adjustDigits((date.getMonth()+1).toString());
+            let day = this._adjustDigits(date.getDate().toString());
+            let month = this._adjustDigits((date.getMonth()+1).toString());
             let year = date.getFullYear().toString();
             form.value.insurancePaidDate = year+'-'+month+'-'+day;
         }
     }
+
+    updateIncomeDate(date:any,form:FormGroup){
+        if(typeof date != "string"){
+            let day = this._adjustDigits(date.getDate().toString());
+            let month = this._adjustDigits((date.getMonth()+1).toString());
+            let year = date.getFullYear().toString();
+            form.value.dateRecieved = year+'-'+month+'-'+day;
+        }
+    }
     
-    adjustDigits(number:string){
+    private _adjustDigits(number:string){
         if(number.length == 1){
             return number = "0"+number;
         }

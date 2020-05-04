@@ -49,6 +49,7 @@ import { RawDataComponent } from './rawData/rawData.component'
 import { EditRawDataDialogComponent } from './shared/dialogs/editRawDataDialog/editRawDataDialog.component'
 import { PurchasesComponent } from './shared/components/purchases/purchases.component'
 import { InsuranceComponent } from './shared/components/insurance/insurance.component'
+import { IncomeComponent } from './shared/components/income/income.component'
 
 import { PlaceholderDirective } from './shared/directives/placeholder.directive';
 import { DecimalFormatPipe } from './shared/pipes/decimalFormat.pipe';
@@ -77,6 +78,7 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
     EditRawDataDialogComponent,
     PurchasesComponent,
     InsuranceComponent,
+    IncomeComponent,
     PlaceholderDirective,
     DecimalFormatPipe,
     RemoveSpacePipe

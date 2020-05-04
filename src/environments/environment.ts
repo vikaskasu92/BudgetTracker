@@ -8,6 +8,7 @@ export const environment = {
   updatePurchaseDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/updatePurchaseData",
   deletePurchaseDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/deletePurchaseData",
   incomeDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/saveIncomeData",
+  updateIncomeDataStoreURL:"ttp://localhost:8080/budgetTrackerDataStore/updateIncomeData",
   insuranceDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/saveInsuranceData",
   updateInsuranceDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/updateInsuranceData",
   addNewLoansDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/saveNewLoansData",

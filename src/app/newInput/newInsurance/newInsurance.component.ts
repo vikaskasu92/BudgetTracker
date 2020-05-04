@@ -25,7 +25,7 @@ export class NewInsuranceComponent{
     cancelInsuranceEnabled = false;
 
     ngOnInit(): void {
-        this.insuranceForm = this.inputDate.createInsuranceFormGroup(this.insuranceForm,null,-1,null);
+        this.insuranceForm = this.inputDate.createInsuranceFormGroup(this.insuranceForm,null,null,null);
         this.insurances = this.common.insurances;
         this.insuranceForm.controls.insurancePaidDate.setValidators([Validators.required]);
         this.insuranceForm.controls.insurancePaidDate.updateValueAndValidity();

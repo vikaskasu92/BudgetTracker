@@ -25,7 +25,7 @@ export class NewPurchaseComponent implements OnInit{
     cancelPurchaseEnabled = false;
 
     ngOnInit(): void {
-        this.purchaseForm = this.inputDataService.createPurchaseFormGroup(this.purchaseForm,null,-1,null,null,null,true);
+        this.purchaseForm = this.inputDataService.createPurchaseFormGroup(this.purchaseForm,null,null,null,null,null,true);
         this.purchaseForm.controls.date.setValidators([Validators.required]);
         this.purchaseForm.controls.date.updateValueAndValidity();
         this._categoriesOnChange();

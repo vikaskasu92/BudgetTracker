@@ -4,7 +4,9 @@
             <mat-panel-title> Purchases </mat-panel-title>
         </mat-expansion-panel-header>
         <form [formGroup]="purchaseForm">
-            <app-purchases [parentPurchaseForm]="purchaseForm" [subCategory]="subCategory" (formData)="savePurchases($event)" (formToReset)="updateFormToReset($event)" buttonName="Save" [cancelEnabled]="cancelPurchaseEnabled"></app-purchases>
+            <app-purchases [parentPurchaseForm]="purchaseForm" [subCategory]="subCategory" 
+            (formData)="savePurchases($event)" (formToReset)="updateFormToReset($event)"
+             buttonName="Save" [cancelEnabled]="cancelPurchaseEnabled"></app-purchases>
         </form>
     </mat-expansion-panel>
 </mat-accordion>

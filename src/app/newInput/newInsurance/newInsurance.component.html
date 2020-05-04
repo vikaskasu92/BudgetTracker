@@ -4,7 +4,10 @@
             <mat-panel-title> Insurance</mat-panel-title>
         </mat-expansion-panel-header>
         <form [formGroup]="insuranceForm">
-            <app-insurance [parentInsuranceForm]="insuranceForm" [insurances]="insurances" buttonName="Save" (formData)="saveOrUpdateInsurance($event)" (formReset)="updateInsuranceFormReset($event)" [cancelEnabled]="cancelInsuranceEnabled"></app-insurance>
+            <app-insurance [parentInsuranceForm]="insuranceForm" [insurances]="insurances" 
+            buttonName="Save" (formData)="saveOrUpdateInsurance($event)" 
+            (formReset)="updateInsuranceFormReset($event)"
+             [cancelEnabled]="cancelInsuranceEnabled"></app-insurance>
         </form>
     </mat-expansion-panel>
 </mat-accordion>

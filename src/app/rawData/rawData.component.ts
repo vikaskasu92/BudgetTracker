@@ -211,6 +211,24 @@ export class RawDataComponent implements OnInit {
     });
   }
 
+  editIncomeItem(salaryRecieved,dateRecieved,federalTax,stateTax,medicareTax,socialSecurityTax,id){
+    const dialogRef = this.matDialog.open(EditRawDataDialogComponent,{
+      disableClose:true,
+      data: {salaryRecieved: salaryRecieved, dateRecieved: dateRecieved, federalTax: federalTax,stateTax: stateTax,medicareTax: medicareTax,socialSecurityTax: socialSecurityTax,type:'income'}
+    });
+    dialogRef.afterClosed().subscribe( formData =>{
+      if(formData != true){
+          this.common.updateIncomeDate(formData.value.dateRecieved,formData);
+          this.dataStore.updateIncomeDataToDB(this._updateObjectId(formData.value,id)).subscribe( success =>{
+              this.searchRawData(1);
+              }, failure =>{
+
+              }
+          );
+      }
+    });
+  }
+
   private _updateObjectId(formDataObject:any,id:number){
     formDataObject['id'] = id;
     return formDataObject;

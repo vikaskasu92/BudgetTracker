@@ -25,6 +25,10 @@ export class DataStoreService{
         return this.http.post(environment.deletePurchaseDataStoreURL,inputData,{headers:this.httpOptions.headers});
     }
 
+    updateIncomeDataToDB(inputData:any){
+        return this.http.post(environment.updateIncomeDataStoreURL,inputData,{headers:this.httpOptions.headers});
+    }
+
     storeIncomeDataToDB(inputData:any){
         return this.http.post(environment.incomeDataStoreURL,inputData,{headers:this.httpOptions.headers});
     }

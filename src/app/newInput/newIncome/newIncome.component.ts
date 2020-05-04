@@ -1,8 +1,9 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, NgForm, Validators } from '@angular/forms';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { InputDataService } from 'src/app/shared/services/inputData.service';
 
 @Component({
     selector:'app-newIncome',
@@ -11,28 +12,21 @@ import { CommonService } from 'src/app/shared/services/common.service';
 })
 export class NewIncomeComponent implements OnInit{
 
-    constructor(private dataStore:DataStoreService, 
-        private _snackBar:MatSnackBar,
-        private common:CommonService){}
+    constructor(private dataStore:DataStoreService,
+        private common:CommonService,
+        private inputData:InputDataService){}
 
-    @ViewChild('salaryAndTaxFormToReset',{static:false})salaryAndTaxFormToReset:NgForm;
-    salaryAndTaxForm:FormGroup;
-    dateErrorMessage:string = "Date is a Required Field!";
-    maxDate:Date;
+    salaryAndTaxFormToReset:NgForm;
+    incomeForm:FormGroup;
     currentExpansionPanel:string;
     openPanel=false;
     config = new MatSnackBarConfig();
+    cancelIncomeEnabled = false;
 
     ngOnInit(): void {
-        this.salaryAndTaxForm = new FormGroup({
-            'salaryRecieved': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
-            'dateRecieved': new FormControl(null,Validators.required),
-            'federalTax': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
-            'stateTax': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
-            'medicareTax': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
-            'socialSecurityTax': new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')])
-        })
-        this.maxDate = new Date();
+        this.incomeForm = this.inputData.createIncomeFormGroup(this.incomeForm,null,null,null,null,null,null);
+        this.incomeForm.controls.dateRecieved.setValidators([Validators.required]);
+        this.incomeForm.controls.dateRecieved.updateValueAndValidity();
         this.common.currentExpansionPanel.subscribe(currentExpansionPanel => {
             this.currentExpansionPanel = currentExpansionPanel;
             this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"newIncome",this.openPanel);
@@ -45,10 +39,10 @@ export class NewIncomeComponent implements OnInit{
         this.common.onExpansionPanelClick("newIncome");
     }
 
-    saveIncome(){
-        if(this.salaryAndTaxForm.valid){
-            this._updateDate(this.salaryAndTaxForm.value.dateRecieved,this.salaryAndTaxForm);
-            this.dataStore.storeIncomeDataToDB(this.salaryAndTaxForm.value).subscribe(
+    saveIncome(formData:any){
+        if(formData.valid){
+            this.common.updateIncomeDate(formData.value.dateRecieved,formData);
+            this.dataStore.storeIncomeDataToDB(formData.value).subscribe(
                 success =>{
                     this.salaryAndTaxFormToReset.resetForm();
                     this.common.snackBarOpen("Successfully Saved!",this.config);
@@ -59,19 +53,8 @@ export class NewIncomeComponent implements OnInit{
         }
     }
 
-    private _updateDate(date:any,form:FormGroup){
-        if(typeof date != "string"){
-            let day = this._adjustDigits(date.getDate().toString());
-            let month = this._adjustDigits((date.getMonth()+1).toString());
-            let year = date.getFullYear().toString();
-            form.value.dateRecieved = year+'-'+month+'-'+day;
-        }
+    updateIncomeFormToReset(formReset:any){
+        this.salaryAndTaxFormToReset = formReset;
     }
-
-    private _adjustDigits(number:string){
-        if(number.length == 1){
-            return number = "0"+number;
-        }
-        return number;
-    }
+    
 }

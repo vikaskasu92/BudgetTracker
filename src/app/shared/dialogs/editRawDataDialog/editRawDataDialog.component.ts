@@ -22,8 +22,10 @@ export class EditRawDataDialogComponent implements OnInit{
     cancelEnabled = true;
     insurances:any;
     insuranceForm:FormGroup;
+    incomeForm:FormGroup;
     purchasesType:boolean = false;
     insuranceType:boolean = false;
+    incomeType:boolean = false;
 
     ngOnInit(): void {
         if(this.data.type === "purchases"){
@@ -32,6 +34,9 @@ export class EditRawDataDialogComponent implements OnInit{
         }else if(this.data.type === "insurance"){
             this._insuranceFormSetup();
             this.insuranceType = true;
+        }else if(this.data.type === "income"){
+            this._incomeFormSetup();
+            this.incomeType = true;
         }
     }
 
@@ -66,6 +71,16 @@ export class EditRawDataDialogComponent implements OnInit{
             this.data.insuranceType,this.data.insurancePaidAmount.toFixed(2),updatedDate);
         this.insuranceForm.controls.insurancePaidDate.setValidators([Validators.required]);
         this.insuranceForm.controls.insurancePaidDate.updateValueAndValidity();
+    }
+
+    private _incomeFormSetup(){
+        let updatedDate = new Date(this._updateDateFromMonthToYear(this.data.dateRecieved));
+        this.incomeForm = this.inputDataService.createIncomeFormGroup(this.incomeForm,
+            this.data.salaryRecieved.toFixed(2),updatedDate,
+            this.data.federalTax.toFixed(2),this.data.stateTax.toFixed(2),
+            this.data.medicareTax.toFixed(2),this.data.socialSecurityTax.toFixed(2));
+        this.incomeForm.controls.dateRecieved.setValidators([Validators.required]);
+        this.incomeForm.controls.dateRecieved.updateValueAndValidity();
     }
 
     private _updateDateFromMonthToYear(date:string){
