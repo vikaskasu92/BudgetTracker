@@ -160,7 +160,7 @@ export class RawDataComponent implements OnInit {
   editPurchaseItem(item:string,cost:number,date:string,mainCategory:string,subCategory:string,id:number){
     const dialogRef = this.matDialog.open(EditRawDataDialogComponent,{
       disableClose:true,
-      data: {item: item, cost: cost, date: date, mainCategory: mainCategory, subCategory: subCategory}
+      data: {item: item, cost: cost, date: date, mainCategory: mainCategory, subCategory: subCategory,type:"purchases"}
     });
     dialogRef.afterClosed().subscribe( formData =>{
       if(formData != true){
@@ -189,6 +189,24 @@ export class RawDataComponent implements OnInit {
         },failure =>{
           console.log("Problem with deleting");
         });
+      }
+    });
+  }
+
+  editInsuranceItem(insuranceType:string,insurnacePaidAmount:string,insurancePaidDate:string,id:number){
+    const dialogRef = this.matDialog.open(EditRawDataDialogComponent,{
+      disableClose:true,
+      data: {insuranceType: insuranceType, insurancePaidAmount: insurnacePaidAmount, insurancePaidDate: insurancePaidDate,type:'insurance'}
+    });
+    dialogRef.afterClosed().subscribe( formData =>{
+      if(formData != true){
+          this.common.updateInsuranceDate(formData.value.insurancePaidDate,formData);
+          this.dataStore.updateInsuranceDataToDB(this._updateObjectId(formData.value,id)).subscribe( success =>{
+              this.searchRawData(1);
+              }, failure =>{
+
+              }
+          );
       }
     });
   }

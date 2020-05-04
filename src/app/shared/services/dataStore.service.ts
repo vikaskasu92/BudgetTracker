@@ -28,6 +28,10 @@ export class DataStoreService{
     storeIncomeDataToDB(inputData:any){
         return this.http.post(environment.incomeDataStoreURL,inputData,{headers:this.httpOptions.headers});
     }
+    
+    updateInsuranceDataToDB(inputData:any){
+        return this.http.post(environment.updateInsuranceDataStoreURL,inputData,{headers:this.httpOptions.headers});
+    }
 
     storeInsuranceDataToDB(inputData:any){
         return this.http.post(environment.insuranceDataStoreURL,inputData,{headers:this.httpOptions.headers}); 

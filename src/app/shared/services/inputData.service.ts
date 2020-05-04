@@ -21,7 +21,7 @@ export class InputDataService{
         return purchaseForm;
     }
 
-    createInsuranceFormGroup(insuranceForm:FormGroup,insuranceType:string,insurnacePaidAmount:number,insurancePaidDate:string){
+    createInsuranceFormGroup(insuranceForm:FormGroup,insuranceType:string,insurnacePaidAmount:number,insurancePaidDate:any){
         if(insurnacePaidAmount === -1){
             insurnacePaidAmount = null;
         }

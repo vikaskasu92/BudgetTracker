@@ -11,8 +11,11 @@ export class InsuranceComponent implements OnInit{
 
     @Input() parentInsuranceForm: FormGroup;
     @Input() insurances:any;
+    @Input() cancelEnabled:boolean;
+    @Input() buttonName:string;
     @Output() formData = new EventEmitter<FormGroup>();
     @Output() formReset = new EventEmitter<NgForm>();
+    @Output() cancelUpdateAction = new EventEmitter<boolean>();
     @ViewChild('insuranceFormToReset', {static:false})insuranceFormToReset:NgForm;
     maxDate:Date;
 
@@ -23,6 +26,10 @@ export class InsuranceComponent implements OnInit{
     saveOrUpdateInsurance(){
         this.formReset.emit(this.insuranceFormToReset);
         this.formData.emit(this.parentInsuranceForm);
+    }
+
+    cancelUpdate(){
+        this.cancelUpdateAction.emit(true);
     }
 
 }

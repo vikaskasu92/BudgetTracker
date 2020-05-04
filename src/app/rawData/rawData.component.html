@@ -137,7 +137,7 @@
                                 <td >{{ insuranceItem.insurnacePaidAmount | currency:USD }}</td>
                                 <td >{{ insuranceItem.insurancePaidDate }} </td>
                                 <td >
-                                    <a mat-button (click)="editInsuranceItem(loan.loanName)" class="icon-display"><mat-icon>edit</mat-icon></a>
+                                    <a mat-button (click)="editInsuranceItem(insuranceItem.insuranceType,insuranceItem.insurnacePaidAmount,insuranceItem.insurancePaidDate,insuranceItem.id)" class="icon-display"><mat-icon>edit</mat-icon></a>
                                     <a mat-button (click)="deleteInsuranceItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
                                 </td>
                             </tr>

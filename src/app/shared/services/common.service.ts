@@ -46,6 +46,15 @@ export class CommonService{
             form.value.date = year+'-'+month+'-'+day;
         }
     }
+
+    updateInsuranceDate(date:any,form:FormGroup){
+        if(typeof date != "string"){
+            let day = this.adjustDigits(date.getDate().toString());
+            let month = this.adjustDigits((date.getMonth()+1).toString());
+            let year = date.getFullYear().toString();
+            form.value.insurancePaidDate = year+'-'+month+'-'+day;
+        }
+    }
     
     adjustDigits(number:string){
         if(number.length == 1){

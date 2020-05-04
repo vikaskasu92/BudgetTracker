@@ -19,10 +19,34 @@ export class EditRawDataDialogComponent implements OnInit{
     purchaseForm:FormGroup;
     category:any;
     subCategory:any;
-    cancelPurchaseEnabled = true;
+    cancelEnabled = true;
+    insurances:any;
+    insuranceForm:FormGroup;
+    purchasesType:boolean = false;
+    insuranceType:boolean = false;
 
     ngOnInit(): void {
-       let updatedDate = new Date(this._updateDateFromMonthToYear(this.data.date));
+        if(this.data.type === "purchases"){
+            this._purchaseFormSetup();
+            this.purchasesType = true;
+        }else if(this.data.type === "insurance"){
+            this._insuranceFormSetup();
+            this.insuranceType = true;
+        }
+    }
+
+    cancelUpdate(event:any){
+        this.dialogRef.close(true);
+    }
+    
+    updateData(formData:any){
+        if(formData.valid){
+            this.dialogRef.close(formData);
+        }
+    }
+
+    private _purchaseFormSetup(){
+        let updatedDate = new Date(this._updateDateFromMonthToYear(this.data.date));
         this.category = Object.values(this.common.category);
         this.purchaseForm = this.inputDataService.createPurchaseFormGroup(
             this.purchaseForm,this.data.item,this.data.cost.toFixed(2),
@@ -35,14 +59,13 @@ export class EditRawDataDialogComponent implements OnInit{
         this.purchaseForm.controls.date.updateValueAndValidity();
     }
 
-    cancelUpdate(event:any){
-        this.dialogRef.close(true);
-    }
-    
-    updatePurchases(formData:any){
-        if(formData.valid){
-            this.dialogRef.close(formData);
-        }
+    private _insuranceFormSetup(){
+        let updatedDate = new Date(this._updateDateFromMonthToYear(this.data.insurancePaidDate));
+        this.insurances = this.common.insurances;
+        this.insuranceForm = this.inputDataService.createInsuranceFormGroup(this.insuranceForm,
+            this.data.insuranceType,this.data.insurancePaidAmount.toFixed(2),updatedDate);
+        this.insuranceForm.controls.insurancePaidDate.setValidators([Validators.required]);
+        this.insuranceForm.controls.insurancePaidDate.updateValueAndValidity();
     }
 
     private _updateDateFromMonthToYear(date:string){

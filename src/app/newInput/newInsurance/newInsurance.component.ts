@@ -22,6 +22,7 @@ export class NewInsuranceComponent{
     currentExpansionPanel:string;
     openPanel = false;
     config = new MatSnackBarConfig();
+    cancelInsuranceEnabled = false;
 
     ngOnInit(): void {
         this.insuranceForm = this.inputDate.createInsuranceFormGroup(this.insuranceForm,null,-1,null);

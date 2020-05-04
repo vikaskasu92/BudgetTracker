@@ -11,7 +11,7 @@ export class PurchasesComponent implements OnInit{
     @Input() parentPurchaseForm: FormGroup;
     @Input() subCategory:any;
     @Input() buttonName:string;
-    @Input() cancelPurchaseEnabled:boolean;
+    @Input() cancelEnabled:boolean;
     @Output() formData = new EventEmitter<FormGroup>();
     @Output() formToReset = new EventEmitter<NgForm>();
     @Output() cancelUpdateAction = new EventEmitter<boolean>();

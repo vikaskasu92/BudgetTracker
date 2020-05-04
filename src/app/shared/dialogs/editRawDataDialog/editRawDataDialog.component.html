@@ -1,6 +1,13 @@
-<form [formGroup]="purchaseForm">
+<form *ngIf="purchasesType" [formGroup]="purchaseForm">
     <app-purchases [parentPurchaseForm]="purchaseForm" [subCategory]="subCategory" 
-    (formData)="updatePurchases($event)" buttonName="Update" 
-    [cancelPurchaseEnabled]="cancelPurchaseEnabled" 
+    (formData)="updateData($event)" buttonName="Update" 
+    [cancelEnabled]="cancelEnabled" 
     (cancelUpdateAction)="cancelUpdate($event)"></app-purchases>
+</form>
+
+<form *ngIf="insuranceType" [formGroup]="insuranceForm">
+    <app-insurance [parentInsuranceForm]="insuranceForm" [insurances]="insurances" 
+    (formData)="updateData($event)" buttonName="Update" [cancelEnabled]="cancelEnabled"
+    (cancelUpdateAction)="cancelUpdate($event)">
+    </app-insurance>
 </form>
