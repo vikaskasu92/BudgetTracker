@@ -3,10 +3,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonService } from '../shared/services/common.service';
 import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 import { MatDialog } from '@angular/material';
-import { EditRawDataComponent } from '../shared/dialogs/editRawData/editRawData.component';
+import { EditRawDataDialogComponent } from '../shared/dialogs/editRawDataDialog/editRawDataDialog.component';
 import { DataStoreService } from '../shared/services/dataStore.service';
 import { InputDataService } from '../shared/services/inputData.service';
-import { ConfirmComponent } from '../shared/dialogs/confirm/confirm.component';
+import { ConfirmDialogComponent } from '../shared/dialogs/confirmDialog/confirmDialog.component';
 
 @Component({
   selector: 'app-rawData',
@@ -158,7 +158,7 @@ export class RawDataComponent implements OnInit {
   }
 
   editPurchaseItem(item:string,cost:number,date:string,mainCategory:string,subCategory:string,id:number){
-    const dialogRef = this.matDialog.open(EditRawDataComponent,{
+    const dialogRef = this.matDialog.open(EditRawDataDialogComponent,{
       disableClose:true,
       data: {item: item, cost: cost, date: date, mainCategory: mainCategory, subCategory: subCategory}
     });
@@ -177,7 +177,7 @@ export class RawDataComponent implements OnInit {
 
   deletePurchaseItem(id:number){
     let displayMessage = "This purchase item will be deleted. Are you Sure?";
-    const dialogRef = this.matDialog.open(ConfirmComponent,{
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent,{
       disableClose:true,
       data:{message:displayMessage}
     });

@@ -3,20 +3,18 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
 import { InputDataService } from '../../services/inputData.service';
-import { DataStoreService } from '../../services/dataStore.service';
 
 @Component({
     selector:'app-editRawData',
-    templateUrl:'./editRawData.component.html',
-    styleUrls:['./editRawData.component.css']
+    templateUrl:'./editRawDataDialog.component.html',
+    styleUrls:['./editRawDataDialog.component.css']
 })
-export class EditRawDataComponent implements OnInit{
+export class EditRawDataDialogComponent implements OnInit{
 
-    constructor(public dialogRef: MatDialogRef<EditRawDataComponent>,
+    constructor(public dialogRef: MatDialogRef<EditRawDataDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private common:CommonService,
-        private inputDataService:InputDataService,
-        private dataStore:DataStoreService){}
+        private inputDataService:InputDataService){}
 
     purchaseForm:FormGroup;
     category:any;

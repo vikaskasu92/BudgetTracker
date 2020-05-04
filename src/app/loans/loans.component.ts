@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 import { MatDialog } from '@angular/material';
-import { AddNewLoansComponent } from '../shared/dialogs/addNewLoans/addNewLoans.component';
+import { AddNewLoansDialogComponent } from '../shared/dialogs/addNewLoansDialog/addNewLoansDialog.component';
 import { DataStoreService } from '../shared/services/dataStore.service';
-import { ConfirmComponent } from '../shared/dialogs/confirm/confirm.component';
+import { ConfirmDialogComponent } from '../shared/dialogs/confirmDialog/confirmDialog.component';
 
 @Component({
     selector:'app-loans',
@@ -43,7 +43,7 @@ export class LoansComponent implements OnInit{
     }
 
     addNewLoans(){
-        const dialogRef = this.dialog.open(AddNewLoansComponent, {
+        const dialogRef = this.dialog.open(AddNewLoansDialogComponent, {
             disableClose: true
         });
       
@@ -63,7 +63,7 @@ export class LoansComponent implements OnInit{
             'loanName':loanName
         }
         let displayMessage = "Are you sure you want to close the loan ?";
-        const dialogRef = this.dialog.open(ConfirmComponent, {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
             disableClose: true,
             data: {message: displayMessage}
         });
@@ -83,7 +83,7 @@ export class LoansComponent implements OnInit{
             'loanName':loanName
         }
         let displayMessage = "You are going to remove this loan completely from Budget Tracker, Are you sure?";
-        const dialogRef2 = this.dialog.open(ConfirmComponent, {
+        const dialogRef2 = this.dialog.open(ConfirmDialogComponent, {
             disableClose: true,
             data: {message: displayMessage}
         });

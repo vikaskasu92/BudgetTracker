@@ -5,12 +5,12 @@ import { CommonService } from '../../services/common.service';
 
 @Component({
     selector:'app-addNewLoans',
-    templateUrl:'./addNewLoans.component.html',
-    styleUrls:['./addNewLoans.component.css']
+    templateUrl:'./addNewLoansDialog.component.html',
+    styleUrls:['./addNewLoansDialog.component.css']
 })
-export class AddNewLoansComponent implements OnInit{
+export class AddNewLoansDialogComponent implements OnInit{
 
-    constructor(private dialogRef: MatDialogRef<AddNewLoansComponent>,
+    constructor(private dialogRef: MatDialogRef<AddNewLoansDialogComponent>,
                 private common:CommonService){}
     
     addNewLoan:FormGroup;

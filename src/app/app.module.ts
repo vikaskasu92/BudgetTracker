@@ -41,12 +41,12 @@ import { TablePendingLoansComponent } from './summary/tablePendingLoans/tablePen
 import { BarCategoryComponent } from './summary/barCategory/barCategory.component'
 import { YearByYearComponent } from './yearByYear/yearByYear.component'
 import { LoansComponent } from './loans/loans.component'
-import { AddNewLoansComponent } from './shared/dialogs/addNewLoans/addNewLoans.component'
+import { AddNewLoansDialogComponent } from './shared/dialogs/addNewLoansDialog/addNewLoansDialog.component'
 import { InvestmentsComponent } from './investments/investments.component'
 import { GraphDisplayComponent } from './shared/components/graphDisplay/graphDisplay.component';
-import { ConfirmComponent } from './shared/dialogs/confirm/confirm.component'
+import { ConfirmDialogComponent } from './shared/dialogs/confirmDialog/confirmDialog.component'
 import { RawDataComponent } from './rawData/rawData.component'
-import { EditRawDataComponent } from './shared/dialogs/editRawData/editRawData.component'
+import { EditRawDataDialogComponent } from './shared/dialogs/editRawDataDialog/editRawDataDialog.component'
 import { PurchasesComponent } from './shared/components/purchases/purchases.component'
 
 import { PlaceholderDirective } from './shared/directives/placeholder.directive';
@@ -68,12 +68,12 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
     BarCategoryComponent,
     YearByYearComponent,
     LoansComponent,
-    AddNewLoansComponent,
+    AddNewLoansDialogComponent,
     InvestmentsComponent,
     GraphDisplayComponent,
-    ConfirmComponent,
+    ConfirmDialogComponent,
     RawDataComponent,
-    EditRawDataComponent,
+    EditRawDataDialogComponent,
     PurchasesComponent,
     PlaceholderDirective,
     DecimalFormatPipe,
@@ -110,10 +110,10 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    AddNewLoansComponent,
+    AddNewLoansDialogComponent,
     GraphDisplayComponent,
-    ConfirmComponent,
-    EditRawDataComponent
+    ConfirmDialogComponent,
+    EditRawDataDialogComponent
   ]
 })
 export class AppModule { }
