@@ -163,7 +163,7 @@ export class RawDataComponent implements OnInit {
       data: {item: item, cost: cost, date: date, mainCategory: mainCategory, subCategory: subCategory}
     });
     dialogRef.afterClosed().subscribe( formData =>{
-      if(formData != typeof Boolean){
+      if(formData != true){
           this.common.updateDate(formData.value.date,formData);
           this.dataStore.updatePurchaseDataToDB(this._updateObjectId(formData.value,id)).subscribe( success =>{
               this.searchRawData(1);
