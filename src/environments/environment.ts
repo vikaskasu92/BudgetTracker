@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   purchaseDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/savePurchaseData",
+  updatePurchaseDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/updatePurchaseData",
+  deletePurchaseDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/deletePurchaseData",
   incomeDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/saveIncomeData",
   insuranceDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/saveInsuranceData",
   addNewLoansDataStoreURL:"http://localhost:8080/budgetTrackerDataStore/saveNewLoansData",

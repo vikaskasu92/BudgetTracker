@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, NgForm } from '@angular/forms';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { MatSnackBarConfig } from '@angular/material';
+import { InputDataService } from 'src/app/shared/services/inputData.service';
 
 @Component({
     selector:'app-newPurchase',
@@ -12,7 +13,8 @@ import { MatSnackBarConfig } from '@angular/material';
 export class NewPurchaseComponent implements OnInit{
 
     constructor(private dataStore:DataStoreService,
-        private common:CommonService){}
+        private common:CommonService,
+        private inputDataService:InputDataService){}
 
     purchaseFormToReset:NgForm;
     purchaseForm:FormGroup;
@@ -20,9 +22,11 @@ export class NewPurchaseComponent implements OnInit{
     currentExpansionPanel:string;
     subCategory = {};
     config = new MatSnackBarConfig();
+    cancelPurchaseEnabled = false;
 
     ngOnInit(): void {
-        this._createFormGroup();
+        this.purchaseForm = this.inputDataService.createFormGroup(this.purchaseForm,null,-1,null,null,null,true);
+        this._categoriesOnChange();
         this.common.currentExpansionPanel.subscribe(currentExpansionPanel =>{
             this.currentExpansionPanel = currentExpansionPanel;
             this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"purchasesAndInvestments",this.openPanel);
@@ -34,7 +38,7 @@ export class NewPurchaseComponent implements OnInit{
     savePurchases(formData:any){
         this.purchaseForm = formData;
         if(this.purchaseForm.valid){
-            this._updateDate(this.purchaseForm.value.date,this.purchaseForm);
+            this.common.updateDate(this.purchaseForm.value.date,this.purchaseForm);
             this.dataStore.storePurchaseDataToDB(this.purchaseForm.value).subscribe(
                 success =>{
                     this.purchaseFormToReset.resetForm();
@@ -43,7 +47,20 @@ export class NewPurchaseComponent implements OnInit{
                     this.common.snackBarOpen("Error has Occured While Saving!",this.config);
                 }
             );
+        }else{
+            this.inputDataService.addValidationsClassNames(this.purchaseForm);
         }
+    }
+
+    private _categoriesOnChange(){
+        this.purchaseForm.controls.mainCategory.valueChanges.subscribe( value =>{
+            document.getElementById('mainCategory').classList.remove("mat-form-field-invalid");
+            this.purchaseForm.controls.subCategory.enable();
+            this.subCategory = this.common.generateSubCategories(value);
+        });
+        this.purchaseForm.controls.subCategory.valueChanges.subscribe( () =>{
+            document.getElementById('subCategory').classList.remove("mat-form-field-invalid");
+        });
     }
 
     updateFormToReset(formToReset:any){
@@ -54,35 +71,6 @@ export class NewPurchaseComponent implements OnInit{
         this.common.onExpansionPanelClick("purchasesAndInvestments");
     }
 
-    private _createFormGroup(){
-        this.purchaseForm = new FormGroup({
-            'item': new FormControl(null,Validators.required),
-            'cost': new FormControl(null,[Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$'),Validators.required]),
-            'date': new FormControl(null,Validators.required),
-            'mainCategory': new FormControl(null,Validators.required),
-            'subCategory': new FormControl({value: null, disabled: true},Validators.required),
-         });
-
-         this.purchaseForm.controls.mainCategory.valueChanges.subscribe( value =>{
-            this.purchaseForm.controls.subCategory.enable();
-            this.subCategory = this.common.generateSubCategories(value);
-        });
-    }
-
-    private _updateDate(date:any,form:FormGroup){
-        if(typeof date != "string"){
-            let day = this._adjustDigits(date.getDate().toString());
-            let month = this._adjustDigits((date.getMonth()+1).toString());
-            let year = date.getFullYear().toString();
-            form.value.date = year+'-'+month+'-'+day;
-        }
-    }
-
-    private _adjustDigits(number:string){
-        if(number.length == 1){
-            return number = "0"+number;
-        }
-        return number;
-    }
+    
 
 }

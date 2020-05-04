@@ -4,6 +4,9 @@ import { CommonService } from '../shared/services/common.service';
 import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 import { MatDialog } from '@angular/material';
 import { EditRawDataComponent } from '../shared/dialogs/editRawData/editRawData.component';
+import { DataStoreService } from '../shared/services/dataStore.service';
+import { InputDataService } from '../shared/services/inputData.service';
+import { ConfirmComponent } from '../shared/dialogs/confirm/confirm.component';
 
 @Component({
   selector: 'app-rawData',
@@ -14,7 +17,9 @@ export class RawDataComponent implements OnInit {
 
   constructor(private common:CommonService,
             private dataRetrieval:DataRetrievalService,
-            private matDialog:MatDialog){}
+            private matDialog:MatDialog,
+            private dataStore:DataStoreService,
+            private inputDataService:InputDataService){}
   inputTypes:string[];
   rawDataForm:FormGroup;
   toDateLimit:any;
@@ -50,6 +55,7 @@ export class RawDataComponent implements OnInit {
   loansLeftDisabled = true;
   loansRightDisabled = false;
   dataAvailable = true;
+  purchaseForm:FormGroup;
 
   ngOnInit() {
     this.inputTypes = this.common.inputTypes;
@@ -57,7 +63,7 @@ export class RawDataComponent implements OnInit {
     this.toDateLimit = new Date();
   }
 
-  searchRawData(minPage:number,event:any){
+  searchRawData(minPage:number){
     if(this.rawDataForm.valid){
       minPage === 1 ? this._resetOriginalPaginationValues():'';
       this._updateFromDate(this.rawDataForm.value.fromDateSearch,this.rawDataForm);
@@ -85,25 +91,25 @@ export class RawDataComponent implements OnInit {
         }else{
           this.purchaseRightDisabled = true;
         }
-        this.searchRawData(this.minPagePurchases,undefined);
+        this.searchRawData(this.minPagePurchases);
     }else if(type === "income"){
         this.minPageIncome = minPage - 10;
         this.maxPageIncome = this.minPageIncome + 10;
         this.minPageIncome === 1 || this.maxPageIncome < this.totalResultsIncome ?
           this.incomeRightDisabled = false : this.incomeRightDisabled = true;
-        this.searchRawData(this.minPageIncome,undefined);
+        this.searchRawData(this.minPageIncome);
     }else if(type === "insurance"){
         this.minPageInsurance = minPage - 10;
         this.maxPageInsurance = this.minPageInsurance + 10;
         this.minPageInsurance === 1 || this.maxPageInsurance < this.totalResultsInsurance ?
           this.insuranceRightDisabled = false : this.insuranceRightDisabled = true;
-        this.searchRawData(this.minPageInsurance,undefined);
+        this.searchRawData(this.minPageInsurance);
     }else{
         this.minPageLoans = minPage - 10;
         this.maxPageLoans = this.minPageLoans + 10;
         this.minPageLoans=== 1 || this.maxPageLoans < this.totalResultsLoans ?
           this.loansRightDisabled = false : this.loansRightDisabled = true;
-        this.searchRawData(this.minPageLoans,undefined);
+        this.searchRawData(this.minPageLoans);
     } 
   }
 
@@ -116,7 +122,7 @@ export class RawDataComponent implements OnInit {
             this.maxPagePurchases = this.totalResultsPurchases;
             this.purchaseRightDisabled = true;
           }
-          this.searchRawData(this.minPagePurchases,undefined);
+          this.searchRawData(this.minPagePurchases);
           this.purchaseLeftDisabled = false;
       }else if(type === "income"){
           this.minPageIncome = minPage + 10;
@@ -126,7 +132,7 @@ export class RawDataComponent implements OnInit {
             this.maxPageIncome = this.totalResultsIncome;
             this.incomeRightDisabled = true;
           }
-          this.searchRawData(this.minPageIncome,undefined);
+          this.searchRawData(this.minPageIncome);
           this.incomeLeftDisabled = false;
       }else if(type === "insurance"){
           this.minPageInsurance = minPage + 10;
@@ -136,7 +142,7 @@ export class RawDataComponent implements OnInit {
             this.maxPageInsurance = this.totalResultsInsurance;
             this.insuranceRightDisabled = true;
           }
-          this.searchRawData(this.minPageInsurance,undefined);
+          this.searchRawData(this.minPageInsurance);
           this.insuranceLeftDisabled = false;
       }else if(type === "loans"){
           this.minPageLoans = minPage + 10;
@@ -146,19 +152,50 @@ export class RawDataComponent implements OnInit {
             this.maxPageLoans = this.totalResultsLoans;
             this.loansRightDisabled = true;
           }
-          this.searchRawData(this.minPageLoans,undefined);
+          this.searchRawData(this.minPageLoans);
           this.loansLeftDisabled = false;
       }
   }
 
-  editPurchaseItem(item:string,cost:number,date:string,mainCategory:string,subCategory:string){
+  editPurchaseItem(item:string,cost:number,date:string,mainCategory:string,subCategory:string,id:number){
     const dialogRef = this.matDialog.open(EditRawDataComponent,{
       disableClose:true,
       data: {item: item, cost: cost, date: date, mainCategory: mainCategory, subCategory: subCategory}
     });
-    dialogRef.afterClosed().subscribe(()=>{
-      console.log("closed");
+    dialogRef.afterClosed().subscribe( formData =>{
+      if(formData != typeof Boolean){
+          this.common.updateDate(formData.value.date,formData);
+          this.dataStore.updatePurchaseDataToDB(this._updateObjectId(formData.value,id)).subscribe( success =>{
+              this.searchRawData(1);
+              }, failure =>{
+
+              }
+          );
+      }
     });
+  }
+
+  deletePurchaseItem(id:number){
+    let displayMessage = "This purchase item will be deleted. Are you Sure?";
+    const dialogRef = this.matDialog.open(ConfirmComponent,{
+      disableClose:true,
+      data:{message:displayMessage}
+    });
+    dialogRef.afterClosed().subscribe( deleteIt =>{
+      const deleteObj = {deleteById:id};
+      if(deleteIt){
+        this.dataStore.deletePurchaseDataFromDB(deleteObj).subscribe( () =>{
+          this.searchRawData(1);
+        },failure =>{
+          console.log("Problem with deleting");
+        });
+      }
+    });
+  }
+
+  private _updateObjectId(formDataObject:any,id:number){
+    formDataObject['id'] = id;
+    return formDataObject;
   }
 
   private _resetOriginalPaginationValues(){

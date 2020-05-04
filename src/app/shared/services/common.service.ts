@@ -38,6 +38,22 @@ export class CommonService{
     return subCategory;
    }
 
+    updateDate(date:any,form:FormGroup){
+        if(typeof date != "string"){
+            let day = this.adjustDigits(date.getDate().toString());
+            let month = this.adjustDigits((date.getMonth()+1).toString());
+            let year = date.getFullYear().toString();
+            form.value.date = year+'-'+month+'-'+day;
+        }
+    }
+    
+    adjustDigits(number:string){
+        if(number.length == 1){
+            return number = "0"+number;
+        }
+        return number;
+    }
+
     category = {
         "1":"Food",
         "2":"Travel",

@@ -57,8 +57,8 @@
                                 <td >{{ purchasesItem.mainCategory }}</td>
                                 <td >{{ purchasesItem.subCategory }}</td>
                                 <td >
-                                    <a mat-button (click)="editPurchaseItem(purchasesItem.item,purchasesItem.cost,purchasesItem.date,purchasesItem.mainCategory,purchasesItem.subCategory)" class="icon-display"><mat-icon>edit</mat-icon></a>
-                                    <a mat-button (click)="deletePurchaseItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                                    <a mat-button (click)="editPurchaseItem(purchasesItem.item,purchasesItem.cost,purchasesItem.date,purchasesItem.mainCategory,purchasesItem.subCategory,purchasesItem.id)" class="icon-display"><mat-icon>edit</mat-icon></a>
+                                    <a mat-button (click)="deletePurchaseItem(purchasesItem.id)" class="icon-display"><mat-icon>delete</mat-icon></a>
                                 </td>
                             </tr>
                         </tbody>

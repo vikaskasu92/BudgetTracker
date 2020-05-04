@@ -13,19 +13,16 @@ export class CategoriesComponent{
                 private controlContainer: ControlContainer){}
     
     @Input() parentForm: FormGroup;
-    @Input() formInnerControlName1: string;
-    @Input() formInnerControlName2: string;
     @Input() subCategory:any;
     @Output() subCategorySelected = new EventEmitter<string[]>();
     @Output() mainCategorySelected = new EventEmitter<boolean>();
     category:{};
 
     ngOnInit(){
-        this.subCategory = [];
         this.category = Object.values(this.common.category);
         this._subCategorySubscription();
         this._mainCategorySubscription();
-        
+        Object.keys(this.subCategory).length === 0 ? this.subCategory = [] : '';
     }
 
     private _subCategorySubscription(){

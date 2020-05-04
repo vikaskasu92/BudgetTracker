@@ -10,8 +10,11 @@ export class PurchasesComponent implements OnInit{
 
     @Input() parentPurchaseForm: FormGroup;
     @Input() subCategory:any;
+    @Input() buttonName:string;
+    @Input() cancelPurchaseEnabled:boolean;
     @Output() formData = new EventEmitter<FormGroup>();
     @Output() formToReset = new EventEmitter<NgForm>();
+    @Output() cancelUpdateAction = new EventEmitter<boolean>();
     @ViewChild('purchaseFormToReset',{static:false})purchaseFormToReset:NgForm;
     maxDate:Date;
 
@@ -19,8 +22,12 @@ export class PurchasesComponent implements OnInit{
         this.maxDate = new Date();
     }
     
-    savePurchases(){
+    saveOrUpdatePurchases(){
         this.formToReset.emit(this.purchaseFormToReset);
         this.formData.emit(this.parentPurchaseForm);
+    }
+
+    cancelUpdate(){
+        this.cancelUpdateAction.emit(true);
     }
 }

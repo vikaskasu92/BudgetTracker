@@ -13,8 +13,16 @@ export class DataStoreService{
         })
     }
 
+    updatePurchaseDataToDB(inputData:any){
+        return this.http.post(environment.updatePurchaseDataStoreURL,inputData,{headers:this.httpOptions.headers});
+    }
+
     storePurchaseDataToDB(inputData:any){
         return this.http.post(environment.purchaseDataStoreURL,inputData,{headers:this.httpOptions.headers});
+    }
+
+    deletePurchaseDataFromDB(inputData:any){
+        return this.http.post(environment.deletePurchaseDataStoreURL,inputData,{headers:this.httpOptions.headers});
     }
 
     storeIncomeDataToDB(inputData:any){

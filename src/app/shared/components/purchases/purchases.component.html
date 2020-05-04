@@ -20,5 +20,6 @@
         <mat-error *ngIf="!parentPurchaseForm.get('date').valid && parentPurchaseForm.get('date').touched">Valid Date is required!</mat-error>
     </mat-form-field>
     <br>
-    <button class="form-save-button" mat-raised-button color="primary" (click)="savePurchases()" >Save  <mat-icon>save</mat-icon></button>
+    <button class="form-save-button" mat-raised-button color="primary" (click)="saveOrUpdatePurchases()" >{{ buttonName }}  <mat-icon>save</mat-icon></button>
+    <a *ngIf="cancelPurchaseEnabled" mat-button (click)="cancelUpdate()" class="leftSpacing">Cancel</a>
 </form>

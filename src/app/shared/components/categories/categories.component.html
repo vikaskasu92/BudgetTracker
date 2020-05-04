@@ -1,12 +1,12 @@
 <form [formGroup]="parentForm">
-    <mat-form-field appearance="fill" class="form-field-spacing">
+    <mat-form-field id="mainCategory" appearance="fill" class="form-field-spacing">
         <mat-label >Category</mat-label>
         <mat-select formControlName="mainCategory" #purchaseMainCategory>
                 <mat-option *ngFor="let cat of category" [value]="cat | removeSpace">{{ cat }}</mat-option>
         </mat-select>
         <mat-error *ngIf="!parentForm.get('mainCategory').valid && parentForm.get('mainCategory').touched">Please select a category</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill" class="form-field-spacing">
+    <mat-form-field id="subCategory" appearance="fill" class="form-field-spacing">
         <mat-label>Sub Category</mat-label>
         <mat-select formControlName="subCategory" #purchaseSubCategory>
                 <mat-option *ngFor="let subCat of subCategory" [value]="subCat | removeSpace">{{ subCat }}</mat-option>
