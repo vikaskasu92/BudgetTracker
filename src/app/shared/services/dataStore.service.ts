@@ -32,6 +32,10 @@ export class DataStoreService{
     storeIncomeDataToDB(inputData:any){
         return this.http.post(environment.incomeDataStoreURL,inputData,{headers:this.httpOptions.headers});
     }
+
+    deleteIncomeDataFromDB(inputData:any){
+        return this.http.post(environment.deleteIncomeDataStoreURL,inputData,{headers:this.httpOptions.headers});
+    }
     
     updateInsuranceDataToDB(inputData:any){
         return this.http.post(environment.updateInsuranceDataStoreURL,inputData,{headers:this.httpOptions.headers});
@@ -39,6 +43,10 @@ export class DataStoreService{
 
     storeInsuranceDataToDB(inputData:any){
         return this.http.post(environment.insuranceDataStoreURL,inputData,{headers:this.httpOptions.headers}); 
+    }
+
+    deleteInsuranceDataFromDB(inputData:any){
+        return this.http.post(environment.deleteInsuranceDataStoreURL,inputData,{headers:this.httpOptions.headers}); 
     }
 
     storeNewLoansDataToDB(inputData:any){

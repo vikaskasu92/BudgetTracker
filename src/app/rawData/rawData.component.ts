@@ -175,24 +175,6 @@ export class RawDataComponent implements OnInit {
     });
   }
 
-  deletePurchaseItem(id:number){
-    let displayMessage = "This purchase item will be deleted. Are you Sure?";
-    const dialogRef = this.matDialog.open(ConfirmDialogComponent,{
-      disableClose:true,
-      data:{message:displayMessage}
-    });
-    dialogRef.afterClosed().subscribe( deleteIt =>{
-      const deleteObj = {deleteById:id};
-      if(deleteIt){
-        this.dataStore.deletePurchaseDataFromDB(deleteObj).subscribe( () =>{
-          this.searchRawData(1);
-        },failure =>{
-          console.log("Problem with deleting");
-        });
-      }
-    });
-  }
-
   editInsuranceItem(insuranceType:string,insurnacePaidAmount:string,insurancePaidDate:string,id:number){
     const dialogRef = this.matDialog.open(EditRawDataDialogComponent,{
       disableClose:true,
@@ -225,6 +207,60 @@ export class RawDataComponent implements OnInit {
 
               }
           );
+      }
+    });
+  }
+
+  deletePurchaseItem(id:number){
+    let displayMessage = "This purchase item will be deleted. Are you Sure?";
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent,{
+      disableClose:true,
+      data:{message:displayMessage}
+    });
+    dialogRef.afterClosed().subscribe( deleteIt =>{
+      const deleteObj = {deleteById:id};
+      if(deleteIt){
+        this.dataStore.deletePurchaseDataFromDB(deleteObj).subscribe( () =>{
+          this.searchRawData(1);
+        },failure =>{
+          console.log("Problem with deleting");
+        });
+      }
+    });
+  }
+
+  deleteInsuranceItem(id:number){
+    let displayMessage = "This Insurance item will be deleted. Are you Sure?";
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent,{
+      disableClose:true,
+      data:{message:displayMessage}
+    });
+    dialogRef.afterClosed().subscribe( deleteIt =>{
+      const deleteObj = {deleteById:id};
+      if(deleteIt){
+        this.dataStore.deleteInsuranceDataFromDB(deleteObj).subscribe( () =>{
+          this.searchRawData(1);
+        },failure =>{
+          console.log("Problem with deleting");
+        });
+      }
+    });
+  }
+
+  deleteIncomeItem(id:number){
+    let displayMessage = "This Income data will be deleted. Are you Sure?";
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent,{
+      disableClose:true,
+      data:{message:displayMessage}
+    });
+    dialogRef.afterClosed().subscribe( deleteIt =>{
+      const deleteObj = {deleteById:id};
+      if(deleteIt){
+        this.dataStore.deleteIncomeDataFromDB(deleteObj).subscribe( () =>{
+          this.searchRawData(1);
+        },failure =>{
+          console.log("Problem with deleting");
+        });
       }
     });
   }

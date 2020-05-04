@@ -101,7 +101,7 @@
                                 <td >{{ incomeItem.socialSecurityTax | currency:USD }}</td>
                                 <td >
                                     <a mat-button (click)="editIncomeItem(incomeItem.salaryRecieved,incomeItem.dateRecieved,incomeItem.federalTax,incomeItem.stateTax,incomeItem.medicareTax,incomeItem.socialSecurityTax,incomeItem.id)" class="icon-display"><mat-icon>edit</mat-icon></a>
-                                    <a mat-button (click)="deleteIncomeItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                                    <a mat-button (click)="deleteIncomeItem(incomeItem.id)" class="icon-display"><mat-icon>delete</mat-icon></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -138,7 +138,7 @@
                                 <td >{{ insuranceItem.insurancePaidDate }} </td>
                                 <td >
                                     <a mat-button (click)="editInsuranceItem(insuranceItem.insuranceType,insuranceItem.insurnacePaidAmount,insuranceItem.insurancePaidDate,insuranceItem.id)" class="icon-display"><mat-icon>edit</mat-icon></a>
-                                    <a mat-button (click)="deleteInsuranceItem(loan.loanName)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                                    <a mat-button (click)="deleteInsuranceItem(insuranceItem.id)" class="icon-display"><mat-icon>delete</mat-icon></a>
                                 </td>
                             </tr>
                         </tbody>
