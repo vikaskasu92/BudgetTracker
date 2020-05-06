@@ -39,7 +39,7 @@ import { LineByYearComponent } from './summary/lineByYear/lineByYear.component'
 import { CategoriesComponent } from './shared/components/categories/categories.component'
 import { TablePendingLoansComponent } from './summary/tablePendingLoans/tablePendingLoans.component'
 import { BarCategoryComponent } from './summary/barCategory/barCategory.component'
-import { YearByYearComponent } from './yearByYear/yearByYear.component'
+import { ExpensesByYearComponent } from './expensesByYear/expensesByYear.component'
 import { LoansComponent } from './loans/loans.component'
 import { AddNewLoansDialogComponent } from './shared/dialogs/addNewLoansDialog/addNewLoansDialog.component'
 import { InvestmentsComponent } from './investments/investments.component'
@@ -68,7 +68,7 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
     LineByYearComponent,
     TablePendingLoansComponent,
     BarCategoryComponent,
-    YearByYearComponent,
+    ExpensesByYearComponent,
     LoansComponent,
     AddNewLoansDialogComponent,
     InvestmentsComponent,

@@ -7,11 +7,11 @@ import { PlaceholderDirective } from '../shared/directives/placeholder.directive
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-    selector:'app-yearByYear',
-    templateUrl:'./yearByYear.component.html',
-    styleUrls:['./yearByYear.component.css']
+    selector:'app-expensesByYear',
+    templateUrl:'./expensesByYear.component.html',
+    styleUrls:['./expensesByYear.component.css']
 })
-export class YearByYearComponent implements OnInit{
+export class ExpensesByYearComponent implements OnInit{
 
     constructor(private common:CommonService,
         private dataRetrieval:DataRetrievalService,
