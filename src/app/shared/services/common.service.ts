@@ -137,4 +137,8 @@ export class CommonService{
 
     inputTypes = ['Purchases','Income','Insurance'];
 
+    alarmTypes = ['Periodic Alarm','Budget Alarm'];
+
+    frequencies = ['Weekly','Monthly'];
+
 }

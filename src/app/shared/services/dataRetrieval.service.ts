@@ -106,4 +106,8 @@ export class DataRetrievalService{
         });
     }
 
+    getAllAlarms(){
+        return this.http.get<any>(environment.getAllAlarms,{headers: this.httpOptions.headers});
+    }
+
 }

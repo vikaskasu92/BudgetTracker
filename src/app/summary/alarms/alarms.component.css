@@ -1,0 +1,67 @@
+.mat-card-height-adjust{
+    min-height: 437px;
+    max-height: 437px;
+}
+
+.text-decorator{
+    color: #2C3531;
+    font-size: 16px;
+    text-align: center;
+}
+
+.center-align{
+    text-align: center;
+    margin-top: 150px;
+}
+
+.center-heading{
+    text-align: center;
+}
+
+.alarms-title{
+    color: #2C3531;
+    font-size: 16px;
+}
+
+.push-additional-alarms-symbol{
+    flex-grow:1;
+}
+
+.font_size{
+    font-size: 60px;
+}
+
+.form-field-spacing{
+    margin: 10px;
+}
+
+.heading-icon-space{
+    padding-left:20px;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 150px;
+    overflow-y: auto;
+    border: 1px dotted silver;
+}
+
+.my-custom-scrollbar thead th { 
+    position: sticky; 
+    top: 0; 
+    background:#eee;
+}
+
+.label-design{
+    color: #2C3531;
+    text-decoration: underline;
+}
+
+.budget-alarms-top{
+    margin-top:20px;
+}
+
+.icon-display{
+    margin-top: -3px;
+    margin-left: -20px;
+}

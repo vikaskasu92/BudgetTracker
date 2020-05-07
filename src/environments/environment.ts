@@ -18,6 +18,8 @@ export const environment = {
   closeLoanFromDB:"http://localhost:8080/budgetTrackerDataStore/closeLoan",
   reOpenLoanFromDB:"http://localhost:8080/budgetTrackerDataStore/reOpenLoan",
   deleteLoanFromDB:"http://localhost:8080/budgetTrackerDataStore/deleteLoanFromDB",
+  createNewPeriodicAlarmInDB:"http://localhost:8080/budgetTrackerDataStore/createNewPeriodicAlarmInDB",
+  createNewBudgetAlarmInDB:"http://localhost:8080/budgetTrackerDataStore/createNewBudgetAlarmInDB",
   incomeExpenseSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveIncomeExpenseSummary?username=vikas",
   yearlyExpenseSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveYearlyExpenseSummary?username=vikas",
   pendingLoansSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrievePendingLoansSummary?username=vikas",
@@ -28,7 +30,8 @@ export const environment = {
   getAllYearsForCustomers:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveAllYearsForCustomer?username=vikas",
   getRawDataByInput:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveRawDataByInput?username=vikas",
   getRawDataByDate:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveRawDataByDate?username=vikas",
-  getRawDataByInputAndDate:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveRawDataByInputAndDate?username=vikas"
+  getRawDataByInputAndDate:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveRawDataByInputAndDate?username=vikas",
+  getAllAlarms:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveAllAlarms?username=vikas"
 };
 
 /*

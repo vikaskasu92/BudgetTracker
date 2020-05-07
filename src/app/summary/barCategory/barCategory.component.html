@@ -1,12 +1,19 @@
-<h3 class="text-decorator">Expenses by Category</h3>
-<form [formGroup]="categoriesForm">
-    <div class="row d-flex justify-content-center">
-        <app-categories [parentForm]="categoriesForm" formInnerControlName1="mainCategory" [subCategory]="subCategory" formInnerControlName2="subCategory" (subCategorySelected)="getOverallCategoriesExpenses($event)" (mainCategorySelected)="mainCategorySelected($event)"></app-categories>
-    </div>
-    <div class="row d-flex justify-content-center">
-        <div *ngIf="noData" class="no-data">
-            <span>You have no data for the categories chosen!</span>
+<mat-card class="mat-card-height-adjust">
+    <mat-card-content>
+        <h3 class="text-decorator">Expenses by Category</h3>
+        <form [formGroup]="categoriesForm">
+            <div class="row d-flex justify-content-center">
+                <app-categories [parentForm]="categoriesForm" formInnerControlName1="mainCategory" [subCategory]="subCategory" formInnerControlName2="subCategory" (subCategorySelected)="getOverallCategoriesExpenses($event)" (mainCategorySelected)="mainCategorySelected($event)"></app-categories>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div *ngIf="noData" class="no-data">
+                    <span>You have no data for the categories chosen!</span>
+                </div>
+            </div>
+        </form>
+        <ng-template placeholderDirective></ng-template>
+        <div *ngIf="onLoad" class="adjust-on-load">
+            <span>Please choose the categories above to proceed!</span>
         </div>
-    </div>
-</form>
-<ng-template placeholderDirective></ng-template>
+    </mat-card-content>
+</mat-card>

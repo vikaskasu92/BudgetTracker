@@ -24,6 +24,7 @@ export class BarCategoryComponent implements OnInit{
     dateArray:any;
     noData = false;
     subCategory = {};
+    onLoad = true;
     @ViewChild(PlaceholderDirective ,{static:false})viewComponentRef:PlaceholderDirective;
 
     ngOnInit(): void {
@@ -41,6 +42,7 @@ export class BarCategoryComponent implements OnInit{
         this.dataRetrieval.getOverallCategoriesExpenses(categoriesData).subscribe( response => {
             this._createBarGraphComponent();
             setTimeout(()=>{
+                this.onLoad = false;
                 if(response.length != 0){
                     this.noData = false;
                     this._buildOverallCategories(response);

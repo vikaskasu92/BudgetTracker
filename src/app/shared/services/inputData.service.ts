@@ -39,6 +39,18 @@ export class InputDataService{
         return incomeForm;
     }
 
+    createNewAlarmForm(newAlarmForm:FormGroup){
+            newAlarmForm = new FormGroup({
+            'alarmTypes' : new FormControl(null,Validators.required),
+            'frequency' : new FormControl(null),
+            'periodicEmail' : new FormControl(null),
+            'alarmBy' : new FormControl(null),
+            'budgetAmount' : new FormControl(null),
+            'budgetEmail' : new FormControl(null,)
+        });
+        return newAlarmForm;
+    }
+
     addValidationsClassNames(purchaseForm:FormGroup){
         purchaseForm.controls.mainCategory.invalid ? document.getElementById('mainCategory').className += ' mat-form-field-invalid' : '';
         if(purchaseForm.controls.subCategory.enabled){

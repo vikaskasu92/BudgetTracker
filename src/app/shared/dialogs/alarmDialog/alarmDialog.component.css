@@ -1,0 +1,29 @@
+.alarm-by-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+  
+.alarm-radio-button {
+    margin: 5px;
+}
+
+.second-radio-button{
+    margin-top: 10px;
+}
+
+.form-field-spacing{
+    margin: 10px;
+}
+
+.leftSpacing{
+    margin-left:10px;
+}
+
+.center-align{
+    text-align: center;
+}
+
+.heading-icon-space{
+    padding-left:20px;
+}

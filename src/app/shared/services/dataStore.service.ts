@@ -14,7 +14,7 @@ export class DataStoreService{
     }
 
     updatePurchaseDataToDB(inputData:any){
-        return this.http.post(environment.updatePurchaseDataStoreURL,inputData,{headers:this.httpOptions.headers});
+        return this.http.put(environment.updatePurchaseDataStoreURL,inputData,{headers:this.httpOptions.headers});
     }
 
     storePurchaseDataToDB(inputData:any){
@@ -22,11 +22,11 @@ export class DataStoreService{
     }
 
     deletePurchaseDataFromDB(inputData:any){
-        return this.http.post(environment.deletePurchaseDataStoreURL,inputData,{headers:this.httpOptions.headers});
+        return this.http.delete(environment.deletePurchaseDataStoreURL,inputData);
     }
 
     updateIncomeDataToDB(inputData:any){
-        return this.http.post(environment.updateIncomeDataStoreURL,inputData,{headers:this.httpOptions.headers});
+        return this.http.put(environment.updateIncomeDataStoreURL,inputData,{headers:this.httpOptions.headers});
     }
 
     storeIncomeDataToDB(inputData:any){
@@ -34,11 +34,11 @@ export class DataStoreService{
     }
 
     deleteIncomeDataFromDB(inputData:any){
-        return this.http.post(environment.deleteIncomeDataStoreURL,inputData,{headers:this.httpOptions.headers});
+        return this.http.delete(environment.deleteIncomeDataStoreURL,inputData);
     }
     
     updateInsuranceDataToDB(inputData:any){
-        return this.http.post(environment.updateInsuranceDataStoreURL,inputData,{headers:this.httpOptions.headers});
+        return this.http.put(environment.updateInsuranceDataStoreURL,inputData,{headers:this.httpOptions.headers});
     }
 
     storeInsuranceDataToDB(inputData:any){
@@ -46,7 +46,7 @@ export class DataStoreService{
     }
 
     deleteInsuranceDataFromDB(inputData:any){
-        return this.http.post(environment.deleteInsuranceDataStoreURL,inputData,{headers:this.httpOptions.headers}); 
+        return this.http.delete(environment.deleteInsuranceDataStoreURL,inputData); 
     }
 
     storeNewLoansDataToDB(inputData:any){
@@ -54,18 +54,26 @@ export class DataStoreService{
     }
 
     closeLoanFromDB(inputData:any){
-        return this.http.post(environment.closeLoanFromDB,inputData,{headers:this.httpOptions.headers}); 
+        return this.http.patch(environment.closeLoanFromDB,inputData,{headers:this.httpOptions.headers}); 
     }
 
     reOpenLoanFromDB(inputData:any){
-        return this.http.post(environment.reOpenLoanFromDB,inputData,{headers:this.httpOptions.headers}); 
+        return this.http.patch(environment.reOpenLoanFromDB,inputData,{headers:this.httpOptions.headers}); 
     }
 
     deleteLoanFromDB(inputData:any){
-        return this.http.post(environment.deleteLoanFromDB,inputData,{headers:this.httpOptions.headers}); 
+        return this.http.delete(environment.deleteLoanFromDB,inputData); 
     }
 
     updateLoansDataToDB(inputData:any){
-        return this.http.post(environment.updateLoanInDB,inputData,{headers:this.httpOptions.headers}); 
+        return this.http.put(environment.updateLoanInDB,inputData,{headers:this.httpOptions.headers}); 
+    }
+
+    createNewPeriodicAlarm(inputData:any){
+        return this.http.post(environment.createNewPeriodicAlarmInDB,inputData,{headers:this.httpOptions.headers}); 
+    }
+
+    createNewBudgetAlarm(inputData:any){
+        return this.http.post(environment.createNewBudgetAlarmInDB,inputData,{headers:this.httpOptions.headers}); 
     }
 }

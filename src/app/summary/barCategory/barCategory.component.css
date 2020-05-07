@@ -13,3 +13,13 @@
 .no-data{
     padding-left:14px;
 }
+
+.mat-card-height-adjust{
+    min-height: 437px;
+    max-height: 437px;
+}
+
+.adjust-on-load{
+    text-align: center;
+    margin-top: 100px;
+}

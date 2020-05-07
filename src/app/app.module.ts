@@ -27,6 +27,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { SummaryComponent } from "./summary/summary.component"
@@ -37,6 +38,8 @@ import { NewInputComponent } from "./newInput/newInput.component"
 import { PieTotalComponent } from './summary/pieTotal/pieTotal.component'
 import { LineByYearComponent } from './summary/lineByYear/lineByYear.component'
 import { CategoriesComponent } from './shared/components/categories/categories.component'
+import { AlarmsComponent } from './summary/alarms/alarms.component'
+import { AlarmDialogComponent } from './shared/dialogs/alarmDialog/alarmDialog.component'
 import { TablePendingLoansComponent } from './summary/tablePendingLoans/tablePendingLoans.component'
 import { BarCategoryComponent } from './summary/barCategory/barCategory.component'
 import { ExpensesByYearComponent } from './expensesByYear/expensesByYear.component'
@@ -68,6 +71,8 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
     LineByYearComponent,
     TablePendingLoansComponent,
     BarCategoryComponent,
+    AlarmsComponent,
+    AlarmDialogComponent,
     ExpensesByYearComponent,
     LoansComponent,
     AddNewLoansDialogComponent,
@@ -108,6 +113,7 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatDividerModule,
+    MatRadioModule,
     HttpClientModule,
     ChartsModule
   ],
@@ -117,7 +123,8 @@ import { RemoveSpacePipe } from './shared/pipes/removeSpace.pipe';
     AddNewLoansDialogComponent,
     GraphDisplayComponent,
     ConfirmDialogComponent,
-    EditRawDataDialogComponent
+    EditRawDataDialogComponent,
+    AlarmDialogComponent
   ]
 })
 export class AppModule { }
