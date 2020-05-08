@@ -7,8 +7,8 @@
         <form [formGroup]="newAlarmForm" (ngSubmit)="createAlarm()">
             <mat-radio-group aria-labelledby="alarmByLabel" >
                 <mat-radio-group aria-label="alarmByLabel" class="alarm-by-radio-group" formControlName="alarmBy">
-                    <mat-radio-button value="monthly">Monthly Budget</mat-radio-button>
-                    <mat-radio-button value="yearly" class="second-radio-button">Yearly Budget</mat-radio-button>
+                    <mat-radio-button value="currentMonth">Monthly</mat-radio-button>
+                    <mat-radio-button value="currentYear" class="second-radio-button">Yearly</mat-radio-button>
                     <mat-error *ngIf="!newAlarmForm.get('alarmBy').valid && newAlarmForm.get('alarmBy').touched">Alarm Period is inValid!</mat-error>
                 </mat-radio-group>
             </mat-radio-group>

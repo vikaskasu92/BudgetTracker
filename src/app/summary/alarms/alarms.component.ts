@@ -20,13 +20,20 @@ export class AlarmsComponent implements OnInit{
     budgetAlarms:any = [];
 
     ngOnInit(): void {
-        this.retrieveAlarms();
+        this.retrieveAlarms(false);
     }
 
-    retrieveAlarms(){
-        this.dataRetrieval.getAllAlarms().subscribe( response => {
-            response.length === 0 ? this.noAlarms = true : this.noAlarms = false;
-            this._generateTables(response);
+    retrieveAlarms(recheck:boolean){
+        this.dataRetrieval.getAllAlarms().subscribe( length => {
+            this.dataRetrieval.allAlarms.length === 0 ? this.noAlarms = true : this.noAlarms = false;
+            if(length > 0 && recheck != true){
+                this.dataRetrieval.checkAndIntiateAlarms(this.dataRetrieval.allAlarms).subscribe( () => {
+                    this.retrieveAlarms(true);
+                },failure =>{
+                    console.log("Error Checking alarm triggers");
+                });
+                this._generateTables(this.dataRetrieval.allAlarms);
+            }
         },failure => {
             console.log("Error Creating alarm");
         });
@@ -66,7 +73,7 @@ export class AlarmsComponent implements OnInit{
 
     private _createBudgetAlarm(response:any){
         this.dataStore.createNewBudgetAlarm(response.value).subscribe( response => {
-            this.retrieveAlarms();
+            this.retrieveAlarms(false);
         },failure => {
             console.log("Error Creating alarm");
         });

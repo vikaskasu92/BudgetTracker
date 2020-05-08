@@ -24,6 +24,7 @@ export class DataRetrievalService{
         })
     }
     allYears=[];
+    allAlarms=[];
 
     getOverallIncomeAndExpenses(){
         return this.http.get<IExpenseIncomeSummary>(environment.incomeExpenseSummary,{
@@ -107,7 +108,17 @@ export class DataRetrievalService{
     }
 
     getAllAlarms(){
-        return this.http.get<any>(environment.getAllAlarms,{headers: this.httpOptions.headers});
+        return this.http.get<any>(environment.getAllAlarms,{headers: this.httpOptions.headers}).pipe(
+            map( response =>{
+                this.allAlarms = [];
+                this.allAlarms = response;
+                return this.allAlarms.length;
+            })
+        );
+    }
+
+    checkAndIntiateAlarms(inputData:any){
+        return this.http.post(environment.checkAndInitiateAlarms,inputData,{headers:this.httpOptions.headers}); 
     }
 
 }

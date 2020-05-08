@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/shared/services/common.service';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { MatSnackBarConfig } from '@angular/material';
 import { InputDataService } from 'src/app/shared/services/inputData.service';
+import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 
 @Component({
     selector:"app-newInsurance",
@@ -14,7 +15,8 @@ export class NewInsuranceComponent{
 
     constructor(private dataStore:DataStoreService,
         private common:CommonService,
-        private inputDate:InputDataService){}
+        private inputDate:InputDataService,
+        private dataRetrieval:DataRetrievalService){}
 
     insuranceFormToReset:NgForm;
     insuranceForm:FormGroup;
@@ -46,6 +48,13 @@ export class NewInsuranceComponent{
             this.common.updateDate(formData.value.insurancePaidDate,formData);
             this.dataStore.storeInsuranceDataToDB(formData.value).subscribe(
                 success =>{
+                    this.dataRetrieval.getAllAlarms().subscribe( ()=> {
+                        this.dataRetrieval.checkAndIntiateAlarms(this.dataRetrieval.allAlarms).subscribe( response => {
+
+                        },failure =>{
+    
+                        });
+                    });
                     this.insuranceFormToReset.resetForm();
                     this.common.snackBarOpen("Successfully Saved!",this.config);
                 }, failure =>{

@@ -4,6 +4,7 @@ import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { MatSnackBarConfig } from '@angular/material';
 import { InputDataService } from 'src/app/shared/services/inputData.service';
+import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 
 @Component({
     selector:'app-newPurchase',
@@ -14,7 +15,8 @@ export class NewPurchaseComponent implements OnInit{
 
     constructor(private dataStore:DataStoreService,
         private common:CommonService,
-        private inputDataService:InputDataService){}
+        private inputDataService:InputDataService,
+        private dataRetrieval:DataRetrievalService){}
 
     purchaseFormToReset:NgForm;
     purchaseForm:FormGroup;
@@ -43,6 +45,13 @@ export class NewPurchaseComponent implements OnInit{
             this.common.updateDate(this.purchaseForm.value.date,this.purchaseForm);
             this.dataStore.storePurchaseDataToDB(this.purchaseForm.value).subscribe(
                 success =>{
+                    this.dataRetrieval.getAllAlarms().subscribe( ()=> {
+                        this.dataRetrieval.checkAndIntiateAlarms(this.dataRetrieval.allAlarms).subscribe( response => {
+
+                        },failure =>{
+    
+                        });
+                    })
                     this.purchaseFormToReset.resetForm();
                     this.common.snackBarOpen("Successfully Saved!",this.config);
                 }, failure =>{

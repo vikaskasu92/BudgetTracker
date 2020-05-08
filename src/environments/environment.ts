@@ -30,7 +30,8 @@ export const environment = {
   getRawDataByInput:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveRawDataByInput?username=vikas",
   getRawDataByDate:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveRawDataByDate?username=vikas",
   getRawDataByInputAndDate:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveRawDataByInputAndDate?username=vikas",
-  getAllAlarms:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveAllAlarms?username=vikas"
+  getAllAlarms:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveAllAlarms?username=vikas",
+  checkAndInitiateAlarms:"http://localhost:8081/RetrieveBudgetTrackerData/checkAndInitiateAlarm"
 };
 
 /*

@@ -4,6 +4,7 @@ import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { InputDataService } from 'src/app/shared/services/inputData.service';
+import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 
 @Component({
     selector:'app-newIncome',
@@ -14,7 +15,8 @@ export class NewIncomeComponent implements OnInit{
 
     constructor(private dataStore:DataStoreService,
         private common:CommonService,
-        private inputData:InputDataService){}
+        private inputData:InputDataService,
+        private dataRetrieval:DataRetrievalService){}
 
     salaryAndTaxFormToReset:NgForm;
     incomeForm:FormGroup;
@@ -44,6 +46,13 @@ export class NewIncomeComponent implements OnInit{
             this.common.updateIncomeDate(formData.value.dateRecieved,formData);
             this.dataStore.storeIncomeDataToDB(formData.value).subscribe(
                 success =>{
+                    this.dataRetrieval.getAllAlarms().subscribe( ()=> {
+                        this.dataRetrieval.checkAndIntiateAlarms(this.dataRetrieval.allAlarms).subscribe( response => {
+
+                        },failure =>{
+    
+                        });
+                    });
                     this.salaryAndTaxFormToReset.resetForm();
                     this.common.snackBarOpen("Successfully Saved!",this.config);
                 }, failure =>{
