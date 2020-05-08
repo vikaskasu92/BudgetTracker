@@ -10,7 +10,7 @@
             </div>
             <ng-template #dataAvailable>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table table-striped pendingLoans">
                         <thead>
                         <tr>
                             <th scope="col" class="table-header-style">Loan</th>
@@ -18,7 +18,6 @@
                             <th scope="col" class="table-header-style">Balance</th>
                             <th scope="col" class="table-header-style">Loan APR</th>
                             <th scope="col" class="table-header-style">EMI</th>
-                            <th scope="col" class="table-header-style">Duration Left</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -28,7 +27,6 @@
                                 <td>{{ pendingLoan.loanBalance | currency:USD }}</td>
                                 <td>{{ pendingLoan.loanAPR | decimalFormat:2 }} %</td>
                                 <td>{{ pendingLoan.loanMonthlyAmount | currency:USD }}</td>
-                                <td>{{ pendingLoan.loanCompletionDuration }} months</td>
                             </tr>
                         </tbody>
                     </table>

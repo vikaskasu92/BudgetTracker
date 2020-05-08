@@ -10,15 +10,15 @@
         </div>
         <div *ngIf="!spinnerOpenLoans && openLoans.length != 0" #nowOpenLoansResults>
             <div class="table-responsive-sm table-bottom-reduce">
-                <table class="table table-striped table-sm">
+                <table class="table table-striped table-sm openLoans">
                     <thead>
                     <tr>
-                        <th scope="col" class="table-header-style">Name</th>
-                        <th scope="col" class="table-header-style">Type</th>
+                        <th scope="col" class="table-header-style">Loan Name</th>
+                        <th scope="col" class="table-header-style">Loan Type</th>
                         <th scope="col" class="table-header-style">Balance</th>
-                        <th scope="col" class="table-header-style table-alignment">APR</th>
+                        <th scope="col" class="table-header-style">APR</th>
                         <th scope="col" class="table-header-style">EMI</th>
-                        <th scope="col" class="table-header-style table-alignment">Actions</th>
+                        <th scope="col" class="table-header-style">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -26,9 +26,9 @@
                             <td >{{ loan.loanName | uppercase}}</td>
                             <td >{{ loan.loanType | uppercase }}</td>
                             <td >{{ loan.loanBalance | currency:USD }}</td>
-                            <td class="table-alignment">{{ loan.loanAPR | decimalFormat:2 }} %</td>
+                            <td >{{ loan.loanAPR | decimalFormat:2 }} %</td>
                             <td >{{ loan.loanMonthlyAmount | currency:USD }}</td>
-                            <td class="table-alignment">
+                            <td >
                                 <a mat-button (click)="editLoan(loan.loanName,loan.loanType,loan.loanBalance,loan.loanAPR,loan.loanMonthlyAmount,loan.id)"><mat-icon>edit</mat-icon></a>
                                 <a mat-button (click)="closeLoan(loan.id)" class="icon-display"><mat-icon>close</mat-icon></a>
                             </td>
@@ -52,23 +52,23 @@
         </div>
         <div *ngIf="!spinnerClosedLoans && closedLoans.length != 0" #nowClosedLoansResults>
             <div class="table-responsive-sm table-bottom-reduce">
-                <table class="table table-striped table-sm">
+                <table class="table table-striped table-sm closedLoans">
                     <thead>
                     <tr>
-                        <th scope="col" class="table-header-style">Name</th>
-                        <th scope="col" class="table-header-style">Type</th>
-                        <th scope="col" class="table-header-style table-alignment">APR</th>
+                        <th scope="col" class="table-header-style">Loan Name</th>
+                        <th scope="col" class="table-header-style">Loan Type</th>
+                        <th scope="col" class="table-header-style">APR</th>
                         <th scope="col" class="table-header-style">EMI</th>
-                        <th scope="col" class="table-header-style table-alignment">Actions</th>
+                        <th scope="col" class="table-header-style">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let loan of closedLoans">
                             <td >{{ loan.loanName | uppercase}}</td>
                             <td >{{ loan.loanType | uppercase }}</td>
-                            <td class="table-alignment">{{ loan.loanAPR  | decimalFormat:2 }} %</td>
+                            <td >{{ loan.loanAPR  | decimalFormat:2 }} %</td>
                             <td >{{ loan.loanMonthlyAmount | currency:USD }}</td>
-                            <td class="table-alignment">
+                            <td >
                                 <a mat-button (click)="reOpenLoan(loan.id)" ><mat-icon>lock_open</mat-icon></a>
                                 <a mat-button (click)="deleteLoan(loan.id)" class="icon-display"><mat-icon>delete_forever</mat-icon></a>
                             </td>
