@@ -1,60 +1,30 @@
-<h3><label>{{ data.displayMessage }}</label><mat-icon class="heading-icon-space">alarm</mat-icon></h3>
-<hr>
 <mat-card>
+    <mat-card-header class="mat-card-header-design">
+        <mat-card-title class="mat-header-title-design">{{ data.displayMessage }}</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
-        <form [formGroup]="newAlarmForm">
-            <div class="center-align">
-                <mat-form-field appearance="fill" class="form-field-spacing">
-                    <mat-label>Alarm Type</mat-label>
-                    <mat-select formControlName="alarmTypes">
-                        <mat-option *ngFor="let alarmType of alarmTypes" [value]="alarmType | removeSpace">{{ alarmType }}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="!newAlarmForm.get('alarmTypes').valid && newAlarmForm.get('alarmTypes').touched">Please choose valid alarm type!</mat-error>
-                </mat-form-field>
-            </div>
-            <br>
-            <div *ngIf="periodicAlarm">
-                <hr>
-                <div class="center-align">
-                    <mat-form-field appearance="fill" class="form-field-spacing">
-                        <mat-label>Frequency</mat-label>
-                        <mat-select formControlName="frequency">
-                            <mat-option *ngFor="let frequency of frequencies" [value]="frequency">{{ frequency }}</mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="!newAlarmForm.get('frequency').valid && newAlarmForm.get('frequency').touched">Please choose valid alarm type!</mat-error>
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="form-field-spacing">
-                        <mat-label>Email</mat-label>
-                        <input matInput formControlName="periodicEmail">
-                        <mat-error *ngIf="!newAlarmForm.get('periodicEmail').valid && newAlarmForm.get('periodicEmail').touched">Email is inValid!</mat-error>
-                    </mat-form-field>
-                </div>
-                <hr>
-            </div>
-            <div *ngIf="budgetAlarm">
-                <hr>
-                <mat-radio-group aria-labelledby="alarmByLabel" >
-                    <mat-radio-group aria-label="alarmByLabel" class="alarm-by-radio-group" formControlName="alarmBy">
-                        <mat-radio-button value="monthly">Monthly Budget</mat-radio-button>
-                        <mat-radio-button value="yearly" class="second-radio-button">Yearly Budget</mat-radio-button>
-                      </mat-radio-group>
+        <form [formGroup]="newAlarmForm" (ngSubmit)="createAlarm()">
+            <mat-radio-group aria-labelledby="alarmByLabel" >
+                <mat-radio-group aria-label="alarmByLabel" class="alarm-by-radio-group" formControlName="alarmBy">
+                    <mat-radio-button value="monthly">Monthly Budget</mat-radio-button>
+                    <mat-radio-button value="yearly" class="second-radio-button">Yearly Budget</mat-radio-button>
+                    <mat-error *ngIf="!newAlarmForm.get('alarmBy').valid && newAlarmForm.get('alarmBy').touched">Alarm Period is inValid!</mat-error>
                 </mat-radio-group>
-                <label>Greater than</label>
-                <mat-form-field appearance="fill" class="form-field-spacing">
-                    <mat-label>Budget Amount</mat-label>
-                    <input matInput formControlName="budgetAmount">
-                    <mat-error *ngIf="!newAlarmForm.get('budgetAmount').valid && newAlarmForm.get('budgetAmount').touched">Budget is inValid!</mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="fill" class="form-field-spacing">
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="budgetEmail">
-                    <mat-error *ngIf="!newAlarmForm.get('budgetEmail').valid && newAlarmForm.get('budgetEmail').touched">Email is inValid!</mat-error>
-                </mat-form-field>
-                <hr>
-            </div>
+            </mat-radio-group>
+            <label>Greater than</label>
+            <mat-form-field appearance="fill" class="form-field-spacing">
+                <mat-label>Budget Amount</mat-label>
+                <input matInput formControlName="budgetAmount">
+                <mat-error *ngIf="!newAlarmForm.get('budgetAmount').valid && newAlarmForm.get('budgetAmount').touched">Budget is inValid!</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-field-spacing">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="budgetEmail">
+                <mat-error *ngIf="!newAlarmForm.get('budgetEmail').valid && newAlarmForm.get('budgetEmail').touched">Email is inValid!</mat-error>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button color="primary" type="submit">Create Alarm</button>
+            <a mat-button (click)="cancelAlarm()" class="leftSpacing">Cancel</a>
         </form>
-        <br>
-        <button mat-raised-button color="primary" (click)="createAlarm()">Create Alarm</button>
-        <a mat-button (click)="cancelAlarm()" class="leftSpacing">Cancel</a>
     </mat-card-content>
 </mat-card>

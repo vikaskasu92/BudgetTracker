@@ -18,7 +18,6 @@ export const environment = {
   closeLoanFromDB:"http://localhost:8080/budgetTrackerDataStore/closeLoan",
   reOpenLoanFromDB:"http://localhost:8080/budgetTrackerDataStore/reOpenLoan",
   deleteLoanFromDB:"http://localhost:8080/budgetTrackerDataStore/deleteLoanFromDB",
-  createNewPeriodicAlarmInDB:"http://localhost:8080/budgetTrackerDataStore/createNewPeriodicAlarmInDB",
   createNewBudgetAlarmInDB:"http://localhost:8080/budgetTrackerDataStore/createNewBudgetAlarmInDB",
   incomeExpenseSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveIncomeExpenseSummary?username=vikas",
   yearlyExpenseSummary:"http://localhost:8081/RetrieveBudgetTrackerData/retrieveYearlyExpenseSummary?username=vikas",

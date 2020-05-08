@@ -69,10 +69,6 @@ export class DataStoreService{
         return this.http.put(environment.updateLoanInDB,inputData,{headers:this.httpOptions.headers}); 
     }
 
-    createNewPeriodicAlarm(inputData:any){
-        return this.http.post(environment.createNewPeriodicAlarmInDB,inputData,{headers:this.httpOptions.headers}); 
-    }
-
     createNewBudgetAlarm(inputData:any){
         return this.http.post(environment.createNewBudgetAlarmInDB,inputData,{headers:this.httpOptions.headers}); 
     }

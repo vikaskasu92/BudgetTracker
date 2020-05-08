@@ -41,12 +41,9 @@ export class InputDataService{
 
     createNewAlarmForm(newAlarmForm:FormGroup){
             newAlarmForm = new FormGroup({
-            'alarmTypes' : new FormControl(null,Validators.required),
-            'frequency' : new FormControl(null),
-            'periodicEmail' : new FormControl(null),
-            'alarmBy' : new FormControl(null),
-            'budgetAmount' : new FormControl(null),
-            'budgetEmail' : new FormControl(null,)
+            'alarmBy' : new FormControl(null,Validators.required),
+            'budgetAmount' : new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
+            'budgetEmail' : new FormControl(null,[Validators.required,Validators.email])
         });
         return newAlarmForm;
     }

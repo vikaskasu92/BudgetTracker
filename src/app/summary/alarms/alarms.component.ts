@@ -17,10 +17,7 @@ export class AlarmsComponent implements OnInit{
                 private dataRetrieval:DataRetrievalService){}
 
     noAlarms:boolean = true;
-    periodicAlarms:any = [];
     budgetAlarms:any = [];
-    periodicAlarmPresent:boolean = false;
-    budgetAlarmPresent:boolean = false;
 
     ngOnInit(): void {
         this.retrieveAlarms();
@@ -36,25 +33,14 @@ export class AlarmsComponent implements OnInit{
     }
 
     _generateTables(response:any){
-        this.periodicAlarms = [];
         this.budgetAlarms = [];
         for(let i=0; i<response.length; i++){
-            if(response[i].alarmType === "PeriodicAlarm"){
-                this.periodicAlarmPresent = true;
-                let currentObj = {
-                    frequency:response[i].frequency,
-                    periodicEmail:response[i].periodicEmail
-                }
-                this.periodicAlarms.push(currentObj);
-            }else{
-                this.budgetAlarmPresent = true;
-                let currentObj = {
-                    budgetAmount:response[i].budgetAmount,
-                    budgetEmail:response[i].budgetEmail,
-                    alarmBy:response[i].alarmBy
-                }
-                this.budgetAlarms.push(currentObj);
+            let currentObj = {
+                budgetAmount:response[i].budgetAmount,
+                budgetEmail:response[i].budgetEmail,
+                alarmBy:response[i].alarmBy
             }
+            this.budgetAlarms.push(currentObj);
         }
     }
 
@@ -73,20 +59,8 @@ export class AlarmsComponent implements OnInit{
         });
         dialogRef.afterClosed().subscribe( response =>{
             if(response != true){
-                if(response.value.alarmTypes === "PeriodicAlarm"){
-                    this._createPeriodicAlarm(response);
-                }else{
-                    this._createBudgetAlarm(response);
-                }
+                this._createBudgetAlarm(response);
             }
-        });
-    }
-
-    private _createPeriodicAlarm(response:any){
-        this.dataStore.createNewPeriodicAlarm(response.value).subscribe( response => {
-            this.retrieveAlarms();
-        },failure => {
-            console.log("Error Creating alarm");
         });
     }
 
