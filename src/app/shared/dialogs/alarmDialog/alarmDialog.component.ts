@@ -19,8 +19,6 @@ export class AlarmDialogComponent implements OnInit{
 
     ngOnInit(): void {
         this.newAlarmForm =  this.inputData.createNewAlarmForm(this.newAlarmForm);
-        this.newAlarmForm.controls.alarmBy.setValidators([Validators.required]);
-        this.newAlarmForm.controls.alarmBy.updateValueAndValidity();
     }
 
     createAlarm(){
