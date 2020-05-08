@@ -26,7 +26,6 @@
                                 <td >{{ budgetAlarm.budgetAmount | currency:USD }}</td>
                                 <td >{{ budgetAlarm.budgetEmail }}</td>
                                 <td >
-                                    <a mat-button (click)="editBudgetAlarm(budgetAlarm.alarmBy ,budgetAlarm.budgetAmount,budgetAlarm.budgetEmail ,budgetAlarm.id)" class="icon-display"><mat-icon>edit</mat-icon></a>
                                     <a mat-button (click)="deleteBudgetAlarm(budgetAlarm.id)" class="icon-display"><mat-icon>delete</mat-icon></a>
                                 </td>
                             </tr>

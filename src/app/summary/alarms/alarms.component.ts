@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { AlarmDialogComponent } from 'src/app/shared/dialogs/alarmDialog/alarmDialog.component';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
+import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirmDialog/confirmDialog.component';
 
 @Component({
     selector:'app-alarms',
@@ -39,16 +40,21 @@ export class AlarmsComponent implements OnInit{
         });
     }
 
-    _generateTables(response:any){
-        this.budgetAlarms = [];
-        for(let i=0; i<response.length; i++){
-            let currentObj = {
-                budgetAmount:response[i].budgetAmount,
-                budgetEmail:response[i].budgetEmail,
-                alarmBy:response[i].alarmBy
+    deleteBudgetAlarm(id:number){
+        let dialogRef = this.matDialog.open(ConfirmDialogComponent,{
+            disableClose:true,
+            data:{message:'Are you sure, you want to delete the alarm?'}
+        });
+        dialogRef.afterClosed().subscribe( response =>{
+            const deleteObj = {deleteById:id};
+            if(response){
+                this.dataStore.deleteBudgetAlarmFromDB(deleteObj).subscribe(() =>{
+                    this.retrieveAlarms(false); 
+                },failure =>{
+                    console.log("Error Deleting alarm");
+                })
             }
-            this.budgetAlarms.push(currentObj);
-        }
+        });
     }
 
     addNewAlarm(){
@@ -57,6 +63,19 @@ export class AlarmsComponent implements OnInit{
 
     addAdditionalNewAlarm(){
         this._openNewAlarmDialog();
+    }
+
+    private _generateTables(response:any){
+        this.budgetAlarms = [];
+        for(let i=0; i<response.length; i++){
+            let currentObj = {
+                budgetAmount:response[i].budgetAmount,
+                budgetEmail:response[i].budgetEmail,
+                alarmBy:response[i].alarmBy,
+                id:response[i].id
+            }
+            this.budgetAlarms.push(currentObj);
+        }
     }
 
     private _openNewAlarmDialog(){

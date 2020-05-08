@@ -22,7 +22,7 @@ export class DataStoreService{
     }
 
     deletePurchaseDataFromDB(inputData:any){
-        return this.http.delete(environment.deletePurchaseDataStoreURL,inputData);
+        return this.http.post(environment.deletePurchaseDataStoreURL,inputData);
     }
 
     updateIncomeDataToDB(inputData:any){
@@ -34,7 +34,7 @@ export class DataStoreService{
     }
 
     deleteIncomeDataFromDB(inputData:any){
-        return this.http.delete(environment.deleteIncomeDataStoreURL,inputData);
+        return this.http.post(environment.deleteIncomeDataStoreURL,inputData);
     }
     
     updateInsuranceDataToDB(inputData:any){
@@ -46,7 +46,7 @@ export class DataStoreService{
     }
 
     deleteInsuranceDataFromDB(inputData:any){
-        return this.http.delete(environment.deleteInsuranceDataStoreURL,inputData); 
+        return this.http.post(environment.deleteInsuranceDataStoreURL,inputData); 
     }
 
     storeNewLoansDataToDB(inputData:any){
@@ -62,7 +62,7 @@ export class DataStoreService{
     }
 
     deleteLoanFromDB(inputData:any){
-        return this.http.delete(environment.deleteLoanFromDB,inputData); 
+        return this.http.post(environment.deleteLoanFromDB,inputData); 
     }
 
     updateLoansDataToDB(inputData:any){
@@ -71,5 +71,9 @@ export class DataStoreService{
 
     createNewBudgetAlarm(inputData:any){
         return this.http.post(environment.createNewBudgetAlarmInDB,inputData,{headers:this.httpOptions.headers}); 
+    }
+
+    deleteBudgetAlarmFromDB(inputData:any){
+        return this.http.post(environment.deleteBudgetAlarmFromDB,inputData); 
     }
 }
