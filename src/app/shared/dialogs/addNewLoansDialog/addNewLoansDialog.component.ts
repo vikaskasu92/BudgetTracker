@@ -17,8 +17,10 @@ export class AddNewLoansDialogComponent implements OnInit{
     loanForm:FormGroup;
     loanTypes:string[];
     buttonName:string;
+    addNewLoanHeader:string;
 
     ngOnInit(): void {
+        this.addNewLoanHeader = this.data.addNewLoanHeader;
         if(this.data.type === "newLoan"){
             this.createNewLoan();
             this.buttonName = this.data.buttonName;

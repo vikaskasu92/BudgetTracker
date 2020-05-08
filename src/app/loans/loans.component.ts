@@ -45,7 +45,7 @@ export class LoansComponent implements OnInit{
     addNewLoans(){
         const dialogRef = this.dialog.open(AddNewLoansDialogComponent, {
             disableClose: true,
-            data:{type:'newLoan',buttonName:'Save'}
+            data:{type:'newLoan',buttonName:'Save',addNewLoanHeader:'Add New Loan'}
         });
       
         dialogRef.afterClosed().subscribe(result => {  
@@ -117,7 +117,7 @@ export class LoansComponent implements OnInit{
         const dialogRef = this.dialog.open(AddNewLoansDialogComponent, {
             disableClose: true,
             data:{loanName:loanName, loanType:loanType,loanBalance:loanBalance,loanAPR:loanAPR,
-                loanMonthlyAmount:loanMonthlyAmount,type:"editLoan",buttonName:'Update'}
+                loanMonthlyAmount:loanMonthlyAmount,type:"editLoan",buttonName:'Update',addNewLoanHeader:'Edit Loan'}
         });
       
         dialogRef.afterClosed().subscribe(result => {  
