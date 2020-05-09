@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
-import { IPendingLoansSummary } from 'src/app/model/summary/pendingLoansSummary.model';
+import { IPendingLoansSummary } from 'src/app/shared/model/summary/pendingLoansSummary.model';
 
 @Component({
     selector:'app-tablePendingLoans',

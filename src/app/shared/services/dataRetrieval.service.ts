@@ -3,12 +3,11 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { map } from 'rxjs/operators'  
 
-import { IExpenseIncomeSummary } from 'src/app/model/summary/expenseIncomeSummary.model';
+import { IExpenseIncomeSummary } from 'src/app/shared/model/summary/expenseIncomeSummary.model';
 import { environment } from '../../../environments/environment'
-import { IYearlyExpenseSummary } from 'src/app/model/summary/yearlyExpenseSummary.model';
-import { IPendingLoansSummary } from 'src/app/model/summary/pendingLoansSummary.model';
-import { ILoans } from 'src/app/model/loans/loans.model';
-import { IInvestments } from 'src/app/model/investments/investments.model';
+import { IYearlyExpenseSummary } from 'src/app/shared/model/summary/yearlyExpenseSummary.model';
+import { IPendingLoansSummary } from 'src/app/shared/model/summary/pendingLoansSummary.model';
+import { ILoans } from 'src/app/shared/model/loans/loans.model';
 
 
 @Injectable({providedIn:"root"})
@@ -69,10 +68,6 @@ export class DataRetrievalService{
 
     getOpenClosedLoans(){
         return this.http.get<ILoans>(environment.openClosedLoans,this.httpOptions);
-    }
-
-    getInvestments(){
-        return this.http.get<IInvestments>(environment.getAllInvestments,this.httpOptions);
     }
 
     getAllYearsForCustomers(){
