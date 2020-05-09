@@ -27,6 +27,8 @@ export class BarCategoryComponent implements OnInit{
     subCategory:string[] = [];
     onLoad:boolean = true;
     noData:boolean = false;
+    wentToMainCategorySelected:boolean;
+    subCategoryValue:string = null;
     @ViewChild(PlaceholderDirective ,{static:false})viewComponentRef:PlaceholderDirective;
 
     ngOnInit(): void {
@@ -34,26 +36,34 @@ export class BarCategoryComponent implements OnInit{
     }
 
     getOverallCategoriesExpenses(categoriesData:string[]){
+        this.wentToMainCategorySelected = false;
+        this.noData = false;
+        this.subCategoryValue === categoriesData[1] ? this.onLoad = true : this.onLoad = false;
         this.dataRetrieval.getOverallCategoriesExpenses(categoriesData).subscribe( response => {
-            this._createBarGraphComponent();
-            setTimeout(()=>{
-                this.onLoad = false;
-                if(response.length != 0){
-                    this.noData = false;
-                    this._buildOverallCategories(response);
-                    this.chart =  this.chartMaker.createCategoryBasedBarChart("categoryBar",this.priceArray,this.dateArray,"Expenses By Categories");  
-                }else{
-                    this.noData = true;
+           if(!this.wentToMainCategorySelected){
+                this._createBarGraphComponent();
+                setTimeout(()=>{
+                    this.onLoad = false;
+                    if(response.length != 0){
+                        this.noData = false;
+                        this._buildOverallCategories(response);
+                        this.chart =  this.chartMaker.createCategoryBasedBarChart("categoryBar",this.priceArray,this.dateArray,"Expenses By Categories");  
+                    }else{
+                        this.noData = true;
+                    }
+                },0);
+                if(categoriesData[1] != null){
+                    this.subCategoryValue = categoriesData[1];
                 }
-            },0);
+           }
         }),failure =>{
             console.log("Error Occured in data Retrieval!");
         }
     }
 
-    mainCategorySelected(mainSelected:boolean){
+    mainCategorySelected(mainSelectedValue:boolean){
+        this.wentToMainCategorySelected = true;
         this.chart = undefined;
-        this.noData = false;
         this.viewComponentRef.viewContainerRef.clear();
     }
 

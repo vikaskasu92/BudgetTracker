@@ -19,8 +19,8 @@ export class CategoriesComponent{
 
     ngOnInit(){
         this.category = Object.values(this.common.category);
-        this._subCategorySubscription();
         this._mainCategorySubscription();
+        this._subCategorySubscription();
         Object.keys(this.subCategory).length === 0 ? this.subCategory = [] : '';
     }
 
