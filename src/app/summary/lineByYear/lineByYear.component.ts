@@ -13,12 +13,12 @@ export class LineByYearComponent implements OnInit{
         private dataRetrieval:DataRetrievalService
         ){}
 
-    @Input()endYear;
-    @Input()startYear;
+    @Input()endYear:string;
+    @Input()startYear:string;
     chart:Chart;
-    yearsArray = [];
-    expenseArray = [];
-    yearsData = [];
+    yearsArray:string[] = [];
+    expenseArray:number[] = [];
+    yearsData:string[] = [];
 
     ngOnInit(){
         this.yearsData.push(this.startYear+"-01-01");

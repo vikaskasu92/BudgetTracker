@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { CommonService } from '../shared/services/common.service';
 import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 import { MatDialog } from '@angular/material';
@@ -20,6 +20,7 @@ export class RawDataComponent implements OnInit {
             private matDialog:MatDialog,
             private dataStore:DataStoreService,
             private inputDataService:InputDataService){}
+
   inputTypes:string[];
   rawDataForm:FormGroup;
   toDateLimit:any;
@@ -42,18 +43,18 @@ export class RawDataComponent implements OnInit {
   maxPageIncome:number;
   minPageInsurance:number;
   maxPageInsurance:number;
-  purchaseLeftDisabled = true;
-  purchaseRightDisabled = false;
-  incomeLeftDisabled = true;
-  incomeRightDisabled = false;
-  insuranceLeftDisabled = true;
-  insuranceRightDisabled = false;
-  dataAvailable = true;
+  purchaseLeftDisabled:boolean = true;
+  purchaseRightDisabled:boolean = false;
+  incomeLeftDisabled:boolean = true;
+  incomeRightDisabled:boolean = false;
+  insuranceLeftDisabled:boolean = true;
+  insuranceRightDisabled:boolean = false;
+  dataAvailable:boolean = true;
   purchaseForm:FormGroup;
 
   ngOnInit() {
     this.inputTypes = this.common.inputTypes;
-    this._createForm();
+    this.rawDataForm = this.inputDataService.createRawDataForm(this.rawDataForm);
     this.toDateLimit = new Date();
   }
 
@@ -136,10 +137,9 @@ export class RawDataComponent implements OnInit {
   }
 
   editPurchaseItem(item:string,cost:number,date:string,mainCategory:string,subCategory:string,id:number){
-    const dialogRef = this.matDialog.open(EditRawDataDialogComponent,{
-      disableClose:true,
-      data: {item: item, cost: cost, date: date, mainCategory: mainCategory, subCategory: subCategory,type:"purchases"}
-    });
+    const data = {item: item, cost: cost, date: date, mainCategory: mainCategory, subCategory: subCategory,type:"purchases"};
+    const dialogRef =  this.inputDataService.openDialog(this.matDialog,EditRawDataDialogComponent,data);
+   
     dialogRef.afterClosed().subscribe( formData =>{
       if(formData != true){
           this.common.updateDate(formData.value.date,formData);
@@ -154,10 +154,9 @@ export class RawDataComponent implements OnInit {
   }
 
   editInsuranceItem(insuranceType:string,insurnacePaidAmount:string,insurancePaidDate:string,id:number){
-    const dialogRef = this.matDialog.open(EditRawDataDialogComponent,{
-      disableClose:true,
-      data: {insuranceType: insuranceType, insurancePaidAmount: insurnacePaidAmount, insurancePaidDate: insurancePaidDate,type:'insurance'}
-    });
+    const data = {insuranceType: insuranceType, insurancePaidAmount: insurnacePaidAmount, insurancePaidDate: insurancePaidDate,type:'insurance'};
+    const dialogRef =  this.inputDataService.openDialog(this.matDialog,EditRawDataDialogComponent,data);
+   
     dialogRef.afterClosed().subscribe( formData =>{
       if(formData != true){
           this.common.updateInsuranceDate(formData.value.insurancePaidDate,formData);
@@ -171,11 +170,10 @@ export class RawDataComponent implements OnInit {
     });
   }
 
-  editIncomeItem(salaryRecieved,dateRecieved,federalTax,stateTax,medicareTax,socialSecurityTax,id){
-    const dialogRef = this.matDialog.open(EditRawDataDialogComponent,{
-      disableClose:true,
-      data: {salaryRecieved: salaryRecieved, dateRecieved: dateRecieved, federalTax: federalTax,stateTax: stateTax,medicareTax: medicareTax,socialSecurityTax: socialSecurityTax,type:'income'}
-    });
+  editIncomeItem(salaryRecieved:number,dateRecieved:string,federalTax:number,stateTax:number,medicareTax:number,socialSecurityTax:number,id:number){
+    const data = {salaryRecieved: salaryRecieved, dateRecieved: dateRecieved, federalTax: federalTax,stateTax: stateTax,medicareTax: medicareTax,socialSecurityTax: socialSecurityTax,type:'income'};
+    const dialogRef =  this.inputDataService.openDialog(this.matDialog,EditRawDataDialogComponent,data);
+   
     dialogRef.afterClosed().subscribe( formData =>{
       if(formData != true){
           this.common.updateIncomeDate(formData.value.dateRecieved,formData);
@@ -190,11 +188,9 @@ export class RawDataComponent implements OnInit {
   }
 
   deletePurchaseItem(id:number){
-    let displayMessage = "This purchase item will be deleted. Are you Sure?";
-    const dialogRef = this.matDialog.open(ConfirmDialogComponent,{
-      disableClose:true,
-      data:{message:displayMessage}
-    });
+    const data = {message:"This purchase item will be deleted. Are you Sure?"};
+    const dialogRef =  this.inputDataService.openDialog(this.matDialog,ConfirmDialogComponent,data);
+   
     dialogRef.afterClosed().subscribe( deleteIt =>{
       const deleteObj = {deleteById:id};
       if(deleteIt){
@@ -208,11 +204,9 @@ export class RawDataComponent implements OnInit {
   }
 
   deleteInsuranceItem(id:number){
-    let displayMessage = "This Insurance item will be deleted. Are you Sure?";
-    const dialogRef = this.matDialog.open(ConfirmDialogComponent,{
-      disableClose:true,
-      data:{message:displayMessage}
-    });
+    const data = {message:"This Insurance item will be deleted. Are you Sure?"};
+    const dialogRef =  this.inputDataService.openDialog(this.matDialog,ConfirmDialogComponent,data);
+  
     dialogRef.afterClosed().subscribe( deleteIt =>{
       const deleteObj = {deleteById:id};
       if(deleteIt){
@@ -226,11 +220,9 @@ export class RawDataComponent implements OnInit {
   }
 
   deleteIncomeItem(id:number){
-    let displayMessage = "This Income data will be deleted. Are you Sure?";
-    const dialogRef = this.matDialog.open(ConfirmDialogComponent,{
-      disableClose:true,
-      data:{message:displayMessage}
-    });
+    const data = {message:"This Income data will be deleted. Are you Sure?"};
+    const dialogRef =  this.inputDataService.openDialog(this.matDialog,ConfirmDialogComponent,data);
+  
     dialogRef.afterClosed().subscribe( deleteIt =>{
       const deleteObj = {deleteById:id};
       if(deleteIt){
@@ -243,7 +235,7 @@ export class RawDataComponent implements OnInit {
     });
   }
 
-  private _updateObjectId(formDataObject:any,id:number){
+  private _updateObjectId(formDataObject:FormGroup,id:number){
     formDataObject['id'] = id;
     return formDataObject;
   }
@@ -260,7 +252,7 @@ export class RawDataComponent implements OnInit {
     this.insuranceLeftDisabled = true;
   }
 
-  private _setTotalResultsValue(inputType:string,count:any){
+  private _setTotalResultsValue(inputType:string,count:number){
     if(inputType === "purchases"){
       this.totalResultsPurchases = count;
       if(count <= 10){
@@ -292,23 +284,20 @@ export class RawDataComponent implements OnInit {
   }
 
   private _paintTableWithResponse(inputType:string,response:any){
+    this.purchasesItemsAvailable = false;
+    this.incomeItemsAvailable = false;
+    this.insuranceItemsAvailable = false;
     switch(inputType) {
       case "purchases":
         this.purchasesItems = response;
         this.purchasesItemsAvailable = true;
-        this.incomeItemsAvailable = false;
-        this.insuranceItemsAvailable = false;
         break;
       case "income":
         this.incomeItems = response;
-        this.purchasesItemsAvailable = false;
         this.incomeItemsAvailable = true;
-        this.insuranceItemsAvailable = false;
         break;
       case "insurance":
         this.insuranceItems = response;
-        this.purchasesItemsAvailable = false;
-        this.incomeItemsAvailable = false;
         this.insuranceItemsAvailable = true;
         break;
     }
@@ -331,15 +320,9 @@ export class RawDataComponent implements OnInit {
     }
   }
 
-  private _createForm(){
-    this.rawDataForm = new FormGroup({
-      'inputType' : new FormControl(null,Validators.required),
-      'fromDateSearch' : new FormControl(null,Validators.required),
-      'toDateSearch' : new FormControl(null,Validators.required)
-    });
-  }
   
-  private _updateFromDate(date:any,form:FormGroup){
+  
+  private _updateFromDate(date:Date,form:FormGroup){
     if(typeof date != "string"){
         let day = this._adjustDigits(date.getDate().toString());
         let month = this._adjustDigits((date.getMonth()+1).toString());
@@ -348,7 +331,7 @@ export class RawDataComponent implements OnInit {
     }
   }
   
-  private _updateToDate(date:any,form:any){
+  private _updateToDate(date:Date,form:FormGroup){
     if(typeof date != "string"){
         let day = this._adjustDigits(date.getDate().toString());
         let month = this._adjustDigits((date.getMonth()+1).toString());

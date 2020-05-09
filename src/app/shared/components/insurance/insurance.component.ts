@@ -10,7 +10,7 @@ export class InsuranceComponent implements OnInit{
     
 
     @Input() parentInsuranceForm: FormGroup;
-    @Input() insurances:any;
+    @Input() insurances:string[];
     @Input() cancelEnabled:boolean;
     @Input() buttonName:string;
     @Output() formData = new EventEmitter<FormGroup>();

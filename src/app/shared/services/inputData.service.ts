@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonService } from './common.service';
+import { MatDialog, MatSnackBarConfig } from '@angular/material';
 
 @Injectable({providedIn:'root'})
 export class InputDataService{
@@ -48,6 +49,53 @@ export class InputDataService{
         return newAlarmForm;
     }
 
+    createRawDataForm(rawDataForm:FormGroup){
+        rawDataForm = new FormGroup({
+          'inputType' : new FormControl(null,Validators.required),
+          'fromDateSearch' : new FormControl(null,Validators.required),
+          'toDateSearch' : new FormControl(null,Validators.required)
+        });
+        return rawDataForm;
+      }
+
+    createYearByYearForm(yearByYearForm:FormGroup){
+        yearByYearForm = new FormGroup({
+            'year': new FormControl(null,Validators.required),
+            'category': new FormControl(null,Validators.required)
+        });
+        return yearByYearForm;
+    }
+
+    createNewLoanForm(loanForm:FormGroup){
+        loanForm = new FormGroup({
+            'loanName' : new FormControl(null,Validators.required),
+            'loanType' : new FormControl(null,Validators.required),
+            'loanBalance' : new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
+            'loanAPR' : new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
+            'loanEMI' : new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')])
+        });
+        return loanForm;
+    }
+
+    createEditLoanForm(loanForm:FormGroup,loanName:string,loanType:string,loanBalance:number,loanAPR:number,loanMonthlyAmount:number){
+        loanForm = new FormGroup({
+            'loanName' : new FormControl(loanName,Validators.required),
+            'loanType' : new FormControl(loanType,Validators.required),
+            'loanBalance' : new FormControl(loanBalance,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
+            'loanAPR' : new FormControl(loanAPR,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
+            'loanEMI' : new FormControl(loanMonthlyAmount,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')])
+        });
+        return loanForm;
+    }
+
+    createBarCategoryForm(categoriesForm:FormGroup){
+        categoriesForm = new FormGroup({
+            'mainCategory': new FormControl(null,Validators.required),
+            'subCategory': new FormControl({value: null, disabled: true},Validators.required)
+         });
+        return categoriesForm;
+    }
+
     addValidationsClassNames(purchaseForm:FormGroup){
         purchaseForm.controls.mainCategory.invalid ? document.getElementById('mainCategory').className += ' mat-form-field-invalid' : '';
         if(purchaseForm.controls.subCategory.enabled){
@@ -55,7 +103,19 @@ export class InputDataService{
         }
     }
 
-    
+    openDialog(dialog:MatDialog,component:any,data:any){
+        const dialogRef = dialog.open(component, {
+            disableClose: true,
+            data:data
+        });
+        return dialogRef;
+    }
 
+    addConfigForSnackBar(config:MatSnackBarConfig){
+        config.panelClass = ['custom-class'];
+        config.duration = 3000;
+        return config;
+    }
+    
 
 }

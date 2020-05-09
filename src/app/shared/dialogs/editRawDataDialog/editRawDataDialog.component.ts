@@ -17,10 +17,10 @@ export class EditRawDataDialogComponent implements OnInit{
         private inputDataService:InputDataService){}
 
     purchaseForm:FormGroup;
-    category:any;
-    subCategory:any;
-    cancelEnabled = true;
-    insurances:any;
+    category:string[];
+    subCategory:string[];
+    cancelEnabled :boolean= true;
+    insurances:string[];
     insuranceForm:FormGroup;
     incomeForm:FormGroup;
     purchasesType:boolean = false;
@@ -40,11 +40,11 @@ export class EditRawDataDialogComponent implements OnInit{
         }
     }
 
-    cancelUpdate(event:any){
+    cancelUpdate(){
         this.dialogRef.close(true);
     }
     
-    updateData(formData:any){
+    updateData(formData:FormGroup){
         if(formData.valid){
             this.dialogRef.close(formData);
         }

@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, Validators, NgForm } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/common.service';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { MatSnackBarConfig } from '@angular/material';
@@ -15,29 +15,24 @@ export class NewInsuranceComponent{
 
     constructor(private dataStore:DataStoreService,
         private common:CommonService,
-        private inputDate:InputDataService,
+        private inputDataService:InputDataService,
         private dataRetrieval:DataRetrievalService){}
 
     insuranceFormToReset:NgForm;
     insuranceForm:FormGroup;
     insurances:string[];
     currentExpansionPanel:string;
-    openPanel = false;
-    config = new MatSnackBarConfig();
-    cancelInsuranceEnabled = false;
+    openPanel:boolean = false;
+    config:MatSnackBarConfig = new MatSnackBarConfig();
+    cancelInsuranceEnabled:boolean = false;
 
     ngOnInit(): void {
-        this.insuranceForm = this.inputDate.createInsuranceFormGroup(this.insuranceForm,null,null,null);
         this.insurances = this.common.insurances;
-        this.insuranceForm.controls.insurancePaidDate.setValidators([Validators.required]);
-        this.insuranceForm.controls.insurancePaidDate.updateValueAndValidity();
-        this.common.currentExpansionPanel.subscribe(currentExpansionPanel => {
-            this.currentExpansionPanel = currentExpansionPanel;
-            this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"newInsurance",this.openPanel);
-        });
-        this.config.panelClass = ['custom-class'];
-        this.config.duration = 3000;
+        this._createAndUpdateForm();
+        this._executeExpansionPanel();
+        this.config = this.inputDataService.addConfigForSnackBar(this.config);
     }
+
 
     expansionPanelClicked(){
         this.common.onExpansionPanelClick("newInsurance");
@@ -66,5 +61,18 @@ export class NewInsuranceComponent{
 
     updateInsuranceFormReset(formReset:NgForm){
         this.insuranceFormToReset = formReset;
+    }
+
+    private _executeExpansionPanel(){
+        this.common.currentExpansionPanel.subscribe(currentExpansionPanel => {
+            this.currentExpansionPanel = currentExpansionPanel;
+            this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"newInsurance",this.openPanel);
+        });
+    }
+
+    private _createAndUpdateForm(){
+        this.insuranceForm = this.inputDataService.createInsuranceFormGroup(this.insuranceForm,null,null,null); 
+        this.insuranceForm.controls.insurancePaidDate.setValidators([Validators.required]);
+        this.insuranceForm.controls.insurancePaidDate.updateValueAndValidity();
     }
 }

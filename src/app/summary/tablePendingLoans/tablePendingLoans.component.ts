@@ -13,7 +13,7 @@ export class TablePendingLoansComponent implements OnInit{
 
     allPendingloans:IPendingLoansSummary;
     spinnerOn:boolean = true;
-    dataUnavilable = false;
+    dataUnavilable:boolean = false;
 
     ngOnInit(){
         this.getOverallPendingLoans();

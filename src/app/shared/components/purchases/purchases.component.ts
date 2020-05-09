@@ -9,7 +9,7 @@ import { FormGroup, NgForm } from '@angular/forms';
 export class PurchasesComponent implements OnInit{
 
     @Input() parentPurchaseForm: FormGroup;
-    @Input() subCategory:any;
+    @Input() subCategory:string[];
     @Input() buttonName:string;
     @Input() cancelEnabled:boolean;
     @Output() formData = new EventEmitter<FormGroup>();

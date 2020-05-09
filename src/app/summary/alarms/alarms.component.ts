@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { AlarmDialogComponent } from 'src/app/shared/dialogs/alarmDialog/alarmDialog.component';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirmDialog/confirmDialog.component';
+import { InputDataService } from 'src/app/shared/services/inputData.service';
 
 @Component({
     selector:'app-alarms',
@@ -15,7 +15,8 @@ export class AlarmsComponent implements OnInit{
 
     constructor(private matDialog:MatDialog,
                 private dataStore:DataStoreService,
-                private dataRetrieval:DataRetrievalService){}
+                private dataRetrieval:DataRetrievalService,
+                private inputDataService:InputDataService){}
 
     noAlarms:boolean = true;
     budgetAlarms:any = [];
@@ -41,10 +42,9 @@ export class AlarmsComponent implements OnInit{
     }
 
     deleteBudgetAlarm(id:number){
-        let dialogRef = this.matDialog.open(ConfirmDialogComponent,{
-            disableClose:true,
-            data:{message:'Are you sure, you want to delete the alarm?'}
-        });
+        const data = {message:'Are you sure, you want to delete the alarm?'};
+        const dialogRef =  this.inputDataService.openDialog(this.matDialog,ConfirmDialogComponent,data);
+       
         dialogRef.afterClosed().subscribe( response =>{
             const deleteObj = {deleteById:id};
             if(response){
@@ -79,10 +79,9 @@ export class AlarmsComponent implements OnInit{
     }
 
     private _openNewAlarmDialog(){
-        let dialogRef = this.matDialog.open(AlarmDialogComponent,{
-            disableClose:true,
-            data:{displayMessage:'Create Alarm'}
-        });
+        const data = {displayMessage:'Create Alarm'};
+        const dialogRef =  this.inputDataService.openDialog(this.matDialog,AlarmDialogComponent,data);
+       
         dialogRef.afterClosed().subscribe( response =>{
             if(response != true){
                 this._createBudgetAlarm(response);

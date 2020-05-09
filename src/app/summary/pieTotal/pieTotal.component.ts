@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChartMakerService } from 'src/app/shared/services/chartMaker.service';
 import * as Chart from 'chart.js';
 import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
@@ -14,7 +14,7 @@ export class PieTotalComponent implements OnInit{
         private dataRetrieval:DataRetrievalService){}
 
     chart:Chart;
-    spinner=true;
+    spinner:boolean=true;
 
     ngOnInit(){
         this.getOverallIncomeAndExpenses();

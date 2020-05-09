@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 
 @Component({
@@ -12,8 +12,8 @@ export class SummaryComponent implements OnInit{
 
     startYear:string;
     endYear:string;
-    yearsDataRecieved= false;
-    nowCallPieData=false;
+    yearsDataRecieved:boolean = false;
+    nowCallPieData:boolean =false;
 
     ngOnInit() {
         this.dataRetrieval.getAllYearsForCustomers().subscribe(response=>{

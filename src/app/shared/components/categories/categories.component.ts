@@ -9,11 +9,10 @@ import { FormGroup, FormControl, Validators, ControlContainer } from '@angular/f
 })
 export class CategoriesComponent{
 
-    constructor(private common:CommonService,
-                private controlContainer: ControlContainer){}
+    constructor(private common:CommonService){}
     
     @Input() parentForm: FormGroup;
-    @Input() subCategory:any;
+    @Input() subCategory:string[];
     @Output() subCategorySelected = new EventEmitter<string[]>();
     @Output() mainCategorySelected = new EventEmitter<boolean>();
     category:{};

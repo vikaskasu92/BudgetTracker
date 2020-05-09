@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver} from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver} from '@angular/core';
 import { CommonService } from '../shared/services/common.service';
 import { DataRetrievalService } from '../shared/services/dataRetrieval.service';
 import { ChartMakerService } from '../shared/services/chartMaker.service';
 import { GraphDisplayComponent } from '../shared/components/graphDisplay/graphDisplay.component';
 import { PlaceholderDirective } from '../shared/directives/placeholder.directive';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup} from '@angular/forms';
+import { InputDataService } from '../shared/services/inputData.service';
 
 @Component({
     selector:'app-expensesByYear',
@@ -16,7 +17,8 @@ export class ExpensesByYearComponent implements OnInit{
     constructor(private common:CommonService,
         private dataRetrieval:DataRetrievalService,
         private chartMaker:ChartMakerService,
-        private componentFactoryResolver: ComponentFactoryResolver
+        private componentFactoryResolver: ComponentFactoryResolver,
+        private inputDataService:InputDataService
     ){}
     
     @ViewChild(PlaceholderDirective, {static:false}) containerRef:PlaceholderDirective;
@@ -28,15 +30,20 @@ export class ExpensesByYearComponent implements OnInit{
 
 
     ngOnInit(){
-        this.years = [];
+        this._retrieveAllYearsData();
+        this.categories = Object.values(this.common.category);
+        this._createYearByYearForm();
+    }
+
+    private _retrieveAllYearsData(){
         this.dataRetrieval.getAllYearsForCustomers().subscribe(response=>{
+            this.years = [];
             this.years = response;
         });
-        this.categories = Object.values(this.common.category);
-        this.yearByYearForm = new FormGroup({
-            'year': new FormControl(null,Validators.required),
-            'category': new FormControl(null,Validators.required)
-        })
+    }
+
+    private _createYearByYearForm(){
+        this.yearByYearForm = this.inputDataService.createYearByYearForm(this.yearByYearForm);
         this.yearByYearForm.controls.year.valueChanges.subscribe( value =>{
             this.yearAndCategory[0] = value;
             if(this._decideToCallGraph()){
@@ -60,24 +67,17 @@ export class ExpensesByYearComponent implements OnInit{
         const chartsLeft = [];
         const chartsRight = [];
         for(let i=0; i<size;i++){
-            if(n % 2 != 0){
-                chartsLeft.push(n);
-            }else{
-                chartsRight.push(n);
-            }
+            n % 2 != 0 ? chartsLeft.push(n) : chartsRight.push(n);
             n++;
         }
         graphDisplayComponent.instance.chartsLeft = chartsLeft;
         graphDisplayComponent.instance.chartsRight = chartsRight;
         graphDisplayComponent.instance.yearOverYear = true;
-
     }
+
     private _dataRetrieval(yearAndCategory:any){
         this.dataRetrieval.getYearByYearExpensesOnCategory(yearAndCategory).subscribe( response =>{
-            this.noData = false;
-            if(response.length === 0){
-                this.noData = true;
-            }
+            response.length === 0 ? this.noData = true : this.noData = false;
             let n = 1;
             const subCategoryArray = this._buildSubCategoryInputs(response);
             this.createGraphComponent(subCategoryArray.length);
@@ -107,9 +107,7 @@ export class ExpensesByYearComponent implements OnInit{
                 subCategoryArray[returnArray[1]]["priceArray"].push(response[i]["price"]);
                 subCategoryArray[returnArray[1]]["dateArray"].push(response[i]["date"]);
             }
-            if(!added){
-                subCategoryArray.push(this._buildObject(response,i));
-            }
+            !added ? subCategoryArray.push(this._buildObject(response,i)): null ;
             added = false;
             firstTime = false;
         }
@@ -140,10 +138,7 @@ export class ExpensesByYearComponent implements OnInit{
     }
 
     private _decideToCallGraph(){
-        if(this.yearAndCategory[0] !=undefined && this.yearAndCategory[1] != undefined ){
-            return true;
-        }
-        return false;
+       return this.yearAndCategory[0] !=undefined && this.yearAndCategory[1] != undefined ? true : false;
     }
 
 }

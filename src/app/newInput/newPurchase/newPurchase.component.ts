@@ -20,26 +20,20 @@ export class NewPurchaseComponent implements OnInit{
 
     purchaseFormToReset:NgForm;
     purchaseForm:FormGroup;
-    openPanel=true;
+    openPanel:boolean=true;
     currentExpansionPanel:string;
-    subCategory = {};
-    config = new MatSnackBarConfig();
-    cancelPurchaseEnabled = false;
+    subCategory:{} = {};
+    config:MatSnackBarConfig = new MatSnackBarConfig();
+    cancelPurchaseEnabled:boolean = false;
 
-    ngOnInit(): void {
-        this.purchaseForm = this.inputDataService.createPurchaseFormGroup(this.purchaseForm,null,null,null,null,null,true);
-        this.purchaseForm.controls.date.setValidators([Validators.required]);
-        this.purchaseForm.controls.date.updateValueAndValidity();
+    ngOnInit() {
+        this._createAndUpdateForm();
         this._categoriesOnChange();
-        this.common.currentExpansionPanel.subscribe(currentExpansionPanel =>{
-            this.currentExpansionPanel = currentExpansionPanel;
-            this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"purchasesAndInvestments",this.openPanel);
-        });
-        this.config.panelClass = ['custom-class'];
-        this.config.duration = 3000;
+        this._executeExpansionPanel();
+        this.config = this.inputDataService.addConfigForSnackBar(this.config);
     }
 
-    savePurchases(formData:any){
+    savePurchases(formData:FormGroup){
         this.purchaseForm = formData;
         if(this.purchaseForm.valid){
             this.common.updateDate(this.purchaseForm.value.date,this.purchaseForm);
@@ -63,6 +57,14 @@ export class NewPurchaseComponent implements OnInit{
         }
     }
 
+    updateFormToReset(formToReset:NgForm){
+        this.purchaseFormToReset = formToReset;
+    }
+
+    expansionPanelClicked(){
+        this.common.onExpansionPanelClick("purchasesAndInvestments");
+    }
+
     private _categoriesOnChange(){
         this.purchaseForm.controls.mainCategory.valueChanges.subscribe( value =>{
             document.getElementById('mainCategory').classList.remove("mat-form-field-invalid");
@@ -74,14 +76,17 @@ export class NewPurchaseComponent implements OnInit{
         });
     }
 
-    updateFormToReset(formToReset:any){
-        this.purchaseFormToReset = formToReset;
+    private _executeExpansionPanel(){
+        this.common.currentExpansionPanel.subscribe(currentExpansionPanel =>{
+            this.currentExpansionPanel = currentExpansionPanel;
+            this.openPanel = this.common.expansionPanelDecision(this.currentExpansionPanel,"purchasesAndInvestments",this.openPanel);
+        });
     }
 
-    expansionPanelClicked(){
-        this.common.onExpansionPanelClick("purchasesAndInvestments");
+    private _createAndUpdateForm(){
+        this.purchaseForm = this.inputDataService.createPurchaseFormGroup(this.purchaseForm,null,null,null,null,null,true);
+        this.purchaseForm.controls.date.setValidators([Validators.required]);
+        this.purchaseForm.controls.date.updateValueAndValidity();   
     }
-
-    
 
 }

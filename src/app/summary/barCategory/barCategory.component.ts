@@ -3,8 +3,9 @@ import { ChartMakerService } from 'src/app/shared/services/chartMaker.service';
 import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 import { PlaceholderDirective } from 'src/app/shared/directives/placeholder.directive';
 import { GraphDisplayComponent } from 'src/app/shared/components/graphDisplay/graphDisplay.component';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { InputDataService } from 'src/app/shared/services/inputData.service';
 
 @Component({
     selector:'app-barCategory',
@@ -16,26 +17,20 @@ export class BarCategoryComponent implements OnInit{
     constructor(private chartMaker:ChartMakerService,
         private dataRetrieval:DataRetrievalService,
         private common:CommonService,
-        private componentFactoryResolver:ComponentFactoryResolver){}
+        private componentFactoryResolver:ComponentFactoryResolver,
+        private inputDataService:InputDataService){}
     
     categoriesForm:FormGroup;
     chart:Chart;
-    priceArray:any;
-    dateArray:any;
-    noData = false;
-    subCategory = {};
-    onLoad = true;
+    priceArray:number[];
+    dateArray:string[];
+    subCategory:string[] = [];
+    onLoad:boolean = true;
+    noData:boolean = false;
     @ViewChild(PlaceholderDirective ,{static:false})viewComponentRef:PlaceholderDirective;
 
     ngOnInit(): void {
-        this.categoriesForm = new FormGroup({
-            'mainCategory': new FormControl(null,Validators.required),
-            'subCategory': new FormControl({value: null, disabled: true},Validators.required)
-         });
-         this.categoriesForm.controls.mainCategory.valueChanges.subscribe(value =>{
-            this.categoriesForm.controls.subCategory.enable();
-            this.subCategory = this.common.generateSubCategories(value);
-        });
+        this._createAndUpdateCategoriesForm();
     }
 
     getOverallCategoriesExpenses(categoriesData:string[]){
@@ -60,6 +55,14 @@ export class BarCategoryComponent implements OnInit{
         this.chart = undefined;
         this.noData = false;
         this.viewComponentRef.viewContainerRef.clear();
+    }
+
+    private _createAndUpdateCategoriesForm(){
+        this.categoriesForm = this.inputDataService.createBarCategoryForm(this.categoriesForm);
+         this.categoriesForm.controls.mainCategory.valueChanges.subscribe(value =>{
+            this.categoriesForm.controls.subCategory.enable();
+            this.subCategory = this.common.generateSubCategories(value);
+        });
     }
 
     private _buildOverallCategories(response:any){

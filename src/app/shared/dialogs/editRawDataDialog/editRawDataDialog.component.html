@@ -2,17 +2,17 @@
     <app-purchases [parentPurchaseForm]="purchaseForm" [subCategory]="subCategory" 
     (formData)="updateData($event)" buttonName="Update" 
     [cancelEnabled]="cancelEnabled" 
-    (cancelUpdateAction)="cancelUpdate($event)"></app-purchases>
+    (cancelUpdateAction)="cancelUpdate()"></app-purchases>
 </form>
 
 <form *ngIf="insuranceType" [formGroup]="insuranceForm">
     <app-insurance [parentInsuranceForm]="insuranceForm" [insurances]="insurances" 
     (formData)="updateData($event)" buttonName="Update" [cancelEnabled]="cancelEnabled"
-    (cancelUpdateAction)="cancelUpdate($event)">
+    (cancelUpdateAction)="cancelUpdate()">
     </app-insurance>
 </form>
 
 <form *ngIf="incomeType" [formGroup]="incomeForm">
     <app-income [parentIncomeForm]="incomeForm" (formData)="updateData($event)" 
-     buttonName="Update"  [cancelEnabled]="cancelEnabled" (cancelUpdateAction)="cancelUpdate($event)"></app-income>
+     buttonName="Update"  [cancelEnabled]="cancelEnabled" (cancelUpdateAction)="cancelUpdate()"></app-income>
 </form>

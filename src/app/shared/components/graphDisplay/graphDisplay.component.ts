@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector:'app-graphDisplay',
@@ -7,8 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class GraphDisplayComponent{
 
-    @Input()chartsRight:any;
-    @Input()chartsLeft:any;
+    @Input()chartsRight:number[];
+    @Input()chartsLeft:number[];
     @Input()yearOverYear:boolean;
     @Input()summaryExpenseByCategory:boolean;
 
