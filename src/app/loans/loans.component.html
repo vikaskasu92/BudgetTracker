@@ -5,38 +5,40 @@
       <button mat-raised-button color="primary" (click)="addNewLoans()"><mat-icon>add</mat-icon></button>
     </mat-card-header>
     <mat-card-content class="mat-card-content-design">
-        <div *ngIf="spinnerOpenLoans; else nowOpenLoansResults">
+        <div *ngIf="spinnerOpenLoans;else nowOpenLoansResults">
             <mat-spinner></mat-spinner>
         </div>
-        <div *ngIf="!spinnerOpenLoans && openLoans.length != 0" #nowOpenLoansResults>
-            <div class="table-responsive-sm table-bottom-reduce">
-                <table class="table table-striped table-sm openLoans">
-                    <thead>
-                    <tr>
-                        <th scope="col" class="table-header-style">Loan Name</th>
-                        <th scope="col" class="table-header-style">Loan Type</th>
-                        <th scope="col" class="table-header-style">Balance</th>
-                        <th scope="col" class="table-header-style">APR</th>
-                        <th scope="col" class="table-header-style">EMI</th>
-                        <th scope="col" class="table-header-style">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let loan of openLoans">
-                            <td >{{ loan.loanName | uppercase}}</td>
-                            <td >{{ loan.loanType | uppercase }}</td>
-                            <td >{{ loan.loanBalance | currency:USD }}</td>
-                            <td >{{ loan.loanAPR | decimalFormat:2 }} %</td>
-                            <td >{{ loan.loanMonthlyAmount | currency:USD }}</td>
-                            <td >
-                                <a mat-button (click)="editLoan(loan.loanName,loan.loanType,loan.loanBalance,loan.loanAPR,loan.loanMonthlyAmount,loan.id)"><mat-icon>edit</mat-icon></a>
-                                <a mat-button (click)="closeLoan(loan.id)" class="icon-display"><mat-icon>close</mat-icon></a>
-                            </td>
+        <ng-template #nowOpenLoansResults>
+            <div *ngIf="!spinnerOpenLoans && openLoans.length != 0">
+                <div class="table-responsive-sm table-bottom-reduce">
+                    <table class="table table-striped table-sm openLoans">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="table-header-style">Loan Name</th>
+                            <th scope="col" class="table-header-style">Loan Type</th>
+                            <th scope="col" class="table-header-style">Balance</th>
+                            <th scope="col" class="table-header-style">APR</th>
+                            <th scope="col" class="table-header-style">EMI</th>
+                            <th scope="col" class="table-header-style">Actions</th>
                         </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let loan of openLoans">
+                                <td >{{ loan.loanName | uppercase}}</td>
+                                <td >{{ loan.loanType | uppercase }}</td>
+                                <td >{{ loan.loanBalance | currency:USD }}</td>
+                                <td >{{ loan.loanAPR | decimalFormat:2 }} %</td>
+                                <td >{{ loan.loanMonthlyAmount | currency:USD }}</td>
+                                <td >
+                                    <a mat-button (click)="editLoan(loan.loanName,loan.loanType,loan.loanBalance,loan.loanAPR,loan.loanMonthlyAmount,loan.id)"><mat-icon>edit</mat-icon></a>
+                                    <a mat-button (click)="closeLoan(loan.id)" class="icon-display"><mat-icon>close</mat-icon></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        </ng-template>
         <div *ngIf="noOpenLoans">
             <span class="no-loans-content">You currently have no "<strong>Open Loans</strong>"!</span>
         </div>
@@ -47,36 +49,38 @@
       <mat-card-title class="mat-header-title-design">Closed Loans</mat-card-title>
     </mat-card-header>
     <mat-card-content class="mat-card-content-design">
-        <div *ngIf="spinnerClosedLoans; else nowClosedLoansResults">
+        <div *ngIf="spinnerClosedLoans;else nowClosedLoansResults">
             <mat-spinner></mat-spinner>
         </div>
-        <div *ngIf="!spinnerClosedLoans && closedLoans.length != 0" #nowClosedLoansResults>
-            <div class="table-responsive-sm table-bottom-reduce">
-                <table class="table table-striped table-sm closedLoans">
-                    <thead>
-                    <tr>
-                        <th scope="col" class="table-header-style">Loan Name</th>
-                        <th scope="col" class="table-header-style">Loan Type</th>
-                        <th scope="col" class="table-header-style">APR</th>
-                        <th scope="col" class="table-header-style">EMI</th>
-                        <th scope="col" class="table-header-style">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let loan of closedLoans">
-                            <td >{{ loan.loanName | uppercase}}</td>
-                            <td >{{ loan.loanType | uppercase }}</td>
-                            <td >{{ loan.loanAPR  | decimalFormat:2 }} %</td>
-                            <td >{{ loan.loanMonthlyAmount | currency:USD }}</td>
-                            <td >
-                                <a mat-button (click)="reOpenLoan(loan.id)" ><mat-icon>lock_open</mat-icon></a>
-                                <a mat-button (click)="deleteLoan(loan.id)" class="icon-display"><mat-icon>delete_forever</mat-icon></a>
-                            </td>
+        <ng-template #nowClosedLoansResults>
+            <div *ngIf="!spinnerClosedLoans && closedLoans.length != 0">
+                <div class="table-responsive-sm table-bottom-reduce">
+                    <table class="table table-striped table-sm closedLoans">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="table-header-style">Loan Name</th>
+                            <th scope="col" class="table-header-style">Loan Type</th>
+                            <th scope="col" class="table-header-style">APR</th>
+                            <th scope="col" class="table-header-style">EMI</th>
+                            <th scope="col" class="table-header-style">Actions</th>
                         </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let loan of closedLoans">
+                                <td >{{ loan.loanName | uppercase}}</td>
+                                <td >{{ loan.loanType | uppercase }}</td>
+                                <td >{{ loan.loanAPR  | decimalFormat:2 }} %</td>
+                                <td >{{ loan.loanMonthlyAmount | currency:USD }}</td>
+                                <td >
+                                    <a mat-button (click)="reOpenLoan(loan.id)" ><mat-icon>lock_open</mat-icon></a>
+                                    <a mat-button (click)="deleteLoan(loan.id)" class="icon-display"><mat-icon>delete_forever</mat-icon></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        </ng-template>
         <div *ngIf="noClosedLoans">
             <span class="no-loans-content">You currently have no "<strong>Closed Loans</strong>"!</span>
         </div>
