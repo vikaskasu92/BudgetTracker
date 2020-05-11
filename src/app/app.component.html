@@ -2,45 +2,22 @@
   <mat-toolbar-row>
     <span>Budget Tracker</span>
     <div class="flex-spacer"></div>
-    <button mat-raised-button >Login</button>
+    <button mat-raised-button (click)="login()">Login</button>
   </mat-toolbar-row>
-</mat-toolbar>
+</mat-toolbar>      
 <mat-card class="page-margin">
-  <mat-tab-group >
-    <mat-tab label="Home"> 
-      <ng-template matTabContent>
-        <app-newInput></app-newInput>
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="Summary"> 
-      <ng-template matTabContent>
-        <app-summary></app-summary> 
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="Expenses By Year"> 
-      <ng-template matTabContent>
-        <app-expensesByYear></app-expensesByYear>
-      </ng-template>
-    </mat-tab>
-    <mat-tab label="Loans">
-      <ng-template matTabContent>
-        <app-loans></app-loans>
-      </ng-template>
-    </mat-tab>
-    <!--<mat-tab label="Investments"> 
-      <ng-template matTabContent>
-        <app-investments></app-investments>
-      </ng-template>
-    </mat-tab>-->
-    <mat-tab label='Data'>
-      <ng-template matTabContent>
-        <app-rawData></app-rawData>
-      </ng-template>
-    </mat-tab>
-  </mat-tab-group>
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link
+        *ngFor="let link of navLinks"
+        [routerLink]="link.path"
+        (click)="activeLink = link.path"
+     [active]="activeLink == link.path">
+      {{link.label}}
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
 </mat-card>
 <mat-toolbar class="footer">
   <mat-toolbar-row>
-
   </mat-toolbar-row>
 </mat-toolbar>
