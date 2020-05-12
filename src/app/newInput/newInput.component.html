@@ -1,3 +1,5 @@
-<app-newPurchase></app-newPurchase> 
-<app-newIncome></app-newIncome>
-<app-newInsurance></app-newInsurance>
+<div *ngIf="isAuthenticated">
+    <app-newPurchase></app-newPurchase> 
+    <app-newIncome></app-newIncome>
+    <app-newInsurance></app-newInsurance>
+</div>

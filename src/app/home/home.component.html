@@ -1,0 +1,39 @@
+<mat-toolbar color="primary" class="shadow">
+    <mat-toolbar-row>
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="heading-primary-main">Budget Tracker</h1>
+            </div>    
+        </div>
+        <div class="flex-spacer"></div>
+        <button mat-raised-button (click)="logout()" *ngIf="isAuthenticated">Logout</button>
+    </mat-toolbar-row>
+</mat-toolbar> 
+<div *ngIf="isAuthenticated">     
+    <mat-card class="page-margin">
+        <nav mat-tab-nav-bar>
+        <a mat-tab-link
+            *ngFor="let link of navLinks"
+            [routerLink]="link.path"
+            (click)="activeLink = link.path"
+            [active]="activeLink == link.path">
+            {{link.label}}
+        </a>
+        </nav>
+        <router-outlet></router-outlet>
+    </mat-card>
+</div>
+<div class="take-whole-page" *ngIf="!isAuthenticated">
+    <div class="main-home-page">
+        <div class="row">
+            <div class="text-box">
+                <button mat-raised-button (click)="demoLogin()" class="button-width">Demo</button>
+                <button mat-raised-button (click)="login()" class="button-spacing button-width">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+<mat-toolbar class="footer">
+    <mat-toolbar-row>
+    </mat-toolbar-row>
+</mat-toolbar>

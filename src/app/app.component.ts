@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'BudgetTracker';
   navLinks = [];
   activeLink:string;
+  isAuthenticated:boolean;
 
   constructor(){
     this.navLinks = [{path:'/',label:'Home'},
@@ -19,5 +19,9 @@ export class AppComponent {
     {path:'rawData',label:'Data'}];
     this.activeLink = this.navLinks[0].path;
   }
-  
+
+  ngOnInit(){
+    this.isAuthenticated = false;
+  }
+
 }

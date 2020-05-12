@@ -21,10 +21,12 @@ import { NewInputModule } from './newInput/newInput.module';
 import { RawDataModule } from './rawData/rawData.module';
 import { SummaryModule } from './summary/summary.module';
 import { SharedModule } from './shared/shared.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

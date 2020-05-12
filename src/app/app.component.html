@@ -1,23 +1,5 @@
-<mat-toolbar color="primary" class="shadow">
-  <mat-toolbar-row>
-    <span>Budget Tracker</span>
-    <div class="flex-spacer"></div>
-    <button mat-raised-button (click)="login()">Login</button>
-  </mat-toolbar-row>
-</mat-toolbar>      
-<mat-card class="page-margin">
-  <nav mat-tab-nav-bar>
-    <a mat-tab-link
-        *ngFor="let link of navLinks"
-        [routerLink]="link.path"
-        (click)="activeLink = link.path"
-     [active]="activeLink == link.path">
-      {{link.label}}
-    </a>
-  </nav>
-  <router-outlet></router-outlet>
-</mat-card>
-<mat-toolbar class="footer">
-  <mat-toolbar-row>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div *ngIf="!isAuthenticated">
+    <app-home></app-home>
+    <router-outlet></router-outlet>
+</div>
+

@@ -1,0 +1,69 @@
+.take-whole-page{
+    height: 93vh;
+}
+
+.main-home-page{
+    height: 93vh;
+    background-image: linear-gradient(to right bottom, rgba(39, 39, 146, 0.6),rgba(173, 216, 230, 0.6)),url(../../assets/images/budget3.jpg);
+    background-size: cover;
+    background-position:top;
+}
+
+.shadow {
+    box-Shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);
+}
+
+.flex-spacer{
+    flex-grow: 1;
+}
+
+.page-margin{
+    margin: 20px;
+}
+
+.footer {
+    background: rgb(181, 172, 207);
+    color: rgba(0,0,0,.87);
+    min-height:200px;
+}
+
+.heading-primary{
+    color: white;
+    text-transform: uppercase;
+}
+
+.heading-primary-main{
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.heading-primary-sub{
+    display: block;
+    font-size: 13px;
+}
+
+.text-box{
+    position: absolute;
+    top:33%;
+    left:43%;
+}
+
+.button-spacing{
+    margin: 5px;
+}
+
+.button-width{
+    min-width: 100px;
+}
+
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+    .text-box{
+        position: absolute;
+        top:25%;
+        left:25%;
+    }
+
+}
