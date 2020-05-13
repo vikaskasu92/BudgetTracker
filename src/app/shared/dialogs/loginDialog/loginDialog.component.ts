@@ -75,7 +75,8 @@ export class LoginDialogComponent implements OnInit{
         this.dialogRef.close(this.dataReturn);
     }
 
-    switchToSignupWithFirebase(){
+    switchToSignupWithFirebase(event:any){
+        event.preventDefault();
         this.dataReturn = [this.firebaseLoginSignUpForm,"signUpWithFirebase"];
         this.dialogRef.close(this.dataReturn);
     }
