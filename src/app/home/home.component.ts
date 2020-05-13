@@ -4,7 +4,8 @@ import { MatDialog } from '@angular/material';
 import { LoginDialogComponent } from '../shared/dialogs/loginDialog/loginDialog.component';
 import { AuthService } from '../shared/services/auth.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { User } from '../shared/model/auth/user.model';
 
 @Component({
     selector:'app-home',
@@ -16,8 +17,9 @@ export class HomeComponent implements OnInit{
     constructor(private inputDataService:InputDataService,
         private matDialog:MatDialog,
         private authService:AuthService,
-        private router:Router){
-            this.navLinks = [{path:'/newInput',label:'Home'},
+        private router:Router, 
+        private route:ActivatedRoute){
+            this.navLinks = [{path:'newInput',label:'New Input'},
             {path:'summary',label:'Summary'},
             {path:'expensesByYear',label:'Expenses By Year'},
             {path:'loans',label:'Loans'},
@@ -35,8 +37,8 @@ export class HomeComponent implements OnInit{
     }
 
     checkOnAuthenticatedUser(){
-        this.authenticationSubscription = this.authService.isAuthenticated.subscribe( authenticated =>{
-            this.isAuthenticated = authenticated;
+        this.authenticationSubscription = this.authService.user.subscribe( userData =>{
+            this.isAuthenticated = !!userData;
         });
     }
 
@@ -65,10 +67,9 @@ export class HomeComponent implements OnInit{
     }
 
     logout(){
-        this.authService.userAuthenitcated = false;
         localStorage.removeItem('btUserData');
-        this.authService.isAuthenticated.next(false);
-        this.router.navigate(['/home'])
+        this.authService.user.next(null);
+        this.router.navigate(['/home']);
     }
 
 }
