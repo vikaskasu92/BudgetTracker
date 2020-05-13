@@ -4,7 +4,7 @@
 }
 
 .text-decorator{
-    color: #2C3531;
+    color: #5F687C;
     font-size: 16px;
     text-align: center;
 }
@@ -19,7 +19,7 @@
 }
 
 .alarms-title{
-    color: #2C3531;
+    color: #5F687C;
     font-size: 16px;
 }
 
@@ -64,6 +64,12 @@
 .icon-display{
     margin-top: -3px;
     margin-left: -20px;
+}
+
+.table-header-style{
+    background-color: white !important;
+    font-size: 14px;
+    font-style: italic;
 }
 
 @media 

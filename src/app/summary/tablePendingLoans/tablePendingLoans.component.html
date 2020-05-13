@@ -26,11 +26,11 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let  pendingLoan of allPendingloans">
-                                    <td>{{ pendingLoan.loanName | uppercase}}</td>
-                                    <td>{{ pendingLoan.loanType | uppercase }}</td>
-                                    <td>{{ pendingLoan.loanBalance | currency:USD }}</td>
-                                    <td>{{ pendingLoan.loanAPR | decimalFormat:2 }} %</td>
-                                    <td>{{ pendingLoan.loanMonthlyAmount | currency:USD }}</td>
+                                    <td class="table-content-style">{{ pendingLoan.loanName | uppercase}}</td>
+                                    <td class="table-content-style">{{ pendingLoan.loanType | uppercase }}</td>
+                                    <td class="table-content-style">{{ pendingLoan.loanBalance | currency:USD }}</td>
+                                    <td class="table-content-style">{{ pendingLoan.loanAPR | decimalFormat:2 }} %</td>
+                                    <td class="table-content-style">{{ pendingLoan.loanMonthlyAmount | currency:USD }}</td>
                                 </tr>
                             </tbody>
                         </table>
