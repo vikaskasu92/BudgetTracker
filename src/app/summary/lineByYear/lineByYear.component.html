@@ -1,6 +1,9 @@
 <mat-card>
     <mat-card-content>
-        <div [hidden]="!chart" class="row d-flex justify-content-center">
+        <div *ngIf="spinner" class="center-align">
+            <div class="lds-ripple"><div></div><div></div></div>
+        </div>
+        <div [hidden]="!chart"  *ngIf="!spinner" class="row d-flex justify-content-center">
             <canvas id="lineYearExpenses" class="lineChartDisplay"></canvas>
         </div>
     </mat-card-content>

@@ -14,6 +14,7 @@ export class TablePendingLoansComponent implements OnInit{
     allPendingloans:IPendingLoansSummary;
     spinnerOn:boolean = true;
     dataUnavilable:boolean = false;
+    spinner:boolean = true;
 
     ngOnInit(){
         this.getOverallPendingLoans();
@@ -21,8 +22,9 @@ export class TablePendingLoansComponent implements OnInit{
     
     getOverallPendingLoans(){
         this.dataRetrieval.getOverallPendingLoans().subscribe( response => {
-           this.allPendingloans =  response;
-           this.spinnerOn = false;
+            this.spinner = false;
+            this.allPendingloans =  response;
+            this.spinnerOn = false;
         },failure =>{
             if(this.allPendingloans != undefined){
                 this.spinnerOn = false;

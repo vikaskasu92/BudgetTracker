@@ -14,7 +14,7 @@ export class PieTotalComponent implements OnInit{
         private dataRetrieval:DataRetrievalService){}
 
     chart:Chart;
-    spinner:boolean=true;
+    spinner:boolean = true;
 
     ngOnInit(){
         this.getOverallIncomeAndExpenses();
@@ -23,7 +23,9 @@ export class PieTotalComponent implements OnInit{
     getOverallIncomeAndExpenses(){
         this.dataRetrieval.getOverallIncomeAndExpenses().subscribe( response => {
             this.spinner = false;
-            this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this._buildOverallIncomeAndExpensesInput(Object.values(response)),"Income And Expenses");
+            setTimeout(()=>{
+                this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this._buildOverallIncomeAndExpensesInput(Object.values(response)),"Income And Expenses");
+            },0)
         }),failure =>{
             console.log("Error Occured in data Retrieval!");
         }

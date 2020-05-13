@@ -19,6 +19,7 @@ export class LineByYearComponent implements OnInit{
     yearsArray:string[] = [];
     expenseArray:number[] = [];
     yearsData:string[] = [];
+    spinner:boolean = true;
 
     ngOnInit(){
         this.yearsData.push(this.startYear+"-01-01");
@@ -28,8 +29,11 @@ export class LineByYearComponent implements OnInit{
 
     getOverallYearlyExpenses(yearsData:any){
         this.dataRetrieval.getOverallYearlyExpenses(yearsData).subscribe( response => {
+            this.spinner = false;
             this._buildOverallYearlyExpensesInputData(response);
-            this.chart = this.chartMaker.createYearExpenseLineChart("lineYearExpenses",this.yearsArray,this.expenseArray,"Overall Expenses");
+            setTimeout(()=>{
+                this.chart = this.chartMaker.createYearExpenseLineChart("lineYearExpenses",this.yearsArray,this.expenseArray,"Overall Expenses");
+            },0)
         }),failure =>{
             console.log("Error Occured in data Retrieval!");
         }
