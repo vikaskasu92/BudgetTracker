@@ -5,7 +5,5 @@ import { Component } from '@angular/core';
     templateUrl:'./newInput.component.html'
 })
 export class NewInputComponent{
-
-    isAuthenticated:boolean = false;
  
 }

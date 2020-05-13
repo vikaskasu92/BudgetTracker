@@ -96,6 +96,15 @@ export class InputDataService{
         return categoriesForm;
     }
 
+    createFirebaseSignUpLoginForm(firebaseLoginForm:FormGroup){
+        firebaseLoginForm = new FormGroup({
+            'email': new FormControl(null,[Validators.required,Validators.email]),
+            'password': new FormControl(null,[Validators.required,Validators.minLength(6)])
+         });
+        return firebaseLoginForm;
+    }
+    
+
     addValidationsClassNames(purchaseForm:FormGroup){
         purchaseForm.controls.mainCategory.invalid ? document.getElementById('mainCategory').className += ' mat-form-field-invalid' : '';
         if(purchaseForm.controls.subCategory.enabled){

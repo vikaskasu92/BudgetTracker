@@ -22,6 +22,7 @@ import { RawDataModule } from './rawData/rawData.module';
 import { SummaryModule } from './summary/summary.module';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './home/home.component';
+import { LoginDialogComponent } from './shared/dialogs/loginDialog/loginDialog.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { HomeComponent } from './home/home.component';
     GraphDisplayComponent,
     ConfirmDialogComponent,
     EditRawDataDialogComponent,
-    AlarmDialogComponent
+    AlarmDialogComponent,
+    LoginDialogComponent
   ]
 })
 export class AppModule { }

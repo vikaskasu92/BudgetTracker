@@ -15,6 +15,7 @@ import { GraphDisplayComponent } from './components/graphDisplay/graphDisplay.co
 import { ConfirmDialogComponent } from './dialogs/confirmDialog/confirmDialog.component';
 import { EditRawDataDialogComponent } from './dialogs/editRawDataDialog/editRawDataDialog.component';
 import { PlaceholderDirective } from './directives/placeholder.directive';
+import { LoginDialogComponent } from './dialogs/loginDialog/loginDialog.component';
 
 @NgModule({
     declarations:[
@@ -27,6 +28,7 @@ import { PlaceholderDirective } from './directives/placeholder.directive';
         AlarmDialogComponent,
         AddNewLoansDialogComponent,
         GraphDisplayComponent,
+        LoginDialogComponent,
         ConfirmDialogComponent,
         EditRawDataDialogComponent,
         PlaceholderDirective
@@ -37,6 +39,7 @@ import { PlaceholderDirective } from './directives/placeholder.directive';
         GraphDisplayComponent,
         ConfirmDialogComponent,
         EditRawDataDialogComponent,
+        LoginDialogComponent,
         PlaceholderDirective,
         RemoveSpacePipe,
         DecimalFormatPipe,

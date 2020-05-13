@@ -1,0 +1,35 @@
+<div>
+    <h5 class="center-align title-on-small-window">{{ formType }} with Budget Tracker <button mat-button (click)="closeLoginForm()" class="close-on-small-window"><mat-icon>close</mat-icon></button></h5>
+</div>
+<mat-card>
+    <mat-card-content class="mat-content-small-window mat-card-content-full-window">
+        <div class="row">
+            <div class="col-md-5 all-social-buttons-max-window all-social-buttons-small-window">
+                <button mat-raised-button (click)="loginWithFacebook()" class="facebook-login button-spacing"><mat-icon class="icon-spacing" svgIcon="facebook"></mat-icon>  Continue with Facebook</button>
+                <button mat-raised-button (click)="loginWithGoogle()" class="google-login button-spacing"><mat-icon class="icon-spacing" svgIcon="google"></mat-icon>  Continue with Google</button>
+                <button mat-raised-button (click)="loginWithApple()" class="apple-login button-spacing"><mat-icon class="icon-spacing" svgIcon="apple"></mat-icon>  Continue with Apple</button>
+            </div>
+            <div class="col-md-1 divider-line"></div>
+            <div class="col-md-4">
+                <form [formGroup]="firebaseLoginSignUpForm" class="login-form-adjust" (ngSubmit)="onFirebaseLoginOrSignup()">
+                    <mat-form-field appearance="fill" class="login-email-field center-align">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email">
+                        <mat-error *ngIf="!firebaseLoginSignUpForm.get('email').valid && firebaseLoginSignUpForm.get('email').touched">Email is invalid!</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="center-align">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="password">
+                        <mat-error *ngIf="!firebaseLoginSignUpForm.get('password').valid && firebaseLoginSignUpForm.get('password').touched">Minimum 6 character is required.</mat-error>
+                    </mat-form-field>
+                    <button mat-raised-button type="submit" class="firebaselogin-button keep-to-one-line center-align">{{ formType }}</button>
+                </form>
+                <div class="align-forgot-password" *ngIf="!switchToSignUp"><span>or </span><a href="#" type="button" (click)="forgotPasswordWithFirebase()">Forgot Password</a></div>
+                <div class="align-no-account center-align" *ngIf="!switchToSignUp"><span>Don't have an account? </span><a href="#" type="button" (click)="switchToSignupWithFirebase()"><strong>Sign up</strong></a></div>
+            </div>
+            <div class="col-md-2 align-close-button">
+                <button mat-button (click)="closeLoginForm()" class="close-on-full-window"><mat-icon>close</mat-icon></button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
