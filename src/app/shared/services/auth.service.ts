@@ -12,7 +12,7 @@ export class AuthService{
     
     constructor(private http:HttpClient){}
 
-    isAuthenticated = new BehaviorSubject<boolean>(null);
+    isAuthenticated:boolean;
     user = new BehaviorSubject<User>(null);
     userFirebaseLogin = {}
 
@@ -28,6 +28,7 @@ export class AuthService{
                     response.email,response.localId,
                     expirationDate,response.idToken);
                 localStorage.setItem('btUserData',JSON.stringify(user));
+                this.isAuthenticated = true;
                 this.user.next(user);
             })
        );
@@ -36,6 +37,7 @@ export class AuthService{
       autoLogin(){
         const userData = JSON.parse(localStorage.getItem('btUserData'));
         if(!userData){
+            this.user.next(null);
             return false;
         }
         const loadedUser = new User(
@@ -44,9 +46,15 @@ export class AuthService{
             new Date(userData._tokenExpirationDate),
             userData._idToken);
         if(loadedUser.idToken){
+            this.isAuthenticated = true;
             this.user.next(loadedUser);
             return true;
         }
+    }
+
+    logout(){
+        localStorage.removeItem('btUserData');
+        this.user.next(null);
     }
 
 }

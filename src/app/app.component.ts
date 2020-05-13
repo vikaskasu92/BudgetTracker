@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './shared/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit{
 
   constructor(private authService:AuthService,
-            private router:Router){
+            private router:Router,private route:ActivatedRoute){
     this.navLinks = [{path:'/newInput',label:'New Input'},
     {path:'/summary',label:'Summary'},
     {path:'/expensesByYear',label:'Expenses By Year'},
@@ -27,8 +27,10 @@ export class AppComponent implements OnInit{
   ngOnInit(){
     this.isAuthenticated = this.authService.autoLogin();
     if(this.isAuthenticated){
+      this.activeLink = this.navLinks[0].path;
       this.router.navigate(['/newInput']);
     }else{
+      this.activeLink = this.navLinks[0].path;
       this.router.navigate(['/login']);
     }
     this.checkOnAuthenticatedUser();
@@ -36,7 +38,10 @@ export class AppComponent implements OnInit{
 
   checkOnAuthenticatedUser(){
     this.authService.user.subscribe( userData =>{
-        this.isAuthenticated = !!userData;
+      if(this.router.url === "/login"){
+        this.activeLink = this.navLinks[0].path;
+      }
+      this.isAuthenticated = !!userData;
     });
 }
 
