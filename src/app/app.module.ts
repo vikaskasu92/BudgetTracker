@@ -21,13 +21,17 @@ import { NewInputModule } from './newInput/newInput.module';
 import { RawDataModule } from './rawData/rawData.module';
 import { SummaryModule } from './summary/summary.module';
 import { SharedModule } from './shared/shared.module';
-import { HomeComponent } from './home/home.component';
 import { LoginDialogComponent } from './shared/dialogs/loginDialog/loginDialog.component';
+import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    LoginComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,7 @@ import { ConfirmDialogComponent } from './dialogs/confirmDialog/confirmDialog.co
 import { EditRawDataDialogComponent } from './dialogs/editRawDataDialog/editRawDataDialog.component';
 import { PlaceholderDirective } from './directives/placeholder.directive';
 import { LoginDialogComponent } from './dialogs/loginDialog/loginDialog.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations:[
@@ -31,7 +32,7 @@ import { LoginDialogComponent } from './dialogs/loginDialog/loginDialog.componen
         LoginDialogComponent,
         ConfirmDialogComponent,
         EditRawDataDialogComponent,
-        PlaceholderDirective
+        PlaceholderDirective,
     ],
     exports:[
         AlarmDialogComponent,
@@ -68,6 +69,7 @@ import { LoginDialogComponent } from './dialogs/loginDialog/loginDialog.componen
         CommonModule,
         ReactiveFormsModule,
         FormsModule,
+        RouterModule,
         MatFormFieldModule,
         MatInputModule,
         MatDatepickerModule,

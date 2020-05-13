@@ -16,8 +16,6 @@ export class AuthService{
     user = new BehaviorSubject<User>(null);
     userFirebaseLogin = {}
 
-    userInputData = {email:'test',password:'test',returnSecureToken:true};
-
     firebaseSignUp(userInputData:FirebaseLoginSignupInput){
         return this.http.post<FirebaseAuthSuccess>("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBWfYRyaAfJUwnF7lyqcIMHln_0VW0AG1M",userInputData); 
     }
@@ -38,7 +36,7 @@ export class AuthService{
       autoLogin(){
         const userData = JSON.parse(localStorage.getItem('btUserData'));
         if(!userData){
-            return;
+            return false;
         }
         const loadedUser = new User(
             userData.email,
@@ -47,6 +45,7 @@ export class AuthService{
             userData._idToken);
         if(loadedUser.idToken){
             this.user.next(loadedUser);
+            return true;
         }
     }
 
