@@ -70,7 +70,8 @@ export class LoginDialogComponent implements OnInit{
         return loginData;
     }
 
-    forgotPasswordWithFirebase(){
+    forgotPasswordWithFirebase(event:any){
+        event.preventDefault();
         this.dataReturn = [this.firebaseLoginSignUpForm,"forgotPassword"];
         this.dialogRef.close(this.dataReturn);
     }

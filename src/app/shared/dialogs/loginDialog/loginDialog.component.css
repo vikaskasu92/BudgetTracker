@@ -12,6 +12,10 @@
    display:block;
 }
 
+.push-signup-form-down{
+    margin-top: 20px;
+}
+
 .close-on-small-window{
     display: none;
 }
