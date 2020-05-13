@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { AuthService } from '../shared/services/auth.service';
 import { LoginDialogComponent } from '../shared/dialogs/loginDialog/loginDialog.component';
 import { Router } from '@angular/router';
+import { FirebaseLoginSignupInput } from '../shared/model/auth/FirebaseLoginSignupInput.model';
 
 @Component({
     selector:'app-login',
@@ -38,6 +39,17 @@ export class LoginComponent{
             }else{
                 this.loginWithFirebase(true);
             }
+        });
+    }
+
+    demoLogin(){
+        const userInputData:FirebaseLoginSignupInput = {
+             email:'test@test.com',
+             password:'test123',
+             returnSecureToken:true
+        }
+        this.authService.firebaseLogin(userInputData).subscribe( response =>{
+            this.router.navigate(['/newInput']);
         });
     }
 
