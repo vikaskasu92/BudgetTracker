@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { InputDataService } from '../shared/services/inputData.service';
 import { MatDialog } from '@angular/material';
-import { AuthService } from '../shared/services/auth.service';
+import { LocalAuthService } from '../shared/services/auth.service';
 import { LoginDialogComponent } from '../shared/dialogs/loginDialog/loginDialog.component';
 import { Router } from '@angular/router';
 import { FirebaseLoginSignupInput } from '../shared/model/auth/FirebaseLoginSignupInput.model';
@@ -15,7 +15,7 @@ export class LoginComponent{
 
     constructor(private inputDataService:InputDataService,
         private matDialog:MatDialog,
-        private authService:AuthService,
+        private authService:LocalAuthService,
         private router:Router){}
 
     loginWithFirebase(userSignUp:boolean){

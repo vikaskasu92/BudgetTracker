@@ -1,11 +1,18 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { InputDataService } from '../../services/inputData.service';
-import { MatIconRegistry, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
-import { AuthService } from '../../services/auth.service';
-import { FirebaseLoginSignupInput } from '../../model/auth/FirebaseLoginSignupInput.model';
 import { Router } from '@angular/router';
+
+import { DomSanitizer } from '@angular/platform-browser';
+
+import { MatIconRegistry, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
+import { InputDataService } from '../../services/inputData.service';
+import { LocalAuthService } from '../../services/auth.service';
+import { FirebaseLoginSignupInput } from '../../model/auth/FirebaseLoginSignupInput.model';
+
+import { AuthService } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+
 
 @Component({
     selector:'app-loginDialog',
@@ -16,7 +23,8 @@ export class LoginDialogComponent implements OnInit{
 
     constructor(private inputDataService:InputDataService,
                 private matIconRegistry: MatIconRegistry,
-                private authService:AuthService,
+                private localAuthService:LocalAuthService,
+                private authService: AuthService,
                 private router:Router,
                 @Inject(MAT_DIALOG_DATA) public data: any,
                 public dialogRef: MatDialogRef<LoginDialogComponent>,
@@ -46,14 +54,14 @@ export class LoginDialogComponent implements OnInit{
     onFirebaseLoginOrSignup(){
         if(this.formType === "Login"){
             if(this.firebaseLoginSignUpForm.valid){
-                this.authService.firebaseLogin(this._formLoginSignUpData()).subscribe( response=>{
+                this.localAuthService.firebaseLogin(this._formLoginSignUpData()).subscribe( response=>{
                    this.router.navigate(['/newInput']);
                     this.dialogRef.close(true);
                 }); 
             }
         }else{
             if(this.firebaseLoginSignUpForm.valid){
-                this.authService.firebaseSignUp(this._formLoginSignUpData()).subscribe( response=>{
+                this.localAuthService.firebaseSignUp(this._formLoginSignUpData()).subscribe( response=>{
                     this.dataReturn = [this.firebaseLoginSignUpForm,"firebaseLogin"];
                     this.dialogRef.close(this.dataReturn);
                 }); 
@@ -62,13 +70,14 @@ export class LoginDialogComponent implements OnInit{
         
     }
 
-    private _formLoginSignUpData():FirebaseLoginSignupInput{
-        const loginData:FirebaseLoginSignupInput = 
-            {email:this.firebaseLoginSignUpForm.value.email,
-            password:this.firebaseLoginSignUpForm.value.password,
-            returnSecureToken:true};
-        return loginData;
+    loginWithFacebook(){
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then( response =>{
+            console.log("id ",response.id);
+            console.log("id ",response.firstName);
+            console.log("id ",response.lastName);
+        });
     }
+    
 
     forgotPasswordWithFirebase(event:any){
         event.preventDefault();
@@ -84,6 +93,14 @@ export class LoginDialogComponent implements OnInit{
 
     closeLoginForm(){
         this.dialogRef.close(false);
+    }
+
+    private _formLoginSignUpData():FirebaseLoginSignupInput{
+        const loginData:FirebaseLoginSignupInput = 
+            {email:this.firebaseLoginSignUpForm.value.email,
+            password:this.firebaseLoginSignUpForm.value.password,
+            returnSecureToken:true};
+        return loginData;
     }
 
 }

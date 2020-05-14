@@ -73,40 +73,6 @@
     min-width: 226px;
 }
 
-.google-login {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    color: #29303b;
-    background-color:white;
-    border: 1px solid #dedfe0;
-    box-shadow: 0 2px 2px 0 rgba(41,48,59,.24), 0 0 2px 0 rgba(41,48,59,.12);
-    border-radius: 2px;
-    font-size: 16px;
-    font-weight: 700;
-    height: 48px;
-    margin-bottom: 8px;
-    padding: 10px;
-    min-width: 226px;
-}
-
-.apple-login {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    color: #29303b;
-    background-color:white;
-    border: 1px solid #dedfe0;
-    box-shadow: 0 2px 2px 0 rgba(41,48,59,.24), 0 0 2px 0 rgba(41,48,59,.12);
-    border-radius: 2px;
-    font-size: 16px;
-    font-weight: 700;
-    height: 48px;
-    margin-bottom: 8px;
-    padding: 10px;
-    min-width: 226px;
-}
-
 .firebaselogin-button{
     min-width: 202px;
     background-color: #EC5252;

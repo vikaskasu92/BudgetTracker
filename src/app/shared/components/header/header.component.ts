@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { Component } from '@angular/core';
+import { LocalAuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent{
 
-    constructor(private authService:AuthService,
+    constructor(private authService:LocalAuthService,
                 private router:Router){}
     
 

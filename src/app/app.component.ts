@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './shared/services/auth.service';
+import { LocalAuthService } from './shared/services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AppComponent implements OnInit{
 
-  constructor(private authService:AuthService,
+  constructor(private authService:LocalAuthService,
             private router:Router,private route:ActivatedRoute){
     this.navLinks = [{path:'/newInput',label:'New Input'},
     {path:'/summary',label:'Summary'},

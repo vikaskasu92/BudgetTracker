@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 import { User } from '../model/auth/user.model';
 
 @Injectable({providedIn:'root'})
-export class AuthService{
+export class LocalAuthService{
     
     constructor(private http:HttpClient){}
 

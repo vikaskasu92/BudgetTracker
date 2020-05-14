@@ -26,6 +26,20 @@ import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { FacebookLoginProvider } from "angularx-social-login";
+ 
+
+export function provideConfig() {
+  let config = new AuthServiceConfig([
+    {
+      id: FacebookLoginProvider.PROVIDER_ID,
+      provider: new FacebookLoginProvider("579312869354727")
+    }
+  ]);
+  return config;
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,9 +60,15 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     NewInputModule,
     RawDataModule,
     SummaryModule,
-    SharedModule
+    SharedModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     AddNewLoansDialogComponent,
