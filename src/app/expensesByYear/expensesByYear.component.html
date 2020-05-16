@@ -2,7 +2,7 @@
     <mat-form-field appearance="fill" class="form-field-spacing">
         <mat-label>Year</mat-label>
         <mat-select formControlName="year">
-                <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+                <mat-option *ngFor="let year of years"  [value]="year">{{ year }}</mat-option>
         </mat-select>
         <mat-error *ngIf="!yearByYearForm.get('year').valid && yearByYearForm.get('year').touched">Please select a valid year!</mat-error>
     </mat-form-field>
@@ -16,5 +16,8 @@
 </form>
 <div *ngIf="noData">
     <span class="no-data">You have no data for the category and year chosen!</span>
+</div>
+<div *ngIf="isDisabled">
+    <span class="no-data">You have no expenses currently to be shown, Please use the New Input Tab above to visualize your data!</span>
 </div>
 <ng-template placeholderDirective ></ng-template>

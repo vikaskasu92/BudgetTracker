@@ -60,8 +60,8 @@ export class InputDataService{
 
     createYearByYearForm(yearByYearForm:FormGroup){
         yearByYearForm = new FormGroup({
-            'year': new FormControl(null,Validators.required),
-            'category': new FormControl(null,Validators.required)
+            'year': new FormControl({value: null, disabled: true},Validators.required),
+            'category': new FormControl({value: null, disabled: true},Validators.required)
         });
         return yearByYearForm;
     }

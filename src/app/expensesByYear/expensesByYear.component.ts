@@ -6,6 +6,7 @@ import { GraphDisplayComponent } from '../shared/components/graphDisplay/graphDi
 import { PlaceholderDirective } from '../shared/directives/placeholder.directive';
 import { FormGroup} from '@angular/forms';
 import { InputDataService } from '../shared/services/inputData.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector:'app-expensesByYear',
@@ -27,6 +28,7 @@ export class ExpensesByYearComponent implements OnInit{
     yearAndCategory = [];
     noData:boolean;
     yearByYearForm:FormGroup;
+    isDisabled:boolean = false;
 
 
     ngOnInit(){
@@ -36,9 +38,15 @@ export class ExpensesByYearComponent implements OnInit{
     }
 
     private _retrieveAllYearsData(){
+        this.years = [];
         this.dataRetrieval.getAllYearsForCustomers().subscribe(response=>{
-            this.years = [];
-            this.years = response;
+            if(response.length === 0){
+                this.isDisabled = true; 
+            }else{
+                this.isDisabled = false; 
+                this._enableSelectFormFields();
+                this.years = response;
+            }
         });
     }
 
@@ -56,6 +64,11 @@ export class ExpensesByYearComponent implements OnInit{
                 this._dataRetrieval(this.yearAndCategory); 
             }
         });
+    }
+
+    private _enableSelectFormFields(){
+        this.yearByYearForm.controls.year.enable();
+        this.yearByYearForm.controls.category.enable();
     }
 
     private createGraphComponent(size:number){
