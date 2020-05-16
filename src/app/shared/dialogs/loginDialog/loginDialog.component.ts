@@ -11,7 +11,8 @@ import { LocalAuthService } from '../../services/auth.service';
 import { FirebaseLoginSignupInput } from '../../model/auth/FirebaseLoginSignupInput.model';
 
 import { AuthService } from "angularx-social-login";
-import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import { FacebookLoginProvider } from "angularx-social-login";
+import { User } from '../../model/auth/user.model';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class LoginDialogComponent implements OnInit{
     switchToSignUp:boolean;
     dataReturn:any[];
     formType:string;
+    loginError:boolean = false;
 
     ngOnInit(){
         if(!this.data.switchToSignUp){
@@ -53,10 +55,13 @@ export class LoginDialogComponent implements OnInit{
 
     onFirebaseLoginOrSignup(){
         if(this.formType === "Login"){
+            this.loginError = false;
             if(this.firebaseLoginSignUpForm.valid){
                 this.localAuthService.firebaseLogin(this._formLoginSignUpData()).subscribe( response=>{
-                   this.router.navigate(['/newInput']);
+                    this.router.navigate(['/newInput']);
                     this.dialogRef.close(true);
+                },failure =>{
+                    this.loginError = true;
                 }); 
             }
         }else{
@@ -72,9 +77,19 @@ export class LoginDialogComponent implements OnInit{
 
     loginWithFacebook(){
         this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then( response =>{
-            console.log("id ",response.id);
-            console.log("id ",response.firstName);
-            console.log("id ",response.lastName);
+            this.localAuthService.userId = response.id;
+            this.router.navigate(['/newInput']);
+            let expirationDate:Date = new Date();
+            expirationDate.setHours(expirationDate.getHours() + 5);
+            let facebookUser = new User(
+                response.email,
+                response.id,
+                expirationDate,
+                response.authToken);
+            this.localAuthService.user.next(facebookUser);
+            this.localAuthService.isAuthenticated = true;
+            localStorage.setItem('btUserData',JSON.stringify(facebookUser));
+            this.dialogRef.close(true);
         });
     }
     

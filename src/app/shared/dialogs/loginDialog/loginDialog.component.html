@@ -9,6 +9,9 @@
             </div>
             <div class="col-md-1 divider-line"></div>
             <div class="col-md-4">
+                <div *ngIf="loginError">
+                    <mat-error>Invalid Username or Password</mat-error>
+                </div>
                 <form [formGroup]="firebaseLoginSignUpForm" class="login-form-adjust" (ngSubmit)="onFirebaseLoginOrSignup()" [ngClass]="{'push-signup-form-down': switchToSignUp}">
                     <mat-form-field appearance="fill" class="login-email-field center-align">
                         <mat-label>Email</mat-label>
