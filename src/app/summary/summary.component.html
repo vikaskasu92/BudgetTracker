@@ -1,6 +1,8 @@
 <div>
-    <div class="row startToEnd d-flex justify-content-center">
-        <span class="startToEnd">From {{ startYear }} to {{ endYear }}</span>
+    <div *ngIf="!noDataForCustomer">
+        <div class="row startToEnd d-flex justify-content-center" >
+            <span class="startToEnd">From {{ startYear }} to {{ endYear }}</span>
+        </div>
     </div>
     <br>
     <div class="row bottom-spacing">
