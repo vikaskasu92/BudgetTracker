@@ -5,6 +5,8 @@ import { AddNewLoansDialogComponent } from '../shared/dialogs/addNewLoansDialog/
 import { DataStoreService } from '../shared/services/dataStore.service';
 import { ConfirmDialogComponent } from '../shared/dialogs/confirmDialog/confirmDialog.component';
 import { InputDataService } from '../shared/services/inputData.service';
+import { ClosedLoansModel } from '../shared/model/loans/closedLoan.model';
+import { OpenLoansModel } from '../shared/model/loans/openLoan.model';
 
 @Component({
     selector:'app-loans',
@@ -18,8 +20,8 @@ export class LoansComponent implements OnInit{
                 private dataStore:DataStoreService,
                 private inputData:InputDataService){}
 
-    openLoans:any = [];
-    closedLoans:any = [];
+    openLoans:OpenLoansModel[];
+    closedLoans:ClosedLoansModel[];
     spinnerOpenLoans:boolean = true;
     spinnerClosedLoans:boolean = true;
     noOpenLoans:boolean = false;
@@ -30,9 +32,21 @@ export class LoansComponent implements OnInit{
     }
 
     retrieveOpenClosedLoans(){
+        this.openLoans = [];
+        this.closedLoans = [];
         this.dataRetrieval.getOpenClosedLoans().subscribe( response =>{
-            this.closedLoans = response["closedLoans"];
-            this.openLoans = response["openLoans"];
+            if(response["openLoans"].length != 0){
+                this.noOpenLoans = false;
+                this.openLoans = response["openLoans"];
+            }else{
+                this.noOpenLoans = true;
+            }
+            if(response["closedLoans"].length != 0){
+                this.noClosedLoans = false;
+                this.closedLoans = response["closedLoans"];
+            }else{
+                this.noClosedLoans = true;
+            }
             this.spinnerOpenLoans = false;
             this.spinnerClosedLoans = false;
         },failure =>{

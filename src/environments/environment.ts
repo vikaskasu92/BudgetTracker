@@ -28,7 +28,6 @@ export const environment = {
   openClosedLoans:"http://localhost:5000/RetrieveBudgetTrackerData/retrieveOpenClosedLoans",
   getAllInvestments:"http://localhost:5000/RetrieveBudgetTrackerData/retrieveAllInvestments",
   getAllYearsForCustomers:"http://localhost:5000/RetrieveBudgetTrackerData/retrieveAllYearsForCustomer",
-  getRawDataByInput:"http://localhost:5000/RetrieveBudgetTrackerData/retrieveRawDataByInput",
   getRawDataByDate:"http://localhost:5000/RetrieveBudgetTrackerData/retrieveRawDataByDate",
   getRawDataByInputAndDate:"http://localhost:5000/RetrieveBudgetTrackerData/retrieveRawDataByInputAndDate",
   getAllAlarms:"http://localhost:5000/RetrieveBudgetTrackerData/retrieveAllAlarms",

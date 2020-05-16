@@ -1,15 +1,6 @@
-export interface ILoans{
-    openLoans:{
-        loanName:string,
-        loanBalance:number,
-        principalPaid:number,
-        interestPaid:number
-    },
-    closedLoans?:{
-        loanName:string,
-        loanBalance:number,
-        principalPaid:number,
-        interestPaid:number
-    }
-        
+import { OpenLoansModel } from './openLoan.model';
+import { ClosedLoansModel } from './closedLoan.model';
+
+export interface ILoans extends Array<OpenLoansModel>, Array<ClosedLoansModel>{
+    
 }

@@ -99,16 +99,6 @@ export class DataRetrievalService{
         );
     }
 
-    getRawDataByInput(inputData:any,minPage:number){
-        return this.http.get<any>(environment.getRawDataByInput,{
-            headers: this.httpOptions.headers,
-            params: new HttpParams()
-            .set('username',this.localAuthService.userId)
-            .set('inputType', inputData[0])
-            .set('minPage',(minPage-1).toString())
-        });
-    }
-
     getRawDataByInputAndDate(inputData:any,minPage:number){
         return this.http.get<any>(environment.getRawDataByInputAndDate,{
             headers: this.httpOptions.headers,

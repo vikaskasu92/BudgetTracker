@@ -9,7 +9,7 @@
             <div class="lds-ripple"><div></div><div></div></div>
         </div>
         <ng-template #nowOpenLoansResults>
-            <div *ngIf="!spinnerOpenLoans && openLoans.length != 0">
+            <div *ngIf="!spinnerOpenLoans && openLoans.length > 0">
                 <div class="table-responsive-sm table-bottom-reduce">
                     <table class="table table-sm openLoans">
                         <thead>
@@ -53,7 +53,7 @@
             <div class="lds-ripple"><div></div><div></div></div>
         </div>
         <ng-template #nowClosedLoansResults>
-            <div *ngIf="!spinnerClosedLoans && closedLoans.length != 0">
+            <div *ngIf="!spinnerClosedLoans && closedLoans.length > 0">
                 <div class="table-responsive-sm table-bottom-reduce">
                     <table class="table table-sm closedLoans">
                         <thead>
