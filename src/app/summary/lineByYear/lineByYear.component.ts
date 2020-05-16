@@ -20,11 +20,20 @@ export class LineByYearComponent implements OnInit{
     expenseArray:number[] = [];
     yearsData:string[] = [];
     spinner:boolean = true;
+    noDataForCustomer:boolean = false;
+    showTitle:boolean = true;
 
     ngOnInit(){
         this.yearsData.push(this.startYear+"-01-01");
         this.yearsData.push(this.endYear+"-12-31");
-        this.getOverallYearlyExpenses(this.yearsData);
+        if(this.startYear === undefined || this.endYear === undefined){
+            this.spinner = false;
+            this.noDataForCustomer = true;
+        }else{
+            this.noDataForCustomer = false;
+            this.getOverallYearlyExpenses(this.yearsData);
+        }
+        
     }
 
     getOverallYearlyExpenses(yearsData:any){
@@ -32,6 +41,7 @@ export class LineByYearComponent implements OnInit{
             this.spinner = false;
             this._buildOverallYearlyExpensesInputData(response);
             setTimeout(()=>{
+                this.showTitle = false;
                 this.chart = this.chartMaker.createYearExpenseLineChart("lineYearExpenses",this.yearsArray,this.expenseArray,"Overall Expenses");
             },0)
         }),failure =>{

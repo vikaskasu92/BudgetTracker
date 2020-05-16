@@ -1,10 +1,14 @@
 <mat-card>
     <mat-card-content>
+        <h3 class="income-expenses-title" *ngIf="showTitle">Income And Expenses</h3>
         <div *ngIf="spinner" class="center-align">
             <div class="lds-ripple"><div></div><div></div></div>
         </div>
-        <div [hidden]="!chart" *ngIf="!spinner" class="row d-flex justify-content-center">
+        <div [hidden]="!chart" *ngIf="!spinner && !noDataForCustomer" class="row d-flex justify-content-center">
             <canvas id="pieTotal" class="doughnutChartDisplay"></canvas>
+        </div>
+        <div *ngIf="noDataForCustomer && !spinner">
+            <span>Currently you have no Income or Expenses to be shown, Use "New Input" Tab above to start visualizing your data</span>
         </div>
     </mat-card-content>
 </mat-card>

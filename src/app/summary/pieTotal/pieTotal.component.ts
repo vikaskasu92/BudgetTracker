@@ -15,25 +15,35 @@ export class PieTotalComponent implements OnInit{
 
     chart:Chart;
     spinner:boolean = true;
+    noDataForCustomer:boolean = false;
+    showTitle:boolean = true;
 
     ngOnInit(){
         this.getOverallIncomeAndExpenses();
     }
 
     getOverallIncomeAndExpenses(){
-        this.dataRetrieval.getOverallIncomeAndExpenses().subscribe( response => {
+        if(this.dataRetrieval.allYears.length != 0){
+            this.dataRetrieval.getOverallIncomeAndExpenses().subscribe( response => {
+                this.spinner = false;
+                setTimeout(()=>{
+                    this.showTitle = false;
+                    this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this._buildOverallIncomeAndExpensesInput(Object.values(response)),"Income And Expenses");
+                },0)
+            }),failure =>{
+                console.log("Error Occured in data Retrieval!");
+            }
+        }else{
+            this.noDataForCustomer = true;
             this.spinner = false;
-            setTimeout(()=>{
-                this.chart = this.chartMaker.createTotalDoughnutChart("pieTotal",this._buildOverallIncomeAndExpensesInput(Object.values(response)),"Income And Expenses");
-            },0)
-        }),failure =>{
-            console.log("Error Occured in data Retrieval!");
         }
+        
     }
 
-    private _buildOverallIncomeAndExpensesInput(response:any){
+    private _buildOverallIncomeAndExpensesInput(response:any[]){
         const responseArray = [];
         for(let i=0; i<response.length;i++){
+            response[i] === null ? response[i] = 0 : "";
             responseArray.push(response[i].toFixed(2));
         }
         return responseArray;

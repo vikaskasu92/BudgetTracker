@@ -49,7 +49,7 @@ export class ChartMakerService{
         backgroundColor: ['#FF6384','#36A2EC','#FFCB9A'],
         fill: true
     }]
-    const labels = ['Net Salary','Taxes','Expenses'];
+    const labels = ['Net Salary','Expenses','Taxes'];
     return this._generateChart(canvasName,'doughnut',datasets,labels,true,true,chartTitle);
   }
 
@@ -71,6 +71,7 @@ export class ChartMakerService{
           title: {
             display: true,
             fontColor: "#5F687C",
+            fontSize: 15,
             text: chartTitle
           }
         }
