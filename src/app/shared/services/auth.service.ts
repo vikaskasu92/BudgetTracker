@@ -13,15 +13,16 @@ export class LocalAuthService{
     constructor(private http:HttpClient){}
 
     isAuthenticated:boolean;
+    userId:string;
     user = new BehaviorSubject<User>(null);
     userFirebaseLogin = {}
 
     firebaseSignUp(userInputData:FirebaseLoginSignupInput){
-        return this.http.post<FirebaseAuthSuccess>("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBWfYRyaAfJUwnF7lyqcIMHln_0VW0AG1M",userInputData); 
+        return this.http.post<FirebaseAuthSuccess>("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCgYHOtRUnryp7MUCPVKU17FKzNVLNnHKs",userInputData); 
     }
 
     firebaseLogin(userInputData:FirebaseLoginSignupInput){
-       return this.http.post<FirebaseAuthSuccess>("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBWfYRyaAfJUwnF7lyqcIMHln_0VW0AG1M",userInputData).pipe(
+       return this.http.post<FirebaseAuthSuccess>("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCgYHOtRUnryp7MUCPVKU17FKzNVLNnHKs",userInputData).pipe(
            tap( response => {
                 const expirationDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
                 const user = new User(
@@ -29,6 +30,7 @@ export class LocalAuthService{
                     expirationDate,response.idToken);
                 localStorage.setItem('btUserData',JSON.stringify(user));
                 this.isAuthenticated = true;
+                this.userId = response.localId;
                 this.user.next(user);
             })
        );
@@ -47,6 +49,7 @@ export class LocalAuthService{
             userData._idToken);
         if(loadedUser.idToken){
             this.isAuthenticated = true;
+            this.userId = loadedUser.userId;
             this.user.next(loadedUser);
             return true;
         }
@@ -54,6 +57,7 @@ export class LocalAuthService{
 
     logout(){
         localStorage.removeItem('btUserData');
+        this.userId = "";
         this.user.next(null);
     }
 

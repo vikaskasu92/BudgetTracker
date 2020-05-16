@@ -18,8 +18,8 @@ export class LoansComponent implements OnInit{
                 private dataStore:DataStoreService,
                 private inputData:InputDataService){}
 
-    openLoans:any;
-    closedLoans:any;
+    openLoans:any = [];
+    closedLoans:any = [];
     spinnerOpenLoans:boolean = true;
     spinnerClosedLoans:boolean = true;
     noOpenLoans:boolean = false;
@@ -46,7 +46,7 @@ export class LoansComponent implements OnInit{
 
     addNewLoans(){
         const data = {type:'newLoan',buttonName:'Save',addNewLoanHeader:'Add New Loan'};
-        const dialogRef =  this.inputData.openDialog(this.dialog,ConfirmDialogComponent,data);
+        const dialogRef =  this.inputData.openDialog(this.dialog,AddNewLoansDialogComponent,data);
         
         dialogRef.afterClosed().subscribe(result => {  
             if(result != undefined){
@@ -101,7 +101,7 @@ export class LoansComponent implements OnInit{
     
         dialogRef.afterClosed().subscribe( result => {  
             if(result){
-                this.dataStore.deleteLoanFromDB(this._updateObjectId(responseObject,id)).subscribe( response => {
+                this.dataStore.deleteLoanFromDB(this._updateObjectIdForDelete(responseObject,id)).subscribe( response => {
                     this.retrieveOpenClosedLoans(); 
                 },failure =>{
                     console.log("Error Retrieving Data from DB.");
@@ -129,5 +129,10 @@ export class LoansComponent implements OnInit{
     private _updateObjectId(formDataObject:any,id:number){
         formDataObject['id'] = id;
         return formDataObject;
-      }
+    }
+
+    private _updateObjectIdForDelete(formDataObject:any,id:number){
+        formDataObject['deleteById'] = id;
+        return formDataObject;
+    }
 }

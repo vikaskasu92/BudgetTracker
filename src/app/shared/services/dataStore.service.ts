@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { LocalAuthService } from './auth.service';
 
 @Injectable({providedIn:"root"})
 export class DataStoreService{
 
-    constructor(private http:HttpClient){}
+    constructor(private http:HttpClient,
+                private localAuthService:LocalAuthService){}
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -18,7 +20,11 @@ export class DataStoreService{
     }
 
     storePurchaseDataToDB(inputData:any){
-        return this.http.post(environment.purchaseDataStoreURL,inputData,{headers:this.httpOptions.headers});
+        return this.http.post(environment.purchaseDataStoreURL,inputData,{
+            headers:this.httpOptions.headers,
+            params: new HttpParams()
+            .set('username',this.localAuthService.userId)
+        });
     }
 
     deletePurchaseDataFromDB(inputData:any){
@@ -30,7 +36,11 @@ export class DataStoreService{
     }
 
     storeIncomeDataToDB(inputData:any){
-        return this.http.post(environment.incomeDataStoreURL,inputData,{headers:this.httpOptions.headers});
+        return this.http.post(environment.incomeDataStoreURL,inputData,{
+            headers:this.httpOptions.headers,
+            params: new HttpParams()
+            .set('username',this.localAuthService.userId)
+        });
     }
 
     deleteIncomeDataFromDB(inputData:any){
@@ -42,7 +52,11 @@ export class DataStoreService{
     }
 
     storeInsuranceDataToDB(inputData:any){
-        return this.http.post(environment.insuranceDataStoreURL,inputData,{headers:this.httpOptions.headers}); 
+        return this.http.post(environment.insuranceDataStoreURL,inputData,{
+            headers:this.httpOptions.headers,
+            params: new HttpParams()
+            .set('username',this.localAuthService.userId)
+        }); 
     }
 
     deleteInsuranceDataFromDB(inputData:any){
@@ -50,7 +64,11 @@ export class DataStoreService{
     }
 
     storeNewLoansDataToDB(inputData:any){
-        return this.http.post(environment.addNewLoansDataStoreURL,inputData,{headers:this.httpOptions.headers}); 
+        return this.http.post(environment.addNewLoansDataStoreURL,inputData,{
+            headers:this.httpOptions.headers,
+            params: new HttpParams()
+            .set('username',this.localAuthService.userId)
+        }); 
     }
 
     closeLoanFromDB(inputData:any){
@@ -70,7 +88,11 @@ export class DataStoreService{
     }
 
     createNewBudgetAlarm(inputData:any){
-        return this.http.post(environment.createNewBudgetAlarmInDB,inputData,{headers:this.httpOptions.headers}); 
+        return this.http.post(environment.createNewBudgetAlarmInDB,inputData,{
+            headers:this.httpOptions.headers,
+            params: new HttpParams()
+            .set('username',this.localAuthService.userId)
+        }); 
     }
 
     deleteBudgetAlarmFromDB(inputData:any){
