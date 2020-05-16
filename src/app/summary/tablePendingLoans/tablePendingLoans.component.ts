@@ -12,7 +12,6 @@ export class TablePendingLoansComponent implements OnInit{
     constructor(private dataRetrieval:DataRetrievalService){}
 
     allPendingloans:IPendingLoansSummary;
-    spinnerOn:boolean = true;
     dataUnavilable:boolean = false;
     spinner:boolean = true;
 
@@ -22,13 +21,15 @@ export class TablePendingLoansComponent implements OnInit{
     
     getOverallPendingLoans(){
         this.dataRetrieval.getOverallPendingLoans().subscribe( response => {
-            this.spinner = false;
-            this.allPendingloans =  response;
-            this.spinnerOn = false;
+            if(response.length === 0){
+                this.spinner = false;
+                this.dataUnavilable = true;
+            }else{
+                this.dataUnavilable = false;
+                this.spinner = false;
+                this.allPendingloans =  response;
+            }   
         },failure =>{
-            if(this.allPendingloans != undefined){
-                this.spinnerOn = false;
-            }
             console.log("Error Occured in data Retrieval!");
         });
     }

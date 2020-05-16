@@ -1,8 +1,5 @@
-export interface IPendingLoansSummary{
-    loanName:string,
-    loanType:string,
-    loanBalance:number,
-    loanAPR:number,
-    loanMonthlyAmount:number,
-    loanCompletionDuration:number
+import { OpenLoansModel } from '../loans/openLoan.model';
+
+export interface IPendingLoansSummary extends Array<OpenLoansModel>{
+    
 }

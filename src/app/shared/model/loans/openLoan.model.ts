@@ -1,6 +1,7 @@
 export interface OpenLoansModel{
         loanName:string,
+        loanType:string,
         loanBalance:number,
-        principalPaid:number,
-        interestPaid:number
+        loanAPR:number,
+        loanMonthlyAmount:number
 }

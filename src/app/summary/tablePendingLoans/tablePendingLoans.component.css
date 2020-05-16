@@ -19,7 +19,9 @@ table {
 }
 
 .no-loans-content{
-    font-size: medium;
+  text-align: center;
+  margin-top: 10px;
+  font-size: medium;
 }
 
 .center-align{
