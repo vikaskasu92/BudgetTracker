@@ -31,6 +31,9 @@ export class LocalAuthService{
                 localStorage.setItem('btUserData',JSON.stringify(user));
                 this.isAuthenticated = true;
                 this.userId = response.localId;
+                if(user.email === 'test@test.com'){
+                    user.email = 'Demo User'
+                }
                 this.user.next(user);
             })
        );
@@ -49,7 +52,10 @@ export class LocalAuthService{
             userData._idToken);
         if(loadedUser.idToken){
             this.isAuthenticated = true;
-            this.userId = loadedUser.userId;
+            this.userId = loadedUser.userId ;
+            if(loadedUser.email === 'test@test.com'){
+                loadedUser.email = 'Demo User'
+            }
             this.user.next(loadedUser);
             return true;
         }
