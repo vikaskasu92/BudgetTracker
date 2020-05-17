@@ -69,6 +69,8 @@ export class LoginDialogComponent implements OnInit{
                 this.localAuthService.firebaseSignUp(this._formLoginSignUpData()).subscribe( response=>{
                     this.dataReturn = [this.firebaseLoginSignUpForm,"firebaseLogin"];
                     this.dialogRef.close(this.dataReturn);
+                }, failure =>{
+                    this.loginError = true;
                 }); 
             }
         }

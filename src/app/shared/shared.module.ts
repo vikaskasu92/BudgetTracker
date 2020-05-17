@@ -17,6 +17,7 @@ import { EditRawDataDialogComponent } from './dialogs/editRawDataDialog/editRawD
 import { PlaceholderDirective } from './directives/placeholder.directive';
 import { LoginDialogComponent } from './dialogs/loginDialog/loginDialog.component';
 import { RouterModule } from '@angular/router';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
     declarations:[
@@ -63,7 +64,8 @@ import { RouterModule } from '@angular/router';
         MatProgressSpinnerModule,
         MatExpansionModule,
         MatSnackBarModule,
-        MatDividerModule
+        MatDividerModule,
+        MatMenuModule
     ],
     imports:[
         CommonModule,
@@ -85,7 +87,8 @@ import { RouterModule } from '@angular/router';
         MatProgressSpinnerModule,
         MatExpansionModule,
         MatSnackBarModule,
-        MatDividerModule
+        MatDividerModule,
+        MatMenuModule
     ]
 })
 export class SharedModule{
