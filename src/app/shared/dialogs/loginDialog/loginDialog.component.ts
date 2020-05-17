@@ -90,6 +90,7 @@ export class LoginDialogComponent implements OnInit{
                 response.authToken);
             this.localAuthService.user.next(facebookUser);
             this.localAuthService.isAuthenticated = true;
+            localStorage.removeItem('btUserData');
             localStorage.setItem('btUserData',JSON.stringify(facebookUser));
             this.dialogRef.close(true);
         });
