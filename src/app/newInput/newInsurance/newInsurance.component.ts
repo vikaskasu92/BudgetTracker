@@ -40,7 +40,7 @@ export class NewInsuranceComponent{
 
     saveOrUpdateInsurance(formData:FormGroup){
         if(formData.valid){
-            this.common.updateDate(formData.value.insurancePaidDate,formData);
+            this.common.updateInsuranceDate(formData.value.insurancePaidDate,formData);
             this.dataStore.storeInsuranceDataToDB(formData.value).subscribe(
                 success =>{
                     this.dataRetrieval.getAllAlarms().subscribe( ()=> {

@@ -29,6 +29,7 @@
                                 <td class="table-content-style">{{ loan.loanBalance | currency:USD }}</td>
                                 <td class="table-content-style">{{ loan.loanAPR | decimalFormat:2 }} %</td>
                                 <td class="table-content-style">{{ loan.loanMonthlyAmount | currency:USD }}</td>
+                                <td>{{ loan.id }}</td>
                                 <td >
                                     <a mat-button (click)="editLoan(loan.loanName,loan.loanType,loan.loanBalance,loan.loanAPR,loan.loanMonthlyAmount,loan.id)"><mat-icon>edit</mat-icon></a>
                                     <a mat-button (click)="closeLoan(loan.id)" class="icon-display"><mat-icon>close</mat-icon></a>
@@ -71,6 +72,7 @@
                                 <td class="table-content-style">{{ loan.loanType | uppercase }}</td>
                                 <td class="table-content-style">{{ loan.loanAPR  | decimalFormat:2 }} %</td>
                                 <td class="table-content-style">{{ loan.loanMonthlyAmount | currency:USD }}</td>
+                                <td>{{ loan.id }}</td>
                                 <td >
                                     <a mat-button (click)="reOpenLoan(loan.id)" ><mat-icon>lock_open</mat-icon></a>
                                     <a mat-button (click)="deleteLoan(loan.id)" class="icon-display"><mat-icon>delete_forever</mat-icon></a>

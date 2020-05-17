@@ -11,12 +11,23 @@ export class DataStoreService{
 
     httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type':  'application/json'
+            'Content-Type':'application/x-www-form-urlencoded',
+            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Credentials':'true'
         })
     }
 
     updatePurchaseDataToDB(inputData:any){
-        return this.http.put(environment.updatePurchaseDataStoreURL,inputData,{headers:this.httpOptions.headers});
+        return this.http.post(environment.updatePurchaseDataStoreURL,inputData,{
+            headers:this.httpOptions.headers,
+            params: new HttpParams()
+            .set('id',inputData.id)
+            .set('item',inputData.item)
+            .set('cost',inputData.cost)
+            .set('date',inputData.date)
+            .set('mainCategory',inputData.mainCategory)
+            .set('subCategory',inputData.subCategory)
+        });
     }
 
     storePurchaseDataToDB(inputData:any){
@@ -24,6 +35,11 @@ export class DataStoreService{
             headers:this.httpOptions.headers,
             params: new HttpParams()
             .set('username',this.localAuthService.userId)
+            .set('item',inputData.item)
+            .set('cost',inputData.cost)
+            .set('date',inputData.date)
+            .set('mainCategory',inputData.mainCategory)
+            .set('subCategory',inputData.subCategory)
         });
     }
 
@@ -32,7 +48,17 @@ export class DataStoreService{
     }
 
     updateIncomeDataToDB(inputData:any){
-        return this.http.put(environment.updateIncomeDataStoreURL,inputData,{headers:this.httpOptions.headers});
+        return this.http.post(environment.updateIncomeDataStoreURL,inputData,{
+            headers:this.httpOptions.headers,
+            params: new HttpParams()
+            .set('id',inputData.id)
+            .set('salaryRecieved',inputData.salaryRecieved)
+            .set('dateRecieved',inputData.dateRecieved)
+            .set('federalTax',inputData.federalTax)
+            .set('stateTax',inputData.stateTax)
+            .set('medicareTax',inputData.medicareTax)
+            .set('socialSecurityTax',inputData.socialSecurityTax)
+        });
     }
 
     storeIncomeDataToDB(inputData:any){
@@ -40,6 +66,12 @@ export class DataStoreService{
             headers:this.httpOptions.headers,
             params: new HttpParams()
             .set('username',this.localAuthService.userId)
+            .set('salaryRecieved',inputData.salaryRecieved)
+            .set('dateRecieved',inputData.dateRecieved)
+            .set('federalTax',inputData.federalTax)
+            .set('stateTax',inputData.stateTax)
+            .set('medicareTax',inputData.medicareTax)
+            .set('socialSecurityTax',inputData.socialSecurityTax)
         });
     }
 
@@ -48,7 +80,14 @@ export class DataStoreService{
     }
     
     updateInsuranceDataToDB(inputData:any){
-        return this.http.put(environment.updateInsuranceDataStoreURL,inputData,{headers:this.httpOptions.headers});
+        return this.http.post(environment.updateInsuranceDataStoreURL,inputData,{
+            headers:this.httpOptions.headers,
+            params: new HttpParams()
+            .set('id',inputData.id)
+            .set('insuranceType',inputData.insuranceType)
+            .set('insurancePaidDate',inputData.insurancePaidDate)
+            .set('insurnacePaidAmount',inputData.insurnacePaidAmount)
+        });
     }
 
     storeInsuranceDataToDB(inputData:any){
@@ -56,6 +95,9 @@ export class DataStoreService{
             headers:this.httpOptions.headers,
             params: new HttpParams()
             .set('username',this.localAuthService.userId)
+            .set('insuranceType',inputData.insuranceType)
+            .set('insurancePaidDate',inputData.insurancePaidDate)
+            .set('insurnacePaidAmount',inputData.insurnacePaidAmount)
         }); 
     }
 
@@ -68,15 +110,28 @@ export class DataStoreService{
             headers:this.httpOptions.headers,
             params: new HttpParams()
             .set('username',this.localAuthService.userId)
+            .set('loanName',inputData.loanName)
+            .set('loanType',inputData.loanType)
+            .set('loanBalance',inputData.loanBalance)
+            .set('loanAPR',inputData.loanAPR)
+            .set('loanEMI',inputData.loanEMI)
         }); 
     }
 
     closeLoanFromDB(inputData:any){
-        return this.http.patch(environment.closeLoanFromDB,inputData,{headers:this.httpOptions.headers}); 
+        return this.http.post(environment.closeLoanFromDB,inputData,{
+            headers:this.httpOptions.headers,
+            params: new HttpParams()
+            .set('id',inputData.id)
+        }); 
     }
 
     reOpenLoanFromDB(inputData:any){
-        return this.http.patch(environment.reOpenLoanFromDB,inputData,{headers:this.httpOptions.headers}); 
+        return this.http.post(environment.reOpenLoanFromDB,inputData,{
+            headers:this.httpOptions.headers,
+            params: new HttpParams()
+            .set('id',inputData.id)
+        });
     }
 
     deleteLoanFromDB(inputData:any){
@@ -84,7 +139,17 @@ export class DataStoreService{
     }
 
     updateLoansDataToDB(inputData:any){
-        return this.http.put(environment.updateLoanInDB,inputData,{headers:this.httpOptions.headers}); 
+        return this.http.post(environment.updateLoanInDB,inputData,{
+            headers:this.httpOptions.headers,
+            params: new HttpParams()
+            .set('username',this.localAuthService.userId)
+            .set('loanName',inputData.loanName)
+            .set('loanType',inputData.loanType)
+            .set('loanBalance',inputData.loanBalance)
+            .set('loanAPR',inputData.loanAPR)
+            .set('loanEMI',inputData.loanEMI)
+            .set('id',inputData.id)
+        });
     }
 
     createNewBudgetAlarm(inputData:any){
@@ -92,6 +157,9 @@ export class DataStoreService{
             headers:this.httpOptions.headers,
             params: new HttpParams()
             .set('username',this.localAuthService.userId)
+            .set('alarmBy',inputData.alarmBy)
+            .set('budgetAmount',inputData.budgetAmount)
+            .set('budgetEmail',inputData.budgetEmail)
         }); 
     }
 
