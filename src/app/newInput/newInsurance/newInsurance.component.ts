@@ -44,7 +44,7 @@ export class NewInsuranceComponent{
             this.dataStore.storeInsuranceDataToDB(formData.value).subscribe(
                 success =>{
                     this.dataRetrieval.getAllAlarms().subscribe( ()=> {
-                        this.dataRetrieval.checkAndIntiateAlarms(this.dataRetrieval.allAlarms).subscribe( response => {
+                        this.dataStore.checkAndIntiateAlarms().subscribe( response => {
 
                         },failure =>{
     

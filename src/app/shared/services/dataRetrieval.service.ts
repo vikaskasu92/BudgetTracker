@@ -19,7 +19,7 @@ export class DataRetrievalService{
     params:any;
     httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type':  'application/x-www-form-urlencoded',
+          'Content-Type':'application/x-www-form-urlencoded',
           'Access-Control-Allow-Origin':'*',
           'Access-Control-Allow-Credentials':'true'
         })
@@ -124,10 +124,6 @@ export class DataRetrievalService{
                 return this.allAlarms.length;
             })
         );
-    }
-
-    checkAndIntiateAlarms(inputData:any){
-        return this.http.post(environment.checkAndInitiateAlarms,inputData,{headers:this.httpOptions.headers}); 
     }
 
 }

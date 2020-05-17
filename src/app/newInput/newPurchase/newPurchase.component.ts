@@ -40,7 +40,7 @@ export class NewPurchaseComponent implements OnInit{
             this.dataStore.storePurchaseDataToDB(this.purchaseForm.value).subscribe(
                 success =>{
                     this.dataRetrieval.getAllAlarms().subscribe( ()=> {
-                        this.dataRetrieval.checkAndIntiateAlarms(this.dataRetrieval.allAlarms).subscribe( response => {
+                        this.dataStore.checkAndIntiateAlarms().subscribe( response => {
 
                         },failure =>{
     

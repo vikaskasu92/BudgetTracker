@@ -28,5 +28,5 @@ export const environment = {
   getRawDataByDate:"https://budgettrackerdata.vikaskasuportfolio.com/RetrieveBudgetTrackerData/retrieveRawDataByDate",
   getRawDataByInputAndDate:"https://budgettrackerdata.vikaskasuportfolio.com/RetrieveBudgetTrackerData/retrieveRawDataByInputAndDate",
   getAllAlarms:"https://budgettrackerdata.vikaskasuportfolio.com/RetrieveBudgetTrackerData/retrieveAllAlarms",
-  checkAndInitiateAlarms:"https://budgettrackerdata.vikaskasuportfolio.com/RetrieveBudgetTrackerData/checkAndInitiateAlarm"
+  checkAndInitiateAlarms:"https://budgettrackerdata.vikaskasuportfolio.com/budgetTrackerDataStore/checkAndInitiateAlarm"
 };

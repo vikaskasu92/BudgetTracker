@@ -166,4 +166,12 @@ export class DataStoreService{
     deleteBudgetAlarmFromDB(inputData:any){
         return this.http.post(environment.deleteBudgetAlarmFromDB,inputData); 
     }
+
+    checkAndIntiateAlarms(){
+        return this.http.post(environment.checkAndInitiateAlarms,{},{
+            headers: this.httpOptions.headers,
+            params: new HttpParams()
+            .set('username',this.localAuthService.userId)
+        }); 
+    }
 }

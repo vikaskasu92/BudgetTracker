@@ -41,7 +41,7 @@ export class NewIncomeComponent implements OnInit{
             this.dataStore.storeIncomeDataToDB(formData.value).subscribe(
                 success =>{
                     this.dataRetrieval.getAllAlarms().subscribe( ()=> {
-                        this.dataRetrieval.checkAndIntiateAlarms(this.dataRetrieval.allAlarms).subscribe( response => {
+                        this.dataStore.checkAndIntiateAlarms().subscribe( response => {
 
                         },failure =>{
     

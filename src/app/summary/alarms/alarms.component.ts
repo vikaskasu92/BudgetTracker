@@ -29,7 +29,7 @@ export class AlarmsComponent implements OnInit{
         this.dataRetrieval.getAllAlarms().subscribe( length => {
             this.dataRetrieval.allAlarms.length === 0 ? this.noAlarms = true : this.noAlarms = false;
             if(length > 0 && recheck != true){
-                this.dataRetrieval.checkAndIntiateAlarms(this.dataRetrieval.allAlarms).subscribe( () => {
+                this.dataStore.checkAndIntiateAlarms().subscribe( () => {
                     this.retrieveAlarms(true);
                 },failure =>{
                     console.log("Error Checking alarm triggers");

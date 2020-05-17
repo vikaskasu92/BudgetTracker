@@ -31,7 +31,7 @@ export const environment = {
   getRawDataByDate:"http://localhost:5000/RetrieveBudgetTrackerData/retrieveRawDataByDate",
   getRawDataByInputAndDate:"http://localhost:5000/RetrieveBudgetTrackerData/retrieveRawDataByInputAndDate",
   getAllAlarms:"http://localhost:5000/RetrieveBudgetTrackerData/retrieveAllAlarms",
-  checkAndInitiateAlarms:"http://localhost:5000/RetrieveBudgetTrackerData/checkAndInitiateAlarm"
+  checkAndInitiateAlarms:"http://localhost:5000/budgetTrackerDataStore/checkAndInitiateAlarm"
 };
 
 /*
