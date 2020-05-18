@@ -191,8 +191,12 @@ export class CommonService{
         "Dependant Expenses":50,
     };
 
-    insuranceAllowedValues = {
-        
+    incomeAllowedValues = {
+        "salaryRecieved":1500,
+        "federalTax":200,
+        "stateTax":200,
+        "medicareTax":200,
+        "socialSecurityTax":200
     };
 
     

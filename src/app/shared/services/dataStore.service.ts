@@ -58,18 +58,30 @@ export class DataStoreService{
     }
 
     updateIncomeDataToDB(inputData:any){
-        this.httpOptions.params = new HttpParams().set('id',inputData.id).set('salaryRecieved',inputData.salaryRecieved)
-            .set('dateRecieved',inputData.dateRecieved).set('federalTax',inputData.federalTax)
-            .set('stateTax',inputData.stateTax).set('medicareTax',inputData.medicareTax).set('socialSecurityTax',inputData.socialSecurityTax)
-        return this._callPost(environment.updateIncomeDataStoreURL,inputData,this.httpOptions.headers,this.httpOptions.params);
+        let response = this._checkDemoUserAndLimit(inputData,"income");
+        if(response[2] && !response[3]){
+           return this._returnFalseObservableWithLimit(response[1]);
+        }
+        if((response[2] && response[3]) || !response[3]){
+            this.httpOptions.params = new HttpParams().set('id',inputData.id).set('salaryRecieved',inputData.salaryRecieved)
+                .set('dateRecieved',inputData.dateRecieved).set('federalTax',inputData.federalTax)
+                .set('stateTax',inputData.stateTax).set('medicareTax',inputData.medicareTax).set('socialSecurityTax',inputData.socialSecurityTax)
+            return this._callPost(environment.updateIncomeDataStoreURL,inputData,this.httpOptions.headers,this.httpOptions.params);
+        }
     }
 
     storeIncomeDataToDB(inputData:any){
-        this.httpOptions.params = new HttpParams().set('username',this.localAuthService.userId)
-            .set('salaryRecieved',inputData.salaryRecieved).set('dateRecieved',inputData.dateRecieved)
-            .set('federalTax',inputData.federalTax).set('stateTax',inputData.stateTax)
-            .set('medicareTax',inputData.medicareTax).set('socialSecurityTax',inputData.socialSecurityTax)
-        return this._callPost(environment.incomeDataStoreURL,inputData,this.httpOptions.headers,this.httpOptions.params);
+        let response = this._checkDemoUserAndLimit(inputData,"income");
+        if(response[2] && !response[3]){
+           return this._returnFalseObservableWithLimit(response[1]);
+        }
+        if((response[2] && response[3]) || !response[3]){
+            this.httpOptions.params = new HttpParams().set('username',this.localAuthService.userId)
+                .set('salaryRecieved',inputData.salaryRecieved).set('dateRecieved',inputData.dateRecieved)
+                .set('federalTax',inputData.federalTax).set('stateTax',inputData.stateTax)
+                .set('medicareTax',inputData.medicareTax).set('socialSecurityTax',inputData.socialSecurityTax)
+            return this._callPost(environment.incomeDataStoreURL,inputData,this.httpOptions.headers,this.httpOptions.params);
+        }
     }
 
     deleteIncomeDataFromDB(inputData:any){
@@ -175,7 +187,7 @@ export class DataStoreService{
             }else if(inputType === "insurance"){
                 responseArray = this._calculateInsuranceAllowedValues(inputData.insurnacePaidAmount);
             }else if(inputType === "income"){
-                //responseArray = this._calculateIncomeAllowedValues(inputData.insurnacePaidAmount);
+                responseArray = this._calculateIncomeAllowedValues(inputData);
             }
             responseArray.push(true);
             if(responseArray[0]){
@@ -223,6 +235,23 @@ export class DataStoreService{
             }
             responseArray.push(false);
             responseArray.push(100);
+        return responseArray;
+    }
+
+    private _calculateIncomeAllowedValues(inputData:any):any[]{
+        const responseArray = [];
+        if((inputData.salaryRecieved > this.common.incomeAllowedValues.salaryRecieved) ||
+            (inputData.federalTax > this.common.incomeAllowedValues.federalTax) || 
+            (inputData.stateTax > this.common.incomeAllowedValues.stateTax) || 
+            (inputData.medicareTax > this.common.incomeAllowedValues.medicareTax) ||
+            (inputData.socialSecurityTax > this.common.incomeAllowedValues.socialSecurityTax)
+        ){
+            responseArray.push(false);
+            responseArray.push(false);
+        }else{
+            responseArray.push(true);
+            responseArray.push(true);
+        }
         return responseArray;
     }
 
