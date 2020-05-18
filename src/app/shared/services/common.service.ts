@@ -129,7 +129,7 @@ export class CommonService{
         "Others":{"1":"Others"}
     };
 
-    allowedValues = {
+    purchasesAllowedValues = {
         "Grocery":80,
         "Dining Out":30,
         "Flights":300,
@@ -190,6 +190,8 @@ export class CommonService{
         "Software Purchase":25,
         "Dependant Expenses":50,
     };
+
+
 
     insurances = ['Auto Insurance','Health Insurance','Life Insurance','Home Insurance'];
 

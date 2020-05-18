@@ -181,15 +181,15 @@ export class DataStoreService{
 
     private _calculateAllowedValues(category:string,value:number):any[]{
         const responseArray = [];
-        for(let i=0; i<Object.keys(this.common.allowedValues).length; i++){
-            if(Object.keys(this.common.allowedValues)[i] === category){
-                if(Object.values(this.common.allowedValues)[i] >= value){
+        for(let i=0; i<Object.keys(this.common.purchasesAllowedValues).length; i++){
+            if(Object.keys(this.common.purchasesAllowedValues)[i] === category){
+                if(Object.values(this.common.purchasesAllowedValues)[i] >= value){
                     responseArray.push(true);
-                    responseArray.push(Object.values(this.common.allowedValues)[i])
+                    responseArray.push(Object.values(this.common.purchasesAllowedValues)[i])
                     return responseArray;
                 }
                 responseArray.push(false);
-                responseArray.push(Object.values(this.common.allowedValues)[i])
+                responseArray.push(Object.values(this.common.purchasesAllowedValues)[i])
                 break;
             }
         }
