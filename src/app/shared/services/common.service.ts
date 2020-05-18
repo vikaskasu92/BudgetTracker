@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { NgForm, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({providedIn:"root"})
@@ -127,6 +127,68 @@ export class CommonService{
         "Softwares":{"1":"Software Purchase"},
         "DependantExpenses":{"1":"Dependant Expenses"},
         "Others":{"1":"Others"}
+    };
+
+    allowedValues = {
+        "Grocery":80,
+        "Dining Out":30,
+        "Flights":300,
+        "Hotels":250,
+        "Car Rental":100,
+        "Gas":40,
+        "Tourism Fees":30,
+        "Food":20,
+        "Parking":20,
+        "Immigration":100,
+        "Identification":25,
+        "Phone":50,
+        "Others":50,
+        "Home Improvements":50,
+        "Clothes":50,
+        "Laundary":20,
+        "House Rent":600,
+        "Cosmetic Purchases":30,
+        "Bank Interest & Fees":20,
+        "Money Sent Home":100,
+        "Electricity":50,
+        "Heat":50,
+        "Internet":30,
+        "Movies":25,
+        "Service":75,
+        "Wash":12,
+        "Repairs / Parts":50,
+        "Personal Car":40,
+        "Rental Car":40,
+        "School Exam Fees":100,
+        "School Tuition Fees":300,
+        "Training Fees":100,
+        "Certification Fees":100,
+        "Books":50,
+        "Religion Donations":20,
+        "Charitable Donations":75,
+        "Haircut":17,
+        "Shares":100,
+        "Bonds":100,
+        "Gold":100,
+        "Silver":100,
+        "Other Comodities":100,
+        "Netflix":12,
+        "Amazon Prime":110,
+        "Costco":50,
+        "Sams":50,
+        "Gym":45,
+        "Other Health Devlopments":50,
+        "Rx / Medicines":50,
+        "Lab Tests":50,
+        "Docto Fees":25,
+        "Suppliments":50,
+        "Occasional Treat":50,
+        "Gifts":50,
+        "Stationary And Printing":10,
+        "Shipping Charges":45,
+        "Shipping Supplies":25,
+        "Software Purchase":25,
+        "Dependant Expenses":50,
     };
 
     insurances = ['Auto Insurance','Health Insurance','Life Insurance','Home Insurance'];

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, NgForm, Validators } from '@angular/forms';
 import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { CommonService } from 'src/app/shared/services/common.service';
-import { MatSnackBarConfig } from '@angular/material';
+import { MatSnackBarConfig, MatDialog } from '@angular/material';
 import { InputDataService } from 'src/app/shared/services/inputData.service';
 import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/errorDialog/errorDialog.component';
 
 @Component({
     selector:'app-newPurchase',
@@ -16,7 +17,8 @@ export class NewPurchaseComponent implements OnInit{
     constructor(private dataStore:DataStoreService,
         private common:CommonService,
         private inputDataService:InputDataService,
-        private dataRetrieval:DataRetrievalService){}
+        private dataRetrieval:DataRetrievalService,
+        private dialog:MatDialog){}
 
     purchaseFormToReset:NgForm;
     purchaseForm:FormGroup;
@@ -37,8 +39,8 @@ export class NewPurchaseComponent implements OnInit{
         this.purchaseForm = formData;
         if(this.purchaseForm.valid){
             this.common.updateDate(this.purchaseForm.value.date,this.purchaseForm);
-            this.dataStore.storePurchaseDataToDB(this.purchaseForm.value).subscribe(
-                success =>{
+            this.dataStore.storePurchaseDataToDB(this.purchaseForm.value).subscribe( success =>{
+                if(success === null){
                     this.dataRetrieval.getAllAlarms().subscribe( ()=> {
                         this.dataStore.checkAndIntiateAlarms().subscribe( response => {
 
@@ -48,6 +50,10 @@ export class NewPurchaseComponent implements OnInit{
                     })
                     this.purchaseFormToReset.resetForm();
                     this.common.snackBarOpen("Successfully Saved!",this.config);
+                }else{
+                    const data = {message:"As a 'Demo User' you cannot create or modify data of Sub Category '"+this.purchaseForm.value.subCategory+"' more than $"+success[1]+" from budget tracker! You can login to your account and add the amount you want!"};
+                    this.inputDataService.openDialog(this.dialog,ErrorDialogComponent,data);        
+                }
                 }, failure =>{
                     this.common.snackBarOpen("Error has Occured While Saving!",this.config);
                 }
