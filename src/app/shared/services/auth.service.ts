@@ -16,12 +16,14 @@ export class LocalAuthService{
     userId:string;
     user = new BehaviorSubject<User>(null);
     userFirebaseLogin = {}
+    isDemoUser:boolean;
 
     firebaseSignUp(userInputData:FirebaseLoginSignupInput){
         return this.http.post<FirebaseAuthSuccess>("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCgYHOtRUnryp7MUCPVKU17FKzNVLNnHKs",userInputData); 
     }
 
     firebaseLogin(userInputData:FirebaseLoginSignupInput){
+        this.isDemoUser = false;
        return this.http.post<FirebaseAuthSuccess>("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCgYHOtRUnryp7MUCPVKU17FKzNVLNnHKs",userInputData).pipe(
            tap( response => {
                 const expirationDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
@@ -35,6 +37,7 @@ export class LocalAuthService{
     }
 
     autoLogin(){
+        this.isDemoUser = false;
         const userData = JSON.parse(localStorage.getItem('btUserData'));
         if(!userData){
             this.user.next(null);
@@ -67,6 +70,7 @@ export class LocalAuthService{
 
     private _checkForDemoEmail(user:any){
         if(user.email === "test@test.com"){
+            this.isDemoUser = true;
             user.email = "Demo User";
         }
     }

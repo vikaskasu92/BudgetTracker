@@ -18,6 +18,7 @@ import { PlaceholderDirective } from './directives/placeholder.directive';
 import { LoginDialogComponent } from './dialogs/loginDialog/loginDialog.component';
 import { RouterModule } from '@angular/router';
 import {MatMenuModule} from '@angular/material/menu';
+import { ErrorDialogComponent } from './dialogs/errorDialog/errorDialog.component';
 
 @NgModule({
     declarations:[
@@ -33,6 +34,7 @@ import {MatMenuModule} from '@angular/material/menu';
         LoginDialogComponent,
         ConfirmDialogComponent,
         EditRawDataDialogComponent,
+        ErrorDialogComponent,
         PlaceholderDirective,
     ],
     exports:[
@@ -42,6 +44,7 @@ import {MatMenuModule} from '@angular/material/menu';
         ConfirmDialogComponent,
         EditRawDataDialogComponent,
         LoginDialogComponent,
+        ErrorDialogComponent,
         PlaceholderDirective,
         RemoveSpacePipe,
         DecimalFormatPipe,

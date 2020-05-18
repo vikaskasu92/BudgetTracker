@@ -7,6 +7,7 @@ import { EditRawDataDialogComponent } from '../shared/dialogs/editRawDataDialog/
 import { DataStoreService } from '../shared/services/dataStore.service';
 import { InputDataService } from '../shared/services/inputData.service';
 import { ConfirmDialogComponent } from '../shared/dialogs/confirmDialog/confirmDialog.component';
+import { ErrorDialogComponent } from '../shared/dialogs/errorDialog/errorDialog.component';
 
 @Component({
   selector: 'app-rawData',
@@ -194,8 +195,13 @@ export class RawDataComponent implements OnInit {
     dialogRef.afterClosed().subscribe( deleteIt =>{
       const deleteObj = {deleteById:id};
       if(deleteIt){
-        this.dataStore.deletePurchaseDataFromDB(deleteObj).subscribe( () =>{
-          this.searchRawData(1);
+        this.dataStore.deletePurchaseDataFromDB(deleteObj).subscribe( response =>{
+          if(response != null){
+            const data = {message:"As a 'Demo User' you cannot delete data from budget tracker!"};
+            this.inputDataService.openDialog(this.matDialog,ErrorDialogComponent,data);        
+          }else{
+            this.searchRawData(1);
+          } 
         },failure =>{
           console.log("Problem with deleting");
         });
@@ -210,8 +216,13 @@ export class RawDataComponent implements OnInit {
     dialogRef.afterClosed().subscribe( deleteIt =>{
       const deleteObj = {deleteById:id};
       if(deleteIt){
-        this.dataStore.deleteInsuranceDataFromDB(deleteObj).subscribe( () =>{
-          this.searchRawData(1);
+        this.dataStore.deleteInsuranceDataFromDB(deleteObj).subscribe( response =>{
+          if(response != null){
+            const data = {message:"As a 'Demo User' you cannot delete data from budget tracker!"};
+            this.inputDataService.openDialog(this.matDialog,ErrorDialogComponent,data);        
+          }else{
+            this.searchRawData(1);
+          }
         },failure =>{
           console.log("Problem with deleting");
         });
@@ -226,8 +237,13 @@ export class RawDataComponent implements OnInit {
     dialogRef.afterClosed().subscribe( deleteIt =>{
       const deleteObj = {deleteById:id};
       if(deleteIt){
-        this.dataStore.deleteIncomeDataFromDB(deleteObj).subscribe( () =>{
-          this.searchRawData(1);
+        this.dataStore.deleteIncomeDataFromDB(deleteObj).subscribe( response =>{
+          if(response != null){
+            const data = {message:"As a 'Demo User' you cannot delete data from budget tracker!"};
+            this.inputDataService.openDialog(this.matDialog,ErrorDialogComponent,data);        
+          }else{
+            this.searchRawData(1);
+          }
         },failure =>{
           console.log("Problem with deleting");
         });

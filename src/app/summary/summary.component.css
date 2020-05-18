@@ -17,3 +17,12 @@
 .top-spacing{
     padding-top:20px;
 }
+
+
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+    .small-window-add-spacing{
+        margin-top: 15px;
+    }
+}

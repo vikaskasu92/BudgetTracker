@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { LocalAuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 @Injectable({providedIn:"root"})
 export class DataStoreService{
@@ -44,7 +45,13 @@ export class DataStoreService{
     }
 
     deletePurchaseDataFromDB(inputData:any){
-        return this.http.post(environment.deletePurchaseDataStoreURL,inputData);
+        if(!this.localAuthService.isDemoUser){
+            return this.http.post(environment.deletePurchaseDataStoreURL,inputData);
+        }else{
+            return new Observable<boolean>(observer =>{
+                observer.next(false);
+            })
+        }  
     }
 
     updateIncomeDataToDB(inputData:any){
@@ -76,7 +83,13 @@ export class DataStoreService{
     }
 
     deleteIncomeDataFromDB(inputData:any){
-        return this.http.post(environment.deleteIncomeDataStoreURL,inputData);
+        if(!this.localAuthService.isDemoUser){
+            return this.http.post(environment.deleteIncomeDataStoreURL,inputData);
+        }else{
+            return new Observable<boolean>(observer =>{
+                observer.next(false);
+            })
+        }    
     }
     
     updateInsuranceDataToDB(inputData:any){
@@ -102,7 +115,13 @@ export class DataStoreService{
     }
 
     deleteInsuranceDataFromDB(inputData:any){
-        return this.http.post(environment.deleteInsuranceDataStoreURL,inputData); 
+        if(!this.localAuthService.isDemoUser){
+            return this.http.post(environment.deleteInsuranceDataStoreURL,inputData); 
+        }else{
+            return new Observable<boolean>(observer =>{
+                observer.next(false);
+            })
+        }
     }
 
     storeNewLoansDataToDB(inputData:any){
@@ -135,7 +154,13 @@ export class DataStoreService{
     }
 
     deleteLoanFromDB(inputData:any){
-        return this.http.post(environment.deleteLoanFromDB,inputData); 
+        if(!this.localAuthService.isDemoUser){
+            return this.http.post(environment.deleteLoanFromDB,inputData); 
+        }else{
+            return new Observable<boolean>(observer =>{
+                observer.next(false);
+            })
+        }
     }
 
     updateLoansDataToDB(inputData:any){
@@ -164,7 +189,13 @@ export class DataStoreService{
     }
 
     deleteBudgetAlarmFromDB(inputData:any){
-        return this.http.post(environment.deleteBudgetAlarmFromDB,inputData); 
+        if(!this.localAuthService.isDemoUser){
+            return this.http.post(environment.deleteBudgetAlarmFromDB,inputData);
+        }else{
+            return new Observable<boolean>(observer =>{
+                observer.next(false);
+            })
+        }
     }
 
     checkAndIntiateAlarms(){

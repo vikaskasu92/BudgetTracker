@@ -10,6 +10,10 @@
     padding: 20px;
 }
 
+.add-red-background{
+    background: #D3504D !important;
+}
+
 .table-alignment{
     text-align: center;
 }

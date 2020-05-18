@@ -5,6 +5,7 @@ import { DataStoreService } from 'src/app/shared/services/dataStore.service';
 import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirmDialog/confirmDialog.component';
 import { InputDataService } from 'src/app/shared/services/inputData.service';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/errorDialog/errorDialog.component';
 
 @Component({
     selector:'app-alarms',
@@ -16,7 +17,8 @@ export class AlarmsComponent implements OnInit{
     constructor(private matDialog:MatDialog,
                 private dataStore:DataStoreService,
                 private dataRetrieval:DataRetrievalService,
-                private inputDataService:InputDataService){}
+                private inputDataService:InputDataService,
+                private dialog: MatDialog){}
 
     noAlarms:boolean = true;
     budgetAlarms:any = [];
@@ -48,8 +50,13 @@ export class AlarmsComponent implements OnInit{
         dialogRef.afterClosed().subscribe( response =>{
             const deleteObj = {deleteById:id};
             if(response){
-                this.dataStore.deleteBudgetAlarmFromDB(deleteObj).subscribe(() =>{
-                    this.retrieveAlarms(false); 
+                this.dataStore.deleteBudgetAlarmFromDB(deleteObj).subscribe( response =>{
+                    if(response != null){
+                        const data = {message:"As a 'Demo User' you cannot delete data from budget tracker!"};
+                        this.inputDataService.openDialog(this.dialog,ErrorDialogComponent,data);        
+                      }else{
+                        this.retrieveAlarms(false);
+                      } 
                 },failure =>{
                     console.log("Error Deleting alarm");
                 })

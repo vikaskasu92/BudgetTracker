@@ -102,6 +102,7 @@ export class LoginDialogComponent implements OnInit{
 
     loginWithFacebook(){
         this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then( response =>{
+            this.localAuthService.isDemoUser = false;
             this.localAuthService.userId = response.id;
             this.router.navigate(['/newInput']);
             let expirationDate:Date = new Date();

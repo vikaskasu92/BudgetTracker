@@ -7,6 +7,7 @@ import { ConfirmDialogComponent } from '../shared/dialogs/confirmDialog/confirmD
 import { InputDataService } from '../shared/services/inputData.service';
 import { ClosedLoansModel } from '../shared/model/loans/closedLoan.model';
 import { OpenLoansModel } from '../shared/model/loans/openLoan.model';
+import { ErrorDialogComponent } from '../shared/dialogs/errorDialog/errorDialog.component';
 
 @Component({
     selector:'app-loans',
@@ -18,7 +19,7 @@ export class LoansComponent implements OnInit{
     constructor(private dataRetrieval:DataRetrievalService,
                 private dialog: MatDialog,
                 private dataStore:DataStoreService,
-                private inputData:InputDataService){}
+                private inputDataService:InputDataService){}
 
     openLoans:OpenLoansModel[];
     closedLoans:ClosedLoansModel[];
@@ -60,7 +61,7 @@ export class LoansComponent implements OnInit{
 
     addNewLoans(){
         const data = {type:'newLoan',buttonName:'Save',addNewLoanHeader:'Add New Loan'};
-        const dialogRef =  this.inputData.openDialog(this.dialog,AddNewLoansDialogComponent,data);
+        const dialogRef =  this.inputDataService.openDialog(this.dialog,AddNewLoansDialogComponent,data);
         
         dialogRef.afterClosed().subscribe(result => {  
             if(result != undefined){
@@ -77,7 +78,7 @@ export class LoansComponent implements OnInit{
         const responseObject ={}
         let displayMessage = "Are you sure you want to close the loan ?";
         const data = {message: displayMessage};
-        const dialogRef =  this.inputData.openDialog(this.dialog,ConfirmDialogComponent,data);
+        const dialogRef =  this.inputDataService.openDialog(this.dialog,ConfirmDialogComponent,data);
         
         dialogRef.afterClosed().subscribe( result => {  
             if(result){
@@ -94,7 +95,7 @@ export class LoansComponent implements OnInit{
         const responseObject ={}
         let displayMessage = "Are you sure this loan is not closed ?";
         const data = {message: displayMessage};
-        const dialogRef =  this.inputData.openDialog(this.dialog,ConfirmDialogComponent,data);
+        const dialogRef =  this.inputDataService.openDialog(this.dialog,ConfirmDialogComponent,data);
        
         dialogRef.afterClosed().subscribe( result => {  
             if(result){
@@ -111,12 +112,17 @@ export class LoansComponent implements OnInit{
         const responseObject ={}
         let displayMessage = "You are going to remove this loan completely from Budget Tracker, Are you sure?";
         const data = {message: displayMessage};
-        const dialogRef =  this.inputData.openDialog(this.dialog,ConfirmDialogComponent,data);
+        const dialogRef =  this.inputDataService.openDialog(this.dialog,ConfirmDialogComponent,data);
     
         dialogRef.afterClosed().subscribe( result => {  
             if(result){
                 this.dataStore.deleteLoanFromDB(this._updateObjectIdForDelete(responseObject,id)).subscribe( response => {
-                    this.retrieveOpenClosedLoans(); 
+                    if(response != null){
+                        const data = {message:"As a 'Demo User' you cannot delete data from budget tracker!"};
+                        this.inputDataService.openDialog(this.dialog,ErrorDialogComponent,data);        
+                      }else{
+                        this.retrieveOpenClosedLoans(); 
+                      }
                 },failure =>{
                     console.log("Error Retrieving Data from DB.");
                 });
@@ -127,7 +133,7 @@ export class LoansComponent implements OnInit{
     editLoan(loanName:string,loanType:string,loanBalance:number,loanAPR:number,loanMonthlyAmount:number,id:number){
         const data ={loanName:loanName, loanType:loanType,loanBalance:loanBalance,loanAPR:loanAPR,
             loanMonthlyAmount:loanMonthlyAmount,type:"editLoan",buttonName:'Update',addNewLoanHeader:'Edit Loan'}
-        const dialogRef =  this.inputData.openDialog(this.dialog,AddNewLoansDialogComponent,data);
+        const dialogRef =  this.inputDataService.openDialog(this.dialog,AddNewLoansDialogComponent,data);
     
         dialogRef.afterClosed().subscribe(result => {  
             if(result != undefined){
