@@ -24,9 +24,9 @@ export class DataStoreService{
     createOrModifyPurchases:boolean = false;
 
     updatePurchaseDataToDB(inputData:any){
-        let response = this._checkDemoUserAndLimit(inputData);
+        let response = this._checkDemoUserAndLimit(inputData,"purchase");
         if(response[2] && !response[3]){
-           return this._returnFalseObservableWithPriceLimit(response[1]);
+           return this._returnFalseObservableWithLimit(response[1]);
         }
         if((response[2] && response[3]) || !response[3]){
             this.httpOptions.params = new HttpParams().set('id',inputData.id).set('item',inputData.item)
@@ -36,9 +36,9 @@ export class DataStoreService{
     }
 
     storePurchaseDataToDB(inputData:any){
-        let response = this._checkDemoUserAndLimit(inputData);
+        let response = this._checkDemoUserAndLimit(inputData,"purchase");
         if(response[2] && !response[3]){
-           return this._returnFalseObservableWithPriceLimit(response[1]);
+           return this._returnFalseObservableWithLimit(response[1]);
         }
         if((response[2] && response[3]) || !response[3]){
             this.createOrModifyPurchases = false;
@@ -81,17 +81,29 @@ export class DataStoreService{
     }
     
     updateInsuranceDataToDB(inputData:any){
-        this.httpOptions.params =  new HttpParams().set('id',inputData.id)
-            .set('insuranceType',inputData.insuranceType).set('insurancePaidDate',inputData.insurancePaidDate)
-            .set('insurnacePaidAmount',inputData.insurnacePaidAmount)
-        return this._callPost(environment.updateInsuranceDataStoreURL,inputData,this.httpOptions.headers,this.httpOptions.params);
+        let response = this._checkDemoUserAndLimit(inputData,"insurance");
+        if(response[2] && !response[3]){
+           return this._returnFalseObservableWithLimit(response[1]);
+        }
+        if((response[2] && response[3]) || !response[3]){
+            this.httpOptions.params =  new HttpParams().set('id',inputData.id)
+                .set('insuranceType',inputData.insuranceType).set('insurancePaidDate',inputData.insurancePaidDate)
+                .set('insurnacePaidAmount',inputData.insurnacePaidAmount)
+            return this._callPost(environment.updateInsuranceDataStoreURL,inputData,this.httpOptions.headers,this.httpOptions.params);
+        }
     }
 
     storeInsuranceDataToDB(inputData:any){
-        this.httpOptions.params = new HttpParams().set('username',this.localAuthService.userId)
-            .set('insuranceType',inputData.insuranceType).set('insurancePaidDate',inputData.insurancePaidDate)
-            .set('insurnacePaidAmount',inputData.insurnacePaidAmount)
-        return this._callPost(environment.insuranceDataStoreURL,inputData,this.httpOptions.headers,this.httpOptions.params);
+        let response = this._checkDemoUserAndLimit(inputData,"insurance");
+        if(response[2] && !response[3]){
+           return this._returnFalseObservableWithLimit(response[1]);
+        }
+        if((response[2] && response[3]) || !response[3]){
+            this.httpOptions.params = new HttpParams().set('username',this.localAuthService.userId)
+                .set('insuranceType',inputData.insuranceType).set('insurancePaidDate',inputData.insurancePaidDate)
+                .set('insurnacePaidAmount',inputData.insurnacePaidAmount)
+            return this._callPost(environment.insuranceDataStoreURL,inputData,this.httpOptions.headers,this.httpOptions.params);
+        }
     }
 
     deleteInsuranceDataFromDB(inputData:any){
@@ -155,10 +167,16 @@ export class DataStoreService{
         return this._callPost(environment.checkAndInitiateAlarms,{},this.httpOptions.headers,this.httpOptions.params);
     }
 
-    private _checkDemoUserAndLimit(inputData:any):any[]{
+    private _checkDemoUserAndLimit(inputData:any,inputType:string):any[]{
         let responseArray:any[] = [];
         if(this.localAuthService.isDemoUser){
-            responseArray = this._calculateAllowedValues(inputData.subCategory,inputData.cost);
+            if(inputType === "purchase"){
+                responseArray = this._calculatePurchaseAllowedValues(inputData.subCategory,inputData.cost);
+            }else if(inputType === "insurance"){
+                responseArray = this._calculateInsuranceAllowedValues(inputData.insurnacePaidAmount);
+            }else if(inputType === "income"){
+                //responseArray = this._calculateIncomeAllowedValues(inputData.insurnacePaidAmount);
+            }
             responseArray.push(true);
             if(responseArray[0]){
                 this.createOrModifyPurchases = true;
@@ -179,7 +197,7 @@ export class DataStoreService{
             params: params});
     }
 
-    private _calculateAllowedValues(category:string,value:number):any[]{
+    private _calculatePurchaseAllowedValues(category:string,value:number):any[]{
         const responseArray = [];
         for(let i=0; i<Object.keys(this.common.purchasesAllowedValues).length; i++){
             if(Object.keys(this.common.purchasesAllowedValues)[i] === category){
@@ -196,13 +214,25 @@ export class DataStoreService{
         return responseArray;
     }
 
+    private _calculateInsuranceAllowedValues(value:number):any[]{
+        const responseArray = [];
+            if(100 >= value){
+                responseArray.push(true);
+                responseArray.push(value);
+                return responseArray;
+            }
+            responseArray.push(false);
+            responseArray.push(100);
+        return responseArray;
+    }
+
     private _returnFalseObservable(){
         return new Observable<boolean>(observer =>{
             observer.next(false);
         })
     }
 
-    private _returnFalseObservableWithPriceLimit(limit:number){
+    private _returnFalseObservableWithLimit(limit:number){
         return new Observable<any>(observer =>{
             let response = [false,limit];
             observer.next(response);

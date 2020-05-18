@@ -167,11 +167,15 @@ export class RawDataComponent implements OnInit {
       if(formData != true){
           this.common.updateInsuranceDate(formData.value.insurancePaidDate,formData);
           this.dataStore.updateInsuranceDataToDB(this._updateObjectId(formData.value,id)).subscribe( success =>{
+            if(success === null) {
               this.searchRawData(1);
-              }, failure =>{
-
+            }else{
+                const data = {message:"As a 'Demo User' you cannot create or modify data of '"+formData.value.insuranceType+"' more than $"+success[1]+" from budget tracker! You can login to your account and add the amount you want!"};
+                this.inputDataService.openDialog(this.matDialog,ErrorDialogComponent,data);        
               }
-          );
+          }, failure =>{
+
+          });
       }
     });
   }

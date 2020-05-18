@@ -191,7 +191,11 @@ export class CommonService{
         "Dependant Expenses":50,
     };
 
+    insuranceAllowedValues = {
+        
+    };
 
+    
 
     insurances = ['Auto Insurance','Health Insurance','Life Insurance','Home Insurance'];
 
