@@ -18,26 +18,26 @@ export class LoginComponent{
         private authService:LocalAuthService,
         private router:Router){}
 
-    loginWithFirebase(userSignUp:boolean){
-        const data = {switchToSignUp:false};
+    loginWithFirebase(userSignUp:boolean,forgotPassword:boolean){
+        const data = {switchToSignUp:false,forgotPassword:false};
         userSignUp ? data.switchToSignUp = true : {};
+        forgotPassword ? data.forgotPassword = true : {};
         const dialogRef =  this.inputDataService.openDialog(this.matDialog,LoginDialogComponent,data);
         dialogRef.afterClosed().subscribe( loginFormData =>{
             if(loginFormData != undefined){
                 switch(loginFormData[1]){
                     case "firebaseLogin":{
-                        return this.loginWithFirebase(false);
+                        return this.loginWithFirebase(false,false);
                     }
                     case "forgotPassword":{
-                        console.log("Forgot Password with Firebase");
-                        break;
+                        return this.loginWithFirebase(false,true);
                     }
                     case "signUpWithFirebase":{
-                        return this.loginWithFirebase(true);
+                        return this.loginWithFirebase(true,false);
                     }
                 }
             }else{
-                this.loginWithFirebase(true);
+                this.loginWithFirebase(true,false);
             }
         });
     }

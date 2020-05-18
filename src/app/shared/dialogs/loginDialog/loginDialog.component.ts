@@ -38,22 +38,30 @@ export class LoginDialogComponent implements OnInit{
     firebaseLoginSignUpForm:FormGroup;
     firebaseSingUpForm:FormGroup;
     switchToSignUp:boolean;
+    forgotPassword:boolean;
     dataReturn:any[];
     formType:string;
     loginError:boolean = false;
 
     ngOnInit(){
-        if(!this.data.switchToSignUp){
-            this.formType = "Login"
-            this.switchToSignUp = false;
-        }else{
+        console.log("forgotPassword 1", this.forgotPassword);
+        if(this.data.switchToSignUp){
             this.formType = "Sign Up"
-            this.switchToSignUp = true;  
+            this.forgotPassword = false; 
+            this.switchToSignUp = true;    
+        }else if(this.data.forgotPassword){
+            this.formType = "Forgot Password"
+            this.forgotPassword = true;  
+        }else{
+            this.formType = "Login"
+            this.forgotPassword = false; 
+            this.switchToSignUp = false;
         }
+        console.log("forgotPassword 2", this.forgotPassword);
         this.firebaseLoginSignUpForm = this.inputDataService.createFirebaseSignUpLoginForm(this.firebaseLoginSignUpForm);
     }
 
-    onFirebaseLoginOrSignup(){
+    onFirebaseLoginOrSignupOrFP(){
         if(this.formType === "Login"){
             this.loginError = false;
             if(this.firebaseLoginSignUpForm.valid){
@@ -64,7 +72,7 @@ export class LoginDialogComponent implements OnInit{
                     this.loginError = true;
                 }); 
             }
-        }else{
+        }else if(this.formType === "Sign Up"){
             if(this.firebaseLoginSignUpForm.valid){
                 this.localAuthService.firebaseSignUp(this._formLoginSignUpData()).subscribe( response=>{
                     this.dataReturn = [this.firebaseLoginSignUpForm,"firebaseLogin"];
@@ -73,6 +81,8 @@ export class LoginDialogComponent implements OnInit{
                     this.loginError = true;
                 }); 
             }
+        }else{
+            console.log("Passowrd reset will  now be done!");
         }
         
     }
@@ -109,7 +119,14 @@ export class LoginDialogComponent implements OnInit{
         this.dialogRef.close(this.dataReturn);
     }
 
+    switchToForgotPassword(event:any){
+        event.preventDefault();
+        this.dataReturn = [this.firebaseLoginSignUpForm,"forgotPassword"];
+        this.dialogRef.close(this.dataReturn);
+    }
+
     closeLoginForm(){
+        this.forgotPassword = false; 
         this.dialogRef.close(false);
     }
 

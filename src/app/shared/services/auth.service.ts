@@ -29,17 +29,12 @@ export class LocalAuthService{
                     response.email,response.localId,
                     expirationDate,response.idToken);
                 localStorage.setItem('btUserData',JSON.stringify(user));
-                this.isAuthenticated = true;
-                this.userId = response.localId;
-                if(user.email === 'test@test.com'){
-                    user.email = 'Demo User'
-                }
-                this.user.next(user);
+                this._triggerUserAfterAuthentication(user);
             })
        );
     }
 
-      autoLogin(){
+    autoLogin(){
         const userData = JSON.parse(localStorage.getItem('btUserData'));
         if(!userData){
             this.user.next(null);
@@ -51,20 +46,36 @@ export class LocalAuthService{
             new Date(userData._tokenExpirationDate),
             userData._idToken);
         if(loadedUser.idToken){
-            this.isAuthenticated = true;
-            this.userId = loadedUser.userId ;
-            if(loadedUser.email === 'test@test.com'){
-                loadedUser.email = 'Demo User'
-            }
-            this.user.next(loadedUser);
+            this._triggerUserAfterAuthentication(loadedUser);
             return true;
         }
+    }
+
+    firebasePasswordReset(email:string){
+        const inputData = {
+            requestType:"PASSWORD_RESET",
+            email:email
+        }
+        return this.http.post<any>("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=[API_KEY]",inputData);
     }
 
     logout(){
         localStorage.removeItem('btUserData');
         this.userId = "";
         this.user.next(null);
+    }
+
+    private _checkForDemoEmail(user:any){
+        if(user.email === "test@test.com"){
+            user.email = "Demo User";
+        }
+    }
+
+    private _triggerUserAfterAuthentication(user:any){
+        this.isAuthenticated = true;
+        this.userId = user.userId;
+        this._checkForDemoEmail(user);
+        this.user.next(user);
     }
 
 }

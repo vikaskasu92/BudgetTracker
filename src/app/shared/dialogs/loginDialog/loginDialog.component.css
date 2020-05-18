@@ -79,6 +79,26 @@
     color:white;
 }
 
+.adjust-mat-card-for-fp{
+    height:200px;
+}
+
+.adjust-forgot-password-large-window-form{
+    margin-top:30px;
+}
+
+.adjust-divider-for-forgot-password{
+    height:25vh;
+}
+
+.adjust-social-button-for-forgot-password{
+    margin-top: 53px;
+}
+
+.remove-padding-left{
+    padding-left: 0px;
+}
+
 @media 
 only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
@@ -87,6 +107,10 @@ only screen and (max-width: 760px),
         height: 0vh;
         margin-left:7px;
         margin-right:-1px;
+    }
+
+    .mat-card-small-window-for-forgot-password{
+        height: 259px;
     }
 
     .close-on-small-window{
