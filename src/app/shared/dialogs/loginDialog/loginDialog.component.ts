@@ -46,7 +46,6 @@ export class LoginDialogComponent implements OnInit{
     passwordResetMessage:string;
 
     ngOnInit(){
-        console.log("forgotPassword 1", this.forgotPassword);
         if(this.data.switchToSignUp){
             this.formType = "Sign Up"
             this.forgotPassword = false; 
@@ -59,7 +58,6 @@ export class LoginDialogComponent implements OnInit{
             this.forgotPassword = false; 
             this.switchToSignUp = false;
         }
-        console.log("forgotPassword 2", this.forgotPassword);
         this.firebaseLoginSignUpForm = this.inputDataService.createFirebaseSignUpLoginForm(this.firebaseLoginSignUpForm);
     }
 
