@@ -42,6 +42,8 @@ export class LoginDialogComponent implements OnInit{
     dataReturn:any[];
     formType:string;
     loginError:boolean = false;
+    passwordResetSuccess:boolean = false;
+    passwordResetMessage:string;
 
     ngOnInit(){
         console.log("forgotPassword 1", this.forgotPassword);
@@ -82,7 +84,20 @@ export class LoginDialogComponent implements OnInit{
                 }); 
             }
         }else{
-            console.log("Passowrd reset will  now be done!");
+            if(this.firebaseLoginSignUpForm.controls.email.valid){
+                this.localAuthService.firebasePasswordReset(this.firebaseLoginSignUpForm.controls.email.value).subscribe( response=>{
+                    this.passwordResetMessage = "Password Reset mail has been sent to your email";
+                    this.passwordResetSuccess = true;
+                    setTimeout(()=>{
+                        this.passwordResetSuccess = false;
+                        this.dataReturn = [this.firebaseLoginSignUpForm,"firebaseLogin"];
+                        this.dialogRef.close(this.dataReturn);
+                    },2000);
+                }, failure =>{
+                    this.passwordResetSuccess = true;
+                    this.passwordResetMessage = "please try again with correct email address!";
+                }); 
+            }
         }
         
     }

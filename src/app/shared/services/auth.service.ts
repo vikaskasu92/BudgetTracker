@@ -56,7 +56,7 @@ export class LocalAuthService{
             requestType:"PASSWORD_RESET",
             email:email
         }
-        return this.http.post<any>("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=[API_KEY]",inputData);
+        return this.http.post<any>("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCgYHOtRUnryp7MUCPVKU17FKzNVLNnHKs",inputData);
     }
 
     logout(){
