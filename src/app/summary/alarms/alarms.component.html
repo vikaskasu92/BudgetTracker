@@ -2,10 +2,10 @@
     <mat-card-content>
         <div class="row center-heading">
             <h3 class="push-additional-alarms-symbol alarms-title">Alarms<mat-icon class="heading-icon-space">alarm</mat-icon></h3>
-            <a *ngIf="!noAlarms" type="button" (click)="addAdditionalNewAlarm()"><mat-icon>add</mat-icon></a>
+            <a *ngIf="!noAlarms" (click)="addAdditionalNewAlarm()"><mat-icon>add</mat-icon></a>
         </div>
         <div class="center-align" *ngIf="noAlarms">
-            <a type="button" (click)="addNewAlarm()"><mat-icon class="font_size">add</mat-icon></a>
+            <a (click)="addNewAlarm()"><mat-icon class="font_size">add</mat-icon></a>
         </div>
         <div *ngIf="!noAlarms">
             <label class="label-design budget-alarms-top">Budget Alarms</label>

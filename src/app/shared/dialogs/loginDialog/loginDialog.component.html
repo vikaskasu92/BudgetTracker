@@ -31,8 +31,8 @@
                             <mat-error *ngIf="!firebaseLoginSignUpForm.get('password').valid && firebaseLoginSignUpForm.get('password').touched">Minimum 6 character is required.</mat-error>
                         </mat-form-field>
                         <button mat-raised-button type="submit" class="firebaselogin-button keep-to-one-line center-align move-form-fields-to-right">{{ formType }}</button>
-                        <div class="align-forgot-password " *ngIf="!switchToSignUp"><span class="move-form-fields-to-right">or </span><a href="#" type="button" (click)="switchToForgotPassword($event)">Forgot Password</a></div>
-                        <div class="align-no-account center-align" *ngIf="!switchToSignUp"><span>Don't have an account? </span><a href="#" type="button" (click)="switchToSignupWithFirebase($event)"><strong>Sign up</strong></a></div>    
+                        <div class="align-forgot-password " *ngIf="!switchToSignUp"><span class="move-form-fields-to-right">or </span><a href="#" (click)="switchToForgotPassword($event)">Forgot Password</a></div>
+                        <div class="align-no-account center-align" *ngIf="!switchToSignUp"><span>Don't have an account? </span><a href="#" (click)="switchToSignupWithFirebase($event)"><strong>Sign up</strong></a></div>    
                     </div>
                     <ng-template #forgotPasswordTemplate>
                         <button mat-raised-button type="submit" class="firebaselogin-button keep-to-one-line center-align move-form-fields-to-right">Reset Password</button>
