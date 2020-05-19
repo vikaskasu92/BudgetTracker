@@ -122,6 +122,15 @@ export class InputDataService{
         return dialogRef;
     }
 
+    openLoginDialog(dialog:MatDialog,component:any,data:any){
+        const dialogRef = dialog.open(component, {
+            disableClose: true,
+            data:data,
+              maxHeight: '100vh'
+        });
+        return dialogRef;
+    }
+
     addConfigForSnackBar(config:MatSnackBarConfig){
         config.panelClass = ['custom-class'];
         config.duration = 3000;

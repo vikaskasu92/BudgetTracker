@@ -22,7 +22,7 @@ export class LoginComponent{
         const data = {switchToSignUp:false,forgotPassword:false};
         userSignUp ? data.switchToSignUp = true : {};
         forgotPassword ? data.forgotPassword = true : {};
-        const dialogRef =  this.inputDataService.openDialog(this.matDialog,LoginDialogComponent,data);
+        const dialogRef =  this.inputDataService.openLoginDialog(this.matDialog,LoginDialogComponent,data);
         dialogRef.afterClosed().subscribe( loginFormData =>{
             if(loginFormData != undefined){
                 switch(loginFormData[1]){
