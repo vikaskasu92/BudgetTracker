@@ -1,3 +1,6 @@
+<span>Edit</span>
+<br>
+<hr>
 <form *ngIf="purchasesType" [formGroup]="purchaseForm">
     <app-purchases [parentPurchaseForm]="purchaseForm" [subCategory]="subCategory" 
     (formData)="updateData($event)" buttonName="Update" 
@@ -13,6 +16,7 @@
 </form>
 
 <form *ngIf="incomeType" [formGroup]="incomeForm">
+    <span>Salary</span>
     <app-income [parentIncomeForm]="incomeForm" (formData)="updateData($event)" 
      buttonName="Update"  [cancelEnabled]="cancelEnabled" (cancelUpdateAction)="cancelUpdate()"></app-income>
 </form>
