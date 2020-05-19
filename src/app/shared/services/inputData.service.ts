@@ -115,7 +115,9 @@ export class InputDataService{
     openDialog(dialog:MatDialog,component:any,data:any){
         const dialogRef = dialog.open(component, {
             disableClose: true,
-            data:data
+            data:data,
+             maxWidth: '100vw',
+              maxHeight: '100vh'
         });
         return dialogRef;
     }
