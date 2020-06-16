@@ -3,19 +3,19 @@ table {
   }
 
 .table-pending-loans-title{
-    color: #5F687C;
+    color: #B3B3B3;
     font-size: 16px;
     text-align: center;
 }
 
 .table-header-style{
-    color: #5F687C;
+    color: #B3B3B3;
     font-size: 14px;
     font-style: italic;
 }
 
 .table-content-style{
-  color: #686868;
+  color: #B3B3B3;
 }
 
 .no-loans-content{

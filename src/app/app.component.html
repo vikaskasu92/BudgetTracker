@@ -1,19 +1,23 @@
 <div *ngIf="!isAuthenticated">
     <app-login></app-login>
 </div>
-<div *ngIf="isAuthenticated">
-    <app-header></app-header>
-    <mat-card class="page-margin">
-        <nav mat-tab-nav-bar>
-        <a mat-tab-link
-            *ngFor="let link of navLinks"
-            [routerLink]="link.path"
-            (click)="activeLink = link.path"
-            [active]="activeLink == link.path">
-            {{link.label}}
-        </a>
-        </nav>
-        <router-outlet></router-outlet>
-    </mat-card>
-    <app-footer></app-footer>
+<div [ngClass]="{'dark-theme' : isDarkTheme | async}">
+    <div class="mat-app-background">
+        <div *ngIf="isAuthenticated">
+            <app-header (tabIndex)="tabIndexChanged($event)"></app-header>
+            <mat-card class="page-margin">
+                <nav mat-tab-nav-bar>
+                <a mat-tab-link
+                    *ngFor="let link of navLinks"
+                    [routerLink]="link.path"
+                    (click)="activeLink = link.path"
+                    [active]="activeLink == link.path">
+                    {{link.label}}
+                </a>
+                </nav>
+                <router-outlet></router-outlet>
+            </mat-card>
+            <app-footer></app-footer>
+        </div>
+    </div>
 </div>

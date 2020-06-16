@@ -20,6 +20,18 @@
     display: none;
 }
 
+.toggle-switch-padding{
+    padding-right:2em;
+}
+
+.menu-space{
+    padding-left:1em;
+}
+
+.listSelect{
+    cursor: pointer;
+}
+
 @media 
 only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
@@ -30,6 +42,15 @@ only screen and (max-width: 760px),
 
     .small-window-hide{
         display: none;
+    }
+
+    .menu-space{
+        padding-left:0em;
+    }
+
+    .toggle-switch-padding{
+        padding-left: 1em;
+        padding-right:0em;
     }
 
 }

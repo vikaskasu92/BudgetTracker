@@ -11,8 +11,15 @@ export class CommonService{
    private expansionPanel = new BehaviorSubject("purchasesAndInvestments");
    currentExpansionPanel = this.expansionPanel.asObservable();
 
+   darkTheme = new BehaviorSubject<boolean>(true);
+   isDarkTheme = this.darkTheme.asObservable();
+
    onExpansionPanelClick(expansionPanelName:string){
        this.expansionPanel.next(expansionPanelName);
+   }
+
+   setDarkTheme(isDarkTheme:boolean):void{
+       this.darkTheme.next(isDarkTheme);
    }
 
    expansionPanelDecision(currentExpansionPanel:string,desiredPanelName:string,openPanel:boolean){
@@ -71,6 +78,14 @@ export class CommonService{
         }
         return number;
     }
+
+    tabs = {
+        'newInput':0,
+        'summary':1,
+        'expensesByYear':2,
+        'loans':3,
+        'rawData':4
+    };
 
     category = {
         "1":"Food",

@@ -8,7 +8,7 @@ import { PurchasesComponent } from './components/purchases/purchases.component';
 import { InsuranceComponent } from './components/insurance/insurance.component';
 import { IncomeComponent } from './components/income/income.component';
 import { CategoriesComponent } from './components/categories/categories.component';
-import { MatFormFieldModule, MatInputModule, MatDatepickerModule, MatIconModule, MatSelectModule, MatCardModule, MatRadioModule, MatToolbarModule, MatTabsModule, MatNativeDateModule, MatButtonModule, MatDialogModule, MatProgressSpinnerModule, MatExpansionModule, MatSnackBarModule, MatDividerModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatDatepickerModule, MatIconModule, MatSelectModule, MatCardModule, MatRadioModule, MatToolbarModule, MatTabsModule, MatNativeDateModule, MatButtonModule, MatDialogModule, MatProgressSpinnerModule, MatExpansionModule, MatSnackBarModule, MatDividerModule, MatSlideToggle, MatSlideToggleModule, MatListModule } from '@angular/material';
 import { AlarmDialogComponent } from './dialogs/alarmDialog/alarmDialog.component';
 import { AddNewLoansDialogComponent } from './dialogs/addNewLoansDialog/addNewLoansDialog.component';
 import { GraphDisplayComponent } from './components/graphDisplay/graphDisplay.component';
@@ -38,6 +38,7 @@ import { ErrorDialogComponent } from './dialogs/errorDialog/errorDialog.componen
         PlaceholderDirective,
     ],
     exports:[
+        CommonModule,
         AlarmDialogComponent,
         AddNewLoansDialogComponent,
         GraphDisplayComponent,
@@ -68,7 +69,9 @@ import { ErrorDialogComponent } from './dialogs/errorDialog/errorDialog.componen
         MatExpansionModule,
         MatSnackBarModule,
         MatDividerModule,
-        MatMenuModule
+        MatMenuModule,
+        MatSlideToggleModule,
+        MatListModule
     ],
     imports:[
         CommonModule,
@@ -91,7 +94,9 @@ import { ErrorDialogComponent } from './dialogs/errorDialog/errorDialog.componen
         MatExpansionModule,
         MatSnackBarModule,
         MatDividerModule,
-        MatMenuModule
+        MatMenuModule,
+        MatSlideToggleModule,
+        MatListModule
     ]
 })
 export class SharedModule{
