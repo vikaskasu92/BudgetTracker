@@ -1,6 +1,10 @@
-<h3>Please Confirm</h3>
-<hr>
-<p>{{ data.message }}</p>
-<br>
-<button mat-raised-button color="primary" (click)="confirmClosing()">Confirm</button>
-<a mat-button (click)="cancelConfirm()" class="leftSpacing">Cancel</a>
+<div [ngClass]="{'dark-theme' : isDarkTheme | async}" #divValue>
+    <div class="mat-app-background">
+        <h3>Please Confirm</h3>
+        <hr>
+        <p>{{ data.message }}</p>
+        <br>
+        <button mat-raised-button color="primary" (click)="confirmClosing()">Confirm</button>
+        <a mat-button (click)="cancelConfirm()" class="leftSpacing">Cancel</a>
+    </div>
+</div>

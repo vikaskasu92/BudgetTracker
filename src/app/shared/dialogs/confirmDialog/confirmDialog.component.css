@@ -1,3 +1,8 @@
 .leftSpacing{
     margin-left:10px;
 }
+
+.add-dark-theme{
+    background-color: #303030;
+    color: white;
+}

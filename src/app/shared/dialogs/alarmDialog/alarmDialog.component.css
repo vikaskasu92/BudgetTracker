@@ -8,6 +8,11 @@
     margin: 5px;
 }
 
+.add-dark-theme{
+    background-color: #303030;
+    color: white;
+}
+
 .second-radio-button{
     margin-top: 10px;
 }

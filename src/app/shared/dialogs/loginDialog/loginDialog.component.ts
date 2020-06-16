@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -20,7 +20,7 @@ import { User } from '../../model/auth/user.model';
     templateUrl:'./loginDialog.component.html',
     styleUrls:['./loginDialog.component.css']
 })
-export class LoginDialogComponent implements OnInit{
+export class LoginDialogComponent implements OnInit, AfterViewInit{
 
     constructor(private inputDataService:InputDataService,
                 private matIconRegistry: MatIconRegistry,
@@ -44,6 +44,9 @@ export class LoginDialogComponent implements OnInit{
     loginError:boolean = false;
     passwordResetSuccess:boolean = false;
     passwordResetMessage:string;
+    isDarkTheme:boolean;
+    isDark:boolean;
+    @ViewChild('divValue',{static:false}) divValue:ElementRef;
 
     ngOnInit(){
         if(this.data.switchToSignUp){
@@ -59,6 +62,14 @@ export class LoginDialogComponent implements OnInit{
             this.switchToSignUp = false;
         }
         this.firebaseLoginSignUpForm = this.inputDataService.createFirebaseSignUpLoginForm(this.firebaseLoginSignUpForm);
+        this.isDarkTheme = this.data.isDarkTheme;
+        this.isDark = this.data.isDark;
+    }
+
+    ngAfterViewInit(): void {
+        if(this.isDark){
+            this.divValue.nativeElement.parentElement.parentElement.style = 'background-color:#303030;';
+        }
     }
 
     onFirebaseLoginOrSignupOrFP(){

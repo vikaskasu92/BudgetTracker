@@ -5,6 +5,7 @@ import { LocalAuthService } from '../shared/services/auth.service';
 import { LoginDialogComponent } from '../shared/dialogs/loginDialog/loginDialog.component';
 import { Router } from '@angular/router';
 import { FirebaseLoginSignupInput } from '../shared/model/auth/FirebaseLoginSignupInput.model';
+import { CommonService } from '../shared/services/common.service';
 
 @Component({
     selector:'app-login',
@@ -16,10 +17,11 @@ export class LoginComponent{
     constructor(private inputDataService:InputDataService,
         private matDialog:MatDialog,
         private authService:LocalAuthService,
-        private router:Router){}
+        private router:Router,
+        private common:CommonService){}
 
     loginWithFirebase(userSignUp:boolean,forgotPassword:boolean){
-        const data = {switchToSignUp:false,forgotPassword:false};
+        const data = {switchToSignUp:false,forgotPassword:false,isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
         userSignUp ? data.switchToSignUp = true : {};
         forgotPassword ? data.forgotPassword = true : {};
         const dialogRef =  this.inputDataService.openLoginDialog(this.matDialog,LoginDialogComponent,data);

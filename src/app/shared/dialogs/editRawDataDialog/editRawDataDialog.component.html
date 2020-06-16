@@ -1,22 +1,26 @@
-<span>Edit</span>
-<br>
-<hr>
-<form *ngIf="purchasesType" [formGroup]="purchaseForm">
-    <app-purchases [parentPurchaseForm]="purchaseForm" [subCategory]="subCategory" 
-    (formData)="updateData($event)" buttonName="Update" 
-    [cancelEnabled]="cancelEnabled" 
-    (cancelUpdateAction)="cancelUpdate()"></app-purchases>
-</form>
+<div [ngClass]="{'dark-theme' : isDarkTheme | async}" #divValue>
+    <div class="mat-app-background">
+        <span>Edit</span>
+        <br>
+        <hr>
+        <form *ngIf="purchasesType" [formGroup]="purchaseForm">
+            <app-purchases [parentPurchaseForm]="purchaseForm" [subCategory]="subCategory" 
+            (formData)="updateData($event)" buttonName="Update" 
+            [cancelEnabled]="cancelEnabled" 
+            (cancelUpdateAction)="cancelUpdate()"></app-purchases>
+        </form>
 
-<form *ngIf="insuranceType" [formGroup]="insuranceForm">
-    <app-insurance [parentInsuranceForm]="insuranceForm" [insurances]="insurances" 
-    (formData)="updateData($event)" buttonName="Update" [cancelEnabled]="cancelEnabled"
-    (cancelUpdateAction)="cancelUpdate()">
-    </app-insurance>
-</form>
+        <form *ngIf="insuranceType" [formGroup]="insuranceForm">
+            <app-insurance [parentInsuranceForm]="insuranceForm" [insurances]="insurances" 
+            (formData)="updateData($event)" buttonName="Update" [cancelEnabled]="cancelEnabled"
+            (cancelUpdateAction)="cancelUpdate()">
+            </app-insurance>
+        </form>
 
-<form *ngIf="incomeType" [formGroup]="incomeForm">
-    <span>Salary</span>
-    <app-income [parentIncomeForm]="incomeForm" (formData)="updateData($event)" 
-     buttonName="Update"  [cancelEnabled]="cancelEnabled" (cancelUpdateAction)="cancelUpdate()"></app-income>
-</form>
+        <form *ngIf="incomeType" [formGroup]="incomeForm">
+            <span>Salary</span>
+            <app-income [parentIncomeForm]="incomeForm" (formData)="updateData($event)" 
+            buttonName="Update"  [cancelEnabled]="cancelEnabled" (cancelUpdateAction)="cancelUpdate()"></app-income>
+        </form>
+    </div>
+</div>

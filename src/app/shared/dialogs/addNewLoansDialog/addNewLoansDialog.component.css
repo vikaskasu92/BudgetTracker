@@ -18,6 +18,11 @@
     margin-bottom: 0px;
 }
 
+.add-dark-theme{
+    background-color: #303030;
+    color: white;
+}
+
 .button-flex{
     flex-grow:1;
 }

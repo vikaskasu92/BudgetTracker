@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
@@ -9,7 +9,7 @@ import { InputDataService } from '../../services/inputData.service';
     templateUrl:'./editRawDataDialog.component.html',
     styleUrls:['./editRawDataDialog.component.css']
 })
-export class EditRawDataDialogComponent implements OnInit{
+export class EditRawDataDialogComponent implements OnInit, AfterViewInit{
 
     constructor(public dialogRef: MatDialogRef<EditRawDataDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -26,6 +26,9 @@ export class EditRawDataDialogComponent implements OnInit{
     purchasesType:boolean = false;
     insuranceType:boolean = false;
     incomeType:boolean = false;
+    isDarkTheme:boolean;
+    isDark:boolean;
+    @ViewChild('divValue',{static:false}) divValue:ElementRef;
 
     ngOnInit(): void {
         if(this.data.type === "purchases"){
@@ -37,6 +40,14 @@ export class EditRawDataDialogComponent implements OnInit{
         }else if(this.data.type === "income"){
             this._incomeFormSetup();
             this.incomeType = true;
+        }
+        this.isDarkTheme = this.data.isDarkTheme;
+        this.isDark = this.data.isDark;
+    }
+
+    ngAfterViewInit(): void {
+        if(this.isDark){
+            this.divValue.nativeElement.parentElement.parentElement.style = 'background-color:#303030;';
         }
     }
 

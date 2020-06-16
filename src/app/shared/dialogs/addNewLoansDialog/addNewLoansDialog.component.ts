@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CommonService } from '../../services/common.service';
@@ -9,7 +9,7 @@ import { InputDataService } from '../../services/inputData.service';
     templateUrl:'./addNewLoansDialog.component.html',
     styleUrls:['./addNewLoansDialog.component.css']
 })
-export class AddNewLoansDialogComponent implements OnInit{
+export class AddNewLoansDialogComponent implements OnInit, AfterViewInit{
 
     constructor(private dialogRef: MatDialogRef<AddNewLoansDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -20,10 +20,21 @@ export class AddNewLoansDialogComponent implements OnInit{
     loanTypes:string[];
     buttonName:string;
     addNewLoanHeader:string;
+    isDarkTheme:boolean;
+    isDark:boolean
+    @ViewChild('divValue',{static:false}) divValue:ElementRef;
 
     ngOnInit(): void {
         this.addNewLoanHeader = this.data.addNewLoanHeader;
         this._whichTypeOfLoanToCreate();
+        this.isDarkTheme = this.data.isDarkTheme;
+        this.isDark = this.data.isDark;
+    }
+
+    ngAfterViewInit(): void {
+        if(this.isDark){
+            this.divValue.nativeElement.parentElement.parentElement.style = 'background-color:#303030;';
+        }
     }
 
     createNewLoan(){

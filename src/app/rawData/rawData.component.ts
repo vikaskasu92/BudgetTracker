@@ -138,7 +138,7 @@ export class RawDataComponent implements OnInit {
   }
 
   editPurchaseItem(item:string,cost:number,date:string,mainCategory:string,subCategory:string,id:number){
-    const data = {item: item, cost: cost, date: date, mainCategory: mainCategory, subCategory: subCategory,type:"purchases"};
+    const data = {item: item, cost: cost, date: date, mainCategory: mainCategory, subCategory: subCategory,type:"purchases",isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
     const dialogRef =  this.inputDataService.openDialog(this.matDialog,EditRawDataDialogComponent,data);
    
     dialogRef.afterClosed().subscribe( formData =>{
@@ -160,7 +160,7 @@ export class RawDataComponent implements OnInit {
   }
 
   editInsuranceItem(insuranceType:string,insurnacePaidAmount:string,insurancePaidDate:string,id:number){
-    const data = {insuranceType: insuranceType, insurancePaidAmount: insurnacePaidAmount, insurancePaidDate: insurancePaidDate,type:'insurance'};
+    const data = {insuranceType: insuranceType, insurancePaidAmount: insurnacePaidAmount, insurancePaidDate: insurancePaidDate,type:'insurance',isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
     const dialogRef =  this.inputDataService.openDialog(this.matDialog,EditRawDataDialogComponent,data);
    
     dialogRef.afterClosed().subscribe( formData =>{
@@ -181,7 +181,7 @@ export class RawDataComponent implements OnInit {
   }
 
   editIncomeItem(salaryRecieved:number,dateRecieved:string,federalTax:number,stateTax:number,medicareTax:number,socialSecurityTax:number,id:number){
-    const data = {salaryRecieved: salaryRecieved, dateRecieved: dateRecieved, federalTax: federalTax,stateTax: stateTax,medicareTax: medicareTax,socialSecurityTax: socialSecurityTax,type:'income'};
+    const data = {salaryRecieved: salaryRecieved, dateRecieved: dateRecieved, federalTax: federalTax,stateTax: stateTax,medicareTax: medicareTax,socialSecurityTax: socialSecurityTax,type:'income',isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
     const dialogRef =  this.inputDataService.openDialog(this.matDialog,EditRawDataDialogComponent,data);
    
     dialogRef.afterClosed().subscribe( formData =>{
@@ -203,7 +203,7 @@ export class RawDataComponent implements OnInit {
   }
 
   deletePurchaseItem(id:number){
-    const data = {message:"This purchase item will be deleted. Are you Sure?"};
+    const data = {message:"This purchase item will be deleted. Are you Sure?",isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
     const dialogRef =  this.inputDataService.openDialog(this.matDialog,ConfirmDialogComponent,data);
     dialogRef.afterClosed().subscribe( deleteIt =>{
       const deleteObj = {deleteById:id};
@@ -223,7 +223,7 @@ export class RawDataComponent implements OnInit {
   }
 
   deleteInsuranceItem(id:number){
-    const data = {message:"This Insurance item will be deleted. Are you Sure?"};
+    const data = {message:"This Insurance item will be deleted. Are you Sure?",isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
     const dialogRef =  this.inputDataService.openDialog(this.matDialog,ConfirmDialogComponent,data);
   
     dialogRef.afterClosed().subscribe( deleteIt =>{
@@ -244,7 +244,7 @@ export class RawDataComponent implements OnInit {
   }
 
   deleteIncomeItem(id:number){
-    const data = {message:"This Income data will be deleted. Are you Sure?"};
+    const data = {message:"This Income data will be deleted. Are you Sure?",isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
     const dialogRef =  this.inputDataService.openDialog(this.matDialog,ConfirmDialogComponent,data);
   
     dialogRef.afterClosed().subscribe( deleteIt =>{

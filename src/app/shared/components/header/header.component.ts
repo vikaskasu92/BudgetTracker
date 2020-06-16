@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit{
                 private common:CommonService){}
     
     userName:string;
-    checkedDarkMode:boolean = false;
+    checkedDarkMode:boolean = this.common.checkedDarkMode;
     isDarkTheme = this.common.isDarkTheme;
     @Output()tabIndex = new EventEmitter<number>();
 
@@ -32,9 +32,11 @@ export class HeaderComponent implements OnInit{
     checkUserPrefernces(){
         if(JSON.parse(localStorage.getItem('darkMode')) != null && JSON.parse(localStorage.getItem('darkMode'))){
             this.checkedDarkMode = true;
+            this.common.checkedDarkMode = true;
             this.common.darkTheme.next(true);
         }else if(JSON.parse(localStorage.getItem('darkMode')) != null && !JSON.parse(localStorage.getItem('darkMode'))){
             this.checkedDarkMode = false;
+            this.common.checkedDarkMode = false;
             this.common.darkTheme.next(false);
         }
         if(JSON.parse(localStorage.getItem('darkMode')) === null){
@@ -55,6 +57,7 @@ export class HeaderComponent implements OnInit{
 
     toggleDarkTheme(checked : boolean){
         this.checkedDarkMode = checked;
+        this.common.checkedDarkMode = checked;
         this.common.setDarkTheme(checked);
         localStorage.setItem('darkMode',JSON.stringify(checked));
     }

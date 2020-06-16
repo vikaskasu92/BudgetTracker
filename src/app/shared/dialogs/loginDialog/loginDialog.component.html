@@ -1,47 +1,51 @@
-<div *ngIf="!forgotPassword;else forgotPasswordHeading">
-    <h5 class="center-align title-on-small-window">{{ formType }} for Budget Tracker <button mat-button (click)="closeLoginForm()" class="close-on-small-window"><mat-icon>close</mat-icon></button></h5>
-</div>
-<ng-template #forgotPasswordHeading>
-    <h5 class="center-align title-on-small-window">Forgot Password ? <button mat-button (click)="closeLoginForm()" class="close-on-small-window"><mat-icon>close</mat-icon></button></h5>
-</ng-template>
-<mat-card class="modal-window-align" [ngClass]="{'adjust-mat-card-for-fp mat-card-small-window-for-forgot-password': forgotPassword}">
-    <mat-card-content class="mat-content-small-window mat-card-content-full-window">
-        <div class="row">
-            <div class="col-md-5 col-lg-5 all-social-buttons-max-window all-social-buttons-small-window social-button-ipad-pro" [ngClass]="{'adjust-social-button-for-forgot-password':forgotPassword}">
-                <button mat-raised-button (click)="loginWithFacebook()" class="facebook-login button-spacing move-form-fields-to-right facebook-center" ><mat-icon class="icon-spacing" svgIcon="facebook"></mat-icon>  Continue with Facebook</button>
-            </div>
-            <div class="col-md-1 col-lg-1 divider-line" [ngClass]="{'adjust-divider-for-forgot-password':forgotPassword}"></div>
-            <div class="col-md-5 col-lg-5" [ngClass]="{'adjust-forgot-password-large-window-form':(forgotPassword && !passwordResetSuccess),'adjust-forgot-password-success-large-window-form':passwordResetSuccess}">
-                <div *ngIf="loginError">
-                    <mat-error>Invalid Username or Password</mat-error>
-                </div>
-                <div *ngIf="passwordResetSuccess">
-                    <span>{{ passwordResetMessage }}</span>
-                </div>
-                <form [formGroup]="firebaseLoginSignUpForm" class="login-form-adjust" (ngSubmit)="onFirebaseLoginOrSignupOrFP()" [ngClass]="{'push-signup-form-down': switchToSignUp}">
-                    <mat-form-field appearance="fill" class="login-email-field center-align move-form-fields-to-right">
-                        <mat-label>Email</mat-label>
-                        <input matInput formControlName="email">
-                        <mat-error *ngIf="!firebaseLoginSignUpForm.get('email').valid && firebaseLoginSignUpForm.get('email').touched">Email is invalid!</mat-error>
-                    </mat-form-field>
-                    <div *ngIf="!forgotPassword;else forgotPasswordTemplate">
-                        <mat-form-field appearance="fill" class="center-align move-form-fields-to-right">
-                            <mat-label>Password</mat-label>
-                            <input matInput type="password" formControlName="password">
-                            <mat-error *ngIf="!firebaseLoginSignUpForm.get('password').valid && firebaseLoginSignUpForm.get('password').touched">Minimum 6 character is required.</mat-error>
-                        </mat-form-field>
-                        <button mat-raised-button type="submit" class="firebaselogin-button keep-to-one-line center-align move-form-fields-to-right">{{ formType }}</button>
-                        <div class="align-forgot-password " *ngIf="!switchToSignUp"><span class="move-form-fields-to-right">or </span><a href="#" (click)="switchToForgotPassword($event)">Forgot Password</a></div>
-                        <div class="align-no-account center-align" *ngIf="!switchToSignUp"><span>Don't have an account? </span><a href="#" (click)="switchToSignupWithFirebase($event)"><strong>Sign up</strong></a></div>    
-                    </div>
-                    <ng-template #forgotPasswordTemplate>
-                        <button mat-raised-button type="submit" class="firebaselogin-button keep-to-one-line center-align move-form-fields-to-right">Reset Password</button>
-                    </ng-template>
-                </form>
-            </div>
-            <div class="col-md-1 col-lg-1 align-close-button remove-padding-left">
-                <button mat-button (click)="closeLoginForm()" class="close-on-full-window"><mat-icon>close</mat-icon></button>
-            </div>
+<div [ngClass]="{'dark-theme' : isDarkTheme | async}" #divValue>
+    <div class="mat-app-background">
+        <div *ngIf="!forgotPassword;else forgotPasswordHeading">
+            <h5 class="center-align title-on-small-window">{{ formType }} for Budget Tracker <button mat-button (click)="closeLoginForm()" class="close-on-small-window"><mat-icon>close</mat-icon></button></h5>
         </div>
-    </mat-card-content>
-</mat-card>
+        <ng-template #forgotPasswordHeading>
+            <h5 class="center-align title-on-small-window">Forgot Password ? <button mat-button (click)="closeLoginForm()" class="close-on-small-window"><mat-icon>close</mat-icon></button></h5>
+        </ng-template>
+        <mat-card class="modal-window-align" [ngClass]="{'adjust-mat-card-for-fp mat-card-small-window-for-forgot-password': forgotPassword}">
+            <mat-card-content class="mat-content-small-window mat-card-content-full-window">
+                <div class="row">
+                    <div class="col-md-5 col-lg-5 all-social-buttons-max-window all-social-buttons-small-window social-button-ipad-pro" [ngClass]="{'adjust-social-button-for-forgot-password':forgotPassword}">
+                        <button mat-raised-button (click)="loginWithFacebook()" class="facebook-login button-spacing move-form-fields-to-right facebook-center" ><mat-icon class="icon-spacing" svgIcon="facebook"></mat-icon>  Continue with Facebook</button>
+                    </div>
+                    <div class="col-md-1 col-lg-1 divider-line" [ngClass]="{'adjust-divider-for-forgot-password':forgotPassword}"></div>
+                    <div class="col-md-5 col-lg-5" [ngClass]="{'adjust-forgot-password-large-window-form':(forgotPassword && !passwordResetSuccess),'adjust-forgot-password-success-large-window-form':passwordResetSuccess}">
+                        <div *ngIf="loginError">
+                            <mat-error>Invalid Username or Password</mat-error>
+                        </div>
+                        <div *ngIf="passwordResetSuccess">
+                            <span>{{ passwordResetMessage }}</span>
+                        </div>
+                        <form [formGroup]="firebaseLoginSignUpForm" class="login-form-adjust" (ngSubmit)="onFirebaseLoginOrSignupOrFP()" [ngClass]="{'push-signup-form-down': switchToSignUp}">
+                            <mat-form-field appearance="fill" class="login-email-field center-align move-form-fields-to-right">
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="email">
+                                <mat-error *ngIf="!firebaseLoginSignUpForm.get('email').valid && firebaseLoginSignUpForm.get('email').touched">Email is invalid!</mat-error>
+                            </mat-form-field>
+                            <div *ngIf="!forgotPassword;else forgotPasswordTemplate">
+                                <mat-form-field appearance="fill" class="center-align move-form-fields-to-right">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput type="password" formControlName="password">
+                                    <mat-error *ngIf="!firebaseLoginSignUpForm.get('password').valid && firebaseLoginSignUpForm.get('password').touched">Minimum 6 character is required.</mat-error>
+                                </mat-form-field>
+                                <button mat-raised-button type="submit" class="firebaselogin-button keep-to-one-line center-align move-form-fields-to-right">{{ formType }}</button>
+                                <div class="align-forgot-password " *ngIf="!switchToSignUp"><span class="move-form-fields-to-right">or </span><a href="#" (click)="switchToForgotPassword($event)">Forgot Password</a></div>
+                                <div class="align-no-account center-align" *ngIf="!switchToSignUp"><span>Don't have an account? </span><a href="#" (click)="switchToSignupWithFirebase($event)"><strong>Sign up</strong></a></div>    
+                            </div>
+                            <ng-template #forgotPasswordTemplate>
+                                <button mat-raised-button type="submit" class="firebaselogin-button keep-to-one-line center-align move-form-fields-to-right">Reset Password</button>
+                            </ng-template>
+                        </form>
+                    </div>
+                    <div class="col-md-1 col-lg-1 align-close-button remove-padding-left">
+                        <button mat-button (click)="closeLoginForm()" class="close-on-full-window"><mat-icon>close</mat-icon></button>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

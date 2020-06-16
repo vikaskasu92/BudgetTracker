@@ -8,6 +8,7 @@ import { InputDataService } from '../shared/services/inputData.service';
 import { ClosedLoansModel } from '../shared/model/loans/closedLoan.model';
 import { OpenLoansModel } from '../shared/model/loans/openLoan.model';
 import { ErrorDialogComponent } from '../shared/dialogs/errorDialog/errorDialog.component';
+import { CommonService } from '../shared/services/common.service';
 
 @Component({
     selector:'app-loans',
@@ -19,7 +20,8 @@ export class LoansComponent implements OnInit{
     constructor(private dataRetrieval:DataRetrievalService,
                 private dialog: MatDialog,
                 private dataStore:DataStoreService,
-                private inputDataService:InputDataService){}
+                private inputDataService:InputDataService,
+                private common:CommonService){}
 
     openLoans:OpenLoansModel[];
     closedLoans:ClosedLoansModel[];
@@ -60,7 +62,7 @@ export class LoansComponent implements OnInit{
     }
 
     addNewLoans(){
-        const data = {type:'newLoan',buttonName:'Save',addNewLoanHeader:'Add New Loan'};
+        const data = {type:'newLoan',buttonName:'Save',addNewLoanHeader:'Add New Loan',isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
         const dialogRef =  this.inputDataService.openDialog(this.dialog,AddNewLoansDialogComponent,data);
         
         dialogRef.afterClosed().subscribe(result => {  
@@ -77,7 +79,7 @@ export class LoansComponent implements OnInit{
     closeLoan(id:number){
         const responseObject ={}
         let displayMessage = "Are you sure you want to close the loan ?";
-        const data = {message: displayMessage};
+        const data = {message: displayMessage,isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
         const dialogRef =  this.inputDataService.openDialog(this.dialog,ConfirmDialogComponent,data);
         
         dialogRef.afterClosed().subscribe( result => {  
@@ -94,7 +96,7 @@ export class LoansComponent implements OnInit{
     reOpenLoan(id:number){
         const responseObject ={}
         let displayMessage = "Are you sure this loan is not closed ?";
-        const data = {message: displayMessage};
+        const data = {message: displayMessage,isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
         const dialogRef =  this.inputDataService.openDialog(this.dialog,ConfirmDialogComponent,data);
        
         dialogRef.afterClosed().subscribe( result => {  
@@ -111,7 +113,7 @@ export class LoansComponent implements OnInit{
     deleteLoan(id:number){
         const responseObject ={}
         let displayMessage = "You are going to remove this loan completely from Budget Tracker, Are you sure?";
-        const data = {message: displayMessage};
+        const data = {message: displayMessage,isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
         const dialogRef =  this.inputDataService.openDialog(this.dialog,ConfirmDialogComponent,data);
     
         dialogRef.afterClosed().subscribe( result => {  
@@ -132,7 +134,7 @@ export class LoansComponent implements OnInit{
 
     editLoan(loanName:string,loanType:string,loanBalance:number,loanAPR:number,loanMonthlyAmount:number,id:number){
         const data ={loanName:loanName, loanType:loanType,loanBalance:loanBalance,loanAPR:loanAPR,
-            loanMonthlyAmount:loanMonthlyAmount,type:"editLoan",buttonName:'Update',addNewLoanHeader:'Edit Loan'}
+            loanMonthlyAmount:loanMonthlyAmount,type:"editLoan",buttonName:'Update',addNewLoanHeader:'Edit Loan',isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode}
         const dialogRef =  this.inputDataService.openDialog(this.dialog,AddNewLoansDialogComponent,data);
     
         dialogRef.afterClosed().subscribe(result => {  

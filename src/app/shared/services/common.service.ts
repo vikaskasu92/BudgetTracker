@@ -10,7 +10,7 @@ export class CommonService{
 
    private expansionPanel = new BehaviorSubject("purchasesAndInvestments");
    currentExpansionPanel = this.expansionPanel.asObservable();
-
+   checkedDarkMode:boolean = true;
    darkTheme = new BehaviorSubject<boolean>(true);
    isDarkTheme = this.darkTheme.asObservable();
 

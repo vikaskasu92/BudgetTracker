@@ -6,6 +6,7 @@ import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.serv
 import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirmDialog/confirmDialog.component';
 import { InputDataService } from 'src/app/shared/services/inputData.service';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/errorDialog/errorDialog.component';
+import { CommonService } from 'src/app/shared/services/common.service';
 
 @Component({
     selector:'app-alarms',
@@ -18,7 +19,8 @@ export class AlarmsComponent implements OnInit{
                 private dataStore:DataStoreService,
                 private dataRetrieval:DataRetrievalService,
                 private inputDataService:InputDataService,
-                private dialog: MatDialog){}
+                private dialog: MatDialog,
+                private common:CommonService){}
 
     noAlarms:boolean = true;
     budgetAlarms:any = [];
@@ -44,7 +46,7 @@ export class AlarmsComponent implements OnInit{
     }
 
     deleteBudgetAlarm(id:number){
-        const data = {message:'Are you sure, you want to delete the alarm?'};
+        const data = {message:'Are you sure, you want to delete the alarm?',isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
         const dialogRef =  this.inputDataService.openDialog(this.matDialog,ConfirmDialogComponent,data);
        
         dialogRef.afterClosed().subscribe( response =>{
@@ -86,7 +88,7 @@ export class AlarmsComponent implements OnInit{
     }
 
     private _openNewAlarmDialog(){
-        const data = {displayMessage:'Create Alarm'};
+        const data = {displayMessage:'Create Alarm',isDarkTheme:this.common.isDarkTheme,isDark:this.common.checkedDarkMode};
         const dialogRef =  this.inputDataService.openDialog(this.matDialog,AlarmDialogComponent,data);
        
         dialogRef.afterClosed().subscribe( response =>{
