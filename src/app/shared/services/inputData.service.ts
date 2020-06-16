@@ -40,11 +40,11 @@ export class InputDataService{
         return incomeForm;
     }
 
-    createNewAlarmForm(newAlarmForm:FormGroup){
+    createNewAlarmForm(newAlarmForm:FormGroup,email:string){
             newAlarmForm = new FormGroup({
             'alarmBy' : new FormControl(null,Validators.required),
             'budgetAmount' : new FormControl(null,[Validators.required,Validators.pattern('^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$')]),
-            'budgetEmail' : new FormControl(null,[Validators.required,Validators.email])
+            'budgetEmail' : new FormControl(email,[Validators.required,Validators.email])
         });
         return newAlarmForm;
     }

@@ -14,6 +14,7 @@ export class LocalAuthService{
 
     isAuthenticated:boolean;
     userId:string;
+    userEmail:string;
     user = new BehaviorSubject<User>(null);
     userFirebaseLogin = {}
     isDemoUser:boolean;
@@ -65,6 +66,7 @@ export class LocalAuthService{
     logout(){
         localStorage.removeItem('btUserData');
         this.userId = "";
+        this.userEmail = "";
         this.user.next(null);
     }
 
@@ -72,12 +74,14 @@ export class LocalAuthService{
         if(user.email === "test@test.com"){
             this.isDemoUser = true;
             user.email = "Demo User";
+            this.userEmail = "test@test.com";
         }
     }
 
     private _triggerUserAfterAuthentication(user:any){
         this.isAuthenticated = true;
         this.userId = user.userId;
+        this.userEmail = user.email;
         this._checkForDemoEmail(user);
         this.user.next(user);
     }

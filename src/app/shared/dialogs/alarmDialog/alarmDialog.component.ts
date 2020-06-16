@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, ViewChild, ElementRef, AfterViewInit } from 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { InputDataService } from '../../services/inputData.service';
+import { LocalAuthService } from '../../services/auth.service';
 
 @Component({
     selector:'app-alarmDialog',
@@ -12,15 +13,18 @@ export class AlarmDialogComponent implements OnInit, AfterViewInit{
 
     constructor(public dialogRef: MatDialogRef<AlarmDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any, 
-        private inputDataService:InputDataService){}
+        private inputDataService:InputDataService,
+        private localAuthService:LocalAuthService){}
 
     newAlarmForm:FormGroup;
     isDarkTheme:boolean;
     isDark:boolean
+    userEmail:string;
     @ViewChild('divValue',{static:false}) divValue:ElementRef;
 
     ngOnInit(): void {
-        this.newAlarmForm =  this.inputDataService.createNewAlarmForm(this.newAlarmForm);
+        this.userEmail = this.localAuthService.userEmail;
+        this.newAlarmForm =  this.inputDataService.createNewAlarmForm(this.newAlarmForm,this.userEmail);
         this.isDarkTheme = this.data.isDarkTheme;
         this.isDark = this.data.isDark;
     }
