@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
+import { CommonService } from '../../services/common.service';
 
 @Component({
     selector:'app-insurance',
@@ -19,6 +20,8 @@ export class InsuranceComponent implements OnInit{
     @ViewChild('insuranceFormToReset', {static:false})insuranceFormToReset:NgForm;
     maxDate:Date;
 
+    constructor(private common:CommonService){}
+
     ngOnInit(): void {
         this.maxDate = new Date();
     }
@@ -30,6 +33,10 @@ export class InsuranceComponent implements OnInit{
 
     cancelUpdate(){
         this.cancelUpdateAction.emit(true);
+    }
+
+    editNavigate(){
+        this.common.editNavigate();
     }
 
 }

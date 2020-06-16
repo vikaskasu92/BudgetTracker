@@ -2,17 +2,21 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Injectable({providedIn:"root"})
 export class CommonService{
 
-   constructor(private _snackBar: MatSnackBar){}
+   constructor(private _snackBar: MatSnackBar,
+                private router:Router){}
 
    private expansionPanel = new BehaviorSubject("purchasesAndInvestments");
    currentExpansionPanel = this.expansionPanel.asObservable();
    checkedDarkMode:boolean = true;
    darkTheme = new BehaviorSubject<boolean>(true);
    isDarkTheme = this.darkTheme.asObservable();
+   tabIndex = new BehaviorSubject<number>(4);
+   tabIndexChangedOnEdit = this.tabIndex.asObservable();
 
    onExpansionPanelClick(expansionPanelName:string){
        this.expansionPanel.next(expansionPanelName);
@@ -20,6 +24,11 @@ export class CommonService{
 
    setDarkTheme(isDarkTheme:boolean):void{
        this.darkTheme.next(isDarkTheme);
+   }
+
+   editNavigate(){
+    this.router.navigate(['/rawData']);
+    this.tabIndex.next(4);
    }
 
    expansionPanelDecision(currentExpansionPanel:string,desiredPanelName:string,openPanel:boolean){

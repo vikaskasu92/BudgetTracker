@@ -67,7 +67,7 @@
                 <div class="row">
                     <div class="push-left"></div>
                     <div [ngClass]="{'pagination-color-dark' : isDark | async }" class="align-pageNumbers pagination-color">{{ minPagePurchases }} - {{ maxPagePurchases }} of {{ totalResultsPurchases }}</div>
-                    <button mat-button [disabled]="purchaseLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPagePurchases,'purchases')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="purchaseRightDisabled" (click)="goRight(minPagePurchases,maxPagePurchases,'purchases')"><mat-icon>chevron_right</mat-icon></button>
+                    <button mat-button [ngClass]="{'pagination-color-dark' : isDark | async}" [disabled]="purchaseLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPagePurchases,'purchases')"><mat-icon>chevron_left</mat-icon></button><button  [ngClass]="{'pagination-color-dark' : isDark | async}" mat-button class="right-arrow pagination-color" [disabled]="purchaseRightDisabled" (click)="goRight(minPagePurchases,maxPagePurchases,'purchases')"><mat-icon>chevron_right</mat-icon></button>
                 </div>
             </mat-card-content>
         </mat-card>
@@ -110,7 +110,7 @@
                 <div class="row">
                     <div class="push-left"></div>
                     <div [ngClass]="{'pagination-color-dark' : isDark | async }" class="align-pageNumbers pagination-color">{{ minPageIncome }} - {{ maxPageIncome }} of {{ totalResultsIncome }}</div>
-                    <button mat-button [disabled]="incomeLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageIncome,'income')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="incomeRightDisabled" (click)="goRight(minPageIncome,maxPageIncome,'income')"><mat-icon>chevron_right</mat-icon></button>
+                    <button mat-button [ngClass]="{'pagination-color-dark' : isDark | async}" [disabled]="incomeLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageIncome,'income')"><mat-icon>chevron_left</mat-icon></button><button [ngClass]="{'pagination-color-dark' : isDark | async}" mat-button class="right-arrow pagination-color" [disabled]="incomeRightDisabled" (click)="goRight(minPageIncome,maxPageIncome,'income')"><mat-icon>chevron_right</mat-icon></button>
                 </div>
             </mat-card-content>
         </mat-card>
@@ -147,7 +147,7 @@
                 <div class="row">
                     <div class="push-left"></div>
                     <div [ngClass]="{'pagination-color-dark' : isDark | async }" class="align-pageNumbers pagination-color">{{ minPageInsurance }} - {{ maxPageInsurance }} of {{ totalResultsInsurance }}</div>
-                    <button mat-button [disabled]="insuranceLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageInsurance,'insurance')"><mat-icon [ngClass]="{'pagination-color-dark' : isDark | async}">chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="insuranceRightDisabled" (click)="goRight(minPageInsurance,maxPageInsurance,'insurance')"><div [ngClass]="{'pagination-color-dark' : isDark | async}"><mat-icon>chevron_right</mat-icon></div></button>
+                    <button mat-button [ngClass]="{'pagination-color-dark' : isDark | async}" [disabled]="insuranceLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageInsurance,'insurance')"><mat-icon>chevron_left</mat-icon></button><button mat-button [ngClass]="{'pagination-color-dark' : isDark | async}" class="right-arrow pagination-color" [disabled]="insuranceRightDisabled" (click)="goRight(minPageInsurance,maxPageInsurance,'insurance')"><mat-icon>chevron_right</mat-icon></button>
                 </div>
             </mat-card-content>
         </mat-card>

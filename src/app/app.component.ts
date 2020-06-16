@@ -38,11 +38,19 @@ export class AppComponent implements OnInit{
       this.router.navigate(['/login']);
     }
     this.checkOnAuthenticatedUser();
+    this.editTabIndexChanged();
   }
 
   tabIndexChanged(tabNumber:number){
     this.activeLink = this.navLinks[tabNumber].path;
   }
+
+  editTabIndexChanged(){
+    this.common.tabIndexChangedOnEdit.subscribe( value =>{
+      this.activeLink = this.navLinks[value].path;
+    });
+  }
+
   checkOnAuthenticatedUser(){
     this.authService.user.subscribe( userData =>{
       if(this.router.url === "/login"){

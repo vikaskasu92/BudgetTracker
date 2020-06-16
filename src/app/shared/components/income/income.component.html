@@ -36,5 +36,6 @@
     </mat-form-field>
     <br>
     <button class="form-save-button" mat-raised-button color="primary" (click)="saveOrUpdateIncome()">{{ buttonName }} <mat-icon>save</mat-icon></button>
+    <a *ngIf="!cancelEnabled" class="form-save-button" mat-button (click)="editNavigate()">  edit data <mat-icon>edit</mat-icon></a>
     <a *ngIf="cancelEnabled" mat-button (click)="cancelUpdate()" class="leftSpacing">Cancel</a>
 </form>

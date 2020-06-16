@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, OnInit } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
+import { CommonService } from '../../services/common.service';
 
 @Component({
     selector:'app-purchases',
@@ -18,6 +19,8 @@ export class PurchasesComponent implements OnInit{
     @ViewChild('purchaseFormToReset',{static:false})purchaseFormToReset:NgForm;
     maxDate:Date;
 
+    constructor(private common:CommonService){}
+
     ngOnInit(){
         this.maxDate = new Date();
     }
@@ -29,5 +32,9 @@ export class PurchasesComponent implements OnInit{
 
     cancelUpdate(){
         this.cancelUpdateAction.emit(true);
+    }
+
+    editNavigate(){
+        this.common.editNavigate();
     }
 }
