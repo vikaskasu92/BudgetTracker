@@ -40,6 +40,11 @@
     padding: 3px;
 }
 
+.dark-mode-table-content{
+    background-color: #2E2E38;
+    color: #009788;
+}
+
 .mat-header-title-design{
     padding-top: 5px;
     margin-bottom: 0px;
@@ -61,8 +66,12 @@
     margin-left: 10px;
 }
 
+.pagination-color-dark{
+    color:#009788 !important;
+}
+
 .pagination-color{
-    color:#757575;
+    color:#009788;
 }
 
 .no-data{

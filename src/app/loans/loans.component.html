@@ -14,22 +14,22 @@
                     <table class="table table-sm openLoans">
                         <thead>
                         <tr>
-                            <th scope="col" class="table-header-style">Loan Name</th>
-                            <th scope="col" class="table-header-style">Loan Type</th>
-                            <th scope="col" class="table-header-style">Balance</th>
-                            <th scope="col" class="table-header-style">APR</th>
-                            <th scope="col" class="table-header-style">EMI</th>
-                            <th scope="col" class="table-header-style">Actions</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Loan Name</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Loan Type</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Balance</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">APR</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">EMI</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let loan of openLoans">
-                                <td class="table-content-style">{{ loan.loanName | uppercase}}</td>
-                                <td class="table-content-style">{{ loan.loanType | uppercase }}</td>
-                                <td class="table-content-style">{{ loan.loanBalance | currency:USD }}</td>
-                                <td class="table-content-style">{{ loan.loanAPR | decimalFormat:2 }} %</td>
-                                <td class="table-content-style">{{ loan.loanMonthlyAmount | currency:USD }}</td>
-                                <td >
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ loan.loanName | uppercase}}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }" >{{ loan.loanType | uppercase }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ loan.loanBalance | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ loan.loanAPR | decimalFormat:2 }} %</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ loan.loanMonthlyAmount | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">
                                     <a mat-button (click)="editLoan(loan.loanName,loan.loanType,loan.loanBalance,loan.loanAPR,loan.loanMonthlyAmount,loan.id)"><mat-icon>edit</mat-icon></a>
                                     <a mat-button (click)="closeLoan(loan.id)" class="icon-display"><mat-icon>close</mat-icon></a>
                                 </td>
@@ -58,20 +58,20 @@
                     <table class="table table-sm closedLoans">
                         <thead>
                         <tr>
-                            <th scope="col" class="table-header-style">Loan Name</th>
-                            <th scope="col" class="table-header-style">Loan Type</th>
-                            <th scope="col" class="table-header-style">APR</th>
-                            <th scope="col" class="table-header-style">EMI</th>
-                            <th scope="col" class="table-header-style">Actions</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Loan Name</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Loan Type</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">APR</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">EMI</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let loan of closedLoans">
-                                <td class="table-content-style">{{ loan.loanName | uppercase}}</td>
-                                <td class="table-content-style">{{ loan.loanType | uppercase }}</td>
-                                <td class="table-content-style">{{ loan.loanAPR  | decimalFormat:2 }} %</td>
-                                <td class="table-content-style">{{ loan.loanMonthlyAmount | currency:USD }}</td>
-                                <td >
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ loan.loanName | uppercase}}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ loan.loanType | uppercase }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ loan.loanAPR  | decimalFormat:2 }} %</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ loan.loanMonthlyAmount | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">
                                     <a mat-button (click)="reOpenLoan(loan.id)" ><mat-icon>lock_open</mat-icon></a>
                                     <a mat-button (click)="deleteLoan(loan.id)" class="icon-display"><mat-icon>delete_forever</mat-icon></a>
                                 </td>

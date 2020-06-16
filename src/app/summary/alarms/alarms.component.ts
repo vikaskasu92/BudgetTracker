@@ -7,6 +7,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/dialogs/confirmDialog/con
 import { InputDataService } from 'src/app/shared/services/inputData.service';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/errorDialog/errorDialog.component';
 import { CommonService } from 'src/app/shared/services/common.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector:'app-alarms',
@@ -24,9 +25,11 @@ export class AlarmsComponent implements OnInit{
 
     noAlarms:boolean = true;
     budgetAlarms:any = [];
+    isDark:Observable<boolean>;
 
     ngOnInit(): void {
         this.retrieveAlarms(false);
+        this.isDark = this.common.isDarkTheme;
     }
 
     retrieveAlarms(recheck:boolean){

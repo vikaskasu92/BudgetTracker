@@ -8,29 +8,30 @@
             <a (click)="addNewAlarm()"><mat-icon class="font_size">add</mat-icon></a>
         </div>
         <div *ngIf="!noAlarms">
-            <label class="label-design budget-alarms-top">Budget Alarms</label>
-            <div class="my-custom-scrollbar">
-                <div class="table-responsive-sm table-bottom-reduce table-sm">
-                    <table class="table table-striped budgetAlarmTable">
-                        <thead>
-                        <tr>
-                            <th scope="col" class="table-header-style">Alarm Period</th>
-                            <th scope="col" class="table-header-style">Budget Amount</th>
-                            <th scope="col" class="table-header-style">Email</th>
-                            <th scope="col" class="table-header-style">Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let budgetAlarm of budgetAlarms">
-                                <td >{{ budgetAlarm.alarmBy }}</td>
-                                <td >{{ budgetAlarm.budgetAmount | currency:USD }}</td>
-                                <td >{{ budgetAlarm.budgetEmail }}</td>
-                                <td >
-                                    <a mat-button (click)="deleteBudgetAlarm(budgetAlarm.id)" class="icon-display"><mat-icon>delete</mat-icon></a>
-                                </td>
+            <div [ngClass]="{'my-custom-scrollbar-dark' : isDark | async}" class="my-custom-scrollbar">
+                <div>
+                    <div class="table-responsive-sm table-bottom-reduce table-sm">
+                        <table class="table table-striped budgetAlarmTable">
+                            <thead>
+                            <tr>
+                                <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }" class="table-header-style">Alarm Period</th>
+                                <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }"  class="table-header-style">Budget Amount</th>
+                                <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }" class="table-header-style">Email</th>
+                                <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }" class="table-header-style">Actions</th>
                             </tr>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let budgetAlarm of budgetAlarms">
+                                    <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ budgetAlarm.alarmBy }}</td>
+                                    <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ budgetAlarm.budgetAmount | currency:USD }}</td>
+                                    <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ budgetAlarm.budgetEmail }}</td>
+                                    <td [ngClass]="{'dark-mode-table-content' : isDark | async }">
+                                        <a mat-button (click)="deleteBudgetAlarm(budgetAlarm.id)" class="icon-display"><mat-icon>delete</mat-icon></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

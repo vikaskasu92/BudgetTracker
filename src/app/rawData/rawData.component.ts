@@ -8,6 +8,7 @@ import { DataStoreService } from '../shared/services/dataStore.service';
 import { InputDataService } from '../shared/services/inputData.service';
 import { ConfirmDialogComponent } from '../shared/dialogs/confirmDialog/confirmDialog.component';
 import { ErrorDialogComponent } from '../shared/dialogs/errorDialog/errorDialog.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-rawData',
@@ -52,11 +53,13 @@ export class RawDataComponent implements OnInit {
   insuranceRightDisabled:boolean = false;
   dataAvailable:boolean = true;
   purchaseForm:FormGroup;
+  isDark:Observable<boolean>;
 
   ngOnInit() {
     this.inputTypes = this.common.inputTypes;
     this.rawDataForm = this.inputDataService.createRawDataForm(this.rawDataForm);
     this.toDateLimit = new Date();
+    this.isDark = this.common.isDarkTheme;
   }
 
   searchRawData(minPage:number){

@@ -9,6 +9,7 @@ import { ClosedLoansModel } from '../shared/model/loans/closedLoan.model';
 import { OpenLoansModel } from '../shared/model/loans/openLoan.model';
 import { ErrorDialogComponent } from '../shared/dialogs/errorDialog/errorDialog.component';
 import { CommonService } from '../shared/services/common.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector:'app-loans',
@@ -29,9 +30,11 @@ export class LoansComponent implements OnInit{
     spinnerClosedLoans:boolean = true;
     noOpenLoans:boolean = false;
     noClosedLoans:boolean = false;
+    isDark:Observable<boolean>;
 
     ngOnInit(){
         this.retrieveOpenClosedLoans(); 
+        this.isDark = this.common.isDarkTheme;
     }
 
     retrieveOpenClosedLoans(){

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataRetrievalService } from 'src/app/shared/services/dataRetrieval.service';
 import { IPendingLoansSummary } from 'src/app/shared/model/summary/pendingLoansSummary.model';
+import { CommonService } from 'src/app/shared/services/common.service';
+import { Observable } from 'rxjs';
 
 @Component({
     selector:'app-tablePendingLoans',
@@ -9,14 +11,17 @@ import { IPendingLoansSummary } from 'src/app/shared/model/summary/pendingLoansS
 })
 export class TablePendingLoansComponent implements OnInit{
 
-    constructor(private dataRetrieval:DataRetrievalService){}
+    constructor(private dataRetrieval:DataRetrievalService,
+                private common:CommonService){}
 
     allPendingloans:IPendingLoansSummary;
     dataUnavilable:boolean = false;
     spinner:boolean = true;
+    isDark:Observable<boolean>;
 
     ngOnInit(){
         this.getOverallPendingLoans();
+        this.isDark = this.common.isDarkTheme;
     }
     
     getOverallPendingLoans(){

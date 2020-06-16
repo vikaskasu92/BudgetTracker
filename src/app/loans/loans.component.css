@@ -9,14 +9,9 @@
     margin-bottom:-10px;
 }
 
-.table-header-style{
-    color: #B3B3B3;
-    font-size: 14px;
-    font-style: italic;
-}
-
-.table-content-style{
-  color: #B3B3B3;
+.dark-mode-table-content{
+  background-color: #2E2E38;
+  color: #009788;
 }
 
 .mat-card-header-design{

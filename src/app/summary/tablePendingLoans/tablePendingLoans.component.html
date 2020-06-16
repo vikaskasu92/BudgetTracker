@@ -13,20 +13,20 @@
                     <table class="table table-striped pendingLoans">
                         <thead>
                         <tr>
-                            <th scope="col" class="table-header-style">Loan</th>
-                            <th scope="col" class="table-header-style">Loan Type</th>
-                            <th scope="col" class="table-header-style">Balance</th>
-                            <th scope="col" class="table-header-style">Loan APR</th>
-                            <th scope="col" class="table-header-style">EMI</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }" class="table-header-style">Loan</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }" class="table-header-style">Loan Type</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }" class="table-header-style">Balance</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }" class="table-header-style">Loan APR</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }" class="table-header-style">EMI</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let  pendingLoan of allPendingloans">
-                                <td class="table-content-style">{{ pendingLoan.loanName | uppercase}}</td>
-                                <td class="table-content-style">{{ pendingLoan.loanType | uppercase }}</td>
-                                <td class="table-content-style">{{ pendingLoan.loanBalance | currency:USD }}</td>
-                                <td class="table-content-style">{{ pendingLoan.loanAPR | decimalFormat:2 }} %</td>
-                                <td class="table-content-style">{{ pendingLoan.loanMonthlyAmount | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ pendingLoan.loanName | uppercase}}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ pendingLoan.loanType | uppercase }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ pendingLoan.loanBalance | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ pendingLoan.loanAPR | decimalFormat:2 }} %</td>
+                                <td  [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ pendingLoan.loanMonthlyAmount | currency:USD }}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -41,22 +41,22 @@
                     <table class="table table-striped purchases">
                         <thead>
                         <tr>
-                            <th scope="col" class="table-header-style">Item</th>
-                            <th scope="col" class="table-header-style">Cost</th>
-                            <th scope="col" class="table-header-style">Date</th>
-                            <th scope="col" class="table-header-style">Main Category</th>
-                            <th scope="col" class="table-header-style">Sub Category</th>
-                            <th scope="col" class="table-header-style">Actions</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Item</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Cost</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Date</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Main Category</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Sub Category</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let purchasesItem of purchasesItems">
-                                <td >{{ purchasesItem.item }}</td>
-                                <td >{{ purchasesItem.cost | currency:USD }}</td>
-                                <td >{{ purchasesItem.date }}</td>
-                                <td >{{ purchasesItem.mainCategory }}</td>
-                                <td >{{ purchasesItem.subCategory }}</td>
-                                <td >
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ purchasesItem.item }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ purchasesItem.cost | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ purchasesItem.date }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ purchasesItem.mainCategory }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ purchasesItem.subCategory }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">
                                     <a mat-button (click)="editPurchaseItem(purchasesItem.item,purchasesItem.cost,purchasesItem.date,purchasesItem.mainCategory,purchasesItem.subCategory,purchasesItem.id)" class="icon-display"><mat-icon>edit</mat-icon></a>
                                     <a mat-button (click)="deletePurchaseItem(purchasesItem.id)" class="icon-display"><mat-icon>delete</mat-icon></a>
                                 </td>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="row">
                     <div class="push-left"></div>
-                    <div class="align-pageNumbers pagination-color">{{ minPagePurchases }} - {{ maxPagePurchases }} of {{ totalResultsPurchases }}</div>
+                    <div [ngClass]="{'pagination-color-dark' : isDark | async }" class="align-pageNumbers pagination-color">{{ minPagePurchases }} - {{ maxPagePurchases }} of {{ totalResultsPurchases }}</div>
                     <button mat-button [disabled]="purchaseLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPagePurchases,'purchases')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="purchaseRightDisabled" (click)="goRight(minPagePurchases,maxPagePurchases,'purchases')"><mat-icon>chevron_right</mat-icon></button>
                 </div>
             </mat-card-content>
@@ -82,24 +82,24 @@
                     <table class="table table-striped income">
                         <thead>
                         <tr>
-                            <th scope="col" class="table-header-style">Salary Recieved</th>
-                            <th scope="col" class="table-header-style">Date Recieved</th>
-                            <th scope="col" class="table-header-style">Federal Tax</th>
-                            <th scope="col" class="table-header-style">State Tax</th>
-                            <th scope="col" class="table-header-style">Medicare Tax</th>
-                            <th scope="col" class="table-header-style">Social Security Tax</th>
-                            <th scope="col" class="table-header-style">Actions</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Salary Recieved</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Date Recieved</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Federal Tax</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">State Tax</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Medicare Tax</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Social Security Tax</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let incomeItem of incomeItems">
-                                <td >{{ incomeItem.salaryRecieved | currency:USD  }}</td>
-                                <td >{{ incomeItem.dateRecieved }}</td>
-                                <td >{{ incomeItem.federalTax | currency:USD }}</td>
-                                <td >{{ incomeItem.stateTax | currency:USD }}</td>
-                                <td >{{ incomeItem.medicareTax | currency:USD }}</td>
-                                <td >{{ incomeItem.socialSecurityTax | currency:USD }}</td>
-                                <td >
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ incomeItem.salaryRecieved | currency:USD  }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ incomeItem.dateRecieved }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ incomeItem.federalTax | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ incomeItem.stateTax | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ incomeItem.medicareTax | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ incomeItem.socialSecurityTax | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">
                                     <a mat-button (click)="editIncomeItem(incomeItem.salaryRecieved,incomeItem.dateRecieved,incomeItem.federalTax,incomeItem.stateTax,incomeItem.medicareTax,incomeItem.socialSecurityTax,incomeItem.id)" class="icon-display"><mat-icon>edit</mat-icon></a>
                                     <a mat-button (click)="deleteIncomeItem(incomeItem.id)" class="icon-display"><mat-icon>delete</mat-icon></a>
                                 </td>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="row">
                     <div class="push-left"></div>
-                    <div class="align-pageNumbers pagination-color">{{ minPageIncome }} - {{ maxPageIncome }} of {{ totalResultsIncome }}</div>
+                    <div [ngClass]="{'pagination-color-dark' : isDark | async }" class="align-pageNumbers pagination-color">{{ minPageIncome }} - {{ maxPageIncome }} of {{ totalResultsIncome }}</div>
                     <button mat-button [disabled]="incomeLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageIncome,'income')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="incomeRightDisabled" (click)="goRight(minPageIncome,maxPageIncome,'income')"><mat-icon>chevron_right</mat-icon></button>
                 </div>
             </mat-card-content>
@@ -125,18 +125,18 @@
                     <table class="table table-striped insurance">
                         <thead>
                         <tr>
-                            <th scope="col" class="table-header-style">Insurance Type</th>
-                            <th scope="col" class="table-header-style">Amount</th>
-                            <th scope="col" class="table-header-style">Date</th>
-                            <th scope="col" class="table-header-style">Actions</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Insurance Type</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Amount</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Date</th>
+                            <th scope="col" [ngClass]="{'dark-mode-table-content' : isDark | async }">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let insuranceItem of insuranceItems">
-                                <td >{{ insuranceItem.insuranceType }}</td>
-                                <td >{{ insuranceItem.insurnacePaidAmount | currency:USD }}</td>
-                                <td >{{ insuranceItem.insurancePaidDate }} </td>
-                                <td >
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ insuranceItem.insuranceType }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ insuranceItem.insurnacePaidAmount | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ insuranceItem.insurancePaidDate }} </td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">
                                     <a mat-button (click)="editInsuranceItem(insuranceItem.insuranceType,insuranceItem.insurnacePaidAmount,insuranceItem.insurancePaidDate,insuranceItem.id)" class="icon-display"><mat-icon>edit</mat-icon></a>
                                     <a mat-button (click)="deleteInsuranceItem(insuranceItem.id)" class="icon-display"><mat-icon>delete</mat-icon></a>
                                 </td>
@@ -146,8 +146,8 @@
                 </div>
                 <div class="row">
                     <div class="push-left"></div>
-                    <div class="align-pageNumbers pagination-color">{{ minPageInsurance }} - {{ maxPageInsurance }} of {{ totalResultsInsurance }}</div>
-                    <button mat-button [disabled]="insuranceLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageInsurance,'insurance')"><mat-icon>chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="insuranceRightDisabled" (click)="goRight(minPageInsurance,maxPageInsurance,'insurance')"><mat-icon>chevron_right</mat-icon></button>
+                    <div [ngClass]="{'pagination-color-dark' : isDark | async }" class="align-pageNumbers pagination-color">{{ minPageInsurance }} - {{ maxPageInsurance }} of {{ totalResultsInsurance }}</div>
+                    <button mat-button [disabled]="insuranceLeftDisabled" class="left-arrow pagination-color" (click)="goLeft(minPageInsurance,'insurance')"><mat-icon [ngClass]="{'pagination-color-dark' : isDark | async}">chevron_left</mat-icon></button><button mat-button class="right-arrow pagination-color" [disabled]="insuranceRightDisabled" (click)="goRight(minPageInsurance,maxPageInsurance,'insurance')"><div [ngClass]="{'pagination-color-dark' : isDark | async}"><mat-icon>chevron_right</mat-icon></div></button>
                 </div>
             </mat-card-content>
         </mat-card>

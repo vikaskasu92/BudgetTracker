@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Chart from 'chart.js';
+import { getTreeNoValidDataSourceError } from '@angular/cdk/tree';
 
 @Injectable({providedIn:'root'})
 export class ChartMakerService{
@@ -14,7 +15,7 @@ export class ChartMakerService{
       backgroundColor:"#5CDB95"
     }]
     const labels = dateArray;
-    return this._generateChart(canvasName,'line',datasets,labels,false,true,chartTitle);
+    return this._generateChartWithTicks(canvasName,'line',datasets,labels,false,true,chartTitle);
   }
 
   createCategoryBasedBarChart(canvasName:string,priceArray:any,dateArray:any,chartTitle:string){
@@ -27,7 +28,7 @@ export class ChartMakerService{
       data: priceArray
   }]
   const labels = dateArray;
-  return this._generateChart(canvasName,'bar',datasets,labels,false,true,chartTitle);
+  return this._generateChartWithTicks(canvasName,'bar',datasets,labels,false,true,chartTitle);
   }
     
   createYearExpenseLineChart(canvasName:string,yearsArray:any,expenseArray:any,chartTitle:string){
@@ -40,7 +41,7 @@ export class ChartMakerService{
         backgroundColor:"#5CDB95"
     }]
     const labels = yearsArray;
-    return this._generateChart(canvasName,'line',datasets,labels,false,true,chartTitle);
+    return this._generateChartWithTicks(canvasName,'line',datasets,labels,false,true,chartTitle);
   }
 
   createTotalDoughnutChart(canvasName:string, inputData:any,chartTitle:string){
@@ -63,14 +64,65 @@ export class ChartMakerService{
         options: {
           responsive: true,
           legend: {
-            display: legendDisplay
+            display: legendDisplay,
+            labels: {
+              fontColor: '#009788'
+            }
           },
           tooltips:{
             enabled:toolTips
           },
           title: {
             display: true,
-            fontColor: "#5F687C",
+            fontColor: "#009788",
+            fontSize: 15,
+            text: chartTitle
+          }
+        }
+    });
+  }
+
+  private _generateChartWithTicks(canvasName:string,chartType:string,dataSets:any,labels:any,legendDisplay:boolean,toolTips:boolean,chartTitle:string){
+    return new Chart(canvasName, {
+      type: chartType,
+      data: {
+          labels: labels,
+          datasets: dataSets
+        },
+        options: {
+          responsive: true,
+          legend: {
+            display: legendDisplay,
+            labels: {
+              fontColor: '#009788'
+            }
+          },
+          scales: {
+            xAxes: [
+              { 
+                gridLines: {
+                  display: true,
+              },
+                ticks: {
+                  fontColor: "#009788"
+                }
+            }],
+            yAxes: [
+              {
+                gridLines: {
+                  display: true,
+              },
+              ticks: {
+                fontColor: "#009788"
+              }
+          }]
+          },
+          tooltips:{
+            enabled:toolTips
+          },
+          title: {
+            display: true,
+            fontColor: "#009788",
             fontSize: 15,
             text: chartTitle
           }

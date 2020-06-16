@@ -4,7 +4,7 @@
 }
 
 .text-decorator{
-    color: #B3B3B3;
+    color: #009788;
     font-size: 16px;
     text-align: center;
 }
@@ -19,7 +19,7 @@
 }
 
 .alarms-title{
-    color: #B3B3B3;
+    color: #009788;
     font-size: 16px;
 }
 
@@ -41,19 +41,32 @@
 
 .my-custom-scrollbar {
     position: relative;
-    height: 300px;
+    height: 290px;
     overflow-y: auto;
-    border: 1px dotted silver;
+}
+
+.my-custom-scrollbar-dark {
+    position: relative;
+    height: 290px;
+    overflow-y: auto;
 }
 
 .my-custom-scrollbar thead th { 
     position: sticky; 
     top: 0; 
-    background:#eee;
+	background:#eee!important;
+	z-index: 500;
+}
+
+.my-custom-scrollbar-dark thead th { 
+    position: sticky; 
+    top: 0; 
+	background:#2E2E38!important;
+	z-index: 500;
 }
 
 .label-design{
-    color: #2C3531;
+    color: #2E2E38;
     text-decoration: underline;
 }
 
@@ -71,6 +84,13 @@
     font-size: 14px;
     font-style: italic;
 }
+
+.dark-mode-table-content{
+	background-color: #2E2E38;
+	color: #009788;
+	font-size: 14px;
+    font-style: italic;
+  }
 
 @media 
 only screen and (max-width: 760px),
