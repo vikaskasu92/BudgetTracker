@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ export class CommonService{
    checkedDarkMode:boolean = true;
    darkTheme = new BehaviorSubject<boolean>(true);
    isDarkTheme = this.darkTheme.asObservable();
-   tabIndex = new BehaviorSubject<number>(4);
+   tabIndex = new Subject<number>();
    tabIndexChangedOnEdit = this.tabIndex.asObservable();
 
    onExpansionPanelClick(expansionPanelName:string){

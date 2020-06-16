@@ -2,7 +2,7 @@
     <mat-card-content>
         <div class="row center-heading">
             <h3 class="push-additional-alarms-symbol alarms-title">Alarms<mat-icon class="heading-icon-space">alarm</mat-icon></h3>
-            <a *ngIf="!noAlarms" (click)="addAdditionalNewAlarm()"><mat-icon>add</mat-icon></a>
+            <a *ngIf="!noAlarms" (click)="addAdditionalNewAlarm()" class="add-cursor-with-space"><mat-icon>add</mat-icon></a>
         </div>
         <div class="center-align" *ngIf="noAlarms">
             <a (click)="addNewAlarm()"><mat-icon class="font_size">add</mat-icon></a>
