@@ -54,6 +54,11 @@ export class LocalAuthService{
             console.log('error resending code: ', err);
         }
     }
+
+    awsFacebookLogin(){
+        //return Auth.federatedSignIn({provider: 'Facebook'});
+        //return Auth.federatedSignIn({provider: 'Facebook'}).
+    }
     
     awsForgotPassword(username:string){
         return Auth.forgotPassword(username);
@@ -72,18 +77,11 @@ export class LocalAuthService{
     logout(){
         this.userEmail.next("");
         this.isAuthenticated.next(false);
+        localStorage.removeItem('btUserData');
         try {
              Auth.signOut({ global: true });
         } catch (error) {
             console.log('error signing out: ', error);
-        }
-    }
-
-    private _checkForDemoEmail(user:any){
-        if(user.email === "test@test.com"){
-            this.isDemoUser = true;
-            user.email = "Demo User";
-           // this.userEmail = "test@test.com";
         }
     }
 

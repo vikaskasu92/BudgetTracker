@@ -97,7 +97,7 @@
 }
 
 .adjust-divider-for-forgot-password{
-    height:25vh;
+    height:55vh;
 }
 
 .adjust-social-button-for-forgot-password{
@@ -124,7 +124,7 @@ only screen and (max-width: 760px),
     }
 
     .mat-card-small-window-for-forgot-password{
-        height: 259px;
+        height: 459px;
     }
 
     .close-on-small-window{

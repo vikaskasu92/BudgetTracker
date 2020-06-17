@@ -178,8 +178,6 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
 
     loginWithFacebook(){
         this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then( response =>{
-            this.localAuthService.isDemoUser = false;
-            this.localAuthService.userId = response.id;
             this.router.navigate(['/newInput']);
             let expirationDate:Date = new Date();
             expirationDate.setHours(expirationDate.getHours() + 5);
@@ -188,11 +186,16 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
                 response.id,
                 expirationDate,
                 response.authToken);
-            //this.localAuthService.user.next(facebookUser);
-            //this.localAuthService.isAuthenticated = true;
             localStorage.removeItem('btUserData');
             localStorage.setItem('btUserData',JSON.stringify(facebookUser));
             this.dialogRef.close(true);
+            this.localAuthService.isAuthenticated.next(true);
+            setTimeout(()=>{
+                this.router.navigate(['/newInput']);
+                this.localAuthService.userEmail.next(response.email);
+                this.localAuthService.userId = response.email;
+            },0);
+            console.log(response);
         });
     }
     

@@ -60,10 +60,4 @@ export class LoginComponent{
         });
     }
 
-    logout(){
-        localStorage.removeItem('btUserData');
-       // this.authService.user.next(null);
-        this.router.navigate(['/home']);
-    }
-
 }
