@@ -96,12 +96,14 @@ export class InputDataService{
         return categoriesForm;
     }
 
-    createFirebaseSignUpLoginForm(firebaseLoginForm:FormGroup){
-        firebaseLoginForm = new FormGroup({
+    createAWSSignUpLoginForm(awsLoginForm:FormGroup){
+        awsLoginForm = new FormGroup({
             'email': new FormControl(null,[Validators.required,Validators.email]),
+            'confirmationCode' : new FormControl(null),
+            'newPassword': new FormControl(null,Validators.minLength(6)),
             'password': new FormControl(null,[Validators.required,Validators.minLength(6)])
          });
-        return firebaseLoginForm;
+        return awsLoginForm;
     }
     
 
@@ -126,6 +128,14 @@ export class InputDataService{
         const dialogRef = dialog.open(component, {
             disableClose: true,
             data:data,
+              maxHeight: '100vh'
+        });
+        return dialogRef;
+    }
+
+    openAWSLoginDialog(dialog:MatDialog,component:any){
+        const dialogRef = dialog.open(component, {
+            disableClose: true,
               maxHeight: '100vh'
         });
         return dialogRef;

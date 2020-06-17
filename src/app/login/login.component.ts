@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material';
 import { LocalAuthService } from '../shared/services/auth.service';
 import { LoginDialogComponent } from '../shared/dialogs/loginDialog/loginDialog.component';
 import { Router } from '@angular/router';
-import { FirebaseLoginSignupInput } from '../shared/model/auth/FirebaseLoginSignupInput.model';
 import { CommonService } from '../shared/services/common.service';
 
 @Component({
@@ -45,19 +44,25 @@ export class LoginComponent{
     }
 
     demoLogin(){
-        const userInputData:FirebaseLoginSignupInput = {
-             email:'test@test.com',
-             password:'test123',
-             returnSecureToken:true
+        const userInputData:any = {
+             email:'budgettracker92@gmail.com',
+             password:'test1234'
         }
-        this.authService.firebaseLogin(userInputData).subscribe( response =>{
+        this.authService.awsLogin(userInputData).then(response =>{
+            this.authService.isAuthenticated.next(true);
             this.router.navigate(['/newInput']);
+            setTimeout(()=>{
+                this.authService.userEmail.next('Demo User');
+                this.authService.userId = response.attributes.email;
+            },0);
+        },reject =>{
+            console.log(reject);
         });
     }
 
     logout(){
         localStorage.removeItem('btUserData');
-        this.authService.user.next(null);
+       // this.authService.user.next(null);
         this.router.navigate(['/home']);
     }
 

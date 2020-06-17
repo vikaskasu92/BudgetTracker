@@ -19,6 +19,11 @@ import { LoginDialogComponent } from './dialogs/loginDialog/loginDialog.componen
 import { RouterModule } from '@angular/router';
 import {MatMenuModule} from '@angular/material/menu';
 import { ErrorDialogComponent } from './dialogs/errorDialog/errorDialog.component';
+import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
+import Amplify from 'aws-amplify';
+import awsconfig from '../../aws-exports';
+
+Amplify.configure(awsconfig);
 
 @NgModule({
     declarations:[
@@ -35,7 +40,7 @@ import { ErrorDialogComponent } from './dialogs/errorDialog/errorDialog.componen
         ConfirmDialogComponent,
         EditRawDataDialogComponent,
         ErrorDialogComponent,
-        PlaceholderDirective,
+        PlaceholderDirective
     ],
     exports:[
         CommonModule,
@@ -71,7 +76,8 @@ import { ErrorDialogComponent } from './dialogs/errorDialog/errorDialog.componen
         MatDividerModule,
         MatMenuModule,
         MatSlideToggleModule,
-        MatListModule
+        MatListModule,
+        AmplifyUIAngularModule
     ],
     imports:[
         CommonModule,
@@ -96,7 +102,8 @@ import { ErrorDialogComponent } from './dialogs/errorDialog/errorDialog.componen
         MatDividerModule,
         MatMenuModule,
         MatSlideToggleModule,
-        MatListModule
+        MatListModule,
+        AmplifyUIAngularModule
     ]
 })
 export class SharedModule{

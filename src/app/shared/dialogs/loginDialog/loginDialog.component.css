@@ -5,7 +5,7 @@
 
 .mat-card-content-full-window{
     max-width:666px;
-    max-height:250px;
+    max-height:270px;
 }
 
 .keep-to-one-line{
@@ -79,8 +79,13 @@
     color:white;
 }
 
+.aws-confirm-button{
+    background-color: #EC5252;
+    color:white;
+}
+
 .adjust-mat-card-for-fp{
-    height:200px;
+    height:400px;
 }
 
 .adjust-forgot-password-large-window-form{

@@ -1,89 +1,90 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { FirebaseAuthSuccess } from '../model/auth/firebaseAuthSuccess.model'
-import { FirebaseLoginSignupInput } from '../model/auth/FirebaseLoginSignupInput.model';
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { User } from '../model/auth/user.model';
+import {  AWSCognitoLoginInput } from '../model/auth/AWSCognitoLoginInput.model';
+import { BehaviorSubject, Subject } from 'rxjs';
+
+import { Auth } from 'aws-amplify';
+import { AWSCognitoSignup } from '../model/auth/AWSCognitoSignup.model';
 
 @Injectable({providedIn:'root'})
 export class LocalAuthService{
     
     constructor(private http:HttpClient){}
 
-    isAuthenticated:boolean;
     userId:string;
-    userEmail:string;
-    user = new BehaviorSubject<User>(null);
+    userEmail = new Subject<string>();
+    isAuthenticated = new BehaviorSubject<boolean>(null);
     userFirebaseLogin = {}
     isDemoUser:boolean;
 
-    firebaseSignUp(userInputData:FirebaseLoginSignupInput){
-        return this.http.post<FirebaseAuthSuccess>("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCgYHOtRUnryp7MUCPVKU17FKzNVLNnHKs",userInputData); 
-    }
-
-    firebaseLogin(userInputData:FirebaseLoginSignupInput){
-        this.isDemoUser = false;
-       return this.http.post<FirebaseAuthSuccess>("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCgYHOtRUnryp7MUCPVKU17FKzNVLNnHKs",userInputData).pipe(
-           tap( response => {
-                const expirationDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
-                const user = new User(
-                    response.email,response.localId,
-                    expirationDate,response.idToken);
-                localStorage.setItem('btUserData',JSON.stringify(user));
-                this._triggerUserAfterAuthentication(user);
-            })
-       );
-    }
-
-    autoLogin(){
-        this.isDemoUser = false;
-        const userData = JSON.parse(localStorage.getItem('btUserData'));
-        if(!userData){
-            this.user.next(null);
-            return false;
-        }
-        const loadedUser = new User(
-            userData.email,
-            userData.userId,
-            new Date(userData._tokenExpirationDate),
-            userData._idToken);
-        if(loadedUser.idToken){
-            this._triggerUserAfterAuthentication(loadedUser);
-            return true;
+    awsLogin(userInputData:AWSCognitoLoginInput){
+        try {
+            return Auth.signIn(userInputData.email, userInputData.password);
+        } catch (error) {
+            console.log('error signing in', error);
         }
     }
 
-    firebasePasswordReset(email:string){
-        const inputData = {
-            requestType:"PASSWORD_RESET",
-            email:email
+    awsSignUp(userInputData:AWSCognitoSignup) {
+        try {
+            return Auth.signUp({username:userInputData.email,
+                password:userInputData.password,
+            attributes: {
+                email:userInputData.email
+            }
+        });
+    } catch (error) {
+        console.log('error signing up:', error);
+    }
+}
+
+    awsUserConfirm(username:string,code:string){
+        try {
+            return Auth.confirmSignUp(username, code);
+          } catch (error) {
+              console.log('error confirming sign up', error);
+          }
+    }
+
+    awsUserReConfirm(username:string){
+        try {
+            return Auth.resendSignUp(username);
+        } catch (err) {
+            console.log('error resending code: ', err);
         }
-        return this.http.post<any>("https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyCgYHOtRUnryp7MUCPVKU17FKzNVLNnHKs",inputData);
+    }
+    
+    awsForgotPassword(username:string){
+        return Auth.forgotPassword(username);
+    }
+
+    awsForgotPasswordSubmit(username:string,code:string,newPassword:string){
+        return Auth.forgotPasswordSubmit(username, code, newPassword);
+    }
+
+
+    autoLoginAWS(){
+        this.isAuthenticated.next(true);
+        return Auth.currentAuthenticatedUser();
     }
 
     logout(){
-        localStorage.removeItem('btUserData');
-        this.userId = "";
-        this.userEmail = "";
-        this.user.next(null);
+        this.userEmail.next("");
+        this.isAuthenticated.next(false);
+        try {
+             Auth.signOut({ global: true });
+        } catch (error) {
+            console.log('error signing out: ', error);
+        }
     }
 
     private _checkForDemoEmail(user:any){
         if(user.email === "test@test.com"){
             this.isDemoUser = true;
             user.email = "Demo User";
-            this.userEmail = "test@test.com";
+           // this.userEmail = "test@test.com";
         }
-    }
-
-    private _triggerUserAfterAuthentication(user:any){
-        this.isAuthenticated = true;
-        this.userId = user.userId;
-        this.userEmail = user.email;
-        this._checkForDemoEmail(user);
-        this.user.next(user);
     }
 
 }

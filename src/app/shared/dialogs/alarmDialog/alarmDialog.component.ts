@@ -23,7 +23,11 @@ export class AlarmDialogComponent implements OnInit, AfterViewInit{
     @ViewChild('divValue',{static:false}) divValue:ElementRef;
 
     ngOnInit(): void {
-        this.userEmail = this.localAuthService.userEmail;
+        this.localAuthService.userEmail.subscribe( value=>{
+            console.log(this.userEmail);
+            this.userEmail = value;
+            console.log(this.userEmail);
+        });
         this.newAlarmForm =  this.inputDataService.createNewAlarmForm(this.newAlarmForm,this.userEmail);
         this.isDarkTheme = this.data.isDarkTheme;
         this.isDark = this.data.isDark;

@@ -8,11 +8,12 @@ import { MatIconRegistry, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 
 import { InputDataService } from '../../services/inputData.service';
 import { LocalAuthService } from '../../services/auth.service';
-import { FirebaseLoginSignupInput } from '../../model/auth/FirebaseLoginSignupInput.model';
 
 import { AuthService } from "angularx-social-login";
 import { FacebookLoginProvider } from "angularx-social-login";
 import { User } from '../../model/auth/user.model';
+import { AWSCognitoLoginInput } from '../../model/auth/AWSCognitoLoginInput.model';
+import { AWSCognitoSignup } from '../../model/auth/AWSCognitoSignup.model';
 
 
 @Component({
@@ -35,10 +36,10 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
                     this.matIconRegistry.addSvgIcon("apple",this.domSanitizer.bypassSecurityTrustResourceUrl("../../../../assets/icons/apple-icon.svg"));
                 }
 
-    firebaseLoginSignUpForm:FormGroup;
-    firebaseSingUpForm:FormGroup;
+    awsLoginSignUpForm:FormGroup;
     switchToSignUp:boolean;
     forgotPassword:boolean;
+    waitingForAuthCode:boolean = false;
     dataReturn:any[];
     formType:string;
     loginError:boolean = false;
@@ -47,6 +48,8 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
     isDarkTheme:boolean;
     isDark:boolean;
     errorMessage:string;
+    confirmPassword:boolean = false;
+    passwordResetWithCode:boolean = false;
     @ViewChild('divValue',{static:false}) divValue:ElementRef;
 
     ngOnInit(){
@@ -62,7 +65,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
             this.forgotPassword = false; 
             this.switchToSignUp = false;
         }
-        this.firebaseLoginSignUpForm = this.inputDataService.createFirebaseSignUpLoginForm(this.firebaseLoginSignUpForm);
+        this.awsLoginSignUpForm = this.inputDataService.createAWSSignUpLoginForm(this.awsLoginSignUpForm);
         this.isDarkTheme = this.data.isDarkTheme;
         this.isDark = this.data.isDark;
     }
@@ -76,42 +79,101 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
     onFirebaseLoginOrSignupOrFP(){
         this.loginError = false;
         if(this.formType === "Login"){
-            if(this.firebaseLoginSignUpForm.valid){
+            if(this.awsLoginSignUpForm.valid){
                 this.errorMessage = '';
-                this.localAuthService.firebaseLogin(this._formLoginSignUpData()).subscribe( response=>{
+                this.localAuthService.awsLogin(this._formLoginData()).then(response =>{
+                    this.localAuthService.isAuthenticated.next(true);
                     this.router.navigate(['/newInput']);
                     this.dialogRef.close(true);
-                },failure =>{
-                    this.errorMessage = this._errorMessages(failure.error.error.message);
+                    setTimeout(()=>{
+                        if(response.attributes.email === 'budgettracker92@gmail.com'){
+                            this.localAuthService.userEmail.next('Demo User');
+                        }else{
+                            this.localAuthService.userEmail.next(response.attributes.email);
+                        }
+                        this.localAuthService.userId = response.attributes.email;
+                    },0);
+                    console.log(response);
+                },reject =>{
                     this.loginError = true;
-                }); 
+                    this.errorMessage = reject.message;
+                    console.log(reject);
+                });
             }
         }else if(this.formType === "Sign Up"){
-            if(this.firebaseLoginSignUpForm.valid){
+            if(this.awsLoginSignUpForm.valid){
                 this.errorMessage = '';
-                this.localAuthService.firebaseSignUp(this._formLoginSignUpData()).subscribe( response=>{
-                    this.dataReturn = [this.firebaseLoginSignUpForm,"firebaseLogin"];
-                    this.dialogRef.close(this.dataReturn);
-                }, failure =>{
-                    this.errorMessage = this._errorMessages(failure.error.error.message);
+                this.localAuthService.awsSignUp(this._formSignUpData()).then(response =>{
+                    this.waitingForAuthCode = true;
+                    console.log(response);
+                },reject =>{
                     this.loginError = true;
-                }); 
+                    this.errorMessage = reject.message;
+                    console.log(reject);
+                });
+                
             }
         }else{
-            if(this.firebaseLoginSignUpForm.controls.email.valid){
+            if(this.awsLoginSignUpForm.controls.email.valid){
                 this.errorMessage = '';
-                this.localAuthService.firebasePasswordReset(this.firebaseLoginSignUpForm.controls.email.value).subscribe( response=>{
-                    setTimeout(()=>{
-                        this.dataReturn = [this.firebaseLoginSignUpForm,"firebaseLogin"];
-                        this.dialogRef.close(this.dataReturn);
-                    },2000);
-                }, failure =>{
-                    this.loginError = true;
-                    this.errorMessage = this._errorMessages(failure.error.error.message);
-                }); 
+                let email = this.awsLoginSignUpForm.value.email;
+                    this.localAuthService.awsForgotPassword(email).then(data => {
+                        console.log(data)
+                        this.passwordResetWithCode = true;
+                        this.waitingForAuthCode = true;
+                        this.confirmPassword = true;
+                    },reject =>{
+                        this.loginError = true;
+                        this.errorMessage = reject.message;
+                        console.log(reject);
+                    });
             }
         }
         
+    }
+
+    submitNewPasswordForReset(){
+        let email = this.awsLoginSignUpForm.value.email;
+        let confirmationCode = this.awsLoginSignUpForm.value.confirmationCode;
+        let newPassword = this.awsLoginSignUpForm.value.newPassword;
+        this.localAuthService.awsForgotPasswordSubmit(email,confirmationCode,newPassword).then(response =>{
+            this.waitingForAuthCode = false;
+            this.confirmPassword = false;
+            this.dataReturn = [this.awsLoginSignUpForm,"firebaseLogin"];
+            this.dialogRef.close(this.dataReturn);
+            console.log(response);
+        },reject =>{
+            this.loginError = true;
+            this.errorMessage = reject.message;
+            console.log(reject);
+        });    
+    }
+
+    checkAuthCode(){
+        this.loginError = false;
+        let confirmationCode = this.awsLoginSignUpForm.value.confirmationCode;
+        let email = this.awsLoginSignUpForm.value.email;
+        this.localAuthService.awsUserConfirm(email,confirmationCode).then(response =>{
+            this.dataReturn = [this.awsLoginSignUpForm,"firebaseLogin"];
+            this.dialogRef.close(this.dataReturn);
+            console.log(response);
+        },reject =>{
+            this.loginError = true;
+            this.errorMessage = reject.message;
+            console.log(reject);
+        });
+    }
+
+    resendAuthCode(){
+        this.loginError = false;
+        let email = this.awsLoginSignUpForm.value.email;
+        this.localAuthService.awsUserReConfirm(email).then(response =>{
+            console.log(response);
+        },reject =>{
+            this.loginError = true;
+            this.errorMessage = reject.message;
+            console.log(reject);
+        });
     }
 
     loginWithFacebook(){
@@ -126,8 +188,8 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
                 response.id,
                 expirationDate,
                 response.authToken);
-            this.localAuthService.user.next(facebookUser);
-            this.localAuthService.isAuthenticated = true;
+            //this.localAuthService.user.next(facebookUser);
+            //this.localAuthService.isAuthenticated = true;
             localStorage.removeItem('btUserData');
             localStorage.setItem('btUserData',JSON.stringify(facebookUser));
             this.dialogRef.close(true);
@@ -137,19 +199,19 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
 
     forgotPasswordWithFirebase(event:any){
         event.preventDefault();
-        this.dataReturn = [this.firebaseLoginSignUpForm,"forgotPassword"];
+        this.dataReturn = [this.awsLoginSignUpForm,"forgotPassword"];
         this.dialogRef.close(this.dataReturn);
     }
 
     switchToSignupWithFirebase(event:any){
         event.preventDefault();
-        this.dataReturn = [this.firebaseLoginSignUpForm,"signUpWithFirebase"];
+        this.dataReturn = [this.awsLoginSignUpForm,"signUpWithFirebase"];
         this.dialogRef.close(this.dataReturn);
     }
 
     switchToForgotPassword(event:any){
         event.preventDefault();
-        this.dataReturn = [this.firebaseLoginSignUpForm,"forgotPassword"];
+        this.dataReturn = [this.awsLoginSignUpForm,"forgotPassword"];
         this.dialogRef.close(this.dataReturn);
     }
 
@@ -158,28 +220,18 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
         this.dialogRef.close(false);
     }
 
-    private _formLoginSignUpData():FirebaseLoginSignupInput{
-        const loginData:FirebaseLoginSignupInput = 
-            {email:this.firebaseLoginSignUpForm.value.email,
-            password:this.firebaseLoginSignUpForm.value.password,
-            returnSecureToken:true};
+    private _formLoginData():AWSCognitoLoginInput{
+        const loginData:AWSCognitoLoginInput = 
+            {email:this.awsLoginSignUpForm.value.email,
+            password:this.awsLoginSignUpForm.value.password};
         return loginData;
     }
 
-    private _errorMessages(message:string):string{
-        if(message === 'EMAIL_NOT_FOUND'){
-            return 'Email does not exist!';
-        }else if(message === 'INVALID_PASSWORD'){
-            return 'Username or Password is Invalid!';
-        }else if(message === 'USER_DISABLED'){
-            return 'User is currently disabled!';
-        }else if(message === 'EMAIL_EXISTS'){
-            return 'Email already exists, try password reset!';
-        }else if(message === 'OPERATION_NOT_ALLOWED'){
-            return 'Operation not allowed!';
-        }else if(message === 'TOO_MANY_ATTEMPTS_TRY_LATER'){
-            return 'Too many attempts, please try again later!';
-        }
+    private _formSignUpData():AWSCognitoSignup{
+        const singUpData:AWSCognitoSignup = 
+            {username:this.awsLoginSignUpForm.value.username,
+            email:this.awsLoginSignUpForm.value.email,
+            password:this.awsLoginSignUpForm.value.password};
+        return singUpData;
     }
-
 }

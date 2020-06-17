@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LocalAuthService } from './auth.service';
+import { Auth } from 'aws-amplify';
 
 @Injectable({providedIn:'root'})
 export class AuthGuard implements CanActivate{
@@ -10,11 +11,12 @@ export class AuthGuard implements CanActivate{
                 private router:Router){}
 
     canActivate(route:ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean> | Promise<boolean> {
-        if(this.authService.autoLogin()){
-            return true;
-        }
-        this.authService.user.next(null);
-        this.router.navigate(['/login']);
+        return this.authService.autoLoginAWS().then(() => { 
+            return true; 
+        }).catch(() => {
+          this.router.navigate(['/login']);
+          return false;
+        });
     }
 
 

@@ -29,7 +29,6 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { FacebookLoginProvider } from "angularx-social-login";
 import { ErrorDialogComponent } from './shared/dialogs/errorDialog/errorDialog.component';
- 
 
 export function provideConfig() {
   let config = new AuthServiceConfig([

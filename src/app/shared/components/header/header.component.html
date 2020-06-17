@@ -8,7 +8,7 @@
         <div class="flex-spacer"></div>
         <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)" class="toggle-switch-padding">Dark Mode</mat-slide-toggle>
         <mat-icon class="small-window-hide">person</mat-icon>
-        <div class="right-spacing small-window-hide">{{ userName }}</div>
+        <div class="right-spacing small-window-hide">{{ userEmail }}</div>
         <button mat-raised-button class="small-window-hide" (click)="logout()">Logout</button>
         <div class="menu-space">
             <button mat-button [matMenuTriggerFor]="mainMenu"><mat-icon>menu</mat-icon></button>
@@ -25,7 +25,7 @@
                         <div class="small-window-menu">
                             <hr>
                         </div>
-                        <span mat-menu-item class="small-window-menu">{{ userName }}</span>
+                        <span mat-menu-item class="small-window-menu">{{ userEmail }}</span>
                         <button mat-menu-item class="small-window-menu" (click)="logout()">Logout</button>
                     </div>
                 </div>

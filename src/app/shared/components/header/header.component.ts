@@ -15,17 +15,12 @@ export class HeaderComponent implements OnInit{
                 private route:ActivatedRoute,
                 private common:CommonService){}
     
-    userName:string;
+    userEmail:any;
     checkedDarkMode:boolean = this.common.checkedDarkMode;
     isDarkTheme = this.common.isDarkTheme;
     @Output()tabIndex = new EventEmitter<number>();
 
     ngOnInit(){
-        this.authService.user.subscribe(user =>{
-            if(user){
-                this.userName = user.email;
-            }
-        });
         this.checkUserPrefernces();
     }
 
@@ -42,6 +37,13 @@ export class HeaderComponent implements OnInit{
         if(JSON.parse(localStorage.getItem('darkMode')) === null){
             this.isDarkTheme = this.common.isDarkTheme;
         }
+        this.authService.userEmail.subscribe(value =>{
+            if(value === 'budgettracker92@gmail.com'){
+                this.userEmail = 'Demo User'
+            }else{
+                this.userEmail = value;
+            }
+        });
     }
 
     tabClick(tabName:any){

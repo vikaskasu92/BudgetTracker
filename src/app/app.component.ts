@@ -29,16 +29,23 @@ export class AppComponent implements OnInit{
   isAuthenticated:boolean = false;
 
   ngOnInit(){
-    this.isAuthenticated = this.authService.autoLogin();
-    if(this.isAuthenticated){
+    this.checkForAuthentication();
+     this.authService.autoLoginAWS().then(response => { 
+       if(response.attributes.email === 'budgettracker92@gmail.com'){
+        this.authService.userEmail.next('Demo User');
+       }else{
+        this.authService.userEmail.next(response.attributes.email);
+       }
+      this.authService.userId = response.attributes.email;
+      this.isAuthenticated = true; 
       this.activeLink = this.navLinks[0].path;
       this.router.navigate(['/newInput']);
-    }else{
+      this.editTabIndexChanged();
+    },reject =>{
+      this.isAuthenticated = false; 
       this.activeLink = this.navLinks[0].path;
       this.router.navigate(['/login']);
-    }
-    this.checkOnAuthenticatedUser();
-    this.editTabIndexChanged();
+    });
   }
 
   tabIndexChanged(tabNumber:number){
@@ -51,13 +58,11 @@ export class AppComponent implements OnInit{
     });
   }
 
-  checkOnAuthenticatedUser(){
-    this.authService.user.subscribe( userData =>{
-      if(this.router.url === "/login"){
-        this.activeLink = this.navLinks[0].path;
-      }
-      this.isAuthenticated = !!userData;
-    });
-}
+  checkForAuthentication(){
+    this.authService.isAuthenticated.subscribe( value =>{
+      this.isAuthenticated = value;
+    })
+  }
+
 
 }

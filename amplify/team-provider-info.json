@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-budgettracker-dev-231251-authRole",
+            "UnauthRoleArn": "arn:aws:iam::799458801990:role/amplify-budgettracker-dev-231251-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::799458801990:role/amplify-budgettracker-dev-231251-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-budgettracker-dev-231251-deployment",
+            "UnauthRoleName": "amplify-budgettracker-dev-231251-unauthRole",
+            "StackName": "amplify-budgettracker-dev-231251",
+            "StackId": "arn:aws:cloudformation:us-east-1:799458801990:stack/amplify-budgettracker-dev-231251/71b0af80-b048-11ea-bf2c-129d8c0b3757",
+            "AmplifyAppId": "d2gm2rjb6owcwy"
+        },
+        "categories": {
+            "auth": {
+                "budgettracker546efb92": {}
+            }
+        }
+    }
+}

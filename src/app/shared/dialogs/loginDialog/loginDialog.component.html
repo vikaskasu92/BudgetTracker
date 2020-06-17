@@ -6,7 +6,7 @@
         <ng-template #forgotPasswordHeading>
             <h5 class="center-align title-on-small-window">Forgot Password ? <button mat-button (click)="closeLoginForm()" class="close-on-small-window"><mat-icon>close</mat-icon></button></h5>
         </ng-template>
-        <mat-card class="modal-window-align" [ngClass]="{'adjust-mat-card-for-fp mat-card-small-window-for-forgot-password': forgotPassword}">
+        <mat-card class="modal-window-align" [ngClass]="{'adjust-mat-card-for-fp mat-card-small-window-for-forgot-password': forgotPassword,'mat-card-content-forgotPassword':confirmPassword}">
             <mat-card-content class="mat-content-small-window mat-card-content-full-window">
                 <div class="row">
                     <div class="col-md-5 col-lg-5 all-social-buttons-max-window all-social-buttons-small-window social-button-ipad-pro" [ngClass]="{'adjust-social-button-for-forgot-password':forgotPassword}">
@@ -17,25 +17,51 @@
                         <div *ngIf="loginError">
                             <mat-error>{{ errorMessage }}</mat-error>
                         </div>
-                        <form [formGroup]="firebaseLoginSignUpForm" class="login-form-adjust" (ngSubmit)="onFirebaseLoginOrSignupOrFP()" [ngClass]="{'push-signup-form-down': switchToSignUp}">
+                        <div *ngIf="waitingForAuthCode && !loginError">
+                            <mat-label>A confirmation Code has been sent to your email address.</mat-label>
+                        </div>
+                        <form [formGroup]="awsLoginSignUpForm" class="login-form-adjust" (ngSubmit)="onFirebaseLoginOrSignupOrFP()" [ngClass]="{'push-signup-form-down': switchToSignUp}">
                             <mat-form-field appearance="fill" class="login-email-field center-align move-form-fields-to-right">
                                 <mat-label>Email</mat-label>
                                 <input matInput formControlName="email">
-                                <mat-error *ngIf="!firebaseLoginSignUpForm.get('email').valid && firebaseLoginSignUpForm.get('email').touched">Email is invalid!</mat-error>
+                                <mat-error *ngIf="!awsLoginSignUpForm.get('email').valid && awsLoginSignUpForm.get('email').touched">Email is invalid!</mat-error>
                             </mat-form-field>
-                            <div *ngIf="!forgotPassword;else forgotPasswordTemplate">
-                                <mat-form-field appearance="fill" class="center-align move-form-fields-to-right">
-                                    <mat-label>Password</mat-label>
-                                    <input matInput type="password" formControlName="password">
-                                    <mat-error *ngIf="!firebaseLoginSignUpForm.get('password').valid && firebaseLoginSignUpForm.get('password').touched">Minimum 6 character is required.</mat-error>
+                            <div *ngIf="waitingForAuthCode">
+                                <mat-form-field appearance="fill" class="login-email-field center-align move-form-fields-to-right">
+                                    <mat-label>Confirmation Code</mat-label>
+                                    <input matInput formControlName="confirmationCode">
+                                    <mat-error *ngIf="!awsLoginSignUpForm.get('confirmationCode').valid && awsLoginSignUpForm.get('confirmationCode').touched">confirmationCode is invalid!</mat-error>
                                 </mat-form-field>
-                                <button mat-raised-button type="submit" class="firebaselogin-button keep-to-one-line center-align move-form-fields-to-right">{{ formType }}</button>
-                                <div class="align-forgot-password " *ngIf="!switchToSignUp"><span class="move-form-fields-to-right">or </span><a href="#" (click)="switchToForgotPassword($event)">Forgot Password</a></div>
-                                <div class="align-no-account center-align" *ngIf="!switchToSignUp"><span>Don't have an account? </span><a href="#" (click)="switchToSignupWithFirebase($event)"><strong>Sign up</strong></a></div>    
                             </div>
-                            <ng-template #forgotPasswordTemplate>
-                                <button mat-raised-button type="submit" class="firebaselogin-button keep-to-one-line center-align move-form-fields-to-right">Reset Password</button>
-                            </ng-template>
+                            <div *ngIf="confirmPassword">
+                                <mat-form-field appearance="fill" class="center-align move-form-fields-to-right">
+                                    <mat-label>New Password</mat-label>
+                                    <input matInput type="password" formControlName="newPassword">
+                                    <mat-error *ngIf="!awsLoginSignUpForm.get('newPassword').valid && awsLoginSignUpForm.get('newPassword').touched">Minimum 6 character is required.</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="!waitingForAuthCode">
+                                <div *ngIf="!forgotPassword;else forgotPasswordTemplate">
+                                    <mat-form-field appearance="fill" class="center-align move-form-fields-to-right">
+                                        <mat-label>Password</mat-label>
+                                        <input matInput type="password" formControlName="password">
+                                        <mat-error *ngIf="!awsLoginSignUpForm.get('password').valid && awsLoginSignUpForm.get('password').touched">Minimum 6 character is required.</mat-error>
+                                    </mat-form-field>
+                                    <button mat-raised-button type="submit" class="firebaselogin-button keep-to-one-line center-align move-form-fields-to-right">{{ formType }}</button>
+                                    <div class="align-forgot-password " *ngIf="!switchToSignUp"><span class="move-form-fields-to-right">or </span><a href="#" (click)="switchToForgotPassword($event)">Forgot Password</a></div>
+                                    <div class="align-no-account center-align" *ngIf="!switchToSignUp"><span>Don't have an account? </span><a href="#" (click)="switchToSignupWithFirebase($event)"><strong>Sign up</strong></a></div>   
+                                </div>
+                                <ng-template #forgotPasswordTemplate>
+                                    <button mat-raised-button type="submit" class="firebaselogin-button keep-to-one-line center-align move-form-fields-to-right">Reset Password</button>
+                                </ng-template>
+                            </div>
+                            <div *ngIf="waitingForAuthCode && !passwordResetWithCode">
+                                <button mat-raised-button type="button" (click)="checkAuthCode()" class="center-align move-form-fields-to-right firebaselogin-button">Confirm</button>
+                                <a mat-button type="button" (click)="resendAuthCode()" class="center-align move-form-fields-to-right">Resend Confirmation Code</a>
+                            </div>
+                            <div *ngIf="passwordResetWithCode">
+                                <button mat-raised-button type="button" (click)="submitNewPasswordForReset()" class="center-align move-form-fields-to-right firebaselogin-button">Reset Password</button>
+                            </div>
                         </form>
                     </div>
                     <div class="col-md-1 col-lg-1 align-close-button remove-padding-left">
