@@ -13,18 +13,22 @@
         <div class="menu-space">
             <button mat-button [matMenuTriggerFor]="mainMenu"><mat-icon>menu</mat-icon></button>
             <mat-menu #mainMenu="matMenu">
-                <mat-list role="list">
-                    <mat-list-item role="listitem" class="listSelect" (click)="tabClick('/newInput')">New Input</mat-list-item>
-                    <mat-list-item role="listitem" class="listSelect" (click)="tabClick('/summary')">Summary</mat-list-item>
-                    <mat-list-item role="listitem" class="listSelect" (click)="tabClick('/expensesByYear')">Expenses By Year</mat-list-item>
-                    <mat-list-item role="listitem" class="listSelect" (click)="tabClick('/loans')">Loans</mat-list-item>
-                    <mat-list-item role="listitem" class="listSelect" (click)="tabClick('/rawData')">Data</mat-list-item>
-                </mat-list>
-                <div class="small-window-menu">
-                    <hr>
+                <div [ngClass]="{'dark-theme' : isDarkTheme | async}">
+                    <div class="mat-app-background">
+                        <mat-list role="list">
+                            <mat-list-item role="listitem" class="listSelect" (click)="tabClick('/newInput')">New Input</mat-list-item>
+                            <mat-list-item role="listitem" class="listSelect" (click)="tabClick('/summary')">Summary</mat-list-item>
+                            <mat-list-item role="listitem" class="listSelect" (click)="tabClick('/expensesByYear')">Expenses By Year</mat-list-item>
+                            <mat-list-item role="listitem" class="listSelect" (click)="tabClick('/loans')">Loans</mat-list-item>
+                            <mat-list-item role="listitem" class="listSelect" (click)="tabClick('/rawData')">Data</mat-list-item>
+                        </mat-list>
+                        <div class="small-window-menu">
+                            <hr>
+                        </div>
+                        <span mat-menu-item class="small-window-menu">{{ userName }}</span>
+                        <button mat-menu-item class="small-window-menu" (click)="logout()">Logout</button>
+                    </div>
                 </div>
-                <span mat-menu-item class="small-window-menu">{{ userName }}</span>
-                <button mat-menu-item class="small-window-menu" (click)="logout()">Logout</button>
             </mat-menu>
         </div>
     </mat-toolbar-row>
