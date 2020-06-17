@@ -46,6 +46,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
     passwordResetMessage:string;
     isDarkTheme:boolean;
     isDark:boolean;
+    errorMessage:string;
     @ViewChild('divValue',{static:false}) divValue:ElementRef;
 
     ngOnInit(){
@@ -73,38 +74,40 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
     }
 
     onFirebaseLoginOrSignupOrFP(){
+        this.loginError = false;
         if(this.formType === "Login"){
-            this.loginError = false;
             if(this.firebaseLoginSignUpForm.valid){
+                this.errorMessage = '';
                 this.localAuthService.firebaseLogin(this._formLoginSignUpData()).subscribe( response=>{
                     this.router.navigate(['/newInput']);
                     this.dialogRef.close(true);
                 },failure =>{
+                    this.errorMessage = this._errorMessages(failure.error.error.message);
                     this.loginError = true;
                 }); 
             }
         }else if(this.formType === "Sign Up"){
             if(this.firebaseLoginSignUpForm.valid){
+                this.errorMessage = '';
                 this.localAuthService.firebaseSignUp(this._formLoginSignUpData()).subscribe( response=>{
                     this.dataReturn = [this.firebaseLoginSignUpForm,"firebaseLogin"];
                     this.dialogRef.close(this.dataReturn);
                 }, failure =>{
+                    this.errorMessage = this._errorMessages(failure.error.error.message);
                     this.loginError = true;
                 }); 
             }
         }else{
             if(this.firebaseLoginSignUpForm.controls.email.valid){
+                this.errorMessage = '';
                 this.localAuthService.firebasePasswordReset(this.firebaseLoginSignUpForm.controls.email.value).subscribe( response=>{
-                    this.passwordResetMessage = "Password Reset mail has been sent to your email";
-                    this.passwordResetSuccess = true;
                     setTimeout(()=>{
-                        this.passwordResetSuccess = false;
                         this.dataReturn = [this.firebaseLoginSignUpForm,"firebaseLogin"];
                         this.dialogRef.close(this.dataReturn);
                     },2000);
                 }, failure =>{
-                    this.passwordResetSuccess = true;
-                    this.passwordResetMessage = "please try again with correct email address!";
+                    this.loginError = true;
+                    this.errorMessage = this._errorMessages(failure.error.error.message);
                 }); 
             }
         }
@@ -161,6 +164,22 @@ export class LoginDialogComponent implements OnInit, AfterViewInit{
             password:this.firebaseLoginSignUpForm.value.password,
             returnSecureToken:true};
         return loginData;
+    }
+
+    private _errorMessages(message:string):string{
+        if(message === 'EMAIL_NOT_FOUND'){
+            return 'Email does not exist!';
+        }else if(message === 'INVALID_PASSWORD'){
+            return 'Username or Password is Invalid!';
+        }else if(message === 'USER_DISABLED'){
+            return 'User is currently disabled!';
+        }else if(message === 'EMAIL_EXISTS'){
+            return 'Email already exists, try password reset!';
+        }else if(message === 'OPERATION_NOT_ALLOWED'){
+            return 'Operation not allowed!';
+        }else if(message === 'TOO_MANY_ATTEMPTS_TRY_LATER'){
+            return 'Too many attempts, please try again later!';
+        }
     }
 
 }
