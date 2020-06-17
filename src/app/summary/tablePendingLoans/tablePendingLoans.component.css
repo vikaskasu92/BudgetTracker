@@ -17,6 +17,12 @@ table {
 .dark-mode-table-content{
   background-color: #2E2E38;
   color: #009788;
+  color: rgba(168, 233, 196, 0.733);
+}
+
+.dark-mode-table-content{
+  background-color: #2B2B34;
+  color: #009788;
 }
 
 .no-loans-content{

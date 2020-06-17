@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import * as Chart from 'chart.js';
-import { getTreeNoValidDataSourceError } from '@angular/cdk/tree';
 
 @Injectable({providedIn:'root'})
 export class ChartMakerService{
@@ -12,7 +11,7 @@ export class ChartMakerService{
       borderColor:"#59BFFF",
       pointHoverBorderColor:"#fff",
       pointRotation:6,
-      backgroundColor:"#5CDB95"
+      backgroundColor:"rgba(168, 233, 196, 0.733)"
     }]
     const labels = dateArray;
     return this._generateChartWithTicks(canvasName,'line',datasets,labels,false,true,chartTitle);
@@ -20,7 +19,7 @@ export class ChartMakerService{
 
   createCategoryBasedBarChart(canvasName:string,priceArray:any,dateArray:any,chartTitle:string){
     const datasets =  [{ 
-      backgroundColor:"#7395AE",
+      backgroundColor:"rgba(168, 233, 196, 0.733)",
       barPercentage: 0.9,
       barThickness: 16,
       maxBarThickness: 18,
@@ -35,10 +34,10 @@ export class ChartMakerService{
     const datasets =  [{ 
         data: expenseArray,
         fill: true,
-        borderColor:"#59BFFF",
+        borderColor:"#76DFDA",
         pointHoverBorderColor:"#fff",
         pointRotation:6,
-        backgroundColor:"#5CDB95"
+        backgroundColor:"rgba(168, 233, 196, 0.733)"
     }]
     const labels = yearsArray;
     return this._generateChartWithTicks(canvasName,'line',datasets,labels,false,true,chartTitle);

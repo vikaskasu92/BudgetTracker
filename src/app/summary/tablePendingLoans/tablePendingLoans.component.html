@@ -26,7 +26,7 @@
                                 <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ pendingLoan.loanType | uppercase }}</td>
                                 <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ pendingLoan.loanBalance | currency:USD }}</td>
                                 <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ pendingLoan.loanAPR | decimalFormat:2 }} %</td>
-                                <td  [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ pendingLoan.loanMonthlyAmount | currency:USD }}</td>
+                                <td [ngClass]="{'dark-mode-table-content' : isDark | async }">{{ pendingLoan.loanMonthlyAmount | currency:USD }}</td>
                             </tr>
                         </tbody>
                     </table>
